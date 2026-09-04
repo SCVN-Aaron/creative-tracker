@@ -1,0 +1,114 @@
+{
+  "_ghi_chu": [
+    "Mỗi khi đội tạo một Period mới trong Notion, thêm một dòng vào 'periods' ở đây.",
+    "Script sẽ báo lỗi và dừng nếu gặp Period lạ, để không âm thầm bỏ sót dữ liệu.",
+    "'bonus' là số video cộng thêm cho chỉ tiêu mỗi người khi kỳ đó gộp nhiều tuần.",
+    "'aliases' dùng khi hai đội đặt tên khác nhau cho cùng một kỳ.",
+    "Chỉ theo dõi Video Ads Team. Dòng Team khác trong Notion sẽ bị bỏ qua."
+  ],
+  "database_id": "3380769331358069ac94e02a999bc414",
+  "data_source_id": "33807693-3135-80bc-90cd-000ba3b49e87",
+  "output_html": "creative-weekly-tracker.html",
+  "periods": [
+    {
+      "notion": "June W1 (06/01~)",
+      "label": "Tuần 01/06",
+      "month": "Tháng 6"
+    },
+    {
+      "notion": "June W2 (06/08~)",
+      "label": "Tuần 08/06",
+      "month": "Tháng 6"
+    },
+    {
+      "notion": "June W3 (06/15~)",
+      "label": "Tuần 15/06",
+      "month": "Tháng 6"
+    },
+    {
+      "notion": "June W4 (06/22~)",
+      "label": "Tuần 22/06",
+      "month": "Tháng 6"
+    },
+    {
+      "notion": "July W1 (06/29~)",
+      "label": "Tuần 29/06",
+      "month": "Tháng 7"
+    },
+    {
+      "notion": "July W2 (07/06~)",
+      "label": "Tuần 06/07",
+      "month": "Tháng 7"
+    },
+    {
+      "notion": "July W3 (07/13~)",
+      "label": "Tuần 13/07",
+      "month": "Tháng 7"
+    },
+    {
+      "notion": "July W4 (07/20~)",
+      "label": "Tuần 20/07",
+      "month": "Tháng 7"
+    },
+    {
+      "notion": "July W5 (07/27~)",
+      "label": "Tuần 27/07",
+      "month": "Tháng 7"
+    },
+    {
+      "notion": "[W1] August W1 (08/3~)",
+      "label": "Tuần 03/08",
+      "month": "Tháng 8"
+    },
+    {
+      "notion": "[W2] August W2 (08/10~)",
+      "label": "Tuần 10/08",
+      "month": "Tháng 8"
+    },
+    {
+      "notion": "[W3] August W3 (08/17~)",
+      "label": "Tuần 17/08",
+      "month": "Tháng 8"
+    },
+    {
+      "notion": "[W4] August W4 (08/24~)",
+      "label": "Tuần 24/08",
+      "month": "Tháng 8"
+    },
+    {
+      "notion": "[W1] Sep W1W2 (08/31~)",
+      "label": "Tuần 31/08",
+      "month": "Tháng 9",
+      "bonus": 3,
+      "note": "Kỳ gộp W1/W2 vì nghỉ lễ Quốc khánh"
+    },
+    {
+      "notion": "[W2] Sep W3 (09/14~)",
+      "label": "Tuần 14/09",
+      "month": "Tháng 9"
+    },
+    {
+      "notion": "[W3] Sep W4 (09/21~)",
+      "label": "Tuần 21/09",
+      "month": "Tháng 9"
+    }
+  ],
+  "bo_qua_periods": [
+    "April W2 (4/6~)",
+    "April W3 (4/13~)",
+    "April W4 (4/20~)",
+    "April W5 (04/27~)",
+    "May W1 (05/04~)",
+    "May W2 (05/11~)",
+    "May W3 (05/18~)",
+    "May W4 (05/25~)"
+  ],
+  "teams": {
+    "Video Ads Team": {
+      "key": "video",
+      "quota": 8,
+      "support": 12,
+      "etc": "Miko"
+    }
+  }
+}
