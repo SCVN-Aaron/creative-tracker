@@ -238,7 +238,7 @@ const MONTHS = [
 
 const TEAMS = [
   {key:"video", name:"Video Ads Team", color:getCSS("--video"),
-   quota:8, support:12, etc:"Miko", people:VIDEO_TEAM}
+   quota:8, support:12, etc:"Miko", etcQuota:12, people:VIDEO_TEAM}
 ];
 
 // ---------------------------------------------------------------- ngôn ngữ
@@ -261,11 +261,11 @@ const I18N={
   noCount:"tuần này chưa nhập Video Count",
   vsWeek:(s,w,p)=>`${s} video so với ${w}${p}`,
   needed:g=>` / ${g} video cần làm`,
-  attain:(h,a,q)=>`Đạt ${h}% chỉ tiêu — ${a} video/người, chuẩn ${q} video mỗi người`,
+  attain:(h,a,q)=>`Đạt ${h}% chỉ tiêu — ${a} video/người thực tế`,
   vsPrev:(s,h)=>`${s} video so với tuần trước · ${h} người làm`,
   assistLine:(na,av,no)=>(na?`${na} creator có dev/art tham gia (${av} video)`
     :"không creator nào có dev/art")+(no?` · ${no} creator tự làm vượt mức`:""),
-  mergedNote:b=>`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người`,
+  mergedNote:b=>`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người, riêng vai trò ETC giữ nguyên chuẩn riêng`,
   readFirst:"${T().readFirst}",
   readNoData:"${T().readNoData}",
   vFlat:"Sản lượng đi ngang so với tuần trước.",
@@ -278,7 +278,7 @@ const I18N={
   teamHead:(b,n,s)=>`${b} → ${n} video · ${s}`,
   splitLine:(a,b)=>`Tách phần chênh: nhân sự <b class="${a}">${a}</b> video · năng suất <b class="${b}">${b}</b> video.`,
   emptyWeek:"Tuần này chưa có dòng nào nhập Video Count cho đội này.",
-  th:{name:"Thành viên",video:"Video",vsQ:q=>`Chênh so chuẩn ${q}`,vs4:"Chênh so 4 tuần trước"},
+  th:{name:"Thành viên",video:"Video",vsQ:q=>`Chênh so chuẩn`,vs4:"Chênh so 4 tuần trước",own:q=>`Chỉ tiêu riêng của người này: ${q} video`},
   cardSum:(n,s,g)=>`${n} người · ${s}/${g} video cần làm`,
   kind:{under:"dưới chỉ tiêu",solo:"tự làm",assisted:"có dev/art",over:"vượt mức",etc:"ETC"},
   ds:{solo:"Tự làm",over:"Vượt mức",assisted:"Có dev/art",etc:t=>`ETC (${t})`,
@@ -290,7 +290,7 @@ const I18N={
        monthFoot:(p,h,tot)=>`${p} video mỗi người · đạt ${h}% chỉ tiêu\nTổng cả tháng ${tot} video`,
        totalFoot:(tot,h,hit)=>`Tổng ${tot} video · ${h} người · đạt ${hit}% chỉ tiêu`,
        perFoot:(hit,h)=>`Đạt ${hit}% chỉ tiêu · ${h} người làm`},
-  hint:(q,n,a)=>`Chuẩn ${q} video mỗi người một tuần — trung bình ${n} kỳ đạt ${a}% chỉ tiêu`,
+  hint:(q,n,a)=>`Chuẩn ${q} video mỗi người một tuần, ETC 12 — trung bình ${n} kỳ đạt ${a}% chỉ tiêu`,
   footer:`Video đếm theo cột <b>Video Count</b>, gán vào tuần theo cột <b>Period</b>, người làm theo cột <b>Creator</b>.
    Tháng 4 và tháng 5 chưa nhập Video Count nên bảng bắt đầu từ tuần 01/06.
    Kỳ gộp nhiều tuần do nghỉ lễ được cộng thêm chỉ tiêu, và mốc có dev/art dịch lên cùng mức.
@@ -310,11 +310,11 @@ const I18N={
   noCount:"Video Count not filled in for this week",
   vsWeek:(s,w,p)=>`${s} videos vs ${w}${p}`,
   needed:g=>` / ${g} videos targeted`,
-  attain:(h,a,q)=>`${h}% of target — ${a} videos per person, standard is ${q}`,
+  attain:(h,a,q)=>`${h}% of target — ${a} videos per person delivered`,
   vsPrev:(s,h)=>`${s} videos vs last week · ${h} people`,
   assistLine:(na,av,no)=>(na?`${na} creator${na>1?"s":""} had dev/art support (${av} videos)`
     :"no creator had dev/art support")+(no?` · ${no} went past target alone`:""),
-  mergedNote:b=>`Merged period covering a public holiday — target raised by ${b} videos per person`,
+  mergedNote:b=>`Merged period covering a public holiday — target raised by ${b} videos per person, except the ETC role which keeps its own standard`,
   readFirst:"This is the first week with Video Count data, so there is nothing to compare against yet.",
   readNoData:"Video Count is empty for this week, so no change can be calculated. Fill it in on Notion and this updates itself.",
   vFlat:"Output held steady against last week.",
@@ -327,7 +327,7 @@ const I18N={
   teamHead:(b,n,s)=>`${b} → ${n} videos · ${s}`,
   splitLine:(a,b)=>`Splitting the gap: headcount <b class="${a}">${a}</b> videos · pace <b class="${b}">${b}</b> videos.`,
   emptyWeek:"No row for this team has a Video Count this week.",
-  th:{name:"Member",video:"Videos",vsQ:q=>`vs target ${q}`,vs4:"vs last 4 weeks"},
+  th:{name:"Member",video:"Videos",vsQ:q=>`vs target`,vs4:"vs last 4 weeks",own:q=>`This person\u2019s own target: ${q} videos`},
   cardSum:(n,s,g)=>`${n} people · ${s}/${g} videos targeted`,
   kind:{under:"under target",solo:"solo",assisted:"dev/art support",over:"past target",etc:"ETC"},
   ds:{solo:"Solo",over:"Past target",assisted:"With dev/art",etc:t=>`ETC (${t})`,
@@ -339,7 +339,7 @@ const I18N={
        monthFoot:(p,h,tot)=>`${p} videos per person · ${h}% of target\nMonth total ${tot} videos`,
        totalFoot:(tot,h,hit)=>`${tot} videos · ${h} people · ${hit}% of target`,
        perFoot:(hit,h)=>`${hit}% of target · ${h} people`},
-  hint:(q,n,a)=>`Standard ${q} videos per person per week — ${a}% of target across ${n} periods`,
+  hint:(q,n,a)=>`Standard ${q} videos per person per week, 12 for ETC — ${a}% of target across ${n} periods`,
   footer:`Videos come from the <b>Video Count</b> column, grouped by <b>Period</b>, credited by <b>Creator</b>.
    April and May have no Video Count filled in, so the table starts at the week of 01/06.
    Periods merged around a public holiday carry a raised target, and the dev/art threshold shifts by the same amount.
@@ -358,11 +358,11 @@ const I18N={
   noCount:"이번 주 Video Count 미입력",
   vsWeek:(s,w,p)=>`${w} 대비 ${s}개${p}`,
   needed:g=>` / 목표 ${g}개`,
-  attain:(h,a,q)=>`목표의 ${h}% — 1인당 ${a}개, 기준 ${q}개`,
+  attain:(h,a,q)=>`목표의 ${h}% — 실제 1인당 ${a}개`,
   vsPrev:(s,h)=>`지난주 대비 ${s}개 · ${h}명 작업`,
   assistLine:(na,av,no)=>(na?`dev/art 참여 ${na}명 (${av}개)`:"dev/art 참여 없음")
     +(no?` · 단독 초과 ${no}명`:""),
-  mergedNote:b=>`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향`,
+  mergedNote:b=>`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향, 단 ETC 담당자는 자체 기준 유지`,
   readFirst:"Video Count가 기록된 첫 주라 비교할 이전 주가 없습니다.",
   readNoData:"이번 주 Video Count가 비어 있어 증감을 계산할 수 없습니다. Notion에 입력하면 자동으로 반영됩니다.",
   vFlat:"지난주와 비슷한 수준입니다.",
@@ -375,7 +375,7 @@ const I18N={
   teamHead:(b,n,s)=>`${b} → ${n}개 · ${s}`,
   splitLine:(a,b)=>`차이 분해: 인원 <b class="${a}">${a}</b>개 · 속도 <b class="${b}">${b}</b>개.`,
   emptyWeek:"이번 주 이 팀에는 Video Count가 입력된 행이 없습니다.",
-  th:{name:"멤버",video:"영상",vsQ:q=>`기준 ${q} 대비`,vs4:"최근 4주 대비"},
+  th:{name:"멤버",video:"영상",vsQ:q=>`기준 대비`,vs4:"최근 4주 대비",own:q=>`이 사람의 목표: ${q}개`},
   cardSum:(n,s,g)=>`${n}명 · ${s}/${g}개`,
   kind:{under:"목표 미달",solo:"단독",assisted:"dev/art 참여",over:"목표 초과",etc:"ETC"},
   ds:{solo:"단독",over:"목표 초과",assisted:"dev/art 참여",etc:t=>`ETC (${t})`,
@@ -387,7 +387,7 @@ const I18N={
        monthFoot:(p,h,tot)=>`1인당 ${p}개 · 목표의 ${h}%\n월 합계 ${tot}개`,
        totalFoot:(tot,h,hit)=>`합계 ${tot}개 · ${h}명 · 목표의 ${hit}%`,
        perFoot:(hit,h)=>`목표의 ${hit}% · ${h}명`},
-  hint:(q,n,a)=>`기준 주당 1인 ${q}개 — ${n}개 기간 평균 목표의 ${a}%`,
+  hint:(q,n,a)=>`기준 주당 1인 ${q}개, ETC는 12개 — ${n}개 기간 평균 목표의 ${a}%`,
   footer:`영상 수는 <b>Video Count</b>, 주차는 <b>Period</b>, 작업자는 <b>Creator</b> 컬럼을 사용합니다.
    4월과 5월은 Video Count가 비어 있어 6월 1일 주부터 표시합니다.
    공휴일로 합친 기간은 목표가 올라가고, dev/art 기준선도 같은 폭으로 이동합니다.
@@ -419,9 +419,13 @@ function avgOf(team,i){const t=totalOf(team,i),h=headOf(team,i);return h?t/h:nul
 // Một số kỳ gộp nhiều tuần nên chỉ tiêu và ngưỡng dev/art đều dịch lên cùng một mức.
 function bonusAt(i){return WEEKS[i].bonus||0}
 function quotaAt(team,i){return team.quota+bonusAt(i)}
+// Vai trò ETC có chuẩn riêng (12) và không nhận phần cộng thêm của kỳ gộp.
+function quotaFor(team,name,i){
+  return name===team.etc ? (team.etcQuota||team.quota) : quotaAt(team,i);
+}
 function supportAt(team,i){return team.support?team.support+bonusAt(i):null}
 function kindOf(team,name,v,i){
-  const q=quotaAt(team,i), sup=supportAt(team,i);
+  const q=quotaFor(team,name,i), sup=supportAt(team,i);
   if(!sup) return v>=q?"over":"under";
   if(name===team.etc) return "etc";
   if(v===sup) return "assisted";
@@ -449,7 +453,7 @@ function monthStats(team,m){
   return {weeks:ws.length,total:tot,avgWeek:tot/ws.length,avgPerson:per,hit:tot/tgt};
 }
 function monthOfWeek(i){return MONTHS.find(m=>m.weeks.includes(i))}
-function targetOf(team,i){return headOf(team,i)*quotaAt(team,i)}
+function targetOf(team,i){return roster(team,i).reduce((s,p)=>s+quotaFor(team,p.name,i),0)}
 function hitOf(team,i){const t=totalOf(team,i),g=targetOf(team,i);return (t===null||!g)?null:t/g}
 function fmt(n,d=1){return n===null||n===undefined?"—":(Math.round(n*10**d)/10**d).toString()}
 function signed(n,d=0){const s=fmt(Math.abs(n),d);return (n>0?"+":n<0?"−":"±")+s}
@@ -583,7 +587,7 @@ function renderMembers(i){
         <div class="empty">${T().emptyWeek}</div>`;
       return;
     }
-    const q=quotaAt(t,i);
+    const q=quotaAt(t,i);   // dùng cho thang bar; chuẩn từng người lấy riêng bên dưới
     const scale=Math.max(q*2,...rows.map(r=>r.v));
     const body=rows.sort((a,b)=>b.v-a.v).map(r=>{
       // trung bình 4 tuần trước của chính người đó
@@ -591,7 +595,8 @@ function renderMembers(i){
       const hist=arr.slice(Math.max(0,i-4),i).filter(v=>v!==null&&v!==undefined);
       const base=hist.length?hist.reduce((s,v)=>s+v,0)/hist.length:null;
       const d=base===null?null:r.v-base;
-      const gap=r.v-q;
+      const pq=quotaFor(t,r.name,i);
+      const gap=r.v-pq;
             const kk=kindOf(t,r.name,r.v,i);const k=KIND[kk];
       const tag=k.tag?`<span class="tag ${k.tag}">${T().kind[kk]}</span>`:"";
       return `<tr>
@@ -601,7 +606,7 @@ function renderMembers(i){
             <div class="mark" style="left:${q/scale*100}%"></div>
           </div></td>
         <td class="num">${r.v}</td>
-        <td class="num ${cls(gap)}">${signed(gap)}</td>
+        <td class="num ${cls(gap)}" title="${T().th.own(pq)}">${signed(gap)}</td>
         <td class="num ${d===null?"flat":cls(d)}">${d===null?"—":signed(d,1)}</td>
       </tr>`;
     }).join("");
@@ -611,7 +616,7 @@ function renderMembers(i){
         <span class="sum">${T().cardSum(rows.length,sum,targetOf(t,i))}</span>
       </header>
       <table>
-        <thead><tr><th>${T().th.name}</th><th></th><th class="num">${T().th.video}</th><th class="num">${T().th.vsQ(q)}</th><th class="num">${T().th.vs4}</th></tr></thead>
+        <thead><tr><th>${T().th.name}</th><th></th><th class="num">${T().th.video}</th><th class="num">${T().th.vsQ(t.quota)}</th><th class="num">${T().th.vs4}</th></tr></thead>
         <tbody>${body}</tbody>
       </table>`;
   });
@@ -643,7 +648,8 @@ function plainData(t){
 }
 function targetSeries(t){
   return WEEKS.map((_,i)=> totalOf(t,i)===null ? null
-    : (mode==="total" ? targetOf(t,i) : quotaAt(t,i)));
+    : (mode==="total" ? targetOf(t,i)
+       : Math.round(targetOf(t,i)/headOf(t,i)*10)/10));
 }
 function monthBars(t){
   return MONTHS.map(m=>{const st=monthStats(t,m);return st?Math.round(st.avgWeek*10)/10:null});

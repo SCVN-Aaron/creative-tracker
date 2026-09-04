@@ -4,11 +4,12 @@
     "Script sẽ báo lỗi và dừng nếu gặp Period lạ, để không âm thầm bỏ sót dữ liệu.",
     "'bonus' là số video cộng thêm cho chỉ tiêu mỗi người khi kỳ đó gộp nhiều tuần.",
     "'aliases' dùng khi hai đội đặt tên khác nhau cho cùng một kỳ.",
-    "Chỉ theo dõi Video Ads Team. Dòng Team khác trong Notion sẽ bị bỏ qua."
+    "Chỉ theo dõi Video Ads Team. Dòng Team khác trong Notion sẽ bị bỏ qua.",
+    "etcQuota: chuẩn riêng cho người làm ETC, không dùng quota chung và không cộng thêm ở kỳ gộp."
   ],
   "database_id": "3380769331358069ac94e02a999bc414",
   "data_source_id": "33807693-3135-80bc-90cd-000ba3b49e87",
-  "index.html": "creative-weekly-tracker.html",
+  "output_html": "index.html",
   "periods": [
     {
       "notion": "June W1 (06/01~)",
@@ -108,7 +109,8 @@
       "key": "video",
       "quota": 8,
       "support": 12,
-      "etc": "Miko"
+      "etc": "Miko",
+      "etcQuota": 12
     }
   }
 }
