@@ -8,7 +8,7 @@
   ],
   "database_id": "3380769331358069ac94e02a999bc414",
   "data_source_id": "33807693-3135-80bc-90cd-000ba3b49e87",
-  "output_html": "creative-weekly-tracker.html",
+  "index.html": "creative-weekly-tracker.html",
   "periods": [
     {
       "notion": "June W1 (06/01~)",
