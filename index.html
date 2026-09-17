@@ -197,7 +197,7 @@
 <script>
 // ---------------------------------------------------------------- data
 // <<< DATA_START — khối này do update_dashboard.py ghi đè, đừng sửa tay >>>
-const DATA_STAMP = "2026-09-04 07:20 UTC";
+const DATA_STAMP = "2026-09-17 06:35 UTC";
 const WEEKS = [
   {label:"Tuần 01/06", full:"June W1 (06/01~)"},
   {label:"Tuần 08/06", full:"June W2 (06/08~)"},
@@ -212,27 +212,29 @@ const WEEKS = [
   {label:"Tuần 10/08", full:"[W2] August W2 (08/10~)"},
   {label:"Tuần 17/08", full:"[W3] August W3 (08/17~)"},
   {label:"Tuần 24/08", full:"[W4] August W4 (08/24~)"},
-  {label:"Tuần 31/08", full:"[W1] Sep W1W2 (08/31~)", bonus:3},
-  {label:"Tuần 14/09", full:"[W2] Sep W3 (09/14~)"}
+  {label:"Tuần 31/08", full:"[W1] Sep W1W2 (08/31~)", bonus:3, note:"Kỳ gộp W1/W2 vì nghỉ lễ Quốc khánh"},
+  {label:"Tuần 14/09", full:"[W2] Sep W3 (09/14~)"},
+  {label:"Tuần 21/09", full:"[W3] Sep W4 (09/21~)"}
 ];
 
 const VIDEO_TEAM = {
-  "Miko"   :[   6,   6,   8,   8,   7,  12,  15,  12,  11,  11,  12,  12,  12,  12,  12],
-  "Ruelle" :[   6,   6,   7,   7,   7,  12,  14,  15,  12,  11,  10,   8,   8,  15,null],
-  "Falcon" :[   6,   6,   8,   6,  12,  10,  19,  11,  11,   8,   8,  10,  12,  11,null],
-  "Quinne" :[   6,   5,   6,   7,   7,  10,  10,  10,   8,  10,   8,  12,   8,  12,null],
-  "Tilda"  :[   6,   6,   6,   8,   8,  10,  11,  12,   9,  11,   8,   8,   8,  12,null],
-  "Max"    :[null,null,   2,   6,   8,  10,  10,  11,   8,  10,  12,   8,   9,  12,null],
-  "Zaid"   :[null,null,   2,   6,   7,  10,  15,  10,   8,  10,   8,   8,   8,  12,null],
-  "Elvis"  :[null,null,null,null,null,   2,   6,  10,   8,   9,   8,   8,   8,  15,   8],
-  "Aaron"  :[   6,   6,   6,   6,   7,  10,  10,  10,null,null,null,null,null,null,null]
+  "Miko"    :[   6,   6,   8,   8,   7,  12,  15,  12,  11,  11,  12,  12,  12,  12,  10,null],
+  "Ruelle"  :[   6,   6,   7,   7,   7,  12,  14,  15,  12,  11,  10,   8,   8,  15,   8,null],
+  "Falcon"  :[   6,   6,   8,   6,  12,  10,  19,  11,  11,   8,   8,  10,  12,  11,   6,null],
+  "Tilda"   :[   6,   6,   6,   8,   8,  10,  11,  12,   9,  11,   8,   8,   8,  12,   6,null],
+  "Quinne"  :[   6,   5,   6,   7,   7,  10,  10,  10,   8,  10,   8,  12,   8,  12,   6,null],
+  "Max"     :[null,null,   2,   6,   8,  10,  10,  11,   8,  10,  12,   8,   9,  12,  10,null],
+  "Zaid"    :[null,null,   2,   6,   7,  10,  15,  10,   8,  10,   8,   8,   8,  12,null,   6],
+  "Elvis"   :[null,null,null,null,null,   2,   6,  10,   8,   9,   8,   8,   8,  15,null,   0],
+  "Aaron"   :[   6,   6,   6,   6,   7,  10,  10,  10,null,null,null,null,null,null,null,null],
+  "Anthony" :[null,null,null,null,null,null,null,null,null,null,null,null,null,null,   6,null]
 };
 
 const MONTHS = [
   {label:"Tháng 6", weeks:[0,1,2,3]},
   {label:"Tháng 7", weeks:[4,5,6,7,8]},
   {label:"Tháng 8", weeks:[9,10,11,12]},
-  {label:"Tháng 9", weeks:[13,14], note:"kỳ 31/08 gộp nhiều tuần"}
+  {label:"Tháng 9", weeks:[13,14,15], note:"kỳ 31/08 gộp nhiều tuần"}
 ];
 // <<< DATA_END >>>
 
