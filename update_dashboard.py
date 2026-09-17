@@ -250,6 +250,8 @@ def build():
             bits = [f'label:{js(p["label"])}', f'full:{js(p["notion"])}']
             if p.get("bonus"):
                 bits.append(f'bonus:{p["bonus"]}')
+            if p.get("bonusEtc"):
+                bits.append(f'bonusEtc:{p["bonusEtc"]}')
             if p.get("note"):
                 bits.append(f'note:{js(p["note"])}')
             out.append("  {" + ", ".join(bits) + "}")

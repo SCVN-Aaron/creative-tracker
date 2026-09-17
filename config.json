@@ -5,7 +5,8 @@
     "'bonus' là số video cộng thêm cho chỉ tiêu mỗi người khi kỳ đó gộp nhiều tuần.",
     "'aliases' dùng khi hai đội đặt tên khác nhau cho cùng một kỳ.",
     "Chỉ theo dõi Video Ads Team. Dòng Team khác trong Notion sẽ bị bỏ qua.",
-    "etcQuota: chuẩn riêng cho người làm ETC, không dùng quota chung và không cộng thêm ở kỳ gộp."
+    "etcQuota: chuẩn riêng cho người làm ETC, không dùng quota chung và không cộng thêm ở kỳ gộp.",
+    "bonus âm = kỳ nghỉ lễ, chỉ tiêu giảm. bonusEtc: mức điều chỉnh riêng cho vai trò ETC (bỏ trống = ETC không đổi)."
   ],
   "database_id": "3380769331358069ac94e02a999bc414",
   "data_source_id": "33807693-3135-80bc-90cd-000ba3b49e87",
@@ -86,7 +87,10 @@
     {
       "notion": "[W2] Sep W3 (09/14~)",
       "label": "Tuần 14/09",
-      "month": "Tháng 9"
+      "month": "Tháng 9",
+      "bonus": -2,
+      "bonusEtc": -2,
+      "note": "Nghỉ kỷ niệm thành lập công ty và event Game Jam — giảm 2 video mỗi người"
     },
     {
       "notion": "[W3] Sep W4 (09/21~)",

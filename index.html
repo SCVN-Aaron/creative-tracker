@@ -197,7 +197,7 @@
 <script>
 // ---------------------------------------------------------------- data
 // <<< DATA_START — khối này do update_dashboard.py ghi đè, đừng sửa tay >>>
-const DATA_STAMP = "2026-09-17 06:35 UTC";
+const DATA_STAMP = "2026-09-17 06:39 UTC";
 const WEEKS = [
   {label:"Tuần 01/06", full:"June W1 (06/01~)"},
   {label:"Tuần 08/06", full:"June W2 (06/08~)"},
@@ -213,7 +213,7 @@ const WEEKS = [
   {label:"Tuần 17/08", full:"[W3] August W3 (08/17~)"},
   {label:"Tuần 24/08", full:"[W4] August W4 (08/24~)"},
   {label:"Tuần 31/08", full:"[W1] Sep W1W2 (08/31~)", bonus:3, note:"Kỳ gộp W1/W2 vì nghỉ lễ Quốc khánh"},
-  {label:"Tuần 14/09", full:"[W2] Sep W3 (09/14~)"},
+  {label:"Tuần 14/09", full:"[W2] Sep W3 (09/14~)", bonus:-2, bonusEtc:-2, note:"Nghỉ kỷ niệm thành lập công ty và event Game Jam — giảm 2 video mỗi người"},
   {label:"Tuần 21/09", full:"[W3] Sep W4 (09/21~)"}
 ];
 
@@ -234,7 +234,7 @@ const MONTHS = [
   {label:"Tháng 6", weeks:[0,1,2,3]},
   {label:"Tháng 7", weeks:[4,5,6,7,8]},
   {label:"Tháng 8", weeks:[9,10,11,12]},
-  {label:"Tháng 9", weeks:[13,14,15], note:"kỳ 31/08 gộp nhiều tuần"}
+  {label:"Tháng 9", weeks:[13,14,15], note:"kỳ 14/09 gộp nhiều tuần"}
 ];
 // <<< DATA_END >>>
 
@@ -267,7 +267,9 @@ const I18N={
   vsPrev:(s,h)=>`${s} video so với tuần trước · ${h} người làm`,
   assistLine:(na,av,no)=>(na?`${na} creator có dev/art tham gia (${av} video)`
     :"không creator nào có dev/art")+(no?` · ${no} creator tự làm vượt mức`:""),
-  mergedNote:b=>`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người, riêng vai trò ETC giữ nguyên chuẩn riêng`,
+  mergedNote:(b,e)=>b>0
+    ?`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người${e?"":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`
+    :`Kỳ nghỉ lễ — chỉ tiêu giảm ${-b} video mỗi người${e?" (kể cả vai trò ETC)":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`,
   readFirst:"${T().readFirst}",
   readNoData:"${T().readNoData}",
   vFlat:"Sản lượng đi ngang so với tuần trước.",
@@ -316,7 +318,9 @@ const I18N={
   vsPrev:(s,h)=>`${s} videos vs last week · ${h} people`,
   assistLine:(na,av,no)=>(na?`${na} creator${na>1?"s":""} had dev/art support (${av} videos)`
     :"no creator had dev/art support")+(no?` · ${no} went past target alone`:""),
-  mergedNote:b=>`Merged period covering a public holiday — target raised by ${b} videos per person, except the ETC role which keeps its own standard`,
+  mergedNote:(b,e)=>b>0
+    ?`Merged period covering a public holiday — target raised by ${b} videos per person${e?"":", except the ETC role which keeps its own standard"}`
+    :`Holiday period — target lowered by ${-b} videos per person${e?" (including the ETC role)":", except the ETC role which keeps its own standard"}`,
   readFirst:"This is the first week with Video Count data, so there is nothing to compare against yet.",
   readNoData:"Video Count is empty for this week, so no change can be calculated. Fill it in on Notion and this updates itself.",
   vFlat:"Output held steady against last week.",
@@ -364,7 +368,9 @@ const I18N={
   vsPrev:(s,h)=>`지난주 대비 ${s}개 · ${h}명 작업`,
   assistLine:(na,av,no)=>(na?`dev/art 참여 ${na}명 (${av}개)`:"dev/art 참여 없음")
     +(no?` · 단독 초과 ${no}명`:""),
-  mergedNote:b=>`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향, 단 ETC 담당자는 자체 기준 유지`,
+  mergedNote:(b,e)=>b>0
+    ?`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향${e?"":", 단 ETC 담당자는 자체 기준 유지"}`
+    :`휴무 기간 — 1인당 목표 ${-b}개 하향${e?" (ETC 담당자 포함)":", 단 ETC 담당자는 자체 기준 유지"}`,
   readFirst:"Video Count가 기록된 첫 주라 비교할 이전 주가 없습니다.",
   readNoData:"이번 주 Video Count가 비어 있어 증감을 계산할 수 없습니다. Notion에 입력하면 자동으로 반영됩니다.",
   vFlat:"지난주와 비슷한 수준입니다.",
@@ -420,10 +426,15 @@ function avgOf(team,i){const t=totalOf(team,i),h=headOf(team,i);return h?t/h:nul
 // Miko luôn 12 vì làm ETC nên không tính là có hỗ trợ.
 // Một số kỳ gộp nhiều tuần nên chỉ tiêu và ngưỡng dev/art đều dịch lên cùng một mức.
 function bonusAt(i){return WEEKS[i].bonus||0}
+// Kỳ đặc biệt chỉnh chỉ tiêu của ETC riêng: kỳ gộp thì ETC giữ nguyên (bonusEtc = 0),
+// còn tuần nghỉ lễ thì ETC giảm cùng mức với cả đội.
+function bonusEtcAt(i){return WEEKS[i].bonusEtc||0}
 function quotaAt(team,i){return team.quota+bonusAt(i)}
 // Vai trò ETC có chuẩn riêng (12) và không nhận phần cộng thêm của kỳ gộp.
 function quotaFor(team,name,i){
-  return name===team.etc ? (team.etcQuota||team.quota) : quotaAt(team,i);
+  return name===team.etc
+    ? (team.etcQuota||team.quota)+bonusEtcAt(i)
+    : quotaAt(team,i);
 }
 function supportAt(team,i){return team.support?team.support+bonusAt(i):null}
 function kindOf(team,name,v,i){
@@ -482,7 +493,7 @@ function renderHeadline(i){
       ${d===null
         ? `<div class="delta flat">${prev<0?T().firstWeek:T().noPrev}</div>`
         : `<div class="delta ${cls(d)}">${T().vsWeek(signed(d),wkLabel(prev),prevSum?` (${signed(d/prevSum*100,0)}%)`:"")}</div>`}
-      ${bonusAt(i)?`<div class="delta note">${T().mergedNote(bonusAt(i))}</div>`:""}
+      ${bonusAt(i)?`<div class="delta note">${T().mergedNote(bonusAt(i),bonusEtcAt(i)!==0)}</div>`:""}
     </div>`];
 
   TEAMS.forEach(t=>{
