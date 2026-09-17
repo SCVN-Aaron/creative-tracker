@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Cập nhật khối dữ liệu trong creative-weekly-tracker.html từ Creative Production DB.
+Cập nhật khối dữ liệu trong index.html từ Creative Production DB.
 Chỉ dùng thư viện chuẩn của Python, không cần pip install.
 
 Hai nguồn đọc, chọn cái nào cũng ra kết quả giống nhau:
@@ -303,15 +303,38 @@ def build():
 
 
 # --------------------------------------------------------------- ghi file
+def find_dashboard():
+    """Tìm file dashboard. Ưu tiên tên trong config, nhưng nếu tên đó không còn
+    thì tự dò file .html nào có dấu mốc DATA_START — để việc đổi tên file không
+    làm hỏng cả quy trình."""
+    named = CONFIG.get("output_html", "index.html")
+    candidates = [HERE / named, HERE / "index.html"]
+    for c in candidates:
+        if c.exists() and START in c.read_text(encoding="utf-8", errors="ignore"):
+            return c
+
+    found = [f for f in sorted(HERE.glob("*.html"))
+             if START in f.read_text(encoding="utf-8", errors="ignore")]
+    if len(found) == 1:
+        warn(f"Không thấy {named}, dùng {found[0].name} thay thế. "
+             f'Nên sửa "output_html" trong config.json cho khớp.')
+        return found[0]
+    if len(found) > 1:
+        die("Có nhiều file .html chứa dấu mốc dữ liệu: "
+            + ", ".join(f.name for f in found)
+            + '\n  Sửa "output_html" trong config.json để chỉ rõ file nào.')
+    die(f"Không tìm thấy file dashboard nào cạnh script này.\n"
+        f"  Đã tìm: {named}, index.html, và mọi file .html trong thư mục.\n"
+        f"  File dashboard phải chứa dòng đánh dấu {START}")
+
+
 def write(block, check_only):
-    path = HERE / CONFIG["output_html"]
-    if not path.exists():
-        die(f"Không thấy {path.name} cạnh script này.")
+    path = find_dashboard()
     html = path.read_text(encoding="utf-8")
     a = html.find(START)
     b = html.find(END)
-    if a < 0 or b < 0:
-        die(f"Không thấy dấu mốc {START} / {END} trong {path.name}.")
+    if b < 0:
+        die(f"Thiếu dấu mốc {END} trong {path.name}.")
     new = html[:a] + block + html[b + len(END):]
 
     if new == html:
