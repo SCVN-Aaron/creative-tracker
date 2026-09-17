@@ -193,13 +193,15 @@ def build():
 
         if period is None or team is None or not creators:
             continue
+        # Lọc đội TRƯỚC khi xét Period: các đội không theo dõi có thể đặt tên kỳ
+        # theo quy ước riêng, và những cái tên đó không được phép làm dừng cả lần chạy.
+        if team not in teams_cfg:
+            continue
         if period in skip:
             continue
         if period not in period_map:
             unknown.add(period)
             continue
-        if team not in teams_cfg:
-            continue  # đội không theo dõi (ví dụ AI Ads Team)
         if count is None:
             continue
         if messy:
@@ -214,8 +216,9 @@ def build():
             videos[team][c][w] = share if cur is None else cur + share
 
     if unknown:
+        team_names = ", ".join(teams_cfg)
         die(
-            "Gặp Period chưa khai báo trong config.json:\n    - "
+            f"Gặp Period chưa khai báo trong config.json (đội đang theo dõi: {team_names}):\n    - "
             + "\n    - ".join(sorted(unknown))
             + "\n  Thêm vào mục 'periods' (hoặc 'bo_qua_periods') rồi chạy lại."
         )
