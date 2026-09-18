@@ -251,6 +251,7 @@ const MONTH_EN=["","January","February","March","April","May","June",
 const I18N={
  vi:{
   name:"Tiếng Việt",
+  freshWarn:p=>`kỳ mới chưa khai báo chỉ tiêu: ${p}`,
   stamp:d=>`Số liệu cập nhật ${d}`,
   source:"nguồn: Creative Production DB",
   weekPicker:"Tuần", whyTitle:"Vì sao tuần này nhiều / ít hơn",
@@ -302,6 +303,7 @@ const I18N={
  },
  en:{
   name:"English",
+  freshWarn:p=>`new periods with no target set: ${p}`,
   stamp:d=>`Data updated ${d}`,
   source:"source: Creative Production DB",
   weekPicker:"Week", whyTitle:"Why this week ran high or low",
@@ -353,6 +355,7 @@ const I18N={
  },
  ko:{
   name:"한국어",
+  freshWarn:p=>`목표 미설정 신규 기간: ${p}`,
   stamp:d=>`데이터 업데이트 ${d}`,
   source:"출처: Creative Production DB",
   weekPicker:"주차", whyTitle:"이번 주가 많거나 적었던 이유",
@@ -795,6 +798,152 @@ function renderHints(){
   });
 }
 
+function parseCSV(text){
+  const rows=[];let row=[],cell="",q=false;
+  text=text.replace(/^\uFEFF/,"").replace(/\r\n?/g,"\n");
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){
+      if(c==='"'){ if(text[i+1]==='"'){cell+='"';i++;} else q=false; }
+      else cell+=c;
+    }else if(c==='"') q=true;
+    else if(c===","){row.push(cell);cell="";}
+    else if(c==="\n"){row.push(cell);rows.push(row);row=[];cell="";}
+    else cell+=c;
+  }
+  if(cell||row.length){row.push(cell);rows.push(row);}
+  if(!rows.length) return [];
+  const head=rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.some(v=>v.trim())).map(r=>{
+    const o={};head.forEach((h,i)=>o[h]=(r[i]??"").trim());return o;
+  });
+}
+
+// "[W3] Sep W4 (09/21~)" -> {m:9,d:21}
+function periodDate(name){
+  const m=/\((\d{1,2})\/(\d{1,2})/.exec(name||"");
+  return m?{m:+m[1],d:+m[2]}:null;
+}
+const MONTH_VI=n=>`Tháng ${n}`;
+
+function importCSV(text){
+  const rows=parseCSV(text);
+  if(!rows.length) throw new Error("empty");
+  const need=["Period","Team","Creator","Video Count"];
+  const miss=need.filter(h=>!(h in rows[0]));
+  if(miss.length) throw new Error("cols:"+miss.join(", "));
+
+  const team=TEAMS[0];
+  const mine=rows.filter(r=>r.Team===team.name);        // chỉ đội đang theo dõi
+  if(!mine.length) throw new Error("noteam:"+team.name);
+
+  const known=WEEKS.map(w=>w.full);
+  const lastKnown=periodDate(known[known.length-1])||{m:0,d:0};
+  const dayOf=d=>d.m*30.5+d.d;
+  const base=dayOf(lastKnown);
+
+  // Chỉ nhận kỳ mới nằm trong khoảng 120 ngày sau kỳ cuối đã biết. Nhờ vậy các kỳ
+  // cũ (tháng 4, tháng 5 chưa nhập Video Count) không bị kéo ngược vào bảng.
+  const seen=new Set(), fresh=[];
+  mine.forEach(r=>{
+    const p=r.Period;
+    if(!p||seen.has(p)||known.includes(p)) return;
+    seen.add(p);
+    const d=periodDate(p);
+    if(!d) return;
+    let gap=dayOf(d)-base;
+    if(gap<0) gap+=365;
+    if(gap>0&&gap<=120) fresh.push(p);
+  });
+  fresh.sort((a,b)=>{
+    const ga=(dayOf(periodDate(a))-base+365)%365;
+    const gb=(dayOf(periodDate(b))-base+365)%365;
+    return ga-gb;
+  });
+
+  const order=[...known,...fresh];
+  const idx=Object.fromEntries(order.map((p,i)=>[p,i]));
+  const people={}, warn=[], noCount=[];
+
+  mine.forEach(r=>{
+    if(!r.Period||idx[r.Period]===undefined) return;
+    const creators=r.Creator.split(",").map(x=>x.trim()).filter(Boolean);
+    if(!creators.length) return;
+    const raw=r["Video Count"];
+    if(!raw){ noCount.push(`${r.Period} / ${creators.join(", ")}`); return; }
+    let n;
+    if(/^\d+$/.test(raw)) n=+raw;
+    else { const m=/\d+/.exec(raw); if(!m) return; n=+m[0]; warn.push(`${r.Period} · ${creators[0]}: "${raw}"`); }
+    const share=n/creators.length;
+    creators.forEach(c=>{
+      people[c]=people[c]||new Array(order.length).fill(null);
+      people[c][idx[r.Period]]=(people[c][idx[r.Period]]||0)+share;
+    });
+  });
+
+  const names=Object.keys(people);
+  if(!names.length) throw new Error("nodata");
+  names.forEach(c=>people[c]=people[c].map(v=>v===null?null:Math.round(v)));
+
+  let last=order.length;
+  while(last>0&&!names.some(c=>people[c][last-1]!==null)) last--;
+
+  const newWeeks=order.slice(0,last).map(full=>{
+    const old=WEEKS.find(w=>w.full===full);
+    if(old) return old;                                  // giữ nguyên bonus, bonusEtc, label
+    const d=periodDate(full);
+    return {label:`Tuần ${String(d.d).padStart(2,"0")}/${String(d.m).padStart(2,"0")}`, full};
+  });
+
+  const bucket={}, newMonths=[];
+  newWeeks.forEach((w,i)=>{
+    const key=`Tháng ${(periodDate(w.full)||{m:0}).m}`;
+    if(!(key in bucket)){bucket[key]=newMonths.length;newMonths.push({label:key,weeks:[]});}
+    newMonths[bucket[key]].weeks.push(i);
+  });
+
+  const sorted={};
+  names.sort((a,b)=>{
+    const sa=people[a].slice(0,last).reduce((s,v)=>s+(v||0),0);
+    const sb=people[b].slice(0,last).reduce((s,v)=>s+(v||0),0);
+    return sb-sa;
+  }).forEach(c=>sorted[c]=people[c].slice(0,last));
+
+  return {weeks:newWeeks,months:newMonths,people:sorted,warn,noCount,
+          fresh:fresh.filter(f=>order.indexOf(f)<last)};
+}
+
+function applyImport(res){
+  WEEKS.length=0; res.weeks.forEach(w=>WEEKS.push(w));
+  MONTHS.length=0; res.months.forEach(m=>MONTHS.push(m));
+  const t=TEAMS[0];
+  Object.keys(t.people).forEach(k=>delete t.people[k]);
+  Object.entries(res.people).forEach(([k,v])=>t.people[k]=v);
+  const sel=document.getElementById("week");
+  sel.innerHTML="";
+  WEEKS.forEach((w,i)=>{const o=document.createElement("option");o.value=i;sel.appendChild(o);});
+  sel.value=WEEKS.length-1;
+}
+
+// Nếu repo có data/latest.csv thì lấy số từ đó, coi như nguồn mới nhất.
+// Không có hoặc lỗi thì dùng khối dữ liệu nhúng sẵn — trang vẫn chạy bình thường.
+async function loadLiveCSV(){
+  let res;
+  try{
+    res=await fetch("data/latest.csv",{cache:"no-store"});
+    if(!res.ok) return null;
+  }catch(e){ return null; }          // mở bằng file:// hoặc chưa có file
+  const text=await res.text();
+  let parsed;
+  try{ parsed=importCSV(text); }
+  catch(e){ console.warn("data/latest.csv không đọc được:",e.message); return null; }
+  applyImport(parsed);
+  const lm=res.headers.get("last-modified");
+  const when=lm?new Date(lm):new Date();
+  return {stamp:when.toISOString().slice(0,16).replace("T"," ")+" UTC",
+          fresh:parsed.fresh};
+}
+
 // ---------------------------------------------------------------- wiring
 const sel=document.getElementById("week");
 WEEKS.forEach((w,i)=>{
@@ -816,7 +965,12 @@ function applyLang(){
     document.getElementById(id).textContent=T().btn[k]);
   [...sel.options].forEach((o,i)=>{if(WEEKS[i])o.textContent=`${wkLabel(i)} — ${WEEKS[i].full}`;});
   const st=document.getElementById("stamp");
-  if(st) st.textContent=DATA_STAMP?T().stamp(DATA_STAMP):"";
+  if(st){
+    const d=LIVE?LIVE.stamp:DATA_STAMP;
+    st.textContent=d?T().stamp(d):"";
+    if(LIVE&&LIVE.fresh&&LIVE.fresh.length)
+      st.textContent+=" · "+T().freshWarn(LIVE.fresh.join(", "));
+  }
 }
 
 function update(){
@@ -843,7 +997,11 @@ langSel.addEventListener("change",()=>{
   update();
 });
 
-applyLang();
-buildCharts();
-update();
+let LIVE=null;
+function boot(){ applyLang(); buildCharts(); update(); }
+
+loadLiveCSV().then(r=>{
+  if(r){ LIVE=r; }
+  boot();
+}).catch(()=>boot());
 </script>
