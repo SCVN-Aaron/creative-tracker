@@ -251,6 +251,7 @@ const MONTH_EN=["","January","February","March","April","May","June",
 const I18N={
  vi:{
   name:"Tiếng Việt",
+  grandNow:"Số lượng video tuần này", ongoing:"Tuần đang diễn ra — số liệu còn tăng, chưa phải kết quả cuối.",
   freshWarn:p=>`kỳ mới chưa khai báo chỉ tiêu: ${p}`,
   stamp:d=>`Số liệu cập nhật ${d}`,
   source:"nguồn: Creative Production DB",
@@ -303,6 +304,7 @@ const I18N={
  },
  en:{
   name:"English",
+  grandNow:"Videos so far this week", ongoing:"Week in progress — numbers are still coming in, not the final result.",
   freshWarn:p=>`new periods with no target set: ${p}`,
   stamp:d=>`Data updated ${d}`,
   source:"source: Creative Production DB",
@@ -355,6 +357,7 @@ const I18N={
  },
  ko:{
   name:"한국어",
+  grandNow:"이번 주 영상 수", ongoing:"진행 중인 주 — 수치가 계속 늘어나며 최종 결과가 아닙니다.",
   freshWarn:p=>`목표 미설정 신규 기간: ${p}`,
   stamp:d=>`데이터 업데이트 ${d}`,
   source:"출처: Creative Production DB",
@@ -460,6 +463,25 @@ function splitOf(team,i){
   });
   return out;
 }
+// Kỳ đang diễn ra = hôm nay chưa qua hết kỳ đó. Kỳ gộp dạng "W1W2" kéo dài 2 tuần.
+function periodRange(i){
+  const w=WEEKS[i]; if(!w) return null;
+  const m=/\((\d{1,2})\/(\d{1,2})/.exec(w.full||"");
+  if(!m) return null;
+  const now=new Date();
+  let y=now.getFullYear();
+  const start=new Date(y,+m[1]-1,+m[2]);
+  if(start-now>180*864e5) start.setFullYear(y-1);      // kỳ cuối năm trước
+  const days=/W\d+W\d+/.test(w.full)?14:7;
+  const end=new Date(start.getTime()+days*864e5);
+  return {start,end};
+}
+function isOngoing(i){
+  const r=periodRange(i); if(!r) return false;
+  const now=new Date();
+  return now<r.end;
+}
+
 function monthStats(team,m){
   const ws=m.weeks.filter(i=>totalOf(team,i)!==null);
   if(!ws.length) return null;
@@ -491,11 +513,12 @@ function renderHeadline(i){
   const d=comparable?base-prevSum:null;
 
   const cells=[`<div class="cell">
-      <div class="k">${T().grand}</div>
+      <div class="k">${isOngoing(i)?T().grandNow:T().grand}</div>
       <div class="big">${grand}</div>
       ${d===null
         ? `<div class="delta flat">${prev<0?T().firstWeek:T().noPrev}</div>`
         : `<div class="delta ${cls(d)}">${T().vsWeek(signed(d),wkLabel(prev),prevSum?` (${signed(d/prevSum*100,0)}%)`:"")}</div>`}
+      ${isOngoing(i)?`<div class="delta note">${T().ongoing}</div>`:""}
       ${bonusAt(i)?`<div class="delta note">${T().mergedNote(bonusAt(i),bonusEtcAt(i)!==0)}</div>`:""}
     </div>`];
 
