@@ -94,6 +94,9 @@ def read_csv(path):
                 "Creator": {"people": [{"name": c} for c in creators]},
                 "Video Count": {"type": "rich_text",
                                 "rich_text": [{"plain_text": (r.get("Video Count") or "").strip()}]},
+                "Iteration": {"title": [{"plain_text": (r.get("Iteration") or "").strip()}]},
+                "PM": {"people": [{"name": x.strip()} for x in (r.get("PM") or "").split(",")
+                                  if x.strip() and x.strip() not in ("[]", "null")]},
             }})
     print(f"  Đọc từ CSV: {path.name}")
     return rows
@@ -122,6 +125,12 @@ def people(props, name):
         if n:
             out.append(n.strip())
     return out
+
+
+def row_title(props):
+    v = props.get("Iteration") or {}
+    parts = v.get("title") or v.get("rich_text") or []
+    return "".join(t.get("plain_text", "") for t in parts).strip() or "(không tên)"
 
 
 def video_count(props, name="Video Count"):
@@ -182,7 +191,9 @@ def build():
 
     # tổng hợp: videos[team][person][week_index]
     videos = {t: defaultdict(lambda: [None] * len(order)) for t in teams_cfg}
-    seen_periods, unknown, bad_counts = set(), set(), []
+    # Tên PM đi kèm từng người mỗi kỳ. Có PM = làm chung, không có = solo.
+    pms = {t: defaultdict(lambda: [set() for _ in range(len(order))]) for t in teams_cfg}
+    seen_periods, unknown, bad_counts, empty_counts = set(), set(), [], []
 
     for row in rows:
         props = row["properties"]
@@ -203,6 +214,10 @@ def build():
             unknown.add(period)
             continue
         if count is None:
+            # Có task, đúng đội, đúng kỳ, nhưng chưa ai điền Video Count.
+            # Người này bị loại khỏi cả sản lượng lẫn đầu người, làm tỷ lệ đạt
+            # chỉ tiêu của kỳ đó cao hơn thực tế — nên phải báo, không bỏ qua im lặng.
+            empty_counts.append(f'{period} / {", ".join(creators)} — "{row_title(props)}" chưa nhập Video Count')
             continue
         if messy:
             bad_counts.append(f"{period} / {creators[0]} → Video Count ghi “{messy}”, đọc thành {count}")
@@ -211,9 +226,12 @@ def build():
         w = period_map[period]
         # một task có nhiều creator thì chia đều, làm tròn về số nguyên gần nhất
         share = count / len(creators)
+        pm_names = people(props, "PM")
         for c in creators:
             cur = videos[team][c][w]
             videos[team][c][w] = share if cur is None else cur + share
+            for n in pm_names:
+                pms[team][c][w].add(n)
 
     if unknown:
         team_names = ", ".join(teams_cfg)
@@ -224,6 +242,12 @@ def build():
         )
     for b in bad_counts:
         warn(b)
+    if empty_counts:
+        print(f"\n  {len(empty_counts)} task có người làm nhưng chưa nhập Video Count:")
+        for e in empty_counts:
+            warn(e)
+        print("  Những người này không được tính vào đầu người, nên tỷ lệ đạt chỉ tiêu")
+        print("  của các kỳ đó đang cao hơn thực tế. Điền số trên Notion rồi chạy lại.")
 
     # làm tròn
     for team in videos:
@@ -242,6 +266,8 @@ def build():
     for team in videos:
         for person in videos[team]:
             videos[team][person] = videos[team][person][:last]
+        for person in pms[team]:
+            pms[team][person] = pms[team][person][:last]
 
     # ---------- sinh JS ----------
     def weeks_js():
@@ -268,6 +294,15 @@ def build():
             lines.append(f'  {json.dumps(name, ensure_ascii=False):<{width+3}}:[{arr}]')
         return f"const {varname} = {{\n" + ",\n".join(lines) + "\n};"
 
+    def pm_js(team_name):
+        rows = []
+        for name, arr in pms[team_name].items():
+            if not any(arr):
+                continue
+            cells = ",".join(js(", ".join(sorted(x))) if x else '""' for x in arr)
+            rows.append(f"  {json.dumps(name, ensure_ascii=False)}:[{cells}]")
+        return "const VIDEO_PM = {\n" + ",\n".join(rows) + "\n};"
+
     def months_js():
         buckets = defaultdict(list)
         notes = {}
@@ -290,6 +325,7 @@ def build():
         weeks_js(),
         "",
         team_js("VIDEO_TEAM", "Video Ads Team"),
+        pm_js("Video Ads Team"),
         "",
         months_js(),
         END,

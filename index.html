@@ -127,6 +127,9 @@
   .tag{font-size:11.5px;padding:1px 6px;border-radius:4px;margin-left:6px;white-space:nowrap}
   .tag-hi{background:#E4F5EA;color:var(--up)}
   .tag-lo{background:#FBE9F0;color:var(--down)}
+  .tag-pm{background:#E3F1F7;color:#2A7394}
+  .tag-solo{background:#EEF1F6;color:var(--ink-2)}
+  .pmname{display:block;font-size:11.5px;color:var(--ink-2);margin-top:1px}
   .tag-as{background:#EAE7FC;color:var(--video)}
   .tag-etc{background:#FDF0DC;color:var(--warn)}
   .empty{padding:18px;color:var(--ink-2);font-size:14px}
@@ -197,7 +200,7 @@
 <script>
 // ---------------------------------------------------------------- data
 // <<< DATA_START — khối này do update_dashboard.py ghi đè, đừng sửa tay >>>
-const DATA_STAMP = "2026-09-17 07:24 UTC";
+const DATA_STAMP = "2026-09-21 03:36 UTC";
 const WEEKS = [
   {label:"Tuần 01/06", full:"June W1 (06/01~)"},
   {label:"Tuần 08/06", full:"June W2 (06/08~)"},
@@ -229,6 +232,16 @@ const VIDEO_TEAM = {
   "Aaron"   :[   6,   6,   6,   6,   7,  10,  10,  10,null,null,null,null,null,null,null,null],
   "Anthony" :[null,null,null,null,null,null,null,null,null,null,null,null,null,null,   6,null]
 };
+const VIDEO_PM = {
+  "Miko":["","","","","","","Zoe","","","","Zoe","Helly","Cyno","Mee","Zoe",""],
+  "Ruelle":["","","","","","","","Zoe","","","Zoe","Zoe","Zoe","Zoe","Zoe",""],
+  "Quinne":["","","","","","","","","","","Mee","Chi","Mee","Mee","Mee",""],
+  "Elvis":["","","","","","","","","","","Avril","Avril","Avril","Zoe","Cyno","Zoe"],
+  "Zaid":["","","","","","","","","","","Cyno","Cyno","Cyno","Cyno","Cyno","Cyno"],
+  "Falcon":["","","","","","","","","","","Chi","Chi","Chi","Chi","Chi",""],
+  "Tilda":["","","","","","","","","","","Helly","Helly","Helly","Helly","Helly",""],
+  "Max":["","","","","","","","","","","Chi","Chi","Helly","Mee","Cyno",""]
+};
 
 const MONTHS = [
   {label:"Tháng 6", weeks:[0,1,2,3]},
@@ -240,7 +253,8 @@ const MONTHS = [
 
 const TEAMS = [
   {key:"video", name:"Video Ads Team", color:getCSS("--video"),
-   quota:8, support:12, etc:"Miko", etcQuota:12, people:VIDEO_TEAM}
+   quota:8, support:12, etc:"Miko", etcQuota:12, people:VIDEO_TEAM,
+   pm:(typeof VIDEO_PM!=="undefined"?VIDEO_PM:{})}
 ];
 
 // ---------------------------------------------------------------- ngôn ngữ
@@ -251,6 +265,8 @@ const MONTH_EN=["","January","February","March","April","May","June",
 const I18N={
  vi:{
   name:"Tiếng Việt",
+  soloTag:"tự làm",
+  pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
   grandNow:"Số lượng video tuần này", ongoing:"Tuần đang diễn ra — số liệu còn tăng, chưa phải kết quả cuối.",
   freshWarn:p=>`kỳ mới chưa khai báo chỉ tiêu: ${p}`,
   stamp:d=>`Số liệu cập nhật ${d}`,
@@ -268,7 +284,7 @@ const I18N={
   attain:(h,a,q)=>`Đạt ${h}% chỉ tiêu — ${a} video/người thực tế`,
   vsPrev:(s,h)=>`${s} video so với tuần trước · ${h} người làm`,
   assistLine:(na,av,no)=>(na?`${na} creator có dev/art tham gia (${av} video)`
-    :"không creator nào có dev/art")+(no?` · ${no} creator tự làm vượt mức`:""),
+    :"không creator nào có dev/art")+(no?` · ${no} creator vượt mức`:""),
   mergedNote:(b,e)=>b>0
     ?`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người${e?"":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`
     :`Kỳ nghỉ lễ — chỉ tiêu giảm ${-b} video mỗi người${e?" (kể cả vai trò ETC)":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`,
@@ -286,8 +302,8 @@ const I18N={
   emptyWeek:"Tuần này chưa có dòng nào nhập Video Count cho đội này.",
   th:{name:"Thành viên",video:"Video",vsQ:q=>`Chênh so chuẩn`,vs4:"Chênh so 4 tuần trước",own:q=>`Chỉ tiêu riêng của người này: ${q} video`},
   cardSum:(n,s,g)=>`${n} người · ${s}/${g} video cần làm`,
-  kind:{under:"dưới chỉ tiêu",solo:"tự làm",assisted:"có dev/art",over:"vượt mức",etc:"ETC"},
-  ds:{solo:"Tự làm",over:"Vượt mức",assisted:"Có dev/art",etc:t=>`ETC (${t})`,
+  kind:{under:"dưới chỉ tiêu",solo:"tự làm",pm:"có PM",assisted:"có dev/art",over:"vượt mức",etc:"ETC"},
+  ds:{solo:"Trong chuẩn",over:"Vượt mức",assisted:"Có dev/art",etc:t=>`ETC (${t})`,
       monthBar:"Trung bình video mỗi tuần trong tháng",
       monthTgt:q=>`Chỉ tiêu trung bình mỗi tuần (${q} video mỗi người)`,
       weekTgt:q=>`Chỉ tiêu ${q} video mỗi người (kỳ gộp cộng thêm)`},
@@ -300,10 +316,12 @@ const I18N={
   footer:`Video đếm theo cột <b>Video Count</b>, gán vào tuần theo cột <b>Period</b>, người làm theo cột <b>Creator</b>.
    Tháng 4 và tháng 5 chưa nhập Video Count nên bảng bắt đầu từ tuần 01/06.
    Kỳ gộp nhiều tuần do nghỉ lễ được cộng thêm chỉ tiêu, và mốc có dev/art dịch lên cùng mức.
-   Với Video Ads, ghi đúng mốc dev/art được đọc là có dev/art tham gia, trên mốc đó là creator tự làm vượt mức, riêng Miko xếp nhóm ETC.`
+   Với Video Ads, ghi đúng mốc dev/art được đọc là có dev/art tham gia; nhiều hơn chuẩn mà không trùng mốc đó là vượt mức. Cột PM có tên nghĩa là làm chung với PM, để trống là tự làm. Miko xếp nhóm ETC.`
  },
  en:{
   name:"English",
+  soloTag:"solo",
+  pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
   grandNow:"Videos so far this week", ongoing:"Week in progress — numbers are still coming in, not the final result.",
   freshWarn:p=>`new periods with no target set: ${p}`,
   stamp:d=>`Data updated ${d}`,
@@ -321,7 +339,7 @@ const I18N={
   attain:(h,a,q)=>`${h}% of target — ${a} videos per person delivered`,
   vsPrev:(s,h)=>`${s} videos vs last week · ${h} people`,
   assistLine:(na,av,no)=>(na?`${na} creator${na>1?"s":""} had dev/art support (${av} videos)`
-    :"no creator had dev/art support")+(no?` · ${no} went past target alone`:""),
+    :"no creator had dev/art support")+(no?` · ${no} past target`:""),
   mergedNote:(b,e)=>b>0
     ?`Merged period covering a public holiday — target raised by ${b} videos per person${e?"":", except the ETC role which keeps its own standard"}`
     :`Holiday period — target lowered by ${-b} videos per person${e?" (including the ETC role)":", except the ETC role which keeps its own standard"}`,
@@ -332,15 +350,15 @@ const I18N={
   vRate:(a,b)=>`The change comes mainly from <b>output per person</b> (${a} → ${b} videos each), headcount barely moved.`,
   vBoth:(h0,h1,a0,a1)=>`Both headcount (${h0} → ${h1}) and output per person (${a0} → ${a1}) contributed to this gap.`,
   quotaLine:(q,g,now,h1,h0)=>`Target of ${q} videos per person → ${g} videos needed, ${now} delivered (<b class="${h1>=100?"up":"down"}">${h1}%</b>, last week ${h0}%).`,
-  supLine:(sup,a0,a1,v0,v1,d,o0,o1,etc,e0,e1)=>`With dev/art (exactly ${sup} videos): ${a0} → ${a1} creators (${v0} → ${v1} videos, <b class="${d}">${d}</b>). Past target alone: ${o0} → ${o1}. ETC (${etc}): ${e0} → ${e1} videos.`,
+  supLine:(sup,a0,a1,v0,v1,d,o0,o1,etc,e0,e1)=>`With dev/art (exactly ${sup} videos): ${a0} → ${a1} creators (${v0} → ${v1} videos, <b class="${d}">${d}</b>). Past target: ${o0} → ${o1}. ETC (${etc}): ${e0} → ${e1} videos.`,
   joined:" · joined this week", left:" · no task this week",
   teamHead:(b,n,s)=>`${b} → ${n} videos · ${s}`,
   splitLine:(a,b)=>`Splitting the gap: headcount <b class="${a}">${a}</b> videos · pace <b class="${b}">${b}</b> videos.`,
   emptyWeek:"No row for this team has a Video Count this week.",
   th:{name:"Member",video:"Videos",vsQ:q=>`vs target`,vs4:"vs last 4 weeks",own:q=>`This person\u2019s own target: ${q} videos`},
   cardSum:(n,s,g)=>`${n} people · ${s}/${g} videos targeted`,
-  kind:{under:"under target",solo:"solo",assisted:"dev/art support",over:"past target",etc:"ETC"},
-  ds:{solo:"Solo",over:"Past target",assisted:"With dev/art",etc:t=>`ETC (${t})`,
+  kind:{under:"under target",solo:"solo",pm:"with PM",assisted:"dev/art support",over:"past target",etc:"ETC"},
+  ds:{solo:"Within target",over:"Past target",assisted:"With dev/art",etc:t=>`ETC (${t})`,
       monthBar:"Average videos per week in the month",
       monthTgt:q=>`Average weekly target (${q} per person)`,
       weekTgt:q=>`Target ${q} videos per person (raised on merged periods)`},
@@ -353,10 +371,12 @@ const I18N={
   footer:`Videos come from the <b>Video Count</b> column, grouped by <b>Period</b>, credited by <b>Creator</b>.
    April and May have no Video Count filled in, so the table starts at the week of 01/06.
    Periods merged around a public holiday carry a raised target, and the dev/art threshold shifts by the same amount.
-   For Video Ads, landing exactly on the dev/art number means dev or art joined in; above it means the creator went past target alone. Miko is grouped separately as ETC.`
+   For Video Ads, landing exactly on the dev/art number means dev or art joined in; anything else above target counts as past target. A filled PM column means the task was done with a PM; empty means solo. Miko is grouped as ETC.`
  },
  ko:{
   name:"한국어",
+  soloTag:"단독",
+  pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
   grandNow:"이번 주 영상 수", ongoing:"진행 중인 주 — 수치가 계속 늘어나며 최종 결과가 아닙니다.",
   freshWarn:p=>`목표 미설정 신규 기간: ${p}`,
   stamp:d=>`데이터 업데이트 ${d}`,
@@ -373,7 +393,7 @@ const I18N={
   attain:(h,a,q)=>`목표의 ${h}% — 실제 1인당 ${a}개`,
   vsPrev:(s,h)=>`지난주 대비 ${s}개 · ${h}명 작업`,
   assistLine:(na,av,no)=>(na?`dev/art 참여 ${na}명 (${av}개)`:"dev/art 참여 없음")
-    +(no?` · 단독 초과 ${no}명`:""),
+    +(no?` · 목표 초과 ${no}명`:""),
   mergedNote:(b,e)=>b>0
     ?`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향${e?"":", 단 ETC 담당자는 자체 기준 유지"}`
     :`휴무 기간 — 1인당 목표 ${-b}개 하향${e?" (ETC 담당자 포함)":", 단 ETC 담당자는 자체 기준 유지"}`,
@@ -384,15 +404,15 @@ const I18N={
   vRate:(a,b)=>`차이는 주로 <b>1인당 산출량</b>(${a} → ${b}개)에서 왔고, 인원은 거의 그대로입니다.`,
   vBoth:(h0,h1,a0,a1)=>`인원(${h0} → ${h1}명)과 1인당 산출량(${a0} → ${a1}개)이 함께 영향을 줬습니다.`,
   quotaLine:(q,g,now,h1,h0)=>`1인당 목표 ${q}개 → 이번 기간 ${g}개 필요, 실제 ${now}개 (<b class="${h1>=100?"up":"down"}">${h1}%</b>, 지난주 ${h0}%).`,
-  supLine:(sup,a0,a1,v0,v1,d,o0,o1,etc,e0,e1)=>`dev/art 참여(정확히 ${sup}개): ${a0} → ${a1}명 (${v0} → ${v1}개, <b class="${d}">${d}</b>). 단독 초과: ${o0} → ${o1}명. ETC (${etc}): ${e0} → ${e1}개.`,
+  supLine:(sup,a0,a1,v0,v1,d,o0,o1,etc,e0,e1)=>`dev/art 참여(정확히 ${sup}개): ${a0} → ${a1}명 (${v0} → ${v1}개, <b class="${d}">${d}</b>). 목표 초과: ${o0} → ${o1}명. ETC (${etc}): ${e0} → ${e1}개.`,
   joined:" · 이번 주 합류", left:" · 이번 주 태스크 없음",
   teamHead:(b,n,s)=>`${b} → ${n}개 · ${s}`,
   splitLine:(a,b)=>`차이 분해: 인원 <b class="${a}">${a}</b>개 · 속도 <b class="${b}">${b}</b>개.`,
   emptyWeek:"이번 주 이 팀에는 Video Count가 입력된 행이 없습니다.",
   th:{name:"멤버",video:"영상",vsQ:q=>`기준 대비`,vs4:"최근 4주 대비",own:q=>`이 사람의 목표: ${q}개`},
   cardSum:(n,s,g)=>`${n}명 · ${s}/${g}개`,
-  kind:{under:"목표 미달",solo:"단독",assisted:"dev/art 참여",over:"목표 초과",etc:"ETC"},
-  ds:{solo:"단독",over:"목표 초과",assisted:"dev/art 참여",etc:t=>`ETC (${t})`,
+  kind:{under:"목표 미달",solo:"단독",pm:"PM 협업",assisted:"dev/art 참여",over:"목표 초과",etc:"ETC"},
+  ds:{solo:"기준 이내",over:"목표 초과",assisted:"dev/art 참여",etc:t=>`ETC (${t})`,
       monthBar:"월 내 주 평균 영상 수",
       monthTgt:q=>`주 평균 목표 (1인당 ${q}개)`,
       weekTgt:q=>`목표 1인당 ${q}개 (합산 기간은 상향)`},
@@ -405,7 +425,7 @@ const I18N={
   footer:`영상 수는 <b>Video Count</b>, 주차는 <b>Period</b>, 작업자는 <b>Creator</b> 컬럼을 사용합니다.
    4월과 5월은 Video Count가 비어 있어 6월 1일 주부터 표시합니다.
    공휴일로 합친 기간은 목표가 올라가고, dev/art 기준선도 같은 폭으로 이동합니다.
-   Video Ads에서 dev/art 기준 숫자와 정확히 같으면 dev/art가 참여한 것으로, 그보다 크면 단독 초과로 읽습니다. Miko는 ETC로 따로 분류합니다.`
+   Video Ads에서 dev/art 기준 숫자와 정확히 같으면 dev/art 참여, 그 외 기준보다 많으면 목표 초과로 읽습니다. PM 컬럼에 이름이 있으면 PM 협업, 비어 있으면 단독입니다. Miko는 ETC로 분류합니다.`
  }
 };
 let LANG="vi";
@@ -443,23 +463,38 @@ function quotaFor(team,name,i){
     : quotaAt(team,i);
 }
 function supportAt(team,i){return team.support?team.support+bonusAt(i):null}
+// Tên PM đi cùng người này trong kỳ i (chuỗi rỗng = không có PM, tức làm solo).
+function pmOf(team,name,i){
+  const a=team.pm&&team.pm[name];
+  return (a&&a[i])||"";
+}
+// Hai chiều độc lập:
+//  1. Theo SỐ LƯỢNG: dưới chỉ tiêu / đạt chuẩn / vượt mức / có dev/art (đúng mốc) / ETC.
+//     Vượt mức = hơn chuẩn nhưng không trùng mốc dev/art, nên 9–11 video cũng là vượt mức.
+//  2. Theo PM: có PM = làm chung; không có PM nào = tự làm (solo).
+// Một người có thể vừa vượt mức vừa có PM.
 function kindOf(team,name,v,i){
   const q=quotaFor(team,name,i), sup=supportAt(team,i);
-  if(!sup) return v>=q?"over":"under";
   if(name===team.etc) return "etc";
-  if(v===sup) return "assisted";
-  if(v>sup)   return "over";
-  return v>=q?"solo":"under";
+  if(sup&&v===sup) return "assisted";
+  if(v<q) return "under";
+  if(v>q) return "over";
+  return "solo";                                  // đúng bằng chuẩn
 }
-const KIND={under:{tag:"tag-lo"},solo:{tag:""},assisted:{tag:"tag-as"},
+function layerOf(team,name,v,i){
+  const k=kindOf(team,name,v,i);
+  return k==="under"?"solo":k;                    // dưới chuẩn gộp vào lớp "trong chuẩn"
+}
+const KIND={under:{tag:"tag-lo"},solo:{tag:""},assisted:{tag:"tag-as"},pm:{tag:"tag-pm"},
             over:{tag:"tag-hi"},etc:{tag:"tag-etc"}};
 function splitOf(team,i){
-  const out={under:0,solo:0,assisted:0,over:0,etc:0,nAssisted:0,nOver:0};
+  const out={under:0,solo:0,assisted:0,over:0,etc:0,pm:0,nAssisted:0,nOver:0,nPM:0};
   roster(team,i).forEach(p=>{
     const k=kindOf(team,p.name,p.v,i);
-    out[k]+=p.v;
+    out[layerOf(team,p.name,p.v,i)]+=p.v;
     if(k==="assisted") out.nAssisted++;
     if(k==="over") out.nOver++;
+    if(pmOf(team,p.name,i)) out.nPM++;
   });
   return out;
 }
@@ -537,7 +572,7 @@ function renderHeadline(i){
       </div>
       ${t.support&&now!==null?(()=>{const sp=splitOf(t,i);
         return `<div class="delta flat" style="margin-top:3px">
-          ${T().assistLine(sp.nAssisted,sp.assisted,sp.nOver)}
+          ${T().assistLine(sp.nAssisted,sp.assisted,sp.nOver)}${sp.nPM?" · "+T().pmLine(sp.nPM,roster(t,i).length):""}
         </div>`;})():""}
     </div>`);
   });
@@ -639,7 +674,9 @@ function renderMembers(i){
             const kk=kindOf(t,r.name,r.v,i);const k=KIND[kk];
       const tag=k.tag?`<span class="tag ${k.tag}">${T().kind[kk]}</span>`:"";
       return `<tr>
-        <td>${r.name}${tag}</td>
+        <td>${r.name}${tag}${pmOf(t,r.name,i)
+          ?`<span class="pmname">PM: ${pmOf(t,r.name,i)}</span>`
+          :`<span class="tag tag-solo">${T().soloTag}</span>`}</td>
         <td class="barcell"><div class="track">
             <div class="fill" style="width:${Math.min(100,r.v/scale*100)}%;background:${gap<0?"#C42B62":t.color}"></div>
             <div class="mark" style="left:${q/scale*100}%"></div>
@@ -664,16 +701,16 @@ function renderMembers(i){
 // ---------------------------------------------------------------- biểu đồ
 let mode="total";
 const charts={};
-const SHADE={solo:null,over:"#8F82EA",assisted:"#B7ADF3",etc:"#D89B3C"};
+const SHADE={pm:"#3E8FB0",solo:null,over:"#8F82EA",assisted:"#B7ADF3",etc:"#D89B3C"};
 
 function stackData(t){
-  // 4 lớp cho Video Ads: tự làm / vượt mức / có dev/art / ETC
+  // 4 lớp theo số lượng: trong chuẩn / vượt mức / có dev/art / ETC. PM xem ở bảng và phần đầu.
   const keys=["solo","over","assisted","etc"];
   const acc={};keys.forEach(k=>acc[k]=[]);
   WEEKS.forEach((_,i)=>{
     if(totalOf(t,i)===null){keys.forEach(k=>acc[k].push(null));return;}
     const sp=splitOf(t,i);
-    acc.solo.push(sp.under+sp.solo);
+    acc.solo.push(sp.solo);
     acc.over.push(sp.over);
     acc.assisted.push(sp.assisted);
     acc.etc.push(sp.etc);
@@ -886,7 +923,10 @@ function importCSV(text){
 
   const order=[...known,...fresh];
   const idx=Object.fromEntries(order.map((p,i)=>[p,i]));
-  const people={}, warn=[], noCount=[];
+  const people={}, pms={}, warn=[], noCount=[];
+  const hasPMcol = "PM" in rows[0];
+  // Ô PM trống, "[]" hay "null" đều nghĩa là không có PM — task đó tính là solo.
+  const cleanPM=v=>{v=(v||"").trim();return (v===""||v==="[]"||v.toLowerCase()==="null")?"":v;};
 
   mine.forEach(r=>{
     if(!r.Period||idx[r.Period]===undefined) return;
@@ -898,9 +938,17 @@ function importCSV(text){
     if(/^\d+$/.test(raw)) n=+raw;
     else { const m=/\d+/.exec(raw); if(!m) return; n=+m[0]; warn.push(`${r.Period} · ${creators[0]}: "${raw}"`); }
     const share=n/creators.length;
+    const pm=hasPMcol?cleanPM(r.PM):"";
     creators.forEach(c=>{
       people[c]=people[c]||new Array(order.length).fill(null);
       people[c][idx[r.Period]]=(people[c][idx[r.Period]]||0)+share;
+      if(pm){
+        pms[c]=pms[c]||new Array(order.length).fill("");
+        const cur=pms[c][idx[r.Period]];
+        const set=new Set(cur?cur.split(", "):[]);
+        pm.split(",").map(x=>x.trim()).filter(Boolean).forEach(x=>set.add(x));
+        pms[c][idx[r.Period]]=[...set].join(", ");
+      }
     });
   });
 
@@ -932,7 +980,9 @@ function importCSV(text){
     return sb-sa;
   }).forEach(c=>sorted[c]=people[c].slice(0,last));
 
-  return {weeks:newWeeks,months:newMonths,people:sorted,warn,noCount,
+  const pmOut={};
+  Object.keys(sorted).forEach(c=>{ if(pms[c]) pmOut[c]=pms[c].slice(0,last); });
+  return {weeks:newWeeks,months:newMonths,people:sorted,pm:pmOut,hasPMcol,warn,noCount,
           fresh:fresh.filter(f=>order.indexOf(f)<last)};
 }
 
@@ -942,6 +992,10 @@ function applyImport(res){
   const t=TEAMS[0];
   Object.keys(t.people).forEach(k=>delete t.people[k]);
   Object.entries(res.people).forEach(([k,v])=>t.people[k]=v);
+  // CSV cũ chưa có cột PM thì giữ nguyên thông tin PM đang nhúng, đừng xoá trắng.
+  if(res.hasPMcol){
+    t.pm={}; Object.entries(res.pm).forEach(([k,v])=>t.pm[k]=v);
+  }
   const sel=document.getElementById("week");
   sel.innerHTML="";
   WEEKS.forEach((w,i)=>{const o=document.createElement("option");o.value=i;sel.appendChild(o);});
