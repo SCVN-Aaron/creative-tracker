@@ -277,6 +277,7 @@
   .ov-plan{opacity:var(--faded)}
   .ov-sch{opacity:var(--faded);font-style:italic}
   .ov-sch .game{border:1px dashed currentColor}
+  .game.etc-tag{background:var(--etc-bg);color:var(--warn)}
   .ov-empty{color:var(--muted)}
   #ov-table tr.grand td{background:var(--accent-bg);font-weight:700;font-family:"IBM Plex Mono",monospace}
   #ov-table tr.grand td.sticky{background:var(--accent-bg);font-family:inherit}
@@ -493,17 +494,17 @@ const I18N={
     cs:{title:"Lịch 4-Week Loop Schedule (🇻🇳 UA)", byCreator:"Theo creator", byGame:"Theo game", creator:"Creator", game:"Game", weeks:"Số tuần", pmReal:"PM theo task trên Notion", pmGuess:"PM dự đoán: lần gần nhất creator/game này làm trên Notion",
       note:"Lấy nguyên từ Google Sheet 4-Week Loop Schedule, tới hết file. ✓: tuần đó Notion đã có task đúng game. ⚠: Notion ghi game khác. “PM Zoe” = PM của task trên Notion; “PM Zoe?” (in nghiêng) = PM dự đoán theo lần gần nhất creator/game đó làm. Cột tô màu là tuần này."},
   theme:{label:"Giao diện",auto:"Giao diện: tự động",light:"Giao diện: sáng",dark:"Giao diện: tối"},
-  ov:{pm:"PM", total:"Tổng", gTitle:"PM đang làm game gì — theo tuần", schTip:"Theo 4-Week Loop Schedule, chưa có task trên Notion · PM dự đoán", wTitle:"Theo tuần", gNow:"Tuần này & sắp tới", gPast:"Các tuần trước", gMore:"+ Xem các tuần trước", gLess:"Thu gọn",
+  ov:{pm:"PM", total:"Tổng", gTitle:"PM đang làm game gì — theo tuần", unk:"Chưa rõ PM", etc:"ETC · game mới", etcTip:"ETC trên 4-Week Loop Schedule: game mới, chưa có tên và chưa có PM", schTip:"Theo 4-Week Loop Schedule, chưa có task trên Notion · PM dự đoán", wTitle:"Theo tuần", gNow:"Tuần này & sắp tới", gPast:"Các tuần trước", gMore:"+ Xem các tuần trước", gLess:"Thu gọn",
       gTip:(g,n,c)=>`${g} · ${n} creative · ${c}`,
       sch:{title:"Đối chiếu 4-Week Loop Schedule (🇻🇳 UA)", creator:"Creator", ok:"✓ khớp", etc:"ETC · Notion:", diff:"⚠ Notion:", miss:"Chưa có task trên Notion", missLate:"⚠ Chưa có task trên Notion", extra:"⚠ Ngoài schedule:", none:"—",
         sum:(w,ok,n,diff,miss)=>`${w}: <b>${ok}/${n}</b> khớp`+(diff?` · <b>${diff}</b> lệch game`:"")+(miss?` · <b>${miss}</b> chưa có task`:""),
         src:(live)=>live?"Nguồn: Google Sheet 4-Week Loop Schedule (đọc trực tiếp)":"Nguồn: bản lưu data/schedule.csv (không đọc được Google Sheet lúc này)",
         noData:"Không đọc được 4-Week Loop Schedule.", loading:"Đang đọc 4-Week Loop Schedule…"},
-      note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Ô in nghiêng, mờ là theo 4-Week Loop Schedule (tới hết file) nhưng chưa có task trên Notion, PM là dự đoán. Kéo ngang để xem các tuần khác."},
+      note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Ô in nghiêng, mờ là theo 4-Week Loop Schedule (tới hết file) nhưng chưa có task trên Notion, PM là dự đoán. ETC là game mới chưa có tên; game mới chưa có PM nằm ở hàng “Chưa rõ PM”. “Creator solo” là task trên Notion không gắn PM. Kéo ngang để xem các tuần khác."},
   pm:{week:"Tuần", now:" · tuần này", soon:" · sắp tới",
       sum:["creative","task","PM","game","creator"],
       th:["PM","Game","Iteration","Creator","Số lượng","Trạng thái"],
-      meta:(g,c)=>`<b>${g}</b> game · <b>${c}</b> creator`, noPM:"Chưa có PM", total:"Tổng cộng",
+      meta:(g,c)=>`<b>${g}</b> game · <b>${c}</b> creator`, noPM:"Creator solo (không PM)", total:"Tổng cộng",
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
       noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (Routine cập nhật hằng tuần sẽ ghi các cột này).",
       note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước. Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`},
@@ -566,17 +567,17 @@ const I18N={
     cs:{title:"4-Week Loop Schedule (🇻🇳 UA)", byCreator:"By creator", byGame:"By game", creator:"Creator", game:"Game", weeks:"Weeks", pmReal:"PM from the Notion task", pmGuess:"Guessed PM: latest Notion task for this creator/game",
       note:"Taken straight from the 4-Week Loop Schedule Google Sheet, through the end of the file. ✓: Notion has a task for that game that week. ⚠: Notion shows a different game. “PM Zoe” = PM on the Notion task; “PM Zoe?” (italic) = guessed from the latest task for that creator/game. The tinted column is this week."},
   theme:{label:"Theme",auto:"Theme: auto",light:"Theme: light",dark:"Theme: dark"},
-  ov:{pm:"PM", total:"Total", gTitle:"Which games each PM is on — by week", schTip:"From the 4-Week Loop Schedule, no Notion task yet · guessed PM", wTitle:"By week", gNow:"This week & upcoming", gPast:"Earlier weeks", gMore:"+ Show earlier weeks", gLess:"Collapse",
+  ov:{pm:"PM", total:"Total", gTitle:"Which games each PM is on — by week", unk:"PM not known yet", etc:"ETC · new game", etcTip:"ETC on the 4-Week Loop Schedule: a new game, no title or PM yet", schTip:"From the 4-Week Loop Schedule, no Notion task yet · guessed PM", wTitle:"By week", gNow:"This week & upcoming", gPast:"Earlier weeks", gMore:"+ Show earlier weeks", gLess:"Collapse",
       gTip:(g,n,c)=>`${g} · ${n} creatives · ${c}`,
       sch:{title:"4-Week Loop Schedule check (🇻🇳 UA)", creator:"Creator", ok:"✓ matches", etc:"ETC · Notion:", diff:"⚠ Notion:", miss:"No task in Notion yet", missLate:"⚠ No task in Notion", extra:"⚠ Off schedule:", none:"—",
         sum:(w,ok,n,diff,miss)=>`${w}: <b>${ok}/${n}</b> match`+(diff?` · <b>${diff}</b> different game`:"")+(miss?` · <b>${miss}</b> no task`:""),
         src:(live)=>live?"Source: 4-Week Loop Schedule Google Sheet (live)":"Source: saved copy data/schedule.csv (Google Sheet unreachable right now)",
         noData:"Could not read the 4-Week Loop Schedule.", loading:"Loading the 4-Week Loop Schedule…"},
-      note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Faded italic lines come from the 4-Week Loop Schedule (through the end of the file) with no Notion task yet; their PM is guessed. Scroll sideways for other weeks."},
+      note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Faded italic lines come from the 4-Week Loop Schedule (through the end of the file) with no Notion task yet; their PM is guessed. ETC is a new, not-yet-named game; new games with no PM yet sit in the “PM not known yet” row. “Creator solo” means the Notion task has no PM tagged. Scroll sideways for other weeks."},
   pm:{week:"Week", now:" · this week", soon:" · upcoming",
       sum:["creatives","tasks","PMs","games","creators"],
       th:["PM","Game","Iteration","Creator","Count","Status"],
-      meta:(g,c)=>`<b>${g}</b> game${g>1?"s":""} · <b>${c}</b> creator${c>1?"s":""}`, noPM:"No PM", total:"Total",
+      meta:(g,c)=>`<b>${g}</b> game${g>1?"s":""} · <b>${c}</b> creator${c>1?"s":""}`, noPM:"Creator solo (no PM)", total:"Total",
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
       noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the weekly Routine writes them).",
       note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time. Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`},
@@ -639,17 +640,17 @@ const I18N={
     cs:{title:"4-Week Loop Schedule (🇻🇳 UA)", byCreator:"크리에이터별", byGame:"게임별", creator:"크리에이터", game:"게임", weeks:"주 수", pmReal:"Notion 작업의 PM", pmGuess:"추정 PM: 이 크리에이터/게임의 최근 Notion 작업 기준",
       note:"구글 시트 4-Week Loop Schedule을 파일 끝까지 그대로 가져옵니다. ✓: 그 주 Notion에 같은 게임 작업이 있음. ⚠: Notion은 다른 게임. “PM Zoe” = Notion 작업의 PM, “PM Zoe?”(기울임) = 해당 크리에이터/게임의 최근 작업으로 추정한 PM. 색칠된 열이 이번 주입니다."},
   theme:{label:"화면",auto:"화면: 자동",light:"화면: 밝게",dark:"화면: 어둡게"},
-  ov:{pm:"PM", total:"합계", gTitle:"PM별 담당 게임 — 주차별", schTip:"4-Week Loop Schedule 기준, 아직 Notion 작업 없음 · 추정 PM", wTitle:"주차별", gNow:"이번 주 & 예정", gPast:"이전 주", gMore:"+ 이전 주 보기", gLess:"접기",
+  ov:{pm:"PM", total:"합계", gTitle:"PM별 담당 게임 — 주차별", unk:"PM 미정", etc:"ETC · 신규 게임", etcTip:"4-Week Loop Schedule의 ETC: 이름과 PM이 아직 없는 신규 게임", schTip:"4-Week Loop Schedule 기준, 아직 Notion 작업 없음 · 추정 PM", wTitle:"주차별", gNow:"이번 주 & 예정", gPast:"이전 주", gMore:"+ 이전 주 보기", gLess:"접기",
       gTip:(g,n,c)=>`${g} · 크리에이티브 ${n} · ${c}`,
       sch:{title:"4-Week Loop Schedule 대조 (🇻🇳 UA)", creator:"크리에이터", ok:"✓ 일치", etc:"ETC · Notion:", diff:"⚠ Notion:", miss:"Notion 작업 없음", missLate:"⚠ Notion 작업 없음", extra:"⚠ 스케줄 외:", none:"—",
         sum:(w,ok,n,diff,miss)=>`${w}: <b>${ok}/${n}</b> 일치`+(diff?` · 게임 불일치 <b>${diff}</b>`:"")+(miss?` · 작업 없음 <b>${miss}</b>`:""),
         src:(live)=>live?"출처: 4-Week Loop Schedule 구글 시트 (실시간)":"출처: 저장본 data/schedule.csv (구글 시트를 읽지 못함)",
         noData:"4-Week Loop Schedule을 읽지 못했습니다.", loading:"4-Week Loop Schedule 읽는 중…"},
-      note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 흐린 기울임 줄은 4-Week Loop Schedule(파일 끝까지) 기준이며 아직 Notion 작업이 없고 PM은 추정입니다. 옆으로 스크롤해 다른 주를 보세요."},
+      note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 흐린 기울임 줄은 4-Week Loop Schedule(파일 끝까지) 기준이며 아직 Notion 작업이 없고 PM은 추정입니다. ETC는 아직 이름이 없는 신규 게임이며, PM이 없는 신규 게임은 “PM 미정” 줄에 표시됩니다. “크리에이터 단독”은 Notion 작업에 PM 태그가 없는 경우입니다. 옆으로 스크롤해 다른 주를 보세요."},
   pm:{week:"주차", now:" · 이번 주", soon:" · 예정",
       sum:["크리에이티브","작업","PM","게임","크리에이터"],
       th:["PM","게임","Iteration","크리에이터","수량","상태"],
-      meta:(g,c)=>`게임 <b>${g}</b> · 크리에이터 <b>${c}</b>`, noPM:"PM 없음", total:"합계",
+      meta:(g,c)=>`게임 <b>${g}</b> · 크리에이터 <b>${c}</b>`, noPM:"크리에이터 단독 (PM 없음)", total:"합계",
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
       noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(주간 Routine이 기록).",
       note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다. 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`},
@@ -930,7 +931,7 @@ function renderCreatorSchedule(){
       h+=`<tr><td class="sticky">${escH(p.name)}</td>`+cols.map(c=>{
         const v=p.byDate[c.key]||"";
         const mk=notionStatus(p.name,c,v);
-        const body=isBlank(v)?`<span class="ov-empty">—</span>`:(/^etc$/i.test(v)?`<span class="st">ETC</span>`:gameTag(toNotionGame(v)));
+        const body=isBlank(v)?`<span class="ov-empty">—</span>`:(/^etc$/i.test(v)?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:gameTag(toNotionGame(v)));
         const pm=pmForCell(p.name,c,v);
         return `<td class="${colCls(c)}">${body}${mk?`<span class="cs-mk ${mk}">${mk==="ok"?"✓":"⚠"}</span>`:""}${pm?`<span class="cs-pm${pm.guess?" guess":""}" title="${escH(pm.guess?L.pmGuess:L.pmReal)}">PM ${escH(pm.pm)}${pm.guess?"?":""}</span>`:""}</td>`;
       }).join("")+`</tr>`;
@@ -971,7 +972,7 @@ function renderOV(){
   const first=all.findIndex(p=>{const ts=TASKS.filter(t=>t.period===p);return ts.length&&ts.filter(t=>t.pm).length*2>ts.length;});
   const weeks=first<0?all:all.slice(first);
   if(!weeks.length){ table.innerHTML=`<tr><td class="empty">${T().pm.empty}</td></tr>`; return; }
-  const NOPM="\u0000";
+  const NOPM="\u0000", UNK="\u0001";
   const inRange=new Set(weeks);
   const rows=TASKS.filter(t=>inRange.has(t.period));
   const pms=[...new Set(rows.map(t=>t.pm||NOPM))];
@@ -997,26 +998,29 @@ function renderOV(){
     const seen=new Set();
     SCHEDULE.people.forEach(per=>c.sch.forEach(sc=>{
       const v=per.byDate[sc.key]||"";
-      if(isBlank(v)||/^etc$/i.test(v)) return;
+      if(isBlank(v)) return;
       if(c.period&&ALL_TASKS.some(t=>t.period===c.period&&t.creators.includes(per.name))) return;
-      const g=toNotionGame(v), key=per.name+"|"+gameKey(g);
+      const etc=/^etc$/i.test(v.trim()), g=etc?"ETC":toNotionGame(v), key=per.name+"|"+gameKey(g);
       if(seen.has(key)) return; seen.add(key);
-      const pm=pmForCell(per.name,sc,v);
-      plan.push({col:c,pm:pm?pm.pm:NOPM,game:g,creator:per.name});
+      // ETC = game mới chưa có tên; game chưa ai làm trên Notion cũng không đoán được PM → hàng "Chưa rõ PM"
+      const pm=etc?null:pmForCell(per.name,sc,v);
+      plan.push({col:c,pm:pm?pm.pm:UNK,game:g,etc,creator:per.name});
     }));
   });
-  plan.forEach(x=>{ if(!pms.includes(x.pm)) pms.splice(x.pm===NOPM?pms.length:pms.indexOf(NOPM)<0?pms.length:pms.indexOf(NOPM),0,x.pm); });
+  // PM mới chỉ có trong lịch chèn trước 2 hàng cuối; thứ tự cuối bảng: … → Creator solo → Chưa rõ PM
+  plan.forEach(x=>{ if(x.pm!==UNK&&!pms.includes(x.pm)){ const i=pms.indexOf(NOPM); pms.splice(i<0?pms.length:i,0,x.pm); } });
+  if(plan.some(x=>x.pm===UNK)) pms.push(UNK);
   const nowCls=c=>c.now?" now":"";
   const ofCol=c=>c.period?rows.filter(t=>t.period===c.period):[];
   let h=`<thead><tr><th class="sticky">${T().ov.pm}</th>`+cols.map(c=>{
       return `<th class="${nowCls(c).trim()}"${c.period?` title="${escH(c.period)}"`:""}>${escH(c.label)}</th>`;
     }).join("")+`</tr></thead><tbody>`;
   pms.forEach(k=>{
-    h+=`<tr><td class="sticky">${k===NOPM?T().pm.noPM:escH(k)}</td>`;
+    h+=`<tr><td class="sticky">${k===NOPM?T().pm.noPM:k===UNK?T().ov.unk:escH(k)}</td>`;
     cols.forEach(c=>{
       const list=ofCol(c).filter(t=>(t.pm||NOPM)===k).sort((a,b)=>(a.game||"").localeCompare(b.game||""));
       const sch=plan.filter(x=>x.col===c&&x.pm===k).sort((a,b)=>a.game.localeCompare(b.game)).map(x=>
-        `<div class="ov-item ov-sch" title="${escH(T().ov.schTip)}">${gameTag(x.game)}<span class="ov-cr">${escH(x.creator)}</span><span class="ov-n">—</span></div>`).join("");
+        `<div class="ov-item ov-sch" title="${escH(x.etc?T().ov.etcTip:T().ov.schTip)}">${x.etc?`<span class="game etc-tag">${escH(T().ov.etc)}</span>`:gameTag(x.game)}<span class="ov-cr">${escH(x.creator)}</span><span class="ov-n">—</span></div>`).join("");
       const items=list.map(t=>{
         const href=pageLink(t.pageId), cls=`ov-item${t.status&&t.status!=="Done"?" ov-plan":""}`;
         const inner=`${gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}</span><span class="ov-n">${t.count??"—"}</span>`;
