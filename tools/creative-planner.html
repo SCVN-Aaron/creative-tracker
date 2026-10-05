@@ -157,6 +157,8 @@
   #ovg-table td.pmc small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);font-family:var(--mono)}
   .gchips{display:flex;flex-wrap:wrap;gap:6px}
   .gchip{display:inline-flex;align-items:center;gap:5px}
+  .gchip .gcr{font-size:12px;color:var(--ink-2)}
+  .gchips{column-gap:14px}
   .gchip b{font-family:var(--mono);font-size:12px;color:var(--ink-2);font-weight:600}
   .note{margin-top:14px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
   .queue-actions{padding:12px 18px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;border-top:1px solid var(--line)}
@@ -723,7 +725,7 @@ function renderOVGames(rows, pms, NOPM){
     list.forEach(t=>{ const g = t.game || ""; const e = by.get(g) || {n:0, has:false, c:new Set(), last:0, q:false};
       e.n += (+t.count||0); e.has = e.has || t.count != null; t.creators.forEach(x=>e.c.add(x)); e.last = Math.max(e.last, +periodOf(t.period).date||0); e.q = e.q || t.queued; by.set(g, e); });
     const arr = [...by.entries()].sort((a,b)=>b[1].last-a[1].last || b[1].n-a[1].n);
-    return arr.length ? `<div class="gchips">${arr.map(([g,e])=>`<span class="gchip" title="${esc(`${g||"—"} · ${e.n} creative · ${[...e.c].join(", ")}${e.q?" · có kế hoạch chờ ghi":""}`)}">${gameTag(g)}<b>${e.has ? e.n : "—"}</b></span>`).join("")}</div>` : `<span class="ov-empty">–</span>`;
+    return arr.length ? `<div class="gchips">${arr.map(([g,e])=>`<span class="gchip" title="${esc(`${g||"—"} · ${e.n} creative · ${[...e.c].join(", ")}${e.q?" · có kế hoạch chờ ghi":""}`)}">${gameTag(g)}<span class="gcr">${esc([...e.c].join(", "))}</span><b>${e.has ? e.n : "—"}</b></span>`).join("")}</div>` : `<span class="ov-empty">–</span>`;
   };
   const toggle = `<button type="button" class="ov-toggle" id="ovg-toggle" aria-expanded="${OV_PAST}">${OV_PAST ? "Thu gọn" : "+ Xem các tuần trước"}</button>`;
   let h = `<tr><th>PM</th><th>Tuần này &amp; sắp tới</th>${OV_PAST ? `<th>Các tuần trước ${toggle}</th>` : `<th class="ov-more">${toggle}</th>`}</tr>`;
