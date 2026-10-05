@@ -276,6 +276,15 @@
   #ov-table tr.grand td{background:var(--accent-bg);font-weight:700;font-family:"IBM Plex Mono",monospace}
   #ov-table tr.grand td.sticky{background:var(--accent-bg);font-family:inherit}
 
+  /* PM × game */
+  #ovg-table td,#ovg-table th{vertical-align:top}
+  #ovg-table td.pmc{font-weight:600;white-space:nowrap;border-right:1px solid var(--grid)}
+  #ovg-table td.pmc small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);font-family:"IBM Plex Mono",monospace}
+  .gchips{display:flex;flex-wrap:wrap;gap:6px}
+  .gchip{display:inline-flex;align-items:center;gap:5px}
+  .gchip b{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2);font-weight:600}
+  .ov-h{font-size:15px;font-weight:600;margin:0;padding:14px 18px;border-bottom:1px solid var(--line)}
+
   .pm-note{margin-top:22px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
   .pm-note a{color:var(--accent)}
 
@@ -367,7 +376,8 @@
   </div>
 
   <div id="view-ov" role="tabpanel" aria-labelledby="tab-ov" hidden>
-    <div class="tcard pm-card"><div class="ov-scroll" id="ov-scroll"><table id="ov-table"></table></div></div>
+    <div class="tcard pm-card"><h2 class="ov-h" id="ovg-title"></h2><div class="pm-scroll"><table id="ovg-table"></table></div></div>
+    <div class="tcard pm-card"><h2 class="ov-h" id="ov-title"></h2><div class="ov-scroll" id="ov-scroll"><table id="ov-table"></table></div></div>
     <p class="pm-note" id="ov-note"></p>
   </div>
 </div>
@@ -442,7 +452,8 @@ const I18N={
   name:"Tiếng Việt",
   tab:{creator:"Creator",pm:"PM",ov:"Overview",plan:"Lên kế hoạch ↗"},
   theme:{label:"Giao diện",auto:"Giao diện: tự động",light:"Giao diện: sáng",dark:"Giao diện: tối"},
-  ov:{pm:"PM", total:"Tổng", note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Kéo ngang để xem các tuần khác."},
+  ov:{pm:"PM", total:"Tổng", gTitle:"PM đang làm game gì", wTitle:"Theo tuần", gNow:"Tuần này & sắp tới", gPast:"Các tuần trước",
+      gTip:(g,n,c)=>`${g} · ${n} creative · ${c}`, note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Kéo ngang để xem các tuần khác."},
   pm:{week:"Tuần", now:" · tuần này", soon:" · sắp tới",
       sum:["creative","task","PM","game","creator"],
       th:["PM","Game","Iteration","Creator","Số lượng","Trạng thái"],
@@ -507,7 +518,8 @@ const I18N={
   name:"English",
   tab:{creator:"Creators",pm:"PMs",ov:"Overview",plan:"Plan ahead ↗"},
   theme:{label:"Theme",auto:"Theme: auto",light:"Theme: light",dark:"Theme: dark"},
-  ov:{pm:"PM", total:"Total", note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Scroll sideways for other weeks."},
+  ov:{pm:"PM", total:"Total", gTitle:"Which games each PM is on", wTitle:"By week", gNow:"This week & upcoming", gPast:"Earlier weeks",
+      gTip:(g,n,c)=>`${g} · ${n} creatives · ${c}`, note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Scroll sideways for other weeks."},
   pm:{week:"Week", now:" · this week", soon:" · upcoming",
       sum:["creatives","tasks","PMs","games","creators"],
       th:["PM","Game","Iteration","Creator","Count","Status"],
@@ -572,7 +584,8 @@ const I18N={
   name:"한국어",
   tab:{creator:"크리에이터",pm:"PM",ov:"전체 보기",plan:"계획 세우기 ↗"},
   theme:{label:"화면",auto:"화면: 자동",light:"화면: 밝게",dark:"화면: 어둡게"},
-  ov:{pm:"PM", total:"합계", note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 옆으로 스크롤해 다른 주를 보세요."},
+  ov:{pm:"PM", total:"합계", gTitle:"PM별 담당 게임", wTitle:"주차별", gNow:"이번 주 & 예정", gPast:"이전 주",
+      gTip:(g,n,c)=>`${g} · 크리에이티브 ${n} · ${c}`, note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 옆으로 스크롤해 다른 주를 보세요."},
   pm:{week:"주차", now:" · 이번 주", soon:" · 예정",
       sum:["크리에이티브","작업","PM","게임","크리에이터"],
       th:["PM","게임","Iteration","크리에이터","수량","상태"],
@@ -748,6 +761,28 @@ function isNowWeek(p){
   const end=new Date(st.getTime()+(/W\d+W\d+/.test(p)?14:7)*864e5);
   return now>=st&&now<end;
 }
+// Bảng PM × game: mỗi PM đang (tuần này + sắp tới) và đã (các tuần trước) làm game nào, bao nhiêu creative
+function renderOVGames(rows,pms,NOPM){
+  document.getElementById("ovg-title").textContent=T().ov.gTitle;
+  document.getElementById("ov-title").textContent=T().ov.wTitle;
+  const now=new Date();
+  const ahead=t=>{const st=periodStart(t.period);return st&&(isNowWeek(t.period)||st>now);};
+  const chips=list=>{
+    const by=new Map();
+    list.forEach(t=>{const g=t.game||"—";const e=by.get(g)||{n:0,c:new Set(),last:0};
+      e.n+=t.count||0; t.creators.forEach(x=>e.c.add(x)); e.last=Math.max(e.last,+periodStart(t.period)||0); by.set(g,e);});
+    const arr=[...by.entries()].sort((a,b)=>b[1].last-a[1].last||b[1].n-a[1].n);
+    return arr.length?`<div class="gchips">${arr.map(([g,e])=>`<span class="gchip" title="${escH(T().ov.gTip(g,e.n,[...e.c].join(", ")))}">${gameTag(g==="—"?"":g)}<b>${e.n}</b></span>`).join("")}</div>`
+      :`<span class="ov-empty">–</span>`;
+  };
+  let h=`<thead><tr><th>${T().ov.pm}</th><th>${T().ov.gNow}</th><th>${T().ov.gPast}</th></tr></thead><tbody>`;
+  pms.forEach(k=>{
+    const mine=rows.filter(t=>(t.pm||NOPM)===k);
+    const ng=new Set(mine.map(t=>t.game).filter(Boolean)).size;
+    h+=`<tr><td class="pmc">${k===NOPM?T().pm.noPM:escH(k)}<small>${ng} game</small></td><td>${chips(mine.filter(ahead))}</td><td>${chips(mine.filter(t=>!ahead(t)))}</td></tr>`;
+  });
+  document.getElementById("ovg-table").innerHTML=h+"</tbody>";
+}
 function renderOV(){
   document.getElementById("ov-note").innerHTML=T().ov.note;
   const table=document.getElementById("ov-table");
@@ -764,6 +799,7 @@ function renderOV(){
   const tot=k=>rows.filter(t=>(t.pm||NOPM)===k).reduce((s,t)=>s+(t.count||0),0);
   pms.sort((a,b)=>a===NOPM?1:b===NOPM?-1:tot(b)-tot(a)||a.localeCompare(b));
   const nowCls=p=>isNowWeek(p)?" now":"";
+  renderOVGames(rows,pms,NOPM);
   let h=`<thead><tr><th class="sticky">${T().ov.pm}</th>`+weeks.map(p=>{
       const n=rows.filter(t=>t.period===p).reduce((s,t)=>s+(t.count||0),0);
       return `<th class="${nowCls(p).trim()}" data-week="${escH(p)}" title="${escH(p)}">${escH(weekShort(p))}<small>${n}</small></th>`;

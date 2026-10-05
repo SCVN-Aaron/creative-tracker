@@ -64,7 +64,9 @@ Period,Team,Creator,PM,Video Count,Game Title,Iteration,Status,Page ID
 - Cột Team luôn ghi: Video Ads Team
 - Cột Creator ghi TÊN người, không phải user ID. Truy vấn trả về ID thì dùng công cụ
   tra người dùng của Notion để đổi sang tên — công cụ đó không tính vào hạn mức truy
-  vấn. ID không tra ra tên (người đã rời workspace) thì ghi: Khong xac dinh
+  vấn. Riêng user ID 395d872b-594c-81f7-b803-0002fe1a9088 là PM Avril (đã rời
+  workspace nên công cụ tra người dùng không ra tên) — ghi: Avril. ID khác không tra
+  ra tên thì ghi: Khong xac dinh
 - Nhiều người trong một task thì nối bằng dấu phẩy và bọc trong nháy kép,
   ví dụ "Zaid, Elvis"
 - Cột PM: ghi TÊN PM, đổi từ user ID giống cột Creator. Task không có PM thì để trống

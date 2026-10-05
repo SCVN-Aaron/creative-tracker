@@ -149,6 +149,12 @@
   .ov-empty{color:var(--ink-2);opacity:.5}
   #ov-table tr.grand td{background:var(--accent-bg);font-weight:700;font-family:var(--mono)}
   #ov-table tr.grand td.sticky{font-family:var(--sans)}
+  .ov-h{font-size:15px;font-weight:600;margin:0;padding:14px 18px;border-bottom:1px solid var(--line)}
+  #ovg-table td{vertical-align:top}
+  #ovg-table td.pmc small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);font-family:var(--mono)}
+  .gchips{display:flex;flex-wrap:wrap;gap:6px}
+  .gchip{display:inline-flex;align-items:center;gap:5px}
+  .gchip b{font-family:var(--mono);font-size:12px;color:var(--ink-2);font-weight:600}
   .note{margin-top:14px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
   .queue-actions{padding:12px 18px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;border-top:1px solid var(--line)}
 
@@ -210,7 +216,12 @@
   </div>
 
   <div id="panel-ov" role="tabpanel" aria-labelledby="tab-ov" hidden>
-    <section class="card" aria-label="Task của từng PM theo tuần">
+    <section class="card" aria-labelledby="ovg-h">
+      <h2 class="ov-h" id="ovg-h">PM đang làm game gì</h2>
+      <div class="scroll"><table id="ovg-table"></table></div>
+    </section>
+    <section class="card" aria-labelledby="ovw-h">
+      <h2 class="ov-h" id="ovw-h">Theo tuần</h2>
       <div class="ov-scroll" id="ov-scroll"><table id="ov-table"><tr><td class="empty">Bảng PM × tuần sẽ hiện ngay khi đọc xong Notion.</td></tr></table></div>
     </section>
     <p class="note">Mỗi hàng là một PM, mỗi cột là một tuần. Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô màu là tuần này; dòng mờ là task chưa xong; dòng nền xanh là kế hoạch đang chờ ghi. Kéo ngang để xem các tuần khác.</p>
@@ -303,7 +314,9 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const uid = s => String(s || "").replace(/^user:\/\//, "");
 const ids = v => { if(!v) return []; try{ const a = typeof v === "string" ? JSON.parse(v) : v; return Array.isArray(a) ? a.map(uid) : []; }catch{ return []; } };
-const name = id => S.users[id] || "Không xác định";
+// Tài khoản đã rời workspace thì Notion không trả tên — giữ tên đã biết từ dữ liệu cũ.
+const FORMER = {"395d872b-594c-81f7-b803-0002fe1a9088":"Avril"};
+const name = id => S.users[id] || FORMER[id] || "Không xác định";
 const sum = a => a.reduce((x,y)=>x+(+y||0),0);
 
 /* ---------- storage (per-viewer draft only) ---------- */
@@ -672,6 +685,7 @@ function renderOV(){
   const tot = k=>sum(rows.filter(t=>(t.pm||NOPM)===k && !t.queued).map(t=>t.count));
   const pms = [...new Set(rows.map(t=>t.pm||NOPM))].sort((a,b)=>a===NOPM?1:b===NOPM?-1:tot(b)-tot(a)||a.localeCompare(b));
   const isNow = w=>{ const p = periodOf(w); return weekTag(p).includes("tuần này"); };
+  renderOVGames(rows, pms, NOPM);
   const wkTotal = w=>sum(rows.filter(t=>t.period===w && !t.queued).map(t=>t.count));
   let h = `<thead><tr><th class="sticky">PM</th>` + weeks.map(w=>`<th class="${isNow(w)?"now":""}" title="${esc(w)}">${esc(periodOf(w).label)}<small>${wkTotal(w)}</small></th>`).join("") + `</tr></thead><tbody>`;
   for(const k of pms){
@@ -692,6 +706,24 @@ function renderOV(){
   h += `<tr class="grand"><td class="sticky">Tổng</td>` + weeks.map(w=>`<td class="${isNow(w)?"now":""}">${wkTotal(w)}</td>`).join("") + `</tr></tbody>`;
   table.innerHTML = h;
   scrollOVToNow();
+}
+// PM × game: tuần này + sắp tới (gồm kế hoạch chờ ghi) và các tuần trước
+function renderOVGames(rows, pms, NOPM){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const ahead = t=>{ const p = periodOf(t.period); if(!p.date) return false; const end = new Date(p.date); end.setDate(end.getDate()+7); return end > today; };
+  const chips = list=>{
+    const by = new Map();
+    list.forEach(t=>{ const g = t.game || ""; const e = by.get(g) || {n:0, c:new Set(), last:0, q:false};
+      e.n += (+t.count||0); t.creators.forEach(x=>e.c.add(x)); e.last = Math.max(e.last, +periodOf(t.period).date||0); e.q = e.q || t.queued; by.set(g, e); });
+    const arr = [...by.entries()].sort((a,b)=>b[1].last-a[1].last || b[1].n-a[1].n);
+    return arr.length ? `<div class="gchips">${arr.map(([g,e])=>`<span class="gchip" title="${esc(`${g||"—"} · ${e.n} creative · ${[...e.c].join(", ")}${e.q?" · có kế hoạch chờ ghi":""}`)}">${gameTag(g)}<b>${e.n}</b></span>`).join("")}</div>` : `<span class="ov-empty">–</span>`;
+  };
+  let h = `<tr><th>PM</th><th>Tuần này &amp; sắp tới</th><th>Các tuần trước</th></tr>`;
+  for(const k of pms){
+    const mine = rows.filter(t=>(t.pm||NOPM)===k);
+    h += `<tr><td class="pm">${k===NOPM?"Chưa có PM":esc(k)}<small>${new Set(mine.map(t=>t.game).filter(Boolean)).size} game</small></td><td>${chips(mine.filter(ahead))}</td><td>${chips(mine.filter(t=>!ahead(t)))}</td></tr>`;
+  }
+  $("#ovg-table").innerHTML = h;
 }
 function scrollOVToNow(){
   const table = $("#ov-table"), box = $("#ov-scroll");
