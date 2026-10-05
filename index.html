@@ -165,6 +165,30 @@
   .st{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:4px;background:#EEF1F6;color:var(--ink-2)}
   .st-prog{background:#E7ECFD;color:#3B5BDB}
   .st-done{background:#E4F5EA;color:var(--up)}
+  /* ---------- Overview: PM × tuần ---------- */
+  .ov-scroll{overflow-x:auto}
+  #ov-table{border-collapse:separate;border-spacing:0}
+  #ov-table th,#ov-table td{vertical-align:top;border-bottom:1px solid #EDF0F4;border-right:1px solid #EDF0F4;padding:10px 12px}
+  #ov-table th{background:#F7F9FB;white-space:nowrap;font-size:12.5px}
+  #ov-table th small{display:block;font-weight:400;font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
+  #ov-table th.now{color:#2A7394;font-weight:700}
+  #ov-table td.now{background:#F6FAFC}
+  #ov-table .sticky{position:sticky;left:0;z-index:1;background:var(--panel);min-width:120px;font-weight:600;white-space:nowrap}
+  #ov-table th.sticky{background:#F7F9FB;z-index:2}
+  #ov-table .sticky small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);font-family:"IBM Plex Mono",monospace}
+  #ov-table td.cell{min-width:240px;max-width:300px}
+  .ov-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px;padding:4px 0;color:var(--ink);text-decoration:none;font-size:13px}
+  .ov-item + .ov-item{border-top:1px dashed #E6E9EF}
+  a.ov-item:hover .ov-cr{text-decoration:underline}
+  .ov-item .game{font-size:12px;padding:1px 8px}
+  .ov-item .game{max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ov-cr{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ov-n{font-family:"IBM Plex Mono",monospace;font-weight:600;text-align:right;min-width:18px}
+  .ov-plan{opacity:.75}
+  .ov-empty{color:#B8BFCC}
+  #ov-table tr.grand td{background:#E3F1F7;font-weight:700;font-family:"IBM Plex Mono",monospace}
+  #ov-table tr.grand td.sticky{background:#E3F1F7;font-family:inherit}
+
   .pm-note{margin-top:22px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
   .pm-note a{color:#2A7394}
 
@@ -204,6 +228,7 @@
   <nav class="tabs" role="tablist" aria-label="View">
     <button role="tab" id="tab-creator" aria-controls="view-creator" aria-selected="true" type="button"></button>
     <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1"></button>
+    <button role="tab" id="tab-ov" aria-controls="view-ov" aria-selected="false" type="button" tabindex="-1"></button>
     <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
   </nav>
 
@@ -245,6 +270,11 @@
     </div>
     <div class="tcard pm-card"><div class="pm-scroll"><table id="pm-table"></table></div></div>
     <p class="pm-note" id="pm-note"></p>
+  </div>
+
+  <div id="view-ov" role="tabpanel" aria-labelledby="tab-ov" hidden>
+    <div class="tcard pm-card"><div class="ov-scroll" id="ov-scroll"><table id="ov-table"></table></div></div>
+    <p class="pm-note" id="ov-note"></p>
   </div>
 </div>
 
@@ -316,7 +346,8 @@ const MONTH_EN=["","January","February","March","April","May","June",
 const I18N={
  vi:{
   name:"Tiếng Việt",
-  tab:{creator:"Creator",pm:"PM",plan:"Lên kế hoạch ↗"},
+  tab:{creator:"Creator",pm:"PM",ov:"Overview",plan:"Lên kế hoạch ↗"},
+  ov:{pm:"PM", total:"Tổng", note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Kéo ngang để xem các tuần khác."},
   pm:{week:"Tuần", now:" · tuần này", soon:" · sắp tới",
       sum:["creative","task","PM","game","creator"],
       th:["PM","Game","Iteration","Creator","Số lượng","Trạng thái"],
@@ -379,7 +410,8 @@ const I18N={
  },
  en:{
   name:"English",
-  tab:{creator:"Creators",pm:"PMs",plan:"Plan ahead ↗"},
+  tab:{creator:"Creators",pm:"PMs",ov:"Overview",plan:"Plan ahead ↗"},
+  ov:{pm:"PM", total:"Total", note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Scroll sideways for other weeks."},
   pm:{week:"Week", now:" · this week", soon:" · upcoming",
       sum:["creatives","tasks","PMs","games","creators"],
       th:["PM","Game","Iteration","Creator","Count","Status"],
@@ -442,7 +474,8 @@ const I18N={
  },
  ko:{
   name:"한국어",
-  tab:{creator:"크리에이터",pm:"PM",plan:"계획 세우기 ↗"},
+  tab:{creator:"크리에이터",pm:"PM",ov:"전체 보기",plan:"계획 세우기 ↗"},
+  ov:{pm:"PM", total:"합계", note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 옆으로 스크롤해 다른 주를 보세요."},
   pm:{week:"주차", now:" · 이번 주", soon:" · 예정",
       sum:["크리에이티브","작업","PM","게임","크리에이터"],
       th:["PM","게임","Iteration","크리에이터","수량","상태"],
@@ -608,10 +641,59 @@ function renderPM(){
   h+=`<tr class="grand"><td colspan="4">${T().pm.total}</td><td class="num">${total}</td><td></td></tr></tbody>`;
   table.innerHTML=h;
 }
+function weekShort(p){const d=periodDate(p);return T().wk(String(d.d).padStart(2,"0")+"/"+String(d.m).padStart(2,"0"));}
+function isNowWeek(p){
+  const st=periodStart(p), now=new Date();
+  const end=new Date(st.getTime()+(/W\d+W\d+/.test(p)?14:7)*864e5);
+  return now>=st&&now<end;
+}
+function renderOV(){
+  document.getElementById("ov-note").innerHTML=T().ov.note;
+  const table=document.getElementById("ov-table");
+  if(!TASKS){ table.innerHTML=`<tr><td class="empty">${T().pm.noData}</td></tr>`; return; }
+  // các tuần từ lúc đội bắt đầu điền PM (quá nửa số task có PM) trở đi, cũ → mới, gồm cả tuần sắp tới
+  const all=pmWeeks();
+  const first=all.findIndex(p=>{const ts=TASKS.filter(t=>t.period===p);return ts.length&&ts.filter(t=>t.pm).length*2>ts.length;});
+  const weeks=first<0?all:all.slice(first);
+  if(!weeks.length){ table.innerHTML=`<tr><td class="empty">${T().pm.empty}</td></tr>`; return; }
+  const NOPM="\u0000";
+  const inRange=new Set(weeks);
+  const rows=TASKS.filter(t=>inRange.has(t.period));
+  const pms=[...new Set(rows.map(t=>t.pm||NOPM))];
+  const tot=k=>rows.filter(t=>(t.pm||NOPM)===k).reduce((s,t)=>s+(t.count||0),0);
+  pms.sort((a,b)=>a===NOPM?1:b===NOPM?-1:tot(b)-tot(a)||a.localeCompare(b));
+  const nowCls=p=>isNowWeek(p)?" now":"";
+  let h=`<thead><tr><th class="sticky">${T().ov.pm}</th>`+weeks.map(p=>{
+      const n=rows.filter(t=>t.period===p).reduce((s,t)=>s+(t.count||0),0);
+      return `<th class="${nowCls(p).trim()}" data-week="${escH(p)}" title="${escH(p)}">${escH(weekShort(p))}<small>${n}</small></th>`;
+    }).join("")+`</tr></thead><tbody>`;
+  pms.forEach(k=>{
+    h+=`<tr><td class="sticky">${k===NOPM?T().pm.noPM:escH(k)}<small>${tot(k)}</small></td>`;
+    weeks.forEach(p=>{
+      const list=rows.filter(t=>t.period===p&&(t.pm||NOPM)===k).sort((a,b)=>(a.game||"").localeCompare(b.game||""));
+      const items=list.map(t=>{
+        const href=pageLink(t.pageId), cls=`ov-item${t.status&&t.status!=="Done"?" ov-plan":""}`;
+        const inner=`${gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}</span><span class="ov-n">${t.count??"—"}</span>`;
+        const tip=escH([t.game,t.creators.join(", "),t.iteration,t.status].filter(Boolean).join(" · "));
+        return href?`<a class="${cls}" href="${href}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`:`<div class="${cls}" title="${tip}">${inner}</div>`;
+      }).join("");
+      h+=`<td class="cell${nowCls(p)}">${items||'<span class="ov-empty">–</span>'}</td>`;
+    });
+    h+=`</tr>`;
+  });
+  h+=`<tr class="grand"><td class="sticky">${T().ov.total}</td>`+weeks.map(p=>
+    `<td class="${nowCls(p).trim()}">${rows.filter(t=>t.period===p).reduce((s,t)=>s+(t.count||0),0)}</td>`).join("")+`</tr></tbody>`;
+  table.innerHTML=h;
+  // cuộn tới tuần này (để lại một tuần trước đó trong tầm nhìn)
+  const box=document.getElementById("ov-scroll");
+  const cur=table.querySelector("th.now")||table.querySelector("thead th:last-child");
+  const stickyW=table.querySelector("th.sticky").offsetWidth;
+  if(cur) box.scrollLeft=Math.max(0,cur.offsetLeft-stickyW-(cur.previousElementSibling?cur.previousElementSibling.offsetWidth:0));
+}
 let VIEW="creator";
 function showView(v){
   VIEW=v;
-  ["creator","pm"].forEach(k=>{
+  ["creator","pm","ov"].forEach(k=>{
     const on=k===v, tab=document.getElementById("tab-"+k);
     tab.setAttribute("aria-selected",on); tab.tabIndex=on?0:-1;
     document.getElementById("view-"+k).hidden=!on;
@@ -620,6 +702,7 @@ function showView(v){
   document.getElementById("week").hidden=v!=="creator";
   document.getElementById("lbl-week").hidden=v!=="creator";
   if(v==="pm") renderPM();
+  else if(v==="ov") renderOV();
   else if(charts.video) charts.video.resize();
   try{ localStorage.setItem("ct-view",v); }catch(e){}
 }
@@ -1238,9 +1321,11 @@ function applyLang(){
   document.getElementById("footer").innerHTML=T().footer;
   document.getElementById("tab-creator").textContent=T().tab.creator;
   document.getElementById("tab-pm").textContent=T().tab.pm;
+  document.getElementById("tab-ov").textContent=T().tab.ov;
   const plan=document.getElementById("tab-plan");
   plan.textContent=T().tab.plan; plan.href=PLANNER_URL;
   if(VIEW==="pm") renderPM();
+  if(VIEW==="ov") renderOV();
   Object.entries(MODE_BTN).forEach(([k,id])=>
     document.getElementById(id).textContent=T().btn[k]);
   [...sel.options].forEach((o,i)=>{if(WEEKS[i])o.textContent=`${wkLabel(i)} — ${WEEKS[i].full}`;});
@@ -1280,16 +1365,19 @@ langSel.addEventListener("change",()=>{
 let LIVE=null;
 document.getElementById("tab-creator").addEventListener("click",()=>showView("creator"));
 document.getElementById("tab-pm").addEventListener("click",()=>showView("pm"));
+document.getElementById("tab-ov").addEventListener("click",()=>showView("ov"));
 document.querySelector(".tabs").addEventListener("keydown",e=>{
   if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight") return;
-  const next=VIEW==="creator"?"pm":"creator"; showView(next); document.getElementById("tab-"+next).focus();
+  const order=["creator","pm","ov"], i=order.indexOf(VIEW);
+  const next=order[(i+(e.key==="ArrowRight"?1:order.length-1))%order.length];
+  showView(next); document.getElementById("tab-"+next).focus();
 });
 document.getElementById("pm-week").addEventListener("change",e=>{pmWeek=e.target.value;renderPM();});
 function boot(){
   applyLang(); buildCharts(); update();
-  let v=location.hash==="#pm"?"pm":null;
+  let v=location.hash==="#pm"?"pm":location.hash==="#overview"?"ov":null;
   if(!v){ try{ v=localStorage.getItem("ct-view"); }catch(e){} }
-  showView(v==="pm"?"pm":"creator");
+  showView(["pm","ov"].includes(v)?v:"creator");
 }
 
 loadLiveCSV().then(r=>{
