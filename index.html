@@ -299,6 +299,9 @@
   .cs-mk{font-size:11px;margin-left:4px;font-weight:700}
   .cs-mk.ok{color:var(--up)} .cs-mk.diff{color:var(--warn)}
   .cs-names{font-size:12.5px;color:var(--ink)}
+  .cs-pm{display:block;font-size:11px;color:var(--ink-2);margin-top:2px}
+  .cs-pmi{font-size:11px;color:var(--ink-2)}
+  .cs-pm.guess,.cs-pmi.guess{font-style:italic;opacity:.8}
   #cs-table td.cnt{font-family:"IBM Plex Mono",monospace;color:var(--ink-2);text-align:right}
 
   /* đối chiếu 4-Week Loop Schedule */
@@ -503,8 +506,8 @@ const I18N={
  vi:{
   name:"Tiếng Việt",
   tab:{creator:"Creator",pm:"PM",ov:"Overview",plan:"Lên kế hoạch ↗"},
-    cs:{title:"Lịch 4-Week Loop Schedule (🇻🇳 UA)", byCreator:"Theo creator", byGame:"Theo game", creator:"Creator", game:"Game", weeks:"Số tuần",
-      note:"Lấy nguyên từ Google Sheet 4-Week Loop Schedule, tới hết file. ✓: tuần đó Notion đã có task đúng game. ⚠: Notion ghi game khác. Cột tô màu là tuần này."},
+    cs:{title:"Lịch 4-Week Loop Schedule (🇻🇳 UA)", byCreator:"Theo creator", byGame:"Theo game", creator:"Creator", game:"Game", weeks:"Số tuần", pmReal:"PM theo task trên Notion", pmGuess:"PM dự đoán: lần gần nhất creator/game này làm trên Notion",
+      note:"Lấy nguyên từ Google Sheet 4-Week Loop Schedule, tới hết file. ✓: tuần đó Notion đã có task đúng game. ⚠: Notion ghi game khác. “PM Zoe” = PM của task trên Notion; “PM Zoe?” (in nghiêng) = PM dự đoán theo lần gần nhất creator/game đó làm. Cột tô màu là tuần này."},
   theme:{label:"Giao diện",auto:"Giao diện: tự động",light:"Giao diện: sáng",dark:"Giao diện: tối"},
   ov:{pm:"PM", total:"Tổng", gTitle:"PM đang làm game gì", wTitle:"Theo tuần", gNow:"Tuần này & sắp tới", gPast:"Các tuần trước", gMore:"+ Xem các tuần trước", gLess:"Thu gọn",
       gTip:(g,n,c)=>`${g} · ${n} creative · ${c}`,
@@ -576,8 +579,8 @@ const I18N={
  en:{
   name:"English",
   tab:{creator:"Creators",pm:"PMs",ov:"Overview",plan:"Plan ahead ↗"},
-    cs:{title:"4-Week Loop Schedule (🇻🇳 UA)", byCreator:"By creator", byGame:"By game", creator:"Creator", game:"Game", weeks:"Weeks",
-      note:"Taken straight from the 4-Week Loop Schedule Google Sheet, through the end of the file. ✓: Notion has a task for that game that week. ⚠: Notion shows a different game. The tinted column is this week."},
+    cs:{title:"4-Week Loop Schedule (🇻🇳 UA)", byCreator:"By creator", byGame:"By game", creator:"Creator", game:"Game", weeks:"Weeks", pmReal:"PM from the Notion task", pmGuess:"Guessed PM: latest Notion task for this creator/game",
+      note:"Taken straight from the 4-Week Loop Schedule Google Sheet, through the end of the file. ✓: Notion has a task for that game that week. ⚠: Notion shows a different game. “PM Zoe” = PM on the Notion task; “PM Zoe?” (italic) = guessed from the latest task for that creator/game. The tinted column is this week."},
   theme:{label:"Theme",auto:"Theme: auto",light:"Theme: light",dark:"Theme: dark"},
   ov:{pm:"PM", total:"Total", gTitle:"Which games each PM is on", wTitle:"By week", gNow:"This week & upcoming", gPast:"Earlier weeks", gMore:"+ Show earlier weeks", gLess:"Collapse",
       gTip:(g,n,c)=>`${g} · ${n} creatives · ${c}`,
@@ -649,8 +652,8 @@ const I18N={
  ko:{
   name:"한국어",
   tab:{creator:"크리에이터",pm:"PM",ov:"전체 보기",plan:"계획 세우기 ↗"},
-    cs:{title:"4-Week Loop Schedule (🇻🇳 UA)", byCreator:"크리에이터별", byGame:"게임별", creator:"크리에이터", game:"게임", weeks:"주 수",
-      note:"구글 시트 4-Week Loop Schedule을 파일 끝까지 그대로 가져옵니다. ✓: 그 주 Notion에 같은 게임 작업이 있음. ⚠: Notion은 다른 게임. 색칠된 열이 이번 주입니다."},
+    cs:{title:"4-Week Loop Schedule (🇻🇳 UA)", byCreator:"크리에이터별", byGame:"게임별", creator:"크리에이터", game:"게임", weeks:"주 수", pmReal:"Notion 작업의 PM", pmGuess:"추정 PM: 이 크리에이터/게임의 최근 Notion 작업 기준",
+      note:"구글 시트 4-Week Loop Schedule을 파일 끝까지 그대로 가져옵니다. ✓: 그 주 Notion에 같은 게임 작업이 있음. ⚠: Notion은 다른 게임. “PM Zoe” = Notion 작업의 PM, “PM Zoe?”(기울임) = 해당 크리에이터/게임의 최근 작업으로 추정한 PM. 색칠된 열이 이번 주입니다."},
   theme:{label:"화면",auto:"화면: 자동",light:"화면: 밝게",dark:"화면: 어둡게"},
   ov:{pm:"PM", total:"합계", gTitle:"PM별 담당 게임", wTitle:"주차별", gNow:"이번 주 & 예정", gPast:"이전 주", gMore:"+ 이전 주 보기", gLess:"접기",
       gTip:(g,n,c)=>`${g} · 크리에이티브 ${n} · ${c}`,
@@ -950,13 +953,28 @@ function renderSchedule(weeks){
 
 // Lịch 4-Week Loop ở tab Creator: nguyên lưới của Sheet (creator × tuần) hoặc đảo lại (game × tuần → creator)
 let CS_MODE="creator";
-function notionStatus(name,col,sch){
-  // cột của Sheet ↔ Period trên Notion: cùng ngày bắt đầu, hoặc là tuần thứ 2 của kỳ gộp W1W2
-  const p=(TASKS&&ALL_TASKS)?[...new Set(ALL_TASKS.map(t=>t.period))].find(pp=>{
+// cột của Sheet ↔ Period trên Notion: cùng ngày bắt đầu, hoặc là tuần thứ 2 của kỳ gộp W1W2
+function periodForCol(col){
+  return ALL_TASKS?[...new Set(ALL_TASKS.map(t=>t.period))].find(pp=>{
     const st=periodStart(pp); if(!st) return false;
     if(+st===+col.start) return true;
     return /W\d+W\d+/.test(pp)&&+new Date(st.getTime()+7*864e5)===+col.start;
   }):null;
+}
+// PM của ô lịch: lấy từ task Notion cùng tuần + creator + game; nếu chưa có task thì đoán
+// theo lần gần nhất creator đó làm game đó, rồi tới lần gần nhất có ai làm game đó.
+function pmForCell(name,col,sch){
+  if(!ALL_TASKS||isBlank(sch)||/^etc$/i.test(sch)) return null;
+  const k=gameKey(sch), ok=t=>t.pm&&!HIDDEN_PM.includes(t.pm)&&gameKey(t.game)===k;
+  const p=periodForCol(col);
+  const real=p&&ALL_TASKS.find(t=>t.period===p&&t.creators.includes(name)&&ok(t));
+  if(real) return {pm:real.pm,guess:false};
+  const latest=list=>list.sort((a,b)=>(+periodStart(b.period)||0)-(+periodStart(a.period)||0))[0];
+  const g=latest(ALL_TASKS.filter(t=>ok(t)&&t.creators.includes(name)))||latest(ALL_TASKS.filter(ok));
+  return g?{pm:g.pm,guess:true}:null;
+}
+function notionStatus(name,col,sch){
+  const p=TASKS?periodForCol(col):null;
   if(!p||isBlank(sch)||/^etc$/i.test(sch)) return "";
   const ts=ALL_TASKS.filter(t=>t.period===p&&t.creators.includes(name));
   if(!ts.length) return "";
@@ -984,7 +1002,8 @@ function renderCreatorSchedule(){
         const v=p.byDate[c.key]||"";
         const mk=notionStatus(p.name,c,v);
         const body=isBlank(v)?`<span class="ov-empty">—</span>`:(/^etc$/i.test(v)?`<span class="st">ETC</span>`:gameTag(toNotionGame(v)));
-        return `<td class="${colCls(c)}">${body}${mk?`<span class="cs-mk ${mk}">${mk==="ok"?"✓":"⚠"}</span>`:""}</td>`;
+        const pm=pmForCell(p.name,c,v);
+        return `<td class="${colCls(c)}">${body}${mk?`<span class="cs-mk ${mk}">${mk==="ok"?"✓":"⚠"}</span>`:""}${pm?`<span class="cs-pm${pm.guess?" guess":""}" title="${escH(pm.guess?L.pmGuess:L.pmReal)}">PM ${escH(pm.pm)}${pm.guess?"?":""}</span>`:""}</td>`;
       }).join("")+`</tr>`;
     });
   }else{
@@ -994,12 +1013,12 @@ function renderCreatorSchedule(){
       const v=p.byDate[c.key]||""; if(isBlank(v)||/^etc$/i.test(v)) return;
       const g=toNotionGame(v), k=gameKey(g);
       if(!games.has(k)) games.set(k,{g,by:{},n:0});
-      const e=games.get(k); (e.by[c.key]=e.by[c.key]||[]).push(p.name); e.n++;
+      const e=games.get(k), pm=pmForCell(p.name,c,v); (e.by[c.key]=e.by[c.key]||[]).push({n:p.name,pm}); e.n++;
     }));
     [...games.values()].sort((a,b)=>b.n-a.n||a.g.localeCompare(b.g)).forEach(e=>{
       h+=`<tr><td class="sticky">${gameTag(e.g)}</td>`+cols.map(c=>{
         const names=e.by[c.key]||[];
-        return `<td class="${colCls(c)}">${names.length?`<span class="cs-names">${names.map(escH).join(", ")}</span>`:`<span class="ov-empty">—</span>`}</td>`;
+        return `<td class="${colCls(c)}">${names.length?`<span class="cs-names">${names.map(x=>escH(x.n)+(x.pm?` <small class="cs-pmi${x.pm.guess?" guess":""}">${escH(x.pm.pm)}${x.pm.guess?"?":""}</small>`:"")).join(", ")}</span>`:`<span class="ov-empty">—</span>`}</td>`;
       }).join("")+`<td class="cnt">${e.n}</td></tr>`;
     });
   }
