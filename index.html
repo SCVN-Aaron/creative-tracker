@@ -42,6 +42,9 @@
     --tag-fg:80% 24%;
     --tag-bd:60% 62%;
     --faded:.85;
+    --grid-v:#EDF0F4;
+    --row-hover:#F5F8FB;
+    --total-bg:#EAF2F7;
     color-scheme:light;
   }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
@@ -78,6 +81,9 @@
     --tag-fg:75% 82%;
     --tag-bd:30% 36%;
     --faded:.65;
+    --grid-v:#22262F;
+    --row-hover:#1F232C;
+    --total-bg:#19252D;
     color-scheme:dark;
   }}
   :root[data-theme="dark"]{
@@ -114,6 +120,9 @@
     --tag-fg:75% 82%;
     --tag-bd:30% 36%;
     --faded:.65;
+    --grid-v:#22262F;
+    --row-hover:#1F232C;
+    --total-bg:#19252D;
     color-scheme:dark;
   }
   *{box-sizing:border-box}
@@ -226,6 +235,8 @@
   .tag{font-size:11.5px;padding:1px 6px;border-radius:4px;margin-left:6px;white-space:nowrap}
   .tag-hi{background:var(--up-bg);color:var(--up)}
   .tag-lo{background:var(--down-bg);color:var(--down)}
+  .tag-leave{background:var(--etc-bg);color:var(--warn)}
+  .ov-leave{font-size:10.5px;padding:0 5px;margin-left:2px;font-style:normal}
   .tag-pm{background:var(--accent-bg);color:var(--accent)}
   .tag-solo{background:var(--soft);color:var(--ink-2)}
   .pmname{display:block;font-size:11.5px;color:var(--ink-2);margin-top:1px}
@@ -342,6 +353,26 @@
     .big{font-size:38px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  /* ---------- bảng: kiểu chung, ghi đè các khai báo riêng phía trên ---------- */
+  .tcard{box-shadow:0 1px 2px var(--shadow)}
+  th{font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);background:var(--th)}
+  th.num{font-family:inherit}
+  thead th{border-bottom:1px solid var(--line)}
+  td{border-bottom:1px solid var(--grid)}
+  .members tbody tr:hover td,#pm-table tbody tr:not(.grand):hover td:not(.pmc){background:var(--row-hover)}
+  /* bảng PM: bỏ chữ mono ở cột Iteration, nhóm PM có vạch ngăn rõ */
+  #pm-table td.it{font-family:inherit;font-size:13px}
+  #pm-table td.pmc{border-right:1px solid var(--line)}
+  #pm-table tr.grand td,#ov-table tr.grand td,#ov-table tr.grand td.sticky{background:var(--total-bg);border-top:1px solid var(--line)}
+  /* bảng ma trận (Overview, lịch tab Creator): tiêu đề tuần không viết hoa, kẻ dọc thật nhạt */
+  #ov-table th,#cs-table th{text-transform:none;letter-spacing:0;font-size:12.5px}
+  #ov-table th,#ov-table td,#cs-table th,#cs-table td{border-right:1px solid var(--grid-v)}
+  #ov-table th:last-child,#ov-table td:last-child,#cs-table th:last-child,#cs-table td:last-child{border-right:0}
+  #cs-table th,#cs-table td{padding:9px 12px}
+  #cs-table .sticky,#ov-table .sticky{min-width:112px;border-right:1px solid var(--line);box-shadow:6px 0 8px -6px var(--shadow)}
+  #cs-table th.sticky,#ov-table th.sticky{color:var(--ink-2)}
+  .cs-pm{margin-top:4px}
 </style>
 
 <div class="wrap">
@@ -518,7 +549,7 @@ const I18N={
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
       noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (Routine cập nhật hằng tuần sẽ ghi các cột này).",
       note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước. Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`},
-  soloTag:"tự làm",
+  soloTag:"tự làm", leaveShort:"nghỉ", leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
   grandNow:"Số lượng video tuần này", ongoing:"Tuần đang diễn ra — số liệu còn tăng, chưa phải kết quả cuối.",
   freshWarn:p=>`kỳ mới chưa khai báo chỉ tiêu: ${p}`,
@@ -591,7 +622,7 @@ const I18N={
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
       noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the weekly Routine writes them).",
       note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time. Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`},
-  soloTag:"solo",
+  soloTag:"solo", leaveShort:"leave", leaveTip:q=>`On leave — target this week is ${q} videos`,
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
   grandNow:"Videos so far this week", ongoing:"Week in progress — numbers are still coming in, not the final result.",
   freshWarn:p=>`new periods with no target set: ${p}`,
@@ -664,7 +695,7 @@ const I18N={
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
       noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(주간 Routine이 기록).",
       note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다. 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`},
-  soloTag:"단독",
+  soloTag:"단독", leaveShort:"휴무", leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
   grandNow:"이번 주 영상 수", ongoing:"진행 중인 주 — 수치가 계속 늘어나며 최종 결과가 아닙니다.",
   freshWarn:p=>`목표 미설정 신규 기간: ${p}`,
@@ -1033,7 +1064,8 @@ function renderOV(){
         `<div class="ov-item ov-sch" title="${escH(x.etc?T().ov.etcTip:T().ov.schTip)}">${x.etc?`<span class="game etc-tag">${escH(T().ov.etc)}</span>`:gameTag(x.game)}<span class="ov-cr">${escH(x.creator)}</span><span class="ov-n">—</span></div>`).join("");
       const items=list.map(t=>{
         const href=pageLink(t.pageId), cls=`ov-item${t.status&&t.status!=="Done"?" ov-plan":""}`;
-        const inner=`${gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}</span><span class="ov-n">${t.count??"—"}</span>`;
+        const lv=t.creators.map(c=>LEAVE[t.period]&&LEAVE[t.period][c]).find(Boolean);
+        const inner=`${gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}${lv?` <span class="tag tag-leave ov-leave" title="${escH(lv.note[LANG]||lv.note.vi)}">${escH(T().leaveShort)}</span>`:""}</span><span class="ov-n">${t.count??"—"}</span>`;
         const tip=escH([t.game,t.creators.join(", "),t.iteration,t.status].filter(Boolean).join(" · "));
         return href?`<a class="${cls}" href="${href}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`:`<div class="${cls}" title="${tip}">${inner}</div>`;
       }).join("");
@@ -1087,8 +1119,16 @@ function bonusAt(i){return WEEKS[i].bonus||0}
 // còn tuần nghỉ lễ thì ETC giảm cùng mức với cả đội.
 function bonusEtcAt(i){return WEEKS[i].bonusEtc||0}
 function quotaAt(team,i){return team.quota+bonusAt(i)}
+// Nghỉ phép riêng từng người: chỉ tiêu tuần đó của người đó đổi thành "quota", kèm ghi chú.
+// Khoá là tên Period gốc trên Notion. Thêm dòng mới mỗi khi có người nghỉ.
+const LEAVE={
+  "[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, note:{vi:"Nghỉ thứ 5, thứ 6",en:"Off Thu–Fri",ko:"목·금 휴무"}}}
+};
+function leaveOf(name,i){const w=WEEKS[i];return (w&&LEAVE[w.full]&&LEAVE[w.full][name])||null}
 // Vai trò ETC có chuẩn riêng (12) và không nhận phần cộng thêm của kỳ gộp.
 function quotaFor(team,name,i){
+  const lv=leaveOf(name,i);
+  if(lv) return lv.quota;
   return name===team.etc
     ? (team.etcQuota||team.quota)+bonusEtcAt(i)
     : quotaAt(team,i);
@@ -1304,13 +1344,15 @@ function renderMembers(i){
       const gap=r.v-pq;
             const kk=kindOf(t,r.name,r.v,i);const k=KIND[kk];
       const tag=k.tag?`<span class="tag ${k.tag}">${T().kind[kk]}</span>`:"";
+      const lv=leaveOf(r.name,i);
+      const leave=lv?`<span class="tag tag-leave" title="${escH(T().leaveTip(lv.quota))}">${escH(lv.note[LANG]||lv.note.vi)}</span>`:"";
       return `<tr>
-        <td>${r.name}${tag}${pmOf(t,r.name,i)
+        <td>${r.name}${tag}${leave}${pmOf(t,r.name,i)
           ?`<span class="pmname">PM: ${pmOf(t,r.name,i)}</span>`
           :`<span class="tag tag-solo">${T().soloTag}</span>`}</td>
         <td class="barcell"><div class="track">
             <div class="fill" style="width:${Math.min(100,r.v/scale*100)}%;background:${gap<0?getCSS("--down"):t.color}"></div>
-            <div class="mark" style="left:${q/scale*100}%"></div>
+            <div class="mark" style="left:${pq/scale*100}%"></div>
           </div></td>
         <td class="num">${r.v}</td>
         <td class="num ${cls(gap)}" title="${T().th.own(pq)}">${signed(gap)}</td>
