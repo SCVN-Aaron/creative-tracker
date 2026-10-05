@@ -1,0 +1,789 @@
+<title>Creative Planner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout: same masthead + card system as the Creative Weekly Tracker; two tabs under the masthead; Plan = form + waiting list + confirm dialog, Overview = week picker + PM-grouped table */
+  :root{
+    --paper:#F4F6F9; --panel:#FFFFFF; --ink:#171A23; --ink-2:#5A6273; --line:#DDE2EA; --line-2:#EDF0F4;
+    --soft:#EEF1F6; --accent:#2A7394; --accent-ink:#FFFFFF; --accent-bg:#E3F1F7;
+    --ok:#12874B; --ok-bg:#E4F5EA; --bad:#C42B62; --bad-bg:#FBE9F0; --warn:#8A5208; --warn-bg:#FDF0DC;
+    --prog:#3B5BDB; --prog-bg:#E7ECFD;
+    --tag-bg:72% 93%; --tag-fg:58% 27%; --tag-bd:45% 80%;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+    --paper:#111319; --panel:#1A1D25; --ink:#E7EAF0; --ink-2:#9BA3B4; --line:#2D323D; --line-2:#242832;
+    --soft:#252A34; --accent:#5DB3D6; --accent-ink:#0D1A20; --accent-bg:#17303B;
+    --ok:#5FD08F; --ok-bg:#163223; --bad:#F07AA2; --bad-bg:#3A1A27; --warn:#F2B866; --warn-bg:#3A2A12;
+    --prog:#93A8FF; --prog-bg:#1E2747;
+    --tag-bg:32% 24%; --tag-fg:75% 82%; --tag-bd:30% 36%;
+    color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --paper:#111319; --panel:#1A1D25; --ink:#E7EAF0; --ink-2:#9BA3B4; --line:#2D323D; --line-2:#242832;
+    --soft:#252A34; --accent:#5DB3D6; --accent-ink:#0D1A20; --accent-bg:#17303B;
+    --ok:#5FD08F; --ok-bg:#163223; --bad:#F07AA2; --bad-bg:#3A1A27; --warn:#F2B866; --warn-bg:#3A2A12;
+    --prog:#93A8FF; --prog-bg:#1E2747;
+    --tag-bg:32% 24%; --tag-fg:75% 82%; --tag-bd:30% 36%;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
+  h1,h2,h3{text-wrap:balance}
+  button,select,input{font-family:inherit;font-size:14.5px;color:var(--ink)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .masthead{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 28px;padding-bottom:18px;border-bottom:2px solid var(--ink)}
+  .masthead h1{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:0}
+  .masthead p{margin:2px 0 0;color:var(--ink-2);font-size:13.5px}
+  .picker{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .picker label{font-size:13.5px;color:var(--ink-2)}
+  select,input[type=number],input[type=text]{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 11px;min-width:0}
+  .btn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:500}
+  .btn:hover{background:var(--soft)}
+  .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+  .btn-primary:hover{filter:brightness(1.07);background:var(--accent)}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .btn-x{border:0;background:transparent;color:var(--ink-2);cursor:pointer;font-size:18px;line-height:1;padding:2px 8px;border-radius:6px}
+  .btn-x:hover{background:var(--bad-bg);color:var(--bad)}
+
+  .status{font-size:12.5px;color:var(--ink-2);margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .notice{border-radius:10px;padding:12px 14px;font-size:14px;margin-top:16px}
+  .notice.warn{background:var(--warn-bg);color:var(--warn)}
+  .notice.bad{background:var(--bad-bg);color:var(--bad)}
+  .notice.ok{background:var(--ok-bg);color:var(--ok)}
+
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:16px;min-width:0}
+  .card > header{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .card > header h2{margin:0;font-size:15.5px;font-weight:600}
+  .card > header .aside{margin-left:auto;font-family:var(--mono);font-size:13.5px;color:var(--ink-2)}
+  .scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:9px 16px;font-size:14px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+  th{font-size:12px;color:var(--ink-2);font-weight:500;background:var(--soft);letter-spacing:.02em;white-space:nowrap}
+  td.num,th.num{text-align:right}
+  td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  td.pm{font-weight:600;vertical-align:top;border-right:1px solid var(--line-2);white-space:nowrap}
+  td.pm small{display:block;font-weight:400;font-size:12px;color:var(--ink-2)}
+  tr.sub td{background:var(--soft);font-weight:600;font-size:13.5px}
+  tr.grand td{background:var(--accent-bg);font-weight:700}
+  .iter{display:block;font-size:12px;color:var(--ink-2);font-family:var(--mono);margin-top:2px;word-break:break-all}
+  .empty{padding:22px 18px;color:var(--ink-2);font-size:14px}
+
+  .game{--h:210;display:inline-block;white-space:nowrap;font-size:13px;font-weight:500;padding:2px 9px;border-radius:999px;
+    background:hsl(var(--h) var(--tag-bg));color:hsl(var(--h) var(--tag-fg));border:1px solid hsl(var(--h) var(--tag-bd))}
+  .pill{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:4px;white-space:nowrap;background:var(--soft);color:var(--ink-2)}
+  .pill.prog{background:var(--prog-bg);color:var(--prog)}
+  .pill.done{background:var(--ok-bg);color:var(--ok)}
+  .pill.new{background:var(--accent-bg);color:var(--accent)}
+  .names{display:flex;flex-wrap:wrap;gap:4px 10px}
+
+  /* form */
+  .form{padding:16px 18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 16px}
+  .field{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .field > label,.field > .lbl{font-size:12.5px;color:var(--ink-2);font-weight:500}
+  .field.wide{grid-column:1 / -1}
+  .field.half{grid-column:span 2}
+  .gamepick{display:flex;gap:8px;align-items:center;min-width:0}
+  .gamepick .combo{flex:1}
+  .card.form-card{overflow:visible}
+  .combo{position:relative;min-width:0}
+  .combo input[type=text]{width:100%;padding-right:30px}
+  .combo::after{content:"";position:absolute;right:12px;top:50%;width:7px;height:7px;border-right:1.5px solid var(--ink-2);border-bottom:1.5px solid var(--ink-2);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  .combo-list{position:absolute;z-index:6;left:0;right:0;top:calc(100% + 4px);max-height:280px;overflow:auto;margin:0;padding:4px;list-style:none;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(15,18,25,.18)}
+  .combo-list li[role=option]{padding:7px 10px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:8px}
+  .combo-list li[role=option][aria-selected="true"]{background:var(--soft)}
+  .combo-list li[role=option].picked{font-weight:600}
+  .combo-list .grp{font-size:11.5px;color:var(--ink-2);padding:8px 10px 3px;letter-spacing:.04em;text-transform:uppercase}
+  .combo-list .none{padding:9px 10px;color:var(--ink-2);font-size:13.5px}
+  .combo-list mark{background:transparent;color:var(--accent);font-weight:700}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:13.5px}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+  .chip-add{display:flex;gap:6px;align-items:center}
+  .chip-add .combo{width:min(280px,100%)}
+  .chip-add .combo input[type=text]{font-size:13.5px;padding:6px 30px 6px 10px}
+  .hint{font-size:12.5px;color:var(--ink-2)}
+  .form-actions{grid-column:1 / -1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .err{color:var(--bad);font-size:13px}
+
+  .tabs{display:flex;gap:4px;margin-top:16px;border-bottom:1px solid var(--line);overflow-x:auto}
+  .tabs button{border:0;background:transparent;color:var(--ink-2);padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-size:15px;white-space:nowrap}
+  .tabs button[aria-selected="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--accent)}
+  .tabs button:hover{color:var(--ink)}
+  .rv-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin-top:16px}
+  .rv-bar .weekpick{display:flex;align-items:center;gap:8px;min-width:0;max-width:100%}
+  .rv-bar label{font-size:13.5px;color:var(--ink-2)}
+  #rv-week{font-weight:600;min-width:0;max-width:100%;flex:1}
+  .summary{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--ink-2)}
+  .summary b{font-family:var(--mono);color:var(--ink);font-size:18px;font-variant-numeric:tabular-nums;margin-right:4px}
+  td.pm small b{font-family:var(--mono);font-weight:600;color:var(--ink)}
+  td.it{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);word-break:break-all;min-width:180px}
+  a.it-link{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+  a.it-link:hover{border-bottom-color:currentColor}
+  tr.queued td{background:var(--accent-bg)}
+  .queue-actions{padding:12px 18px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;border-top:1px solid var(--line)}
+
+  /* dialog */
+  dialog{border:0;border-radius:14px;padding:0;max-width:min(860px,calc(100vw - 32px));width:100%;background:var(--panel);color:var(--ink);box-shadow:0 24px 64px rgba(0,0,0,.35)}
+  dialog::backdrop{background:rgba(15,18,25,.55)}
+  .dlg-head{padding:18px 20px 6px}
+  .dlg-head h2{margin:0;font-size:18px}
+  .dlg-head p{margin:6px 0 0;color:var(--ink-2);font-size:14px}
+  .dlg-body{padding:10px 0 4px;max-height:55vh;overflow:auto}
+  .dlg-foot{padding:14px 20px 18px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;align-items:center}
+  .dlg-foot .msg{margin-right:auto;font-size:13.5px}
+
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:8px;font-size:14px;z-index:10;max-width:calc(100vw - 32px)}
+
+  footer{margin-top:24px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
+
+  @media (max-width:760px){
+    .form{grid-template-columns:1fr 1fr}
+    .field.half{grid-column:1 / -1}
+    .picker{margin-left:0;width:100%}
+    th,td{padding:8px 10px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <div class="masthead">
+    <div>
+      <h1>Creative Planner</h1>
+      <p>Video Ads Team · lên kế hoạch creative theo PM và xem tổng quan từng tuần, dữ liệu lấy thẳng từ Creative Production DB</p>
+    </div>
+    <div class="picker">
+      <button class="btn" id="reload" type="button">Tải lại</button>
+    </div>
+  </div>
+  <div class="status" id="status">Đang kết nối Notion…</div>
+  <div id="notice"></div>
+
+  <div class="tabs" role="tablist" aria-label="Chế độ">
+    <button role="tab" id="tab-plan" aria-controls="panel-plan" aria-selected="true" type="button">Lên kế hoạch</button>
+    <button role="tab" id="tab-review" aria-controls="panel-review" aria-selected="false" type="button" tabindex="-1">Tổng quan tuần</button>
+  </div>
+
+  <div id="panel-review" role="tabpanel" aria-labelledby="tab-review" hidden>
+    <div class="rv-bar">
+      <div class="weekpick"><label for="rv-week">Tuần</label><select id="rv-week"><option>Đang tải…</option></select></div>
+      <div class="summary" id="summary"></div>
+    </div>
+    <section class="card" aria-label="Task trong tuần, nhóm theo PM">
+      <div class="scroll"><table id="review"><tr><td class="empty">Bảng sẽ hiện các task của tuần đang chọn, nhóm theo PM, ngay khi đọc xong Notion.</td></tr></table></div>
+    </section>
+  </div>
+
+  <div id="panel-plan" role="tabpanel" aria-labelledby="tab-plan">
+
+  <section class="card form-card" aria-labelledby="form-h">
+    <header><h2 id="form-h">Thêm kế hoạch</h2><span class="aside">tạo task mới · Status = To do</span></header>
+    <form class="form" id="form" novalidate>
+      <div class="field">
+        <label for="f-week">Tuần</label>
+        <select id="f-week"></select>
+      </div>
+      <div class="field">
+        <label for="f-pm-q">PM</label>
+        <div class="combo" id="c-pm"><input type="text" id="f-pm-q" placeholder="Gõ tên PM…" autocomplete="off"><input type="hidden" id="f-pm"></div>
+      </div>
+      <div class="field half">
+        <label for="f-game-q">Game title</label>
+        <div class="gamepick"><div class="combo" id="c-game"><input type="text" id="f-game-q" placeholder="Gõ tên game…" autocomplete="off"><input type="hidden" id="f-game"></div><span id="f-game-tag"></span></div>
+      </div>
+      <div class="field">
+        <label for="f-count">Số lượng creative</label>
+        <input id="f-count" type="number" min="1" step="1" inputmode="numeric" value="8">
+      </div>
+      <div class="field" style="grid-column:span 3">
+        <label for="f-iter">Tên task (Iteration)</label>
+        <input id="f-iter" type="text" autocomplete="off">
+      </div>
+      <div class="field wide">
+        <span class="lbl" id="f-cr-lbl">Creator làm chung <span class="hint">· chọn một hoặc nhiều người</span></span>
+        <div class="chips" id="f-creators" role="group" aria-labelledby="f-cr-lbl"></div>
+        <div class="chip-add">
+          <label class="hint" for="f-cr-more-q">Người khác:</label>
+          <div class="combo" id="c-cr"><input type="text" id="f-cr-more-q" placeholder="Gõ tên để thêm creator…" autocomplete="off"><input type="hidden" id="f-cr-more"></div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit" id="f-add">Thêm vào danh sách chờ</button>
+        <span class="err" id="f-err" role="alert"></span>
+      </div>
+    </form>
+  </section>
+
+  <section class="card" aria-labelledby="q-h">
+    <header><h2 id="q-h">Danh sách chờ ghi vào Notion</h2><span class="aside" id="q-aside">0 task</span></header>
+    <div class="scroll"><table id="queue"></table></div>
+    <div class="queue-actions">
+      <button class="btn" type="button" id="q-clear">Xoá hết</button>
+      <button class="btn btn-primary" type="button" id="q-review">Xem lại & ghi vào Notion</button>
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    Trang dùng connector Notion của chính người đang mở, nên task tạo ra mang tên tài khoản của bạn. Chưa có gì được ghi cho tới khi bạn bấm xác nhận.<br>
+    Một task có nhiều creator thì dashboard chia đều số lượng cho từng người.<br>
+    Chỉ hiện các Period mà Video Ads Team dùng. Tuần mới chưa có trong danh sách thì tạo Period đó trên Notion trước, rồi bấm Tải lại.
+  </footer>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlg-h">
+  <div class="dlg-head">
+    <h2 id="dlg-h">Xác nhận ghi vào Notion</h2>
+    <p id="dlg-sub"></p>
+  </div>
+  <div class="dlg-body"><table id="dlg-table"></table></div>
+  <div class="dlg-foot">
+    <span class="msg" id="dlg-msg" role="status"></span>
+    <button class="btn" type="button" id="dlg-cancel">Huỷ</button>
+    <button class="btn btn-primary" type="button" id="dlg-ok">Xác nhận tạo task</button>
+  </div>
+</dialog>
+
+<script>
+const SERVER = "Notion";
+const DS = "33807693-3135-80bc-90cd-000ba3b49e87";
+const TABLE = `"collection://${DS}"`;
+const TEAM = "Video Ads Team";
+const DRAFT_KEY = "creative-planner-queue-v1";
+
+const S = {
+  mcp:null, periods:[], games:[], gameHue:{}, users:{}, rows:[], otherTeamOnly:new Set(),
+  week:null, queue:[], creators:new Set(), teamCreators:[], loading:false, loadedAt:null,
+};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const uid = s => String(s || "").replace(/^user:\/\//, "");
+const ids = v => { if(!v) return []; try{ const a = typeof v === "string" ? JSON.parse(v) : v; return Array.isArray(a) ? a.map(uid) : []; }catch{ return []; } };
+const name = id => S.users[id] || "Không xác định";
+const sum = a => a.reduce((x,y)=>x+(+y||0),0);
+
+/* ---------- storage (per-viewer draft only) ---------- */
+function loadDraft(){ try{ const v = JSON.parse(localStorage.getItem(DRAFT_KEY) || "[]"); if(Array.isArray(v)) S.queue = v; }catch{} }
+function saveDraft(){ try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(S.queue)); }catch{} }
+
+/* ---------- game colours: one distinct hue per game, stable by Notion option order ---------- */
+function setGames(list){
+  S.games = list;
+  S.gameHue = {};
+  list.forEach((g,i)=>{ S.gameHue[g] = Math.round((i * 137.508 + 12) % 360); });
+}
+function hueFor(g){
+  if(g in S.gameHue) return S.gameHue[g];
+  let h = 0; for(const c of String(g)) h = (h*31 + c.charCodeAt(0)) % 360; return h;
+}
+const gameTag = g => g ? `<span class="game" style="--h:${hueFor(g)}">${esc(g)}</span>` : `<span class="pill">chưa chọn game</span>`;
+
+/* ---------- periods ---------- */
+function parsePeriod(p){
+  const m = /\((\d{1,2})\/(\d{1,2})~?\)/.exec(p || "");
+  if(!m) return null;
+  const now = new Date();
+  const mo = +m[1], d = +m[2];
+  let y = now.getFullYear();
+  if(mo - (now.getMonth()+1) > 6) y -= 1;
+  if((now.getMonth()+1) - mo > 6) y += 1;
+  const date = new Date(y, mo-1, d);
+  return { name:p, date, label:`Tuần ${String(d).padStart(2,"0")}/${String(mo).padStart(2,"0")}` };
+}
+function weekTag(p){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const end = new Date(p.date); end.setDate(end.getDate()+7);
+  if(today >= p.date && today < end) return " · tuần này";
+  if(p.date > today) return " · sắp tới";
+  return "";
+}
+
+/* ---------- MCP calls ---------- */
+function payloadOf(res){
+  let p = res && ("payload" in res ? res.payload : res);
+  if(typeof p === "string"){ try{ p = JSON.parse(p); }catch{} }
+  return p;
+}
+async function call(tool, input, opts){
+  const res = await S.mcp.callTool(SERVER, tool, input, opts);
+  return payloadOf(res);
+}
+async function readCall(tool, input){
+  try{ return await call(tool, input, {cache:false}); }
+  catch(e){
+    if(e && e.retryable){
+      await new Promise(r=>setTimeout(r, Math.min(e.retryAfterMs || 1500 + Math.random()*1000, 8000)));
+      return await call(tool, input, {cache:false});
+    }
+    throw e;
+  }
+}
+function explain(e, forWrite){
+  const code = e && e.code;
+  switch(code){
+    case "needs_reauth": return "Kết nối Notion đã hết hạn. Vào claude.ai → Settings → Connectors để kết nối lại Notion, rồi bấm Tải lại.";
+    case "server_not_connected": return "Tài khoản của bạn chưa có connector Notion. Thêm Notion trong claude.ai → Settings → Connectors, rồi mở lại trang.";
+    case "selection_required": return "Bạn có nhiều connector tên Notion. Chọn một connector khi claude.ai hỏi, rồi bấm Tải lại.";
+    case "not_in_manifest": return "Trang này chưa được phép dùng Notion của bạn. Mở menu Permissions của trang để cho phép, rồi bấm Tải lại.";
+    case "blocked_by_policy": case "approval_required": return "Tổ chức đang chặn công cụ Notion này cho tài khoản của bạn. Liên hệ admin claude.ai.";
+    case "not_granted": case "capability_disabled": case "capability_removed": return "Chế độ xem này không chạy được kết nối Notion. Mở trang trên claude.ai khi đã đăng nhập.";
+    case "tool_error": return "Notion từ chối yêu cầu: " + (e.message || "không rõ lý do") + ".";
+    case "server_unavailable": case "upstream_error": case "rate_limited":
+      return forWrite
+        ? "Notion không trả lời kịp nên chưa chắc task đã được tạo hay chưa. Trang đã tải lại dữ liệu; xem bảng kế hoạch trước khi thử lại."
+        : "Notion tạm thời không trả lời. Đợi một chút rồi bấm Tải lại.";
+    default: return "Lỗi không xác định" + (e && e.message ? ": " + e.message : "") + ".";
+  }
+}
+function notice(kind, html){ $("#notice").innerHTML = html ? `<div class="notice ${kind}">${html}</div>` : ""; }
+
+async function loadUsers(){
+  const out = {}; let cursor = null, guard = 0;
+  do{
+    const p = await readCall("notion-get-users", cursor ? {page_size:100, start_cursor:cursor} : {page_size:100});
+    for(const u of (p && p.results) || []) if(u.type === "person") out[u.id] = (u.name || u.email || "").trim();
+    cursor = p && p.has_more ? p.next_cursor : null;
+  }while(cursor && ++guard < 10);
+  return out;
+}
+async function loadSchema(){
+  const p = await readCall("notion-fetch", {id:`collection://${DS}`});
+  const text = (p && (p.text || p.content)) || (typeof p === "string" ? p : "");
+  const m = /<data-source-state>\s*([\s\S]*?)\s*<\/data-source-state>/.exec(text);
+  if(!m) return null;
+  try{
+    const st = JSON.parse(m[1]);
+    const sc = st.schema || {};
+    return {
+      periods: ((sc.Period && sc.Period.options) || []).map(o=>o.name),
+      games: ((sc["Game Title"] && sc["Game Title"].options) || []).map(o=>o.name),
+    };
+  }catch{ return null; }
+}
+/* Notion SQL answers at most 100 rows per call (has_more), so page through with LIMIT/OFFSET on a stable order */
+const PAGE = 100;
+async function sqlAll(query, params){
+  const out = []; let offset = 0;
+  for(let guard = 0; guard < 50; guard++){
+    const q = `${query} ORDER BY createdTime, url LIMIT ${PAGE} OFFSET ${offset}`;
+    const p = await readCall("notion-query-data-sources", {data:{data_source_urls:[`collection://${DS}`], query:q, params:params || []}});
+    const rows = (p && p.results) || [];
+    out.push(...rows);
+    if(!(p && p.has_more) && rows.length < PAGE) break;
+    if(!rows.length) break;
+    offset += rows.length;
+  }
+  return out;
+}
+async function loadRows(){
+  return sqlAll(`SELECT url, "Iteration", "Period", "Game Title", "PM", "Creator", "Video Count", "Status" FROM ${TABLE} WHERE "Team" = ?`, [TEAM]);
+}
+async function loadOtherTeamPeriods(){
+  const rows = await sqlAll(`SELECT url, "Period", "Team" FROM ${TABLE} WHERE "Period" IS NOT NULL AND ("Team" IS NULL OR "Team" != ?)`, [TEAM]);
+  return new Set(rows.map(r=>r.Period));
+}
+
+async function loadAll(){
+  if(!S.mcp || S.loading) return;
+  S.loading = true; $("#reload").disabled = true;
+  $("#status").textContent = "Đang đọc Creative Production DB…";
+  try{
+    const [users, schema, rows, otherOnly] = await Promise.all([loadUsers(), loadSchema(), loadRows(), loadOtherTeamPeriods()]);
+    const mineP = new Set(rows.map(r=>r.Period));
+    S.users = users; S.rows = rows; S.otherTeamOnly = new Set([...otherOnly].filter(p=>!mineP.has(p)));
+    const allPeriods = new Set([...(schema ? schema.periods : []), ...rows.map(r=>r.Period).filter(Boolean)]);
+    const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 140);
+    S.periods = [...allPeriods].filter(p=>!S.otherTeamOnly.has(p)).map(parsePeriod).filter(p=>p && p.date >= cutoff)
+      .sort((a,b)=>a.date-b.date);
+    const games = schema && schema.games.length ? schema.games : [...new Set(rows.map(r=>r["Game Title"]).filter(Boolean))].sort();
+    setGames(games);
+    S.loadedAt = new Date();
+    notice("", "");
+    reconcileQueue();
+    buildControls();
+    renderAll();
+  }catch(e){
+    notice(e && (e.code === "server_unavailable" || e.code === "upstream_error") ? "warn" : "bad", esc(explain(e,false)));
+    $("#status").textContent = "Chưa đọc được dữ liệu.";
+  }finally{
+    S.loading = false; $("#reload").disabled = false;
+  }
+}
+
+/* ---------- searchable dropdown (combobox): type to filter, arrows + Enter to pick, Esc to close ---------- */
+const fold = t => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g,"d").replace(/Đ/g,"D").toLowerCase();
+function makeCombo(rootId, opts){
+  const root = document.getElementById(rootId);
+  const input = root.querySelector('input[type=text]');
+  const hidden = root.querySelector('input[type=hidden]');
+  const list = document.createElement("ul");
+  list.className = "combo-list"; list.id = rootId + "-list"; list.setAttribute("role","listbox"); list.hidden = true;
+  root.appendChild(list);
+  input.setAttribute("role","combobox"); input.setAttribute("aria-autocomplete","list");
+  input.setAttribute("aria-controls", list.id); input.setAttribute("aria-expanded","false");
+  let items = [], shown = [], active = -1;
+  const labelOf = v => (items.find(i=>i.value===v) || {}).label || "";
+  function highlight(label, q){
+    if(!q) return esc(label);
+    const i = fold(label).indexOf(q);
+    if(i < 0) return esc(label);
+    return esc(label.slice(0,i)) + "<mark>" + esc(label.slice(i, i+q.length)) + "</mark>" + esc(label.slice(i+q.length));
+  }
+  function render(){
+    const q = fold(input.value.trim());
+    const typed = q && input.value !== labelOf(hidden.value);
+    shown = items.filter(i=>!typed || fold(i.label).includes(q)).slice(0, 80);
+    if(active >= shown.length) active = shown.length - 1;
+    let h = "", grp = null;
+    shown.forEach((it, idx)=>{
+      if(it.group && it.group !== grp){ grp = it.group; h += `<li class="grp" role="presentation">${esc(grp)}</li>`; }
+      const inner = opts.renderItem ? opts.renderItem(it, typed ? q : "") : highlight(it.label, typed ? q : "");
+      h += `<li role="option" id="${list.id}-${idx}" data-idx="${idx}" aria-selected="${idx===active}" class="${it.value===hidden.value?"picked":""}">${inner}</li>`;
+    });
+    list.innerHTML = h || `<li class="none" role="presentation">Không tìm thấy “${esc(input.value.trim())}”</li>`;
+    if(active >= 0){ input.setAttribute("aria-activedescendant", `${list.id}-${active}`); const el = document.getElementById(`${list.id}-${active}`); if(el) el.scrollIntoView({block:"nearest"}); }
+    else input.removeAttribute("aria-activedescendant");
+  }
+  function open(){ if(!list.hidden) return; list.hidden = false; input.setAttribute("aria-expanded","true"); active = -1; render(); }
+  function close(){ list.hidden = true; input.setAttribute("aria-expanded","false"); input.removeAttribute("aria-activedescendant"); }
+  function pick(it){
+    hidden.value = it ? it.value : "";
+    input.value = it && !opts.clearOnPick ? it.label : "";
+    close();
+    hidden.dispatchEvent(new Event("change", {bubbles:true}));
+  }
+  input.addEventListener("focus", ()=>{ open(); if(!opts.clearOnPick) input.select(); });
+  input.addEventListener("input", ()=>{ list.hidden ? open() : null; active = 0; render(); });
+  input.addEventListener("keydown", ev=>{
+    if(ev.key === "ArrowDown"){ ev.preventDefault(); open(); active = Math.min(active+1, shown.length-1); render(); }
+    else if(ev.key === "ArrowUp"){ ev.preventDefault(); active = Math.max(active-1, 0); render(); }
+    else if(ev.key === "Enter"){ if(!list.hidden){ ev.preventDefault(); if(shown[active]) pick(shown[active]); else if(shown.length===1) pick(shown[0]); } }
+    else if(ev.key === "Escape"){ if(!list.hidden){ ev.preventDefault(); input.value = opts.clearOnPick ? "" : labelOf(hidden.value); close(); } }
+  });
+  list.addEventListener("mousedown", ev=>{
+    const li = ev.target.closest('li[role=option]'); ev.preventDefault();
+    if(li) pick(shown[+li.dataset.idx]);
+  });
+  input.addEventListener("blur", ()=>{
+    // leaving with half-typed text: keep the last real choice (or clear it if the box was emptied)
+    if(!opts.clearOnPick && input.value.trim() === "" && hidden.value){ pick(null); return; }
+    input.value = opts.clearOnPick ? "" : labelOf(hidden.value);
+    close();
+  });
+  return {
+    setItems(next){ items = next; if(hidden.value && !items.some(i=>i.value===hidden.value)) hidden.value = ""; if(document.activeElement !== input) input.value = opts.clearOnPick ? "" : labelOf(hidden.value); if(!list.hidden) render(); },
+    get value(){ return hidden.value; },
+    set(v){ hidden.value = v || ""; input.value = opts.clearOnPick ? "" : labelOf(hidden.value); },
+  };
+}
+const comboPm = makeCombo("c-pm", {});
+const comboGame = makeCombo("c-game", {renderItem:(it)=>gameTag(it.value)});
+const comboCr = makeCombo("c-cr", {clearOnPick:true});
+
+/* ---------- controls ---------- */
+function buildControls(){
+  const today = new Date();
+  const cur = [...S.periods].reverse().find(p=>p.date <= today) || S.periods[S.periods.length-1];
+  if(!S.week || !S.periods.some(p=>p.name===S.week)) S.week = cur ? cur.name : null;
+  const opts = [...S.periods].reverse().map(p=>`<option value="${esc(p.name)}">${esc(p.label + weekTag(p))} — ${esc(p.name)}</option>`).join("");
+  if(!S.week || !S.periods.some(p=>p.name===S.week)) S.week = cur ? cur.name : null;
+  $("#rv-week").innerHTML = opts || `<option value="">Chưa có Period nào</option>`;
+  $("#rv-week").value = S.week || "";
+  const fw = $("#f-week").value;
+  $("#f-week").innerHTML = opts || `<option value="">Chưa có Period nào</option>`;
+  $("#f-week").value = S.periods.some(p=>p.name===fw) ? fw : (S.week || "");
+
+  // PM list: people who have been PM for this team, then everyone else
+  const pmIds = new Set(); const crIds = new Map();
+  const recent = new Date(); recent.setDate(recent.getDate() - 70);
+  for(const r of S.rows){
+    ids(r.PM).forEach(i=>pmIds.add(i));
+    const pp = parsePeriod(r.Period);
+    if(pp && pp.date >= recent) ids(r.Creator).forEach(i=>crIds.set(i,(crIds.get(i)||0)+1));
+  }
+  const byName = (a,b)=>name(a).localeCompare(name(b));
+  const pmSorted = [...pmIds].filter(i=>S.users[i]).sort(byName);
+  const others = Object.keys(S.users).filter(i=>!pmIds.has(i)).sort(byName);
+  comboPm.setItems([
+    ...pmSorted.map(i=>({value:i, label:name(i), group:"PM của team"})),
+    ...others.map(i=>({value:i, label:name(i), group:"Người khác trong workspace"})),
+  ]);
+  comboGame.setItems(S.games.map(g=>({value:g, label:g})));
+  renderGameTag();
+
+  S.teamCreators = [...crIds.keys()].filter(i=>S.users[i]).sort(byName);
+  renderCreatorChips();
+}
+function renderCreatorChips(){
+  const list = [...new Set([...S.teamCreators, ...S.creators])];
+  $("#f-creators").innerHTML = list.map(i=>`<button type="button" class="chip" data-id="${i}" aria-pressed="${S.creators.has(i)}">${esc(name(i))}</button>`).join("")
+    || `<span class="hint">Chưa có creator nào trong 10 tuần gần đây. Chọn ở ô bên dưới.</span>`;
+  const rest = Object.keys(S.users).filter(i=>!list.includes(i)).sort((a,b)=>name(a).localeCompare(name(b)));
+  comboCr.setItems(rest.map(i=>({value:i, label:name(i)})));
+}
+function renderGameTag(){ const g = $("#f-game").value; $("#f-game-tag").innerHTML = g ? gameTag(g) : ""; }
+
+/* ---------- iteration name: <Game>_<n>th_UA_Iteration, n = next after the highest seen ---------- */
+function ordinal(n){ const t = n % 100; if(t>=11 && t<=13) return n+"th"; return n + ({1:"st",2:"nd",3:"rd"}[n%10] || "th"); }
+function nextIteration(game){
+  if(!game) return "";
+  const key = game.toLowerCase().replace(/[^a-z0-9]/g,"");
+  let max = 0;
+  const scan = t => {
+    const m = /^(.*?)_(\d+)(?:st|nd|rd|th)_/i.exec(t || "");
+    if(m && m[1].toLowerCase().replace(/[^a-z0-9]/g,"") === key) max = Math.max(max, +m[2]);
+  };
+  S.rows.forEach(r=>scan(r.Iteration));
+  S.queue.forEach(q=>scan(q.iteration));
+  return `${game}_${ordinal(max+1)}_UA_Iteration`;
+}
+let iterTouched = false;
+function suggestIteration(){ if(!iterTouched) $("#f-iter").value = nextIteration($("#f-game").value); }
+
+/* ---------- render ---------- */
+function periodOf(n){ return S.periods.find(p=>p.name===n) || parsePeriod(n) || {name:n,label:n}; }
+function renderAll(){
+  const when = S.loadedAt ? S.loadedAt.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}) : "";
+  $("#status").textContent = `Đã đọc ${S.rows.length} task của ${TEAM} lúc ${when}.`;
+  renderQueue(); renderReview();
+}
+function statusPill(s){
+  if(!s) return `<span class="pill">—</span>`;
+  const cls = s === "Done" ? "done" : s === "In-progress" ? "prog" : "";
+  return `<span class="pill ${cls}">${esc(s)}</span>`;
+}
+/* SQL hands back "https://app.notion.com/<id>" without the "/p/" segment, which does not open the page.
+   Rebuild the canonical page link from the 32-hex page id instead. */
+function pageLink(url){
+  const m = /([0-9a-f]{32})(?:[?#]|$)/i.exec(String(url || "").replace(/-/g, ""));
+  return m ? `https://app.notion.com/p/${m[1].toLowerCase()}` : null;
+}
+function notionLink(r){
+  const href = pageLink(r.url);
+  const label = r.iteration ? esc(r.iteration) : (href ? "Mở trên Notion" : "—");
+  return href ? `<a class="it-link" href="${href}" target="_blank" rel="noopener noreferrer" title="Mở task trên Notion">${label}<span aria-hidden="true"> ↗</span></a>` : label;
+}
+function renderReview(){
+  const p = S.week ? periodOf(S.week) : null;
+  // Notion rows plus this viewer's queued (not yet written) items for the same week
+  const rows = S.rows.filter(r=>r.Period === S.week).map(r=>({
+    pm: ids(r.PM)[0] || "", game: r["Game Title"], iteration: r.Iteration, creators: ids(r.Creator),
+    count: r["Video Count"], status: r.Status, url: r.url, queued:false,
+  })).concat(S.queue.filter(q=>q.period === S.week).map(q=>({
+    pm:q.pm, game:q.game, iteration:q.iteration, creators:q.creators, count:q.count, status:null, queued:true,
+  })));
+  const saved = rows.filter(r=>!r.queued);
+  const total = sum(saved.map(r=>r.count));
+  $("#summary").innerHTML = p ? [
+    [total,"creative"],[saved.length,"task"],[new Set(saved.map(r=>r.pm).filter(Boolean)).size,"PM"],
+    [new Set(saved.map(r=>r.game).filter(Boolean)).size,"game"],[new Set(saved.flatMap(r=>r.creators)).size,"creator"],
+  ].map(([n,l])=>`<span><b>${n}</b>${l}</span>`).join("") : "";
+  if(!rows.length){
+    $("#review").innerHTML = `<tr><td class="empty">Tuần này chưa có task nào trên Notion. Thêm ở tab Lên kế hoạch.</td></tr>`;
+    return;
+  }
+  const NOPM = "Chưa có PM";
+  const groups = new Map();
+  for(const r of rows){
+    const key = r.pm ? name(r.pm) : NOPM;
+    if(!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(r);
+  }
+  const keys = [...groups.keys()].sort((a,b)=>{
+    if(a===NOPM) return 1; if(b===NOPM) return -1;
+    return sum(groups.get(b).map(r=>r.count)) - sum(groups.get(a).map(r=>r.count)) || a.localeCompare(b);
+  });
+  let h = `<tr><th>PM</th><th>Game</th><th>Iteration</th><th>Creator</th><th class="num">Số lượng</th><th>Trạng thái</th></tr>`;
+  for(const k of keys){
+    const list = groups.get(k).sort((a,b)=>(a.queued-b.queued) || (a.game||"").localeCompare(b.game||""));
+    const ng = new Set(list.map(r=>r.game).filter(Boolean)).size;
+    const nc = new Set(list.flatMap(r=>r.creators)).size;
+    list.forEach((r,i)=>{
+      const cr = r.creators.map(name);
+      h += `<tr${r.queued?' class="queued"':""}>${i===0?`<td class="pm" rowspan="${list.length}">${esc(k)}<small><b>${ng}</b> game · <b>${nc}</b> creator</small></td>`:""}
+        <td>${gameTag(r.game)}</td>
+        <td class="it">${notionLink(r)}</td>
+        <td><span class="names">${cr.length?cr.map(esc).join(", "):"—"}</span></td>
+        <td class="num">${r.count ?? "—"}</td>
+        <td>${r.queued?'<span class="pill new">Chờ ghi</span>':statusPill(r.status)}</td></tr>`;
+    });
+  }
+  h += `<tr class="grand"><td colspan="4">Tổng cộng trên Notion</td><td class="num">${total}</td><td></td></tr>`;
+  $("#review").innerHTML = h;
+}
+function queueRowHtml(q, withRemove){
+  const p = periodOf(q.period);
+  return `<td>${esc(p.label)}<span class="iter">${esc(q.period)}</span></td>
+    <td>${esc(name(q.pm))}</td>
+    <td>${gameTag(q.game)}<span class="iter">${esc(q.iteration)}</span></td>
+    <td>${q.creators.map(c=>esc(name(c))).join(", ")}</td>
+    <td class="num">${q.count}</td>
+    ${withRemove?`<td><button class="btn-x" type="button" data-rm="${q.id}" aria-label="Bỏ task ${esc(q.iteration)}">×</button></td>`:""}`;
+}
+function renderQueue(){
+  const n = S.queue.length;
+  $("#q-aside").textContent = `${n} task · ${sum(S.queue.map(q=>q.count))} creative`;
+  $("#q-review").disabled = !n; $("#q-clear").disabled = !n;
+  if(!n){
+    $("#queue").innerHTML = `<tr><td class="empty">Chưa có kế hoạch nào đang chờ. Điền form phía trên rồi bấm “Thêm vào danh sách chờ”.</td></tr>`;
+    return;
+  }
+  $("#queue").innerHTML = `<tr><th>Tuần</th><th>PM</th><th>Game · tên task</th><th>Creator</th><th class="num">Số lượng</th><th></th></tr>`
+    + S.queue.map(q=>`<tr>${queueRowHtml(q,true)}</tr>`).join("");
+}
+
+/* a queued item already present in Notion (same Iteration + Period) is dropped — covers a write whose reply was lost */
+function reconcileQueue(){
+  const have = new Set(S.rows.map(r=>(r.Iteration||"").trim().toLowerCase()+"|"+r.Period));
+  const before = S.queue.length;
+  S.queue = S.queue.filter(q=>!have.has(q.iteration.trim().toLowerCase()+"|"+q.period));
+  if(S.queue.length !== before) saveDraft();
+  return before - S.queue.length;
+}
+
+/* ---------- form ---------- */
+$("#form").addEventListener("submit", ev=>{
+  ev.preventDefault();
+  const err = $("#f-err"); err.textContent = "";
+  const q = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+    period: $("#f-week").value, pm: $("#f-pm").value, game: $("#f-game").value,
+    count: Math.round(+$("#f-count").value), iteration: $("#f-iter").value.trim(), creators:[...S.creators],
+  };
+  const missing = [];
+  if(!q.period) missing.push("tuần"); if(!q.pm) missing.push("PM"); if(!q.game) missing.push("game");
+  if(!(q.count > 0)) missing.push("số lượng (số nguyên lớn hơn 0)");
+  if(!q.creators.length) missing.push("ít nhất một creator");
+  if(!q.iteration) missing.push("tên task");
+  if(missing.length){ err.textContent = "Còn thiếu: " + missing.join(", ") + "."; return; }
+  const dupe = S.rows.some(r=>(r.Iteration||"").trim().toLowerCase()===q.iteration.toLowerCase() && r.Period===q.period)
+            || S.queue.some(x=>x.iteration.toLowerCase()===q.iteration.toLowerCase() && x.period===q.period);
+  if(dupe){ err.textContent = "Tuần này đã có task cùng tên. Đổi tên task để tránh tạo trùng."; return; }
+  S.queue.push(q); saveDraft();
+  S.creators.clear(); iterTouched = false;
+  renderCreatorChips(); suggestIteration(); renderAll();
+  toast(`Đã thêm ${q.game} · ${q.count} creative vào danh sách chờ`);
+});
+$("#f-game").addEventListener("change", ()=>{ renderGameTag(); iterTouched = false; suggestIteration(); });
+$("#f-iter").addEventListener("input", ()=>{ iterTouched = $("#f-iter").value.trim() !== ""; });
+$("#f-creators").addEventListener("click", ev=>{
+  const b = ev.target.closest(".chip"); if(!b) return;
+  const id = b.dataset.id;
+  S.creators.has(id) ? S.creators.delete(id) : S.creators.add(id);
+  b.setAttribute("aria-pressed", S.creators.has(id));
+});
+$("#f-cr-more").addEventListener("change", ev=>{
+  const id = ev.target.value; if(!id) return;
+  ev.target.value = "";
+  S.creators.add(id); renderCreatorChips();
+});
+$("#reload").addEventListener("click", loadAll);
+$("#rv-week").addEventListener("change", ev=>{ S.week = ev.target.value; renderReview(); });
+
+/* ---------- tabs (remembered per viewer; #tong-quan deep-links the overview) ---------- */
+const TAB_KEY = "creative-planner-tab";
+function showTab(which){
+  for(const t of ["plan","review"]){
+    const on = t === which;
+    $("#tab-"+t).setAttribute("aria-selected", on); $("#tab-"+t).tabIndex = on ? 0 : -1;
+    $("#panel-"+t).hidden = !on;
+  }
+  try{ localStorage.setItem(TAB_KEY, which); }catch{}
+}
+$("#tab-plan").addEventListener("click", ()=>showTab("plan"));
+$("#tab-review").addEventListener("click", ()=>showTab("review"));
+document.querySelector(".tabs").addEventListener("keydown", ev=>{
+  if(ev.key!=="ArrowLeft" && ev.key!=="ArrowRight") return;
+  const next = $("#tab-plan").getAttribute("aria-selected")==="true" ? "review" : "plan";
+  showTab(next); $("#tab-"+next).focus();
+});
+(()=>{ let t = location.hash === "#tong-quan" ? "review" : null;
+  if(!t){ try{ t = localStorage.getItem(TAB_KEY); }catch{} }
+  showTab(t === "review" ? "review" : "plan"); })();
+$("#queue").addEventListener("click", ev=>{
+  const b = ev.target.closest("[data-rm]"); if(!b) return;
+  S.queue = S.queue.filter(q=>q.id !== b.dataset.rm); saveDraft(); suggestIteration(); renderAll();
+});
+let clearArmed = null;
+$("#q-clear").addEventListener("click", ()=>{
+  const b = $("#q-clear");
+  if(!clearArmed){ b.textContent = "Bấm lần nữa để xoá"; clearArmed = setTimeout(()=>{ clearArmed=null; b.textContent="Xoá hết"; }, 3000); return; }
+  clearTimeout(clearArmed); clearArmed = null; b.textContent = "Xoá hết";
+  S.queue = []; saveDraft(); suggestIteration(); renderAll();
+});
+
+/* ---------- confirm + write ---------- */
+const dlg = $("#dlg");
+$("#q-review").addEventListener("click", ()=>{
+  if(!S.queue.length) return;
+  const weeks = new Set(S.queue.map(q=>periodOf(q.period).label));
+  $("#dlg-sub").textContent = `Sẽ tạo ${S.queue.length} task mới (${sum(S.queue.map(q=>q.count))} creative) trong Creative Production DB, Team = ${TEAM}, Status = To do, cho ${[...weeks].join(", ")}. Kiểm tra từng dòng trước khi xác nhận.`;
+  $("#dlg-table").innerHTML = `<tr><th>Tuần</th><th>PM</th><th>Game · tên task</th><th>Creator</th><th class="num">Số lượng</th></tr>`
+    + S.queue.map(q=>`<tr>${queueRowHtml(q,false)}</tr>`).join("");
+  $("#dlg-msg").textContent = ""; $("#dlg-msg").className = "msg";
+  $("#dlg-ok").disabled = false; $("#dlg-cancel").disabled = false;
+  $("#dlg-ok").textContent = `Xác nhận tạo ${S.queue.length} task`;
+  dlg.showModal();
+});
+$("#dlg-cancel").addEventListener("click", ()=>dlg.close());
+dlg.addEventListener("cancel", ev=>{ if($("#dlg-ok").disabled && $("#dlg-cancel").disabled) ev.preventDefault(); });
+
+$("#dlg-ok").addEventListener("click", async ()=>{
+  if(!S.mcp || !S.queue.length) return;
+  const batch = [...S.queue];
+  $("#dlg-ok").disabled = true; $("#dlg-cancel").disabled = true;
+  $("#dlg-msg").textContent = "Đang ghi vào Notion…";
+  const pages = batch.map(q=>({properties:{
+    "Iteration": q.iteration, "Period": q.period, "Team": TEAM, "Game Title": q.game,
+    "PM": [q.pm], "Creator": q.creators, "Video Count": q.count, "Status": "To do",
+  }}));
+  let failed = null;
+  try{
+    await call("notion-create-pages", {parent:{type:"data_source_id", data_source_id:DS}, pages, allow_async:false}, {cache:false});
+  }catch(e){ failed = e; }
+  try{ await S.mcp.invalidate(SERVER); }catch{}
+  if(!failed){
+    const done = new Set(batch.map(q=>q.id));
+    S.queue = S.queue.filter(q=>!done.has(q.id)); saveDraft();
+    dlg.close();
+    toast(`Đã tạo ${batch.length} task trên Notion`);
+    await loadAll();
+    return;
+  }
+  // ambiguous or refused: re-read Notion, drop whatever did land, keep the rest queued
+  await loadAll();
+  const landed = batch.filter(q=>!S.queue.some(x=>x.id===q.id)).length;
+  $("#dlg-msg").className = "msg err";
+  $("#dlg-msg").textContent = explain(failed, true) + (landed ? ` ${landed}/${batch.length} task đã có trên Notion và được bỏ khỏi danh sách chờ.` : "");
+  $("#dlg-cancel").disabled = false; $("#dlg-cancel").textContent = "Đóng";
+  $("#dlg-ok").disabled = !S.queue.length; $("#dlg-ok").textContent = S.queue.length ? `Thử lại ${S.queue.length} task` : "Xong";
+});
+
+let toastT = null;
+function toast(msg){
+  let t = document.querySelector(".toast");
+  if(!t){ t = document.createElement("div"); t.className = "toast"; t.setAttribute("role","status"); document.body.appendChild(t); }
+  t.textContent = msg; t.hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(()=>{ t.hidden = true; }, 3200);
+}
+
+/* ---------- boot ---------- */
+loadDraft(); renderQueue();
+(async ()=>{
+  const mcp = window.claude && window.claude.use ? await window.claude.use("mcp").catch(()=>null) : null;
+  if(!mcp){
+    $("#status").textContent = "Không có kết nối Notion trong chế độ xem này.";
+    notice("warn", "Trang cần mở trên claude.ai khi đã đăng nhập và đã thêm connector Notion (Settings → Connectors). Khi đó bảng kế hoạch và form sẽ đọc, ghi trực tiếp Creative Production DB.");
+    $("#q-review").disabled = true; $("#f-add").disabled = true;
+    return;
+  }
+  S.mcp = mcp;
+  await loadAll();
+})();
+</script>
