@@ -149,6 +149,9 @@
   .ov-empty{color:var(--ink-2);opacity:.5}
   #ov-table tr.grand td{background:var(--accent-bg);font-weight:700;font-family:var(--mono)}
   #ov-table tr.grand td.sticky{font-family:var(--sans)}
+  .ov-toggle{font:inherit;font-size:12.5px;font-weight:500;color:var(--accent);background:transparent;border:1px solid var(--line);border-radius:6px;padding:3px 9px;cursor:pointer;margin-left:6px}
+  .ov-toggle:hover{background:var(--soft)}
+  th.ov-more,td.ov-more{width:1%;white-space:nowrap}
   .ov-h{font-size:15px;font-weight:600;margin:0;padding:14px 18px;border-bottom:1px solid var(--line)}
   #ovg-table td{vertical-align:top}
   #ovg-table td.pmc small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);font-family:var(--mono)}
@@ -216,8 +219,7 @@
   </div>
 
   <div id="panel-ov" role="tabpanel" aria-labelledby="tab-ov" hidden>
-    <section class="card" aria-labelledby="ovg-h">
-      <h2 class="ov-h" id="ovg-h">PM đang làm game gì</h2>
+    <section class="card" aria-label="Game của từng PM">
       <div class="scroll"><table id="ovg-table"></table></div>
     </section>
     <section class="card" aria-labelledby="ovw-h">
@@ -317,6 +319,9 @@ const ids = v => { if(!v) return []; try{ const a = typeof v === "string" ? JSON
 // Tài khoản đã rời workspace thì Notion không trả tên — giữ tên đã biết từ dữ liệu cũ.
 const FORMER = {"395d872b-594c-81f7-b803-0002fe1a9088":"Avril"};
 const name = id => S.users[id] || FORMER[id] || "Không xác định";
+// PM đã rời team: không hiện trong Tổng quan tuần và Overview
+const HIDDEN_PM_IDS = Object.keys(FORMER);
+const shownPM = r => !ids(r.PM).some(i=>HIDDEN_PM_IDS.includes(i));
 const sum = a => a.reduce((x,y)=>x+(+y||0),0);
 
 /* ---------- storage (per-viewer draft only) ---------- */
@@ -623,7 +628,7 @@ function notionLink(r){
 function renderReview(){
   const p = S.week ? periodOf(S.week) : null;
   // Notion rows plus this viewer's queued (not yet written) items for the same week
-  const rows = S.rows.filter(r=>r.Period === S.week).map(r=>({
+  const rows = S.rows.filter(r=>r.Period === S.week && shownPM(r)).map(r=>({
     pm: ids(r.PM)[0] || "", game: r["Game Title"], iteration: r.Iteration, creators: ids(r.Creator),
     count: r["Video Count"], status: r.Status, url: r.url, queued:false,
   })).concat(S.queue.filter(q=>q.period === S.week).map(q=>({
@@ -671,7 +676,7 @@ function renderReview(){
 function renderOV(){
   const table = $("#ov-table");
   const NOPM = "\u0000";
-  const tasks = S.rows.filter(r=>r.Period).map(r=>({
+  const tasks = S.rows.filter(r=>r.Period && shownPM(r)).map(r=>({
     period:r.Period, pm:ids(r.PM)[0] ? name(ids(r.PM)[0]) : "", game:r["Game Title"], iteration:r.Iteration,
     creators:ids(r.Creator).map(name), count:r["Video Count"], status:r.Status, url:r.url, queued:false,
   })).concat(S.queue.map(q=>({period:q.period, pm:name(q.pm), game:q.game, iteration:q.iteration,
@@ -689,7 +694,7 @@ function renderOV(){
   const wkTotal = w=>sum(rows.filter(t=>t.period===w && !t.queued).map(t=>t.count));
   let h = `<thead><tr><th class="sticky">PM</th>` + weeks.map(w=>`<th class="${isNow(w)?"now":""}" title="${esc(w)}">${esc(periodOf(w).label)}<small>${wkTotal(w)}</small></th>`).join("") + `</tr></thead><tbody>`;
   for(const k of pms){
-    h += `<tr><td class="sticky">${k===NOPM?"Chưa có PM":esc(k)}<small>${tot(k)}</small></td>`;
+    h += `<tr><td class="sticky">${k===NOPM?"Chưa có PM":esc(k)}</td>`;
     for(const w of weeks){
       const list = rows.filter(t=>t.period===w && (t.pm||NOPM)===k).sort((a,b)=>(a.queued-b.queued)||(a.game||"").localeCompare(b.game||""));
       const items = list.map(t=>{
@@ -708,20 +713,23 @@ function renderOV(){
   scrollOVToNow();
 }
 // PM × game: tuần này + sắp tới (gồm kế hoạch chờ ghi) và các tuần trước
+let OV_PAST = false;   // cột "Các tuần trước" thu gọn mặc định
+document.addEventListener("click", ev=>{ if(ev.target.closest("#ovg-toggle")){ OV_PAST = !OV_PAST; renderOV(); } });
 function renderOVGames(rows, pms, NOPM){
   const today = new Date(); today.setHours(0,0,0,0);
   const ahead = t=>{ const p = periodOf(t.period); if(!p.date) return false; const end = new Date(p.date); end.setDate(end.getDate()+7); return end > today; };
   const chips = list=>{
     const by = new Map();
-    list.forEach(t=>{ const g = t.game || ""; const e = by.get(g) || {n:0, c:new Set(), last:0, q:false};
-      e.n += (+t.count||0); t.creators.forEach(x=>e.c.add(x)); e.last = Math.max(e.last, +periodOf(t.period).date||0); e.q = e.q || t.queued; by.set(g, e); });
+    list.forEach(t=>{ const g = t.game || ""; const e = by.get(g) || {n:0, has:false, c:new Set(), last:0, q:false};
+      e.n += (+t.count||0); e.has = e.has || t.count != null; t.creators.forEach(x=>e.c.add(x)); e.last = Math.max(e.last, +periodOf(t.period).date||0); e.q = e.q || t.queued; by.set(g, e); });
     const arr = [...by.entries()].sort((a,b)=>b[1].last-a[1].last || b[1].n-a[1].n);
-    return arr.length ? `<div class="gchips">${arr.map(([g,e])=>`<span class="gchip" title="${esc(`${g||"—"} · ${e.n} creative · ${[...e.c].join(", ")}${e.q?" · có kế hoạch chờ ghi":""}`)}">${gameTag(g)}<b>${e.n}</b></span>`).join("")}</div>` : `<span class="ov-empty">–</span>`;
+    return arr.length ? `<div class="gchips">${arr.map(([g,e])=>`<span class="gchip" title="${esc(`${g||"—"} · ${e.n} creative · ${[...e.c].join(", ")}${e.q?" · có kế hoạch chờ ghi":""}`)}">${gameTag(g)}<b>${e.has ? e.n : "—"}</b></span>`).join("")}</div>` : `<span class="ov-empty">–</span>`;
   };
-  let h = `<tr><th>PM</th><th>Tuần này &amp; sắp tới</th><th>Các tuần trước</th></tr>`;
+  const toggle = `<button type="button" class="ov-toggle" id="ovg-toggle" aria-expanded="${OV_PAST}">${OV_PAST ? "Thu gọn" : "+ Xem các tuần trước"}</button>`;
+  let h = `<tr><th>PM</th><th>Tuần này &amp; sắp tới</th>${OV_PAST ? `<th>Các tuần trước ${toggle}</th>` : `<th class="ov-more">${toggle}</th>`}</tr>`;
   for(const k of pms){
     const mine = rows.filter(t=>(t.pm||NOPM)===k);
-    h += `<tr><td class="pm">${k===NOPM?"Chưa có PM":esc(k)}<small>${new Set(mine.map(t=>t.game).filter(Boolean)).size} game</small></td><td>${chips(mine.filter(ahead))}</td><td>${chips(mine.filter(t=>!ahead(t)))}</td></tr>`;
+    h += `<tr><td class="pm">${k===NOPM?"Chưa có PM":esc(k)}<small>${new Set(mine.map(t=>t.game).filter(Boolean)).size} game</small></td><td>${chips(mine.filter(ahead))}</td>${OV_PAST ? `<td>${chips(mine.filter(t=>!ahead(t)))}</td>` : `<td class="ov-more"></td>`}</tr>`;
   }
   $("#ovg-table").innerHTML = h;
 }

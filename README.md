@@ -23,12 +23,14 @@ Dashboard có ba tab và một link:
 
 - **Creator** — sản lượng từng creator so với chỉ tiêu, như trước giờ. Kỳ chưa bắt đầu (kế hoạch nhập trước) không được tính vào đây.
 - **PM** — tổng quan từng tuần: PM nào làm game gì, iteration nào, với creator nào, bao nhiêu creative, trạng thái ra sao. Có cả các tuần sắp tới. Bấm tên iteration để mở task trên Notion. Mở thẳng tab này bằng link có đuôi `#pm`.
-- **Overview** — bảng "PM đang làm game gì" (mỗi PM: game tuần này & sắp tới, game các tuần trước, kèm số creative), rồi toàn cảnh theo tuần: mỗi hàng là một PM, mỗi cột là một tuần (từ lúc đội bắt đầu điền PM tới các tuần sắp tới), mỗi ô liệt kê game · creator · số lượng. Bấm một dòng để mở task trên Notion. Bảng tự cuộn tới tuần này. Mở thẳng bằng link có đuôi `#overview`.
+- **Overview** — bảng game của từng PM (tuần này & sắp tới; các tuần trước bấm "+ Xem các tuần trước" mới hiện, kèm số creative), rồi toàn cảnh theo tuần: mỗi hàng là một PM, mỗi cột là một tuần (từ lúc đội bắt đầu điền PM tới các tuần sắp tới), mỗi ô liệt kê game · creator · số lượng. Bấm một dòng để mở task trên Notion. Bảng tự cuộn tới tuần này. Mở thẳng bằng link có đuôi `#overview`.
 - **Lên kế hoạch ↗** — mở [Creative Planner](https://claude.ai/artifact/4KF9BgskfgqJvzsSCgeCsS), nơi PM chọn tuần, PM, game, số lượng, creator làm chung rồi xác nhận để tạo task (Status = To do) trong Creative Production DB.
 
 Creative Planner phải chạy trên claude.ai vì nó ghi vào Notion bằng connector Notion của chính người đang mở, không cần integration token. GitHub Pages không có quyền đó nên dashboard chỉ link sang. Artifact đang ở chế độ riêng tư — muốn PM khác dùng thì chủ artifact chia sẻ qua menu Share, và mỗi người cần nối connector Notion trong claude.ai.
 
 Tab PM cần `data/latest.csv` ở định dạng mới, có thêm các cột `Game Title`, `Iteration`, `Status`, `Page ID` (xem `ROUTINE.md`). File ở định dạng cũ thì tab Creator vẫn chạy bình thường, tab PM báo chưa có dữ liệu.
+
+PM đã rời team (hằng `HIDDEN_PM` trong `index.html`, hiện là Avril) không hiện trong tab PM và Overview; số của creator ở tab Creator vẫn giữ nguyên.
 
 Màu tag mỗi game lấy theo thứ tự option `Game Title` trên Notion (hằng `GAME_ORDER` trong `index.html`, khớp với Creative Planner). Thêm game mới trên Notion thì thêm tên vào cuối `GAME_ORDER` để màu hai nơi giống nhau.
 
