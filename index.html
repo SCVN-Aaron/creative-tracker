@@ -12,21 +12,21 @@
     --paper:#F4F6F9;
     --panel:#FFFFFF;
     --ink:#171A23;
-    --ink-2:#5A6273;
-    --line:#DDE2EA;
+    --ink-2:#454D5E;
+    --line:#CBD2DC;
     --video:#5B4BE0;
     --up:#12874B;
     --down:#C42B62;
     --warn:#B4690E;
     --soft:#EEF1F6;
     --chip:#F0F2F6;
-    --th:#F7F9FB;
-    --grid:#EDF0F4;
-    --dash:#E6E9EF;
+    --th:#EEF2F6;
+    --grid:#DFE4EB;
+    --dash:#D5DBE4;
     --muted:#B8BFCC;
     --accent:#2A7394;
     --accent-bg:#E3F1F7;
-    --now-bg:#F6FAFC;
+    --now-bg:#E8F3F9;
     --up-bg:#E4F5EA;
     --down-bg:#FBE9F0;
     --as-bg:#EAE7FC;
@@ -35,9 +35,10 @@
     --prog-bg:#E7ECFD;
     --tip-bg:#171A23;
     --shadow:rgba(23,26,35,.12);
-    --tag-bg:72% 93%;
-    --tag-fg:58% 27%;
-    --tag-bd:45% 80%;
+    --tag-bg:80% 88%;
+    --tag-fg:80% 24%;
+    --tag-bd:60% 62%;
+    --faded:.85;
     color-scheme:light;
   }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
@@ -70,6 +71,7 @@
     --tag-bg:32% 24%;
     --tag-fg:75% 82%;
     --tag-bd:30% 36%;
+    --faded:.65;
     color-scheme:dark;
   }}
   :root[data-theme="dark"]{
@@ -102,6 +104,7 @@
     --tag-bg:32% 24%;
     --tag-fg:75% 82%;
     --tag-bd:30% 36%;
+    --faded:.65;
     color-scheme:dark;
   }
   *{box-sizing:border-box}
@@ -271,8 +274,8 @@
   .ov-item .game{max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ov-cr{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ov-n{font-family:"IBM Plex Mono",monospace;font-weight:600;text-align:right;min-width:18px}
-  .ov-plan{opacity:.75}
-  .ov-sch{opacity:.62;font-style:italic}
+  .ov-plan{opacity:var(--faded)}
+  .ov-sch{opacity:var(--faded);font-style:italic}
   .ov-sch .game{border:1px dashed currentColor}
   .ov-empty{color:var(--muted)}
   #ov-table tr.grand td{background:var(--accent-bg);font-weight:700;font-family:"IBM Plex Mono",monospace}
@@ -1006,8 +1009,7 @@ function renderOV(){
   const nowCls=c=>c.now?" now":"";
   const ofCol=c=>c.period?rows.filter(t=>t.period===c.period):[];
   let h=`<thead><tr><th class="sticky">${T().ov.pm}</th>`+cols.map(c=>{
-      const n=ofCol(c).reduce((s,t)=>s+(t.count||0),0);
-      return `<th class="${nowCls(c).trim()}"${c.period?` title="${escH(c.period)}"`:""}>${escH(c.label)}<small>${c.period?n:"&nbsp;"}</small></th>`;
+      return `<th class="${nowCls(c).trim()}"${c.period?` title="${escH(c.period)}"`:""}>${escH(c.label)}</th>`;
     }).join("")+`</tr></thead><tbody>`;
   pms.forEach(k=>{
     h+=`<tr><td class="sticky">${k===NOPM?T().pm.noPM:escH(k)}</td>`;
