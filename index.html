@@ -236,7 +236,6 @@
   .tag-hi{background:var(--up-bg);color:var(--up)}
   .tag-lo{background:var(--down-bg);color:var(--down)}
   .tag-leave{background:var(--etc-bg);color:var(--warn)}
-  .ov-leave{font-size:10.5px;padding:0 5px;margin-left:2px;font-style:normal}
   .tag-pm{background:var(--accent-bg);color:var(--accent)}
   .tag-solo{background:var(--soft);color:var(--ink-2)}
   .pmname{display:block;font-size:11.5px;color:var(--ink-2);margin-top:1px}
@@ -549,7 +548,7 @@ const I18N={
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
       noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (Routine cập nhật hằng tuần sẽ ghi các cột này).",
       note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước. Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`},
-  soloTag:"tự làm", leaveShort:"nghỉ", leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
+  soloTag:"tự làm", leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
   grandNow:"Số lượng video tuần này", ongoing:"Tuần đang diễn ra — số liệu còn tăng, chưa phải kết quả cuối.",
   freshWarn:p=>`kỳ mới chưa khai báo chỉ tiêu: ${p}`,
@@ -622,7 +621,7 @@ const I18N={
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
       noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the weekly Routine writes them).",
       note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time. Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`},
-  soloTag:"solo", leaveShort:"leave", leaveTip:q=>`On leave — target this week is ${q} videos`,
+  soloTag:"solo", leaveTip:q=>`On leave — target this week is ${q} videos`,
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
   grandNow:"Videos so far this week", ongoing:"Week in progress — numbers are still coming in, not the final result.",
   freshWarn:p=>`new periods with no target set: ${p}`,
@@ -695,7 +694,7 @@ const I18N={
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
       noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(주간 Routine이 기록).",
       note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다. 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`},
-  soloTag:"단독", leaveShort:"휴무", leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
+  soloTag:"단독", leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
   grandNow:"이번 주 영상 수", ongoing:"진행 중인 주 — 수치가 계속 늘어나며 최종 결과가 아닙니다.",
   freshWarn:p=>`목표 미설정 신규 기간: ${p}`,
@@ -1064,8 +1063,7 @@ function renderOV(){
         `<div class="ov-item ov-sch" title="${escH(x.etc?T().ov.etcTip:T().ov.schTip)}">${x.etc?`<span class="game etc-tag">${escH(T().ov.etc)}</span>`:gameTag(x.game)}<span class="ov-cr">${escH(x.creator)}</span><span class="ov-n">—</span></div>`).join("");
       const items=list.map(t=>{
         const href=pageLink(t.pageId), cls=`ov-item${t.status&&t.status!=="Done"?" ov-plan":""}`;
-        const lv=t.creators.map(c=>LEAVE[t.period]&&LEAVE[t.period][c]).find(Boolean);
-        const inner=`${gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}${lv?` <span class="tag tag-leave ov-leave" title="${escH(lv.note[LANG]||lv.note.vi)}">${escH(T().leaveShort)}</span>`:""}</span><span class="ov-n">${t.count??"—"}</span>`;
+        const inner=`${gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}</span><span class="ov-n">${t.count??"—"}</span>`;
         const tip=escH([t.game,t.creators.join(", "),t.iteration,t.status].filter(Boolean).join(" · "));
         return href?`<a class="${cls}" href="${href}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`:`<div class="${cls}" title="${tip}">${inner}</div>`;
       }).join("");

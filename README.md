@@ -34,7 +34,7 @@ Tab PM cần `data/latest.csv` ở định dạng mới, có thêm các cột `G
 
 PM đã rời team (hằng `HIDDEN_PM` trong `index.html`, hiện là Avril) không hiện trong tab PM và Overview; số của creator ở tab Creator vẫn giữ nguyên.
 
-Creator nghỉ phép vài ngày: thêm một dòng vào hằng `LEAVE` trong `index.html`, khoá là tên Period gốc trên Notion, ví dụ `"[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, note:{vi:"Nghỉ thứ 5, thứ 6",en:"Off Thu–Fri",ko:"목·금 휴무"}}}`. Tuần đó chỉ tiêu của người đó tính theo `quota`, tab Creator hiện ghi chú cạnh tên, Overview hiện nhãn "nghỉ".
+Creator nghỉ phép vài ngày: thêm một dòng vào hằng `LEAVE` trong `index.html`, khoá là tên Period gốc trên Notion, ví dụ `"[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, note:{vi:"Nghỉ thứ 5, thứ 6",en:"Off Thu–Fri",ko:"목·금 휴무"}}}`. Tuần đó chỉ tiêu của người đó tính theo `quota` và tab Creator hiện ghi chú cạnh tên.
 
 Màu tag mỗi game lấy theo thứ tự option `Game Title` trên Notion (hằng `GAME_ORDER` trong `index.html`, khớp với Creative Planner). Thêm game mới trên Notion thì thêm tên vào cuối `GAME_ORDER` để màu hai nơi giống nhau.
 
