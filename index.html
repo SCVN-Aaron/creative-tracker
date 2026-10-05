@@ -27,7 +27,9 @@
     --accent:#2A7394;
     --accent-bg:#E3F1F7;
     --now-bg:#DDEFF8;
-    --on-accent:#FFFFFF;
+    --now-head:#2A7394;
+    --now-head-ink:#FFFFFF;
+    --now-line:#2A7394;
     --up-bg:#E4F5EA;
     --down-bg:#FBE9F0;
     --as-bg:#EAE7FC;
@@ -60,8 +62,10 @@
     --muted:#4A5160;
     --accent:#5DB3D6;
     --accent-bg:#17303B;
-    --now-bg:#173040;
-    --on-accent:#0B1A21;
+    --now-bg:#15252E;
+    --now-head:#2B5A6E;
+    --now-head-ink:#E6F3F9;
+    --now-line:#356F88;
     --up-bg:#163223;
     --down-bg:#3A1A27;
     --as-bg:#28234A;
@@ -94,8 +98,10 @@
     --muted:#4A5160;
     --accent:#5DB3D6;
     --accent-bg:#17303B;
-    --now-bg:#173040;
-    --on-accent:#0B1A21;
+    --now-bg:#15252E;
+    --now-head:#2B5A6E;
+    --now-head-ink:#E6F3F9;
+    --now-line:#356F88;
     --up-bg:#163223;
     --down-bg:#3A1A27;
     --as-bg:#28234A;
@@ -265,10 +271,10 @@
   #ov-table th{background:var(--th);white-space:nowrap;font-size:12.5px}
   #ov-table th small{display:block;font-weight:400;font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
   /* tuần hiện tại: đầu cột đặc màu + nhãn "Tuần này", cả cột có viền accent */
-  #ov-table th.now,#cs-table th.now{background:var(--accent);color:var(--on-accent);font-weight:700}
+  #ov-table th.now,#cs-table th.now{background:var(--now-head);color:var(--now-head-ink);font-weight:700}
   th.now .now-badge{display:block;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;opacity:.92;margin-top:1px}
-  #ov-table td.now,#cs-table td.now{background:var(--now-bg);box-shadow:inset 2px 0 0 var(--accent),inset -2px 0 0 var(--accent)}
-  #ov-table tr:last-child td.now,#cs-table tr:last-child td.now{box-shadow:inset 2px 0 0 var(--accent),inset -2px 0 0 var(--accent),inset 0 -2px 0 var(--accent)}
+  #ov-table td.now,#cs-table td.now{background:var(--now-bg);box-shadow:inset 2px 0 0 var(--now-line),inset -2px 0 0 var(--now-line)}
+  #ov-table tr:last-child td.now,#cs-table tr:last-child td.now{box-shadow:inset 2px 0 0 var(--now-line),inset -2px 0 0 var(--now-line),inset 0 -2px 0 var(--now-line)}
   #ov-table .sticky{position:sticky;left:0;z-index:1;background:var(--panel);min-width:120px;font-weight:600;white-space:nowrap}
   #ov-table th.sticky{background:var(--th);z-index:2}
   #ov-table .sticky small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);font-family:"IBM Plex Mono",monospace}
