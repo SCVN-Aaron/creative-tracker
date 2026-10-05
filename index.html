@@ -134,6 +134,40 @@
   .tag-etc{background:#FDF0DC;color:var(--warn)}
   .empty{padding:18px;color:var(--ink-2);font-size:14px}
 
+  /* ---------- tabs ---------- */
+  .tabs{display:flex;gap:4px;margin-top:14px;border-bottom:1px solid var(--line);overflow-x:auto}
+  .tabs button,.tabs a{font-family:inherit;font-size:15px;border:0;background:transparent;color:var(--ink-2);
+    padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;text-decoration:none}
+  .tabs button[aria-selected="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--video)}
+  .tabs button:hover,.tabs a:hover{color:var(--ink)}
+  .tabs a{margin-left:auto;color:#2A7394}
+
+  /* ---------- PM ---------- */
+  .pm-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin-top:16px}
+  .pm-bar .wk{display:flex;align-items:center;gap:8px;min-width:0;max-width:100%}
+  .pm-bar label{font-size:13.5px;color:var(--ink-2)}
+  #pm-week{min-width:0;max-width:100%;flex:1}
+  .pm-sum{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--ink-2)}
+  .pm-sum b{font-family:"IBM Plex Mono",monospace;color:var(--ink);font-size:18px;margin-right:4px}
+  .pm-card{margin-top:16px}
+  .pm-scroll{overflow-x:auto}
+  #pm-table th,#pm-table td{white-space:nowrap}
+  #pm-table th{background:#F7F9FB}
+  #pm-table td.pmc{font-weight:600;vertical-align:top;border-right:1px solid #EDF0F4}
+  #pm-table td.pmc small{display:block;font-weight:400;font-size:12px;color:var(--ink-2)}
+  #pm-table td.pmc small b{font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--ink)}
+  #pm-table tr.grand td{background:#E3F1F7;font-weight:700;border-bottom:0}
+  #pm-table td.it{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-2)}
+  #pm-table a.it-link{color:#2A7394;text-decoration:none;border-bottom:1px solid transparent}
+  #pm-table a.it-link:hover{border-bottom-color:currentColor}
+  .game{--h:210;display:inline-block;font-size:13px;font-weight:500;padding:2px 9px;border-radius:999px;
+    background:hsl(var(--h) 72% 93%);color:hsl(var(--h) 58% 27%);border:1px solid hsl(var(--h) 45% 80%)}
+  .st{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:4px;background:#EEF1F6;color:var(--ink-2)}
+  .st-prog{background:#E7ECFD;color:#3B5BDB}
+  .st-done{background:#E4F5EA;color:var(--up)}
+  .pm-note{margin-top:22px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
+  .pm-note a{color:#2A7394}
+
   footer{margin-top:26px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
   footer a{color:var(--video)}
 
@@ -167,6 +201,13 @@
     </div>
   </div>
 
+  <nav class="tabs" role="tablist" aria-label="View">
+    <button role="tab" id="tab-creator" aria-controls="view-creator" aria-selected="true" type="button"></button>
+    <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1"></button>
+    <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
+  </nav>
+
+  <div id="view-creator" role="tabpanel" aria-labelledby="tab-creator">
   <div class="headline" id="headline"></div>
 
   <div class="reading">
@@ -195,6 +236,16 @@
   </div>
 
   <footer id="footer"></footer>
+  </div>
+
+  <div id="view-pm" role="tabpanel" aria-labelledby="tab-pm" hidden>
+    <div class="pm-bar">
+      <div class="wk"><label for="pm-week" id="lbl-pm-week"></label><select id="pm-week"></select></div>
+      <div class="pm-sum" id="pm-sum"></div>
+    </div>
+    <div class="tcard pm-card"><div class="pm-scroll"><table id="pm-table"></table></div></div>
+    <p class="pm-note" id="pm-note"></p>
+  </div>
 </div>
 
 <script>
@@ -265,6 +316,14 @@ const MONTH_EN=["","January","February","March","April","May","June",
 const I18N={
  vi:{
   name:"Tiếng Việt",
+  tab:{creator:"Creator",pm:"PM",plan:"Lên kế hoạch ↗"},
+  pm:{week:"Tuần", now:" · tuần này", soon:" · sắp tới",
+      sum:["creative","task","PM","game","creator"],
+      th:["PM","Game","Iteration","Creator","Số lượng","Trạng thái"],
+      meta:(g,c)=>`<b>${g}</b> game · <b>${c}</b> creator`, noPM:"Chưa có PM", total:"Tổng cộng",
+      open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
+      noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (Routine cập nhật hằng tuần sẽ ghi các cột này).",
+      note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước. Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`},
   soloTag:"tự làm",
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
   grandNow:"Số lượng video tuần này", ongoing:"Tuần đang diễn ra — số liệu còn tăng, chưa phải kết quả cuối.",
@@ -320,6 +379,14 @@ const I18N={
  },
  en:{
   name:"English",
+  tab:{creator:"Creators",pm:"PMs",plan:"Plan ahead ↗"},
+  pm:{week:"Week", now:" · this week", soon:" · upcoming",
+      sum:["creatives","tasks","PMs","games","creators"],
+      th:["PM","Game","Iteration","Creator","Count","Status"],
+      meta:(g,c)=>`<b>${g}</b> game${g>1?"s":""} · <b>${c}</b> creator${c>1?"s":""}`, noPM:"No PM", total:"Total",
+      open:"Open in Notion", empty:"No task in Notion for this week yet.",
+      noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the weekly Routine writes them).",
+      note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time. Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`},
   soloTag:"solo",
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
   grandNow:"Videos so far this week", ongoing:"Week in progress — numbers are still coming in, not the final result.",
@@ -375,6 +442,14 @@ const I18N={
  },
  ko:{
   name:"한국어",
+  tab:{creator:"크리에이터",pm:"PM",plan:"계획 세우기 ↗"},
+  pm:{week:"주차", now:" · 이번 주", soon:" · 예정",
+      sum:["크리에이티브","작업","PM","게임","크리에이터"],
+      th:["PM","게임","Iteration","크리에이터","수량","상태"],
+      meta:(g,c)=>`게임 <b>${g}</b> · 크리에이터 <b>${c}</b>`, noPM:"PM 없음", total:"합계",
+      open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
+      noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(주간 Routine이 기록).",
+      note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다. 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`},
   soloTag:"단독",
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
   grandNow:"이번 주 영상 수", ongoing:"진행 중인 주 — 수치가 계속 늘어나며 최종 결과가 아닙니다.",
@@ -435,6 +510,119 @@ function moLabel(m){const n=parseInt(String(m.label).replace(/\D+/g,""),10)||0;r
 
 
 function getCSS(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+
+// ---------------------------------------------------------------- PM / kế hoạch
+// Creative Planner chạy trên claude.ai (cần connector Notion để ghi), dashboard chỉ link sang.
+const PLANNER_URL="https://claude.ai/artifact/4KF9BgskfgqJvzsSCgeCsS";
+// Thứ tự option "Game Title" trên Notion — mỗi game một màu cố định, khớp với Creative Planner.
+// Game mới thêm trên Notion mà chưa có ở đây vẫn có màu (tính từ tên), chỉ là không khớp Planner.
+const GAME_ORDER=["Arrow Fever","BEHIND","Bulldozer Master","Burger Please!","Captain of Space","CrabLife",
+  "Dino Universe","Downhill","Dragon Burst","Frozia","Gangster Universe","Idle Oil Empire","Lumber Chopper",
+  "Match Flight","Mosquito","My Fish Shop","My Supermarket","Outlets Rush","Paper Delivery Boy","Pizza Ready",
+  "Prison Life","Rush Attack","Shark Universe","Smash Down","Snake Clash","Spin Miner","Super Big Slime",
+  "Suzy's Restaurant","Target Smash!","Theme park manager","Whack Stack","XP Hero"];
+function gameHue(g){
+  const i=GAME_ORDER.indexOf(g);
+  if(i>=0) return Math.round((i*137.508+12)%360);
+  let h=0; for(const c of String(g)) h=(h*31+c.charCodeAt(0))%360; return h;
+}
+const escH=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const gameTag=g=>g?`<span class="game" style="--h:${gameHue(g)}">${escH(g)}</span>`:"—";
+let TASKS=null;          // null = CSV chưa có cột chi tiết từng task
+let pmWeek=null;
+// Ngày bắt đầu của một Period, đọc từ "(MM/DD~)" trong tên.
+function periodStart(name){
+  const d=periodDate(name); if(!d) return null;
+  const now=new Date(); let y=now.getFullYear();
+  const start=new Date(y,d.m-1,d.d);
+  if(start-now>180*864e5) start.setFullYear(y-1);
+  if(now-start>185*864e5) start.setFullYear(y+1);
+  return start;
+}
+function pmWeeks(){
+  const set=[...new Set((TASKS||[]).map(t=>t.period))].filter(p=>periodStart(p));
+  return set.sort((a,b)=>periodStart(a)-periodStart(b));
+}
+function pmWeekLabel(p){
+  const d=periodDate(p), st=periodStart(p), now=new Date();
+  const end=new Date(st.getTime()+(/W\d+W\d+/.test(p)?14:7)*864e5);
+  const tag=now>=st&&now<end?T().pm.now:(st>now?T().pm.soon:"");
+  return `${T().wk(String(d.d).padStart(2,"0")+"/"+String(d.m).padStart(2,"0"))}${tag} — ${p}`;
+}
+function pageLink(id){
+  const m=/([0-9a-f]{32})/i.exec(String(id||"").replace(/-/g,""));
+  return m?`https://app.notion.com/p/${m[1].toLowerCase()}`:null;
+}
+function stPill(s){
+  if(!s) return "—";
+  return `<span class="st ${s==="Done"?"st-done":s==="In-progress"?"st-prog":""}">${escH(s)}</span>`;
+}
+function fillPmWeeks(){
+  const box=document.getElementById("pm-week");
+  const ws=pmWeeks();
+  if(!ws.includes(pmWeek)){
+    const now=new Date();
+    pmWeek=[...ws].reverse().find(p=>periodStart(p)<=now)||ws[ws.length-1]||null;
+  }
+  box.innerHTML=[...ws].reverse().map(p=>`<option value="${escH(p)}">${escH(pmWeekLabel(p))}</option>`).join("");
+  box.value=pmWeek||"";
+  box.disabled=!ws.length;
+}
+function renderPM(){
+  document.getElementById("lbl-pm-week").textContent=T().pm.week;
+  document.getElementById("pm-note").innerHTML=T().pm.note(PLANNER_URL);
+  const table=document.getElementById("pm-table"), sum=document.getElementById("pm-sum");
+  if(!TASKS){ sum.innerHTML=""; table.innerHTML=`<tr><td class="empty">${T().pm.noData}</td></tr>`; return; }
+  fillPmWeeks();
+  const rows=TASKS.filter(t=>t.period===pmWeek);
+  const total=rows.reduce((s,t)=>s+(t.count||0),0);
+  const L=T().pm.sum;
+  sum.innerHTML=[[total,L[0]],[rows.length,L[1]],[new Set(rows.map(t=>t.pm).filter(Boolean)).size,L[2]],
+    [new Set(rows.map(t=>t.game).filter(Boolean)).size,L[3]],[new Set(rows.flatMap(t=>t.creators)).size,L[4]]]
+    .map(([n,l])=>`<span><b>${n}</b>${l}</span>`).join("");
+  if(!rows.length){ table.innerHTML=`<tr><td class="empty">${T().pm.empty}</td></tr>`; return; }
+  const NOPM="\u0000";
+  const groups=new Map();
+  rows.forEach(t=>{const k=t.pm||NOPM; if(!groups.has(k)) groups.set(k,[]); groups.get(k).push(t);});
+  const keys=[...groups.keys()].sort((a,b)=>{
+    if(a===NOPM) return 1; if(b===NOPM) return -1;
+    const sa=groups.get(a).reduce((s,t)=>s+(t.count||0),0), sb=groups.get(b).reduce((s,t)=>s+(t.count||0),0);
+    return sb-sa||a.localeCompare(b);
+  });
+  const th=T().pm.th;
+  let h=`<thead><tr><th>${th[0]}</th><th>${th[1]}</th><th>${th[2]}</th><th>${th[3]}</th><th class="num">${th[4]}</th><th>${th[5]}</th></tr></thead><tbody>`;
+  keys.forEach(k=>{
+    const list=groups.get(k).sort((a,b)=>(a.game||"").localeCompare(b.game||""));
+    const ng=new Set(list.map(t=>t.game).filter(Boolean)).size, nc=new Set(list.flatMap(t=>t.creators)).size;
+    list.forEach((t,i)=>{
+      const href=pageLink(t.pageId);
+      const label=t.iteration?escH(t.iteration):(href?T().pm.open:"—");
+      h+=`<tr>${i===0?`<td class="pmc" rowspan="${list.length}">${k===NOPM?T().pm.noPM:escH(k)}<small>${T().pm.meta(ng,nc)}</small></td>`:""}
+        <td>${gameTag(t.game)}</td>
+        <td class="it">${href?`<a class="it-link" href="${href}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`:label}</td>
+        <td>${t.creators.length?t.creators.map(escH).join(", "):"—"}</td>
+        <td class="num">${t.count??"—"}</td>
+        <td>${stPill(t.status)}</td></tr>`;
+    });
+  });
+  h+=`<tr class="grand"><td colspan="4">${T().pm.total}</td><td class="num">${total}</td><td></td></tr></tbody>`;
+  table.innerHTML=h;
+}
+let VIEW="creator";
+function showView(v){
+  VIEW=v;
+  ["creator","pm"].forEach(k=>{
+    const on=k===v, tab=document.getElementById("tab-"+k);
+    tab.setAttribute("aria-selected",on); tab.tabIndex=on?0:-1;
+    document.getElementById("view-"+k).hidden=!on;
+  });
+  // ô chọn tuần trên masthead chỉ dành cho tab Creator; tab PM có ô chọn riêng (gồm cả tuần sắp tới)
+  document.getElementById("week").hidden=v!=="creator";
+  document.getElementById("lbl-week").hidden=v!=="creator";
+  if(v==="pm") renderPM();
+  else if(charts.video) charts.video.resize();
+  try{ localStorage.setItem("ct-view",v); }catch(e){}
+}
 
 // ---------------------------------------------------------------- helpers
 function roster(team,i){
@@ -911,6 +1099,9 @@ function importCSV(text){
     seen.add(p);
     const d=periodDate(p);
     if(!d) return;
+    // Kỳ chưa bắt đầu chỉ là kế hoạch nhập trước (Creative Planner) — không tính vào sản lượng.
+    const st=periodStart(p);
+    if(st&&st>new Date()) return;
     let gap=dayOf(d)-base;
     if(gap<0) gap+=365;
     if(gap>0&&gap<=120) fresh.push(p);
@@ -982,7 +1173,13 @@ function importCSV(text){
 
   const pmOut={};
   Object.keys(sorted).forEach(c=>{ if(pms[c]) pmOut[c]=pms[c].slice(0,last); });
-  return {weeks:newWeeks,months:newMonths,people:sorted,pm:pmOut,hasPMcol,warn,noCount,
+  // Chi tiết từng task cho tab PM — chỉ có khi CSV mang thêm cột Game Title (định dạng mới).
+  const tasks=("Game Title" in rows[0])?mine.filter(r=>r.Period&&periodDate(r.Period)).map(r=>({
+    period:r.Period, pm:cleanPM(r.PM), game:r["Game Title"]||"", iteration:r.Iteration||"",
+    creators:(r.Creator||"").split(",").map(x=>x.trim()).filter(Boolean),
+    count:/^\d+$/.test(r["Video Count"]||"")?+r["Video Count"]:null,
+    status:r.Status||"", pageId:r["Page ID"]||""})):null;
+  return {weeks:newWeeks,months:newMonths,people:sorted,pm:pmOut,hasPMcol,warn,noCount,tasks,
           fresh:fresh.filter(f=>order.indexOf(f)<last)};
 }
 
@@ -1015,6 +1212,7 @@ async function loadLiveCSV(){
   try{ parsed=importCSV(text); }
   catch(e){ console.warn("data/latest.csv không đọc được:",e.message); return null; }
   applyImport(parsed);
+  TASKS=parsed.tasks;
   const lm=res.headers.get("last-modified");
   const when=lm?new Date(lm):new Date();
   return {stamp:when.toISOString().slice(0,16).replace("T"," ")+" UTC",
@@ -1038,6 +1236,11 @@ function applyLang(){
   document.getElementById("subtitle").textContent=
     TEAMS.map(t=>t.name).join(" & ")+" · "+T().source;
   document.getElementById("footer").innerHTML=T().footer;
+  document.getElementById("tab-creator").textContent=T().tab.creator;
+  document.getElementById("tab-pm").textContent=T().tab.pm;
+  const plan=document.getElementById("tab-plan");
+  plan.textContent=T().tab.plan; plan.href=PLANNER_URL;
+  if(VIEW==="pm") renderPM();
   Object.entries(MODE_BTN).forEach(([k,id])=>
     document.getElementById(id).textContent=T().btn[k]);
   [...sel.options].forEach((o,i)=>{if(WEEKS[i])o.textContent=`${wkLabel(i)} — ${WEEKS[i].full}`;});
@@ -1075,7 +1278,19 @@ langSel.addEventListener("change",()=>{
 });
 
 let LIVE=null;
-function boot(){ applyLang(); buildCharts(); update(); }
+document.getElementById("tab-creator").addEventListener("click",()=>showView("creator"));
+document.getElementById("tab-pm").addEventListener("click",()=>showView("pm"));
+document.querySelector(".tabs").addEventListener("keydown",e=>{
+  if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight") return;
+  const next=VIEW==="creator"?"pm":"creator"; showView(next); document.getElementById("tab-"+next).focus();
+});
+document.getElementById("pm-week").addEventListener("change",e=>{pmWeek=e.target.value;renderPM();});
+function boot(){
+  applyLang(); buildCharts(); update();
+  let v=location.hash==="#pm"?"pm":null;
+  if(!v){ try{ v=localStorage.getItem("ct-view"); }catch(e){} }
+  showView(v==="pm"?"pm":"creator");
+}
 
 loadLiveCSV().then(r=>{
   if(r){ LIVE=r; }

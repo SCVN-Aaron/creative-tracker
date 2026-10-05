@@ -18,53 +18,79 @@ Vào `claude.ai/code/routines` → **New routine**.
 
 **Trigger:** Schedule → Weekly → thứ Hai 09:00 (giờ nhập theo múi giờ của bạn, hệ thống tự quy đổi).
 
-**Prompt:** dán nguyên khối dưới đây.
+**Prompt:** dán nguyên khối dưới đây. Đây cũng là prompt của routine "Update Tracking" đang chạy mỗi thứ Ba.
 
 ---
 
 ```
-Cập nhật dashboard sản lượng của Video Ads Team từ Notion.
+Cập nhật số liệu dashboard của Video Ads Team từ Notion.
 
-Bối cảnh: repo này có creative-weekly-tracker.html (dashboard), update_dashboard.py
-(script xử lý) và config.json (bảng tra Period). Nhiệm vụ của bạn là lấy dữ liệu thô
-từ Notion và để script làm phần tính toán — đừng tự viết hay tự sửa khối dữ liệu
-trong file HTML.
+Công cụ truy vấn Notion có hạn mức tính theo workspace. Được phép gọi TỐI ĐA 4 lượt
+truy vấn SQL, không hơn. Không chạy truy vấn thăm dò, không thử lại khi đã đủ dữ liệu.
 
-Các bước:
+Bước 1 — Truy vấn SQL trên data source
+collection://33807693-3135-80bc-90cd-000ba3b49e87, mỗi lượt đúng câu này:
 
-1. Dùng connector Notion, đọc toàn bộ dòng trong data source
-   collection://33807693-3135-80bc-90cd-000ba3b49e87 (Creative Production DB).
-   Lấy 4 cột: Period, Team, Creator, Video Count. Nhớ phân trang cho tới hết,
-   database này hơn 300 dòng.
+SELECT url, "Period", "Creator", "PM", "Video Count", "Game Title", "Iteration", "Status"
+FROM "collection://33807693-3135-80bc-90cd-000ba3b49e87"
+WHERE "Team" = 'Video Ads Team'
+  AND "Period" IS NOT NULL
+  AND "Period" NOT LIKE 'April%'
+  AND "Period" NOT LIKE 'May%'
+ORDER BY createdTime, url
+LIMIT 100 OFFSET 0
 
-2. Ghi ra file data/notion-export.csv trong repo, đúng định dạng sau:
-   - Dòng đầu là header: Period,Team,Creator,Video Count
-   - Mỗi dòng dữ liệu là một task
-   - Cột Creator: nếu một task có nhiều người thì nối bằng dấu phẩy và bọc trong
-     dấu nháy kép, ví dụ "Aaron, Bomi"
-   - Giá trị chứa dấu phẩy phải bọc trong nháy kép
-   - Giữ nguyên văn tên Period, đừng chuẩn hoá hay dịch
+Notion trả tối đa 100 dòng mỗi lượt. Lượt sau giữ nguyên câu truy vấn, chỉ tăng OFFSET
+thêm 100 (100, 200, 300). Dừng khi một lượt trả về ít hơn 100 dòng. Đừng dựa vào
+has_more — có lúc nó báo false dù vẫn còn dòng.
 
-3. Chạy: python3 update_dashboard.py --csv data/notion-export.csv
+Bước 2 — Kiểm tra tính đầy đủ TRƯỚC KHI ghi file.
 
-4. Đọc kỹ output của script:
-   - Nếu script dừng vì gặp Period chưa khai báo, ĐỪNG tự thêm vào config.json.
-     Thay vào đó, mở một pull request chỉ chứa file CSV, và trong phần mô tả PR
-     ghi rõ tên các Period lạ cùng đề xuất dòng cần thêm vào config.json. Người
-     phụ trách sẽ quyết định kỳ đó có phải kỳ gộp nghỉ lễ hay không, vì phần
-     chỉ tiêu cộng thêm không suy ra được từ dữ liệu.
-   - Nếu script in cảnh báo về ô Video Count không phải số thuần, cứ tiếp tục
-     nhưng chép nguyên các cảnh báo đó vào phần mô tả commit hoặc PR.
+Lượt cuối phải trả về ít hơn 100 dòng, và dữ liệu phải có các kỳ gần đây (kỳ của tuần
+này và tuần trước). Nếu dùng hết 4 lượt mà lượt thứ 4 vẫn đủ 100 dòng, hoặc thiếu kỳ
+gần đây:
 
-5. Nếu script chạy xong và creative-weekly-tracker.html có thay đổi, commit cả
-   file HTML lẫn data/notion-export.csv với message dạng
-   "Cập nhật số liệu tuần <ngày hôm nay>", rồi push lên nhánh mặc định.
-   Nếu push bị từ chối, mở pull request thay thế.
+  DỪNG LẠI. Không ghi file, không commit, không mở pull request.
+  Báo rõ lấy được bao nhiêu dòng, tới kỳ nào và còn thiếu gì.
 
-6. Nếu không có gì thay đổi, không commit gì cả và báo lại là dữ liệu chưa mới.
+Ghi đè file bằng dữ liệu thiếu sẽ làm dashboard tụt về quá khứ — tệ hơn là không
+làm gì cả.
 
-Coi như thành công khi: hoặc file HTML đã được cập nhật và push, hoặc đã mở PR
-nêu rõ vướng mắc, hoặc xác nhận không có dữ liệu mới.
+Bước 3 — Ghi ra file data/latest.csv trong repo, mỗi task một dòng, đúng định dạng:
+
+Period,Team,Creator,PM,Video Count,Game Title,Iteration,Status,Page ID
+
+- Dòng đầu là đúng header trên, đúng thứ tự cột
+- Cột Team luôn ghi: Video Ads Team
+- Cột Creator ghi TÊN người, không phải user ID. Truy vấn trả về ID thì dùng công cụ
+  tra người dùng của Notion để đổi sang tên — công cụ đó không tính vào hạn mức truy
+  vấn. ID không tra ra tên (người đã rời workspace) thì ghi: Khong xac dinh
+- Nhiều người trong một task thì nối bằng dấu phẩy và bọc trong nháy kép,
+  ví dụ "Zaid, Elvis"
+- Cột PM: ghi TÊN PM, đổi từ user ID giống cột Creator. Task không có PM thì để trống
+  hẳn ô đó — KHÔNG ghi "[]", "null" hay "none". Ô trống nghĩa là creator làm solo.
+- Cột Video Count: số nguyên. Task chưa nhập số thì để trống ô nhưng VẪN giữ dòng
+  (dòng đó là kế hoạch, tab PM cần hiển thị).
+- Cột Game Title, Iteration, Status: giữ nguyên văn như Notion. Iteration trống thì để
+  trống. Giá trị có dấu phẩy hoặc dấu nháy thì bọc nháy kép theo chuẩn CSV.
+- Cột Page ID: 32 ký tự hex của trang task, lấy từ cột url (phần sau dấu / cuối cùng,
+  bỏ dấu gạch ngang nếu có). Ví dụ url https://app.notion.com/3df0769331358038b85ff9476ac3a385
+  → Page ID 3df0769331358038b85ff9476ac3a385
+- Giữ nguyên văn tên Period, không chuẩn hoá, không dịch, không bỏ tiền tố [W1]
+- Giữ thứ tự dòng như kết quả truy vấn
+
+Bước 4 — So với file data/latest.csv hiện có.
+
+- Giống hệt: không commit, báo là chưa có gì mới, kết thúc.
+- Khác: commit với message "Cập nhật số liệu <ngày hôm nay>", đẩy lên nhánh mặc
+  định. Nếu bị từ chối thì đẩy lên nhánh claude/cap-nhat-so-lieu và mở pull request.
+
+Bước 5 — Trong phần tóm tắt ghi rõ:
+- Dùng hết bao nhiêu lượt truy vấn và tổng số dòng
+- Kỳ mới nhất đã bắt đầu, tổng video của kỳ đó
+- Period nào xuất hiện lần đầu so với file cũ
+
+KHÔNG sửa index.html. KHÔNG sửa config.json. KHÔNG chạy update_dashboard.py.
 ```
 
 ---
@@ -77,9 +103,11 @@ Trạng thái xanh trong danh sách run **không có nghĩa là việc đã xong
 
 Ba thứ cần thấy:
 
-1. `data/notion-export.csv` xuất hiện trong repo, số dòng khớp với số task trên Notion
-2. Trong `creative-weekly-tracker.html`, dòng `const DATA_STAMP` mang thời gian mới
-3. Dashboard hiển thị đúng kỳ mới nhất
+1. `data/latest.csv` có header 9 cột như trên, số dòng khớp số task của Video Ads Team trên Notion (trừ tháng 4, tháng 5)
+2. Dashboard hiển thị đúng kỳ mới nhất ở tab Creator
+3. Tab PM hiện đủ task của tuần này, bấm tên iteration mở đúng trang Notion
+
+**Hạn mức 4 lượt × 100 dòng = 400 task.** Hiện có khoảng 200 task từ tháng 6, mỗi tuần thêm chừng 10. Khi gần chạm 400, thêm điều kiện loại các kỳ cũ (ví dụ `AND "Period" NOT LIKE 'June%'`) vào câu truy vấn.
 
 ## Vì sao chia việc như vậy
 
