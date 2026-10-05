@@ -32,6 +32,8 @@ Tab PM cần `data/latest.csv` ở định dạng mới, có thêm các cột `G
 
 Màu tag mỗi game lấy theo thứ tự option `Game Title` trên Notion (hằng `GAME_ORDER` trong `index.html`, khớp với Creative Planner). Thêm game mới trên Notion thì thêm tên vào cuối `GAME_ORDER` để màu hai nơi giống nhau.
 
+Ô **Giao diện** cạnh ô ngôn ngữ chọn Tự động / Sáng / Tối. Tự động đi theo chế độ sáng tối của máy. Lựa chọn được nhớ trên trình duyệt đó. Màu nằm trong các biến `--...` ở đầu khối `<style>`: một bộ cho giao diện sáng, một bộ cho giao diện tối.
+
 ## Xem dashboard ở mọi nơi
 
 Bật GitHub Pages: **Settings → Pages → Deploy from branch → main → / (root)**.
