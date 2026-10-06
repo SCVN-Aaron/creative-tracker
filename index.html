@@ -376,10 +376,9 @@
   #pmg-table td.pmc{font-weight:600;white-space:nowrap;border-right:1px solid var(--line);width:1%}
   #pmg-table td.pmc small{display:block;font-weight:400;font-size:12px;color:var(--ink-2)}
   #pmg-table th:nth-child(2),#pmg-table th:nth-child(3){width:50%}
-  .pmg-list{display:flex;flex-direction:column;gap:7px}
-  .pmg-item{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .pmg-list{display:flex;flex-wrap:wrap;gap:8px 16px}
+  .pmg-item{display:inline-flex;align-items:center;gap:6px}
   .pmg-meta{font-size:12px;color:var(--ink-2)}
-  .pmg-cr{color:var(--ink);margin-left:6px}
 </style>
 
 <div class="wrap">
@@ -551,7 +550,7 @@ const I18N={
         noData:"Không đọc được 4-Week Loop Schedule.", loading:"Đang đọc 4-Week Loop Schedule…"},
       note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Ô in nghiêng, mờ là theo 4-Week Loop Schedule (tới hết file) nhưng chưa có task trên Notion, PM là dự đoán. ETC là game mới chưa có tên; game mới chưa có PM nằm ở hàng “Chưa rõ PM”. “Creator solo” là task trên Notion không gắn PM. Kéo ngang để xem các tuần khác."},
   pm:{week:"Tuần", now:" · tuần này", soon:" · sắp tới",
-      g:{title:"PM và các game đảm nhận", active:"Đang đảm nhận", done:"Đã làm", count:n=>`${n} game`, meta:(w,n)=>`${w} tuần · ${n} creative`},
+      g:{title:"PM và các game đảm nhận", active:"Đang đảm nhận", done:"Đã làm", count:n=>`${n} game`, meta:w=>`${w} tuần`},
       sum:["creative","task","PM","game","creator"],
       th:["PM","Game","Iteration","Creator","Số lượng","Trạng thái"],
       meta:(g,c)=>`<b>${g}</b> game · <b>${c}</b> creator`, noPM:"Creator solo (không PM)", total:"Tổng cộng",
@@ -625,7 +624,7 @@ const I18N={
         noData:"Could not read the 4-Week Loop Schedule.", loading:"Loading the 4-Week Loop Schedule…"},
       note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Faded italic lines come from the 4-Week Loop Schedule (through the end of the file) with no Notion task yet; their PM is guessed. ETC is a new, not-yet-named game; new games with no PM yet sit in the “PM not known yet” row. “Creator solo” means the Notion task has no PM tagged. Scroll sideways for other weeks."},
   pm:{week:"Week", now:" · this week", soon:" · upcoming",
-      g:{title:"PMs and their games", active:"Currently on", done:"Done before", count:n=>`${n} game${n>1?"s":""}`, meta:(w,n)=>`${w} week${w>1?"s":""} · ${n} creatives`},
+      g:{title:"PMs and their games", active:"Currently on", done:"Done before", count:n=>`${n} game${n>1?"s":""}`, meta:w=>`${w} week${w>1?"s":""}`},
       sum:["creatives","tasks","PMs","games","creators"],
       th:["PM","Game","Iteration","Creator","Count","Status"],
       meta:(g,c)=>`<b>${g}</b> game${g>1?"s":""} · <b>${c}</b> creator${c>1?"s":""}`, noPM:"Creator solo (no PM)", total:"Total",
@@ -699,7 +698,7 @@ const I18N={
         noData:"4-Week Loop Schedule을 읽지 못했습니다.", loading:"4-Week Loop Schedule 읽는 중…"},
       note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 흐린 기울임 줄은 4-Week Loop Schedule(파일 끝까지) 기준이며 아직 Notion 작업이 없고 PM은 추정입니다. ETC는 아직 이름이 없는 신규 게임이며, PM이 없는 신규 게임은 “PM 미정” 줄에 표시됩니다. “크리에이터 단독”은 Notion 작업에 PM 태그가 없는 경우입니다. 옆으로 스크롤해 다른 주를 보세요."},
   pm:{week:"주차", now:" · 이번 주", soon:" · 예정",
-      g:{title:"PM별 담당 게임", active:"현재 담당", done:"이전 담당", count:n=>`게임 ${n}개`, meta:(w,n)=>`${w}주 · ${n}개`},
+      g:{title:"PM별 담당 게임", active:"현재 담당", done:"이전 담당", count:n=>`게임 ${n}개`, meta:w=>`${w}주`},
       sum:["크리에이티브","작업","PM","게임","크리에이터"],
       th:["PM","게임","Iteration","크리에이터","수량","상태"],
       meta:(g,c)=>`게임 <b>${g}</b> · 크리에이터 <b>${c}</b>`, noPM:"크리에이터 단독 (PM 없음)", total:"합계",
@@ -847,7 +846,7 @@ function renderPMGames(){
   const tot=pm=>[...by.get(pm).values()].reduce((s,e)=>s+e.n,0);
   const pms=[...by.keys()].sort((a,b)=>tot(b)-tot(a)||a.localeCompare(b));
   const chips=list=>list.length?`<div class="pmg-list">${list.sort((a,b)=>b[1].last-a[1].last||b[1].n-a[1].n).map(([g,e])=>
-      `<div class="pmg-item">${gameTag(g)}<span class="pmg-meta">${escH(L.meta(e.weeks.size,e.n))}<span class="pmg-cr">${escH([...e.cr].join(", "))}</span></span></div>`).join("")}</div>`
+      `<div class="pmg-item">${gameTag(g)}<span class="pmg-meta">${escH(L.meta(e.weeks.size))}</span></div>`).join("")}</div>`
     :`<span class="ov-empty">–</span>`;
   let h=`<thead><tr><th>${T().ov.pm}</th><th>${L.active}</th><th>${L.done}</th></tr></thead><tbody>`;
   pms.forEach(pm=>{
