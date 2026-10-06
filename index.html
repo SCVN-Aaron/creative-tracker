@@ -457,6 +457,7 @@
   <div class="tcard pm-card" id="mo-card" hidden>
     <h2 class="ov-h" id="mo-title"></h2>
     <div class="ov-scroll"><table id="mo-table"></table></div>
+    <p class="pm-note" id="mo-note" style="padding:0 18px 14px;margin:10px 0 0"></p>
   </div>
 
   <div class="members">
@@ -588,7 +589,7 @@ const I18N={
   source:"nguồn: Creative Production DB",
   weekPicker:"Tuần", whyTitle:"Vì sao tuần này nhiều / ít hơn",
   btn:{total:"Tổng đội",per:"Trung bình / người",month:"Trung bình tháng",mtotal:"Tổng tháng"},
-  mo2:{title:"Số creative sản xuất trong tháng", creator:"Creator", total:"Tổng đội", weeks:"Số kỳ có số liệu", now:"Tháng này"},
+  mo2:{title:"Số creative sản xuất trong tháng", creator:"Creator", total:"Tổng đội", weeks:"Số kỳ đã xong", now:"Tháng này", ongoing:w=>`${w} đang làm nên chưa cộng vào tổng tháng — hết tuần mới cộng.`},
   title:{total:"số video mỗi tuần",per:"số video mỗi người, theo tuần",
          month:"trung bình mỗi tuần, gộp theo tháng", mtotal:"tổng số creative mỗi tháng"},
   wk:d=>`Tuần ${d}`, mo:(n,raw)=>raw,
@@ -664,7 +665,7 @@ const I18N={
   source:"source: Creative Production DB",
   weekPicker:"Week", whyTitle:"Why this week ran high or low",
   btn:{total:"Team total",per:"Average per person",month:"Monthly average",mtotal:"Monthly total"},
-  mo2:{title:"Creatives produced per month", creator:"Creator", total:"Team total", weeks:"Periods with data", now:"This month"},
+  mo2:{title:"Creatives produced per month", creator:"Creator", total:"Team total", weeks:"Finished periods", now:"This month", ongoing:w=>`${w} is still in progress, so it is not in the monthly total yet — it is added once the week ends.`},
   title:{total:"videos per week",per:"videos per person, by week",
          month:"weekly average, grouped by month", mtotal:"total creatives per month"},
   wk:d=>`Week ${d}`, mo:(n,raw)=>MONTH_EN[n]||raw,
@@ -740,7 +741,7 @@ const I18N={
   source:"출처: Creative Production DB",
   weekPicker:"주차", whyTitle:"이번 주가 많거나 적었던 이유",
   btn:{total:"팀 합계",per:"1인 평균",month:"월 평균",mtotal:"월 합계"},
-  mo2:{title:"월별 제작 크리에이티브 수", creator:"크리에이터", total:"팀 합계", weeks:"데이터 있는 기간", now:"이번 달"},
+  mo2:{title:"월별 제작 크리에이티브 수", creator:"크리에이터", total:"팀 합계", weeks:"완료된 기간", now:"이번 달", ongoing:w=>`${w}은(는) 진행 중이라 월 합계에 아직 포함되지 않습니다 — 주가 끝나면 포함됩니다.`},
   title:{total:"주별 영상 수",per:"주별 1인당 영상 수",month:"월별 주 평균",mtotal:"월별 크리에이티브 합계"},
   wk:d=>`${d} 주`, mo:(n,raw)=>`${n}월`,
   grand:"완료한 영상", firstWeek:"기록의 첫 주",
@@ -1262,8 +1263,10 @@ function isOngoing(i){
   return now<r.end;
 }
 
+// Các kỳ của tháng đã có số và đã kết thúc. Tuần đang làm chưa cộng vào số tháng, hết tuần mới cộng.
+function doneWeeks(team,m){return m.weeks.filter(i=>totalOf(team,i)!==null&&!isOngoing(i))}
 function monthStats(team,m){
-  const ws=m.weeks.filter(i=>totalOf(team,i)!==null);
+  const ws=doneWeeks(team,m);
   if(!ws.length) return null;
   const tot=ws.reduce((s,i)=>s+totalOf(team,i),0);
   const tgt=ws.reduce((s,i)=>s+targetOf(team,i),0);
@@ -1480,14 +1483,14 @@ function monthBars(t){
 }
 function monthTargets(t){
   return MONTHS.map(m=>{
-    const ws=m.weeks.filter(i=>totalOf(t,i)!==null);
+    const ws=doneWeeks(t,m);
     if(!ws.length) return null;
     return Math.round(ws.reduce((s,i)=>s+targetOf(t,i),0)/ws.length*10)/10;
   });
 }
 function monthTotals(t){return MONTHS.map(m=>{const st=monthStats(t,m);return st?st.total:null})}
 function monthTargetSums(t){
-  return MONTHS.map(m=>{const ws=m.weeks.filter(i=>totalOf(t,i)!==null);return ws.length?ws.reduce((s,i)=>s+targetOf(t,i),0):null});
+  return MONTHS.map(m=>{const ws=doneWeeks(t,m);return ws.length?ws.reduce((s,i)=>s+targetOf(t,i),0):null});
 }
 function datasetsFor(t){
   if(mode==="mtotal"){
@@ -1604,8 +1607,10 @@ function renderMonthTable(){
   if(card.hidden) return;
   const t=TEAMS[0], L=T().mo2;
   document.getElementById("mo-title").textContent=L.title;
-  const ms=MONTHS.map((m,k)=>({m,k})).filter(({m})=>m.weeks.some(i=>totalOf(t,i)!==null));
-  const sumOf=(name,m)=>{const v=m.weeks.map(i=>t.people[name][i]).filter(x=>x!==null&&x!==undefined);return v.length?v.reduce((a,b)=>a+b,0):null;};
+  const on=WEEKS.map((_,i)=>i).filter(i=>isOngoing(i)&&totalOf(t,i)!==null);
+  document.getElementById("mo-note").textContent=on.length?L.ongoing(on.map(wkLabel).join(", ")):"";
+  const ms=MONTHS.map((m,k)=>({m,k})).filter(({m})=>doneWeeks(t,m).length);
+  const sumOf=(name,m)=>{const v=doneWeeks(t,m).map(i=>t.people[name][i]).filter(x=>x!==null&&x!==undefined);return v.length?v.reduce((a,b)=>a+b,0):null;};
   const names=Object.keys(t.people).filter(n=>ms.some(({m})=>sumOf(n,m)!==null));
   const last=ms.length?ms[ms.length-1].m:null;
   names.sort((a,b)=>(last?(sumOf(b,last)||0)-(sumOf(a,last)||0):0)||a.localeCompare(b));
