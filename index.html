@@ -241,6 +241,7 @@
   .tag-hi{background:var(--up-bg);color:var(--up)}
   .tag-lo{background:var(--down-bg);color:var(--down)}
   .tag-leave{background:var(--etc-bg);color:var(--warn)}
+  .tag-new{background:var(--accent-bg);color:var(--accent)}
   .tag-pm{background:var(--accent-bg);color:var(--accent)}
   .tag-solo{background:var(--soft);color:var(--ink-2)}
   .pmname{display:block;font-size:11.5px;color:var(--ink-2);margin-top:1px}
@@ -583,7 +584,7 @@ const I18N={
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
       noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (Routine cập nhật hằng tuần sẽ ghi các cột này).",
       note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước. Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`},
-  soloTag:"tự làm", leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
+  soloTag:"tự làm", rampTag:n=>`Mới · tuần ${n}`, rampTip:q=>`Thành viên mới — chỉ tiêu tuần này ${q} video (tuần 1: 2, tuần 2: 6, từ tuần 3: 8)`, leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
   grandNow:"Số lượng video tuần này", ongoing:"Tuần đang diễn ra — số liệu còn tăng, chưa phải kết quả cuối.",
   freshWarn:p=>`kỳ mới chưa khai báo chỉ tiêu: ${p}`,
@@ -592,7 +593,7 @@ const I18N={
   weekPicker:"Tuần", whyTitle:"Vì sao tuần này nhiều / ít hơn",
   btn:{total:"Tổng đội",per:"Trung bình / người",month:"Trung bình tháng",mtotal:"Tổng tháng"},
   mo2:{title:"Số creative sản xuất trong tháng", creator:"Creator", total:"Tổng đội", weeks:"Số kỳ đã xong", now:"Tháng này", wk:"tuần", projCol:m=>`${m} dự kiến`,
-      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`Dự kiến ${m} theo KPI: ${sum} creative = ${done} đã xong (${dw} kỳ, chỉ tính tới KPI, không tính phần làm vượt) + ${left} tuần còn lại × ${pace}/tuần (KPI ${q} video/người/tuần, riêng ${etc} làm ETC là ${eq}).`, ongoing:w=>`${w} đang làm nên chưa cộng vào tổng tháng — hết tuần mới cộng.`},
+      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`Dự kiến ${m} theo KPI: ${sum} creative = ${done} đã xong (${dw} kỳ, chỉ tính tới KPI, không tính phần làm vượt) + ${pace} cho ${left} tuần còn lại theo KPI (${q} video/người/tuần, riêng ${etc} làm ETC là ${eq}; người mới tuần đầu 2, tuần thứ hai 6; có trừ nghỉ phép).`, ongoing:w=>`${w} đang làm nên chưa cộng vào tổng tháng — hết tuần mới cộng.`},
   title:{total:"số video mỗi tuần",per:"số video mỗi người, theo tuần",
          month:"trung bình mỗi tuần, gộp theo tháng", mtotal:"tổng số creative mỗi tháng"},
   wk:d=>`Tuần ${d}`, mo:(n,raw)=>raw,
@@ -660,7 +661,7 @@ const I18N={
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
       noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the weekly Routine writes them).",
       note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time. Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`},
-  soloTag:"solo", leaveTip:q=>`On leave — target this week is ${q} videos`,
+  soloTag:"solo", rampTag:n=>`New · week ${n}`, rampTip:q=>`New member — target this week is ${q} videos (week 1: 2, week 2: 6, from week 3: 8)`, leaveTip:q=>`On leave — target this week is ${q} videos`,
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
   grandNow:"Videos so far this week", ongoing:"Week in progress — numbers are still coming in, not the final result.",
   freshWarn:p=>`new periods with no target set: ${p}`,
@@ -669,7 +670,7 @@ const I18N={
   weekPicker:"Week", whyTitle:"Why this week ran high or low",
   btn:{total:"Team total",per:"Average per person",month:"Monthly average",mtotal:"Monthly total"},
   mo2:{title:"Creatives produced per month", creator:"Creator", total:"Team total", weeks:"Finished periods", now:"This month", wk:"wk", projCol:m=>`${m} forecast`,
-      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`${m} forecast at KPI: ${sum} creatives = ${done} done (${dw} period${dw>1?"s":""}, counted up to KPI only, extra output left out) + ${left} weeks left × ${pace}/week (KPI ${q} videos per person per week, ${eq} for ${etc} on ETC).`, ongoing:w=>`${w} is still in progress, so it is not in the monthly total yet — it is added once the week ends.`},
+      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`${m} forecast at KPI: ${sum} creatives = ${done} done (${dw} period${dw>1?"s":""}, counted up to KPI only, extra output left out) + ${pace} for the ${left} weeks left at KPI (${q} videos per person per week, ${eq} for ${etc} on ETC; new members 2 in week one and 6 in week two; leave included).`, ongoing:w=>`${w} is still in progress, so it is not in the monthly total yet — it is added once the week ends.`},
   title:{total:"videos per week",per:"videos per person, by week",
          month:"weekly average, grouped by month", mtotal:"total creatives per month"},
   wk:d=>`Week ${d}`, mo:(n,raw)=>MONTH_EN[n]||raw,
@@ -737,7 +738,7 @@ const I18N={
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
       noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(주간 Routine이 기록).",
       note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다. 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`},
-  soloTag:"단독", leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
+  soloTag:"단독", rampTag:n=>`신규 · ${n}주차`, rampTip:q=>`신규 인원 — 이번 주 목표 ${q}개 (1주차 2개, 2주차 6개, 3주차부터 8개)`, leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
   grandNow:"이번 주 영상 수", ongoing:"진행 중인 주 — 수치가 계속 늘어나며 최종 결과가 아닙니다.",
   freshWarn:p=>`목표 미설정 신규 기간: ${p}`,
@@ -746,7 +747,7 @@ const I18N={
   weekPicker:"주차", whyTitle:"이번 주가 많거나 적었던 이유",
   btn:{total:"팀 합계",per:"1인 평균",month:"월 평균",mtotal:"월 합계"},
   mo2:{title:"월별 제작 크리에이티브 수", creator:"크리에이터", total:"팀 합계", weeks:"완료된 기간", now:"이번 달", wk:"주", projCol:m=>`${m} 예상`,
-      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`KPI 기준 ${m} 예상: ${sum}개 = 완료 ${done}개 (${dw}개 기간, KPI까지만 계산·초과분 제외) + 남은 ${left}주 × 주당 ${pace}개 (KPI 1인 주당 ${q}개, ETC ${etc}는 ${eq}개).`, ongoing:w=>`${w}은(는) 진행 중이라 월 합계에 아직 포함되지 않습니다 — 주가 끝나면 포함됩니다.`},
+      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`KPI 기준 ${m} 예상: ${sum}개 = 완료 ${done}개 (${dw}개 기간, KPI까지만 계산·초과분 제외) + 남은 ${left}주 KPI 기준 ${pace}개 (1인 주당 ${q}개, ETC ${etc}는 ${eq}개, 신규 인원 1주차 2개·2주차 6개, 휴가 반영).`, ongoing:w=>`${w}은(는) 진행 중이라 월 합계에 아직 포함되지 않습니다 — 주가 끝나면 포함됩니다.`},
   title:{total:"주별 영상 수",per:"주별 1인당 영상 수",month:"월별 주 평균",mtotal:"월별 크리에이티브 합계"},
   wk:d=>`${d} 주`, mo:(n,raw)=>`${n}월`,
   grand:"완료한 영상", firstWeek:"기록의 첫 주",
@@ -1206,9 +1207,21 @@ const LEAVE={
 function leavesAt(i){const w=WEEKS[i];return w&&LEAVE[w.full]?Object.entries(LEAVE[w.full]).map(([name,v])=>({name,...v})):[]}
 function leaveOf(name,i){const w=WEEKS[i];return (w&&LEAVE[w.full]&&LEAVE[w.full][name])||null}
 // Vai trò ETC có chuẩn riêng (12) và không nhận phần cộng thêm của kỳ gộp.
+// Người mới vào đội: kỳ đầu tiên chỉ tiêu 2 video, kỳ thứ hai 6, từ kỳ thứ ba mới theo chuẩn.
+// "Mới" = kỳ đầu tiên có số của người đó nằm sau kỳ đầu của bảng (người có số từ kỳ đầu là người cũ).
+const RAMP=[2,6];
+function rampQuota(team,name,i){
+  if(name===team.etc) return null;
+  const arr=team.people[name]||[], first=arr.findIndex(v=>v!==null&&v!==undefined);
+  if(first<=0) return null;
+  const n=i-first;
+  return n>=0&&n<RAMP.length?RAMP[n]:null;
+}
 function quotaFor(team,name,i){
   const lv=leaveOf(name,i);
   if(lv) return lv.quota;
+  const rq=rampQuota(team,name,i);
+  if(rq!==null) return rq;
   return name===team.etc
     ? (team.etcQuota||team.quota)+bonusEtcAt(i)
     : quotaAt(team,i);
@@ -1429,8 +1442,10 @@ function renderMembers(i){
       const tag=k.tag?`<span class="tag ${k.tag}">${T().kind[kk]}</span>`:"";
       const lv=leaveOf(r.name,i);
       const leave=lv?`<span class="tag tag-leave" title="${escH(T().leaveTip(lv.quota))}">${escH(lv.note[LANG]||lv.note.vi)}</span>`:"";
+      const rq=lv?null:rampQuota(t,r.name,i);
+      const ramp=rq!==null?`<span class="tag tag-new" title="${escH(T().rampTip(rq))}">${escH(T().rampTag(RAMP.indexOf(rq)+1))}</span>`:"";
       return `<tr>
-        <td>${r.name}${tag}${leave}${pmOf(t,r.name,i)
+        <td>${r.name}${tag}${leave}${ramp}${pmOf(t,r.name,i)
           ?`<span class="pmname">PM: ${pmOf(t,r.name,i)}</span>`
           :`<span class="tag tag-solo">${T().soloTag}</span>`}</td>
         <td class="barcell"><div class="track">
@@ -1509,22 +1524,30 @@ function monthProjection(t){
   const total=weeksInMonth(mon,year), done=doneWeeks(t,m), left=total-done.length;
   if(left<=0) return null;
   const names=roster(t,WEEKS.length-1).map(r=>r.name);
-  const rate=n=>n===t.etc?(t.etcQuota||t.quota):t.quota;
+  // KPI từng tuần còn lại: tuần đang làm dùng đúng chỉ tiêu tuần đó (có tính nghỉ phép, người mới);
+  // các tuần sau: 8/người, ETC 12, người mới vẫn theo lộ trình 2 → 6 → 8.
+  const L=WEEKS.length-1, start=isOngoing(L)?L:L+1;
+  const rateAt=(n,idx)=>{
+    if(idx<WEEKS.length) return quotaFor(t,n,idx);
+    if(n===t.etc) return t.etcQuota||t.quota;
+    const arr=t.people[n]||[], first=arr.findIndex(v=>v!==null&&v!==undefined), k2=idx-first;
+    return first>0&&k2<RAMP.length?RAMP[k2]:t.quota;
+  };
   // Kỳ đã xong: mỗi người chỉ tính tối đa bằng chỉ tiêu của kỳ đó — phần làm vượt không cộng vào dự kiến
   const capOf=(n,i)=>{const v=t.people[n][i];return v===null||v===undefined?0:Math.min(v,quotaFor(t,n,i));};
   const doneOf=n=>done.reduce((s,i)=>s+capOf(n,i),0);
-  const per={}; let pace=0;
-  names.forEach(n=>{ const r=rate(n); pace+=r; per[n]=doneOf(n)+left*r; });
+  const per={}; let leftSum=0;
+  names.forEach(n=>{ let r=0; for(let j=0;j<left;j++) r+=rateAt(n,start+j); leftSum+=r; per[n]=doneOf(n)+r; });
   const doneSum=done.reduce((s,i)=>s+totalOf(t,i),0);
   const doneCap=done.reduce((s,i)=>s+Object.keys(t.people).reduce((a,n)=>a+capOf(n,i),0),0);
-  return {k,month:m,total,doneWeeks:done.length,left,pace:Math.round(pace),doneSum,doneCap,per,sum:Math.round(doneCap+left*pace)};
+  return {k,month:m,total,doneWeeks:done.length,left,leftSum,doneSum,doneCap,per,sum:doneCap+leftSum};
 }
 function monthTotals(t){return MONTHS.map(m=>{const st=monthStats(t,m);return st?st.total:null})}
 function monthTargetSums(t){
   // Tháng hiện tại: chỉ tiêu cả tháng = chỉ tiêu các kỳ đã xong + số tuần còn lại × KPI một tuần của đội
   const pj=monthProjection(t);
   return MONTHS.map((m,k)=>{const ws=doneWeeks(t,m);const v=ws.length?ws.reduce((s,i)=>s+targetOf(t,i),0):null;
-    return pj&&k===pj.k?(v||0)+pj.left*pj.pace:v;});
+    return pj&&k===pj.k?(v||0)+pj.leftSum:v;});
 }
 function datasetsFor(t){
   if(mode==="mtotal"){
@@ -1646,7 +1669,7 @@ function renderMonthTable(){
   document.getElementById("mo-title").textContent=L.title;
   const on=WEEKS.map((_,i)=>i).filter(i=>isOngoing(i)&&totalOf(t,i)!==null);
   const pjN=monthProjection(t);
-  document.getElementById("mo-note").textContent=[pjN?L.projNote(moLabel(pjN.month),pjN.sum,pjN.doneCap,pjN.doneWeeks,pjN.left,pjN.pace,t.quota,t.etc,t.etcQuota):"",on.length?L.ongoing(on.map(wkLabel).join(", ")):""].filter(Boolean).join(" ");
+  document.getElementById("mo-note").textContent=[pjN?L.projNote(moLabel(pjN.month),pjN.sum,pjN.doneCap,pjN.doneWeeks,pjN.left,pjN.leftSum,t.quota,t.etc,t.etcQuota):"",on.length?L.ongoing(on.map(wkLabel).join(", ")):""].filter(Boolean).join(" ");
   const ms=MONTHS.map((m,k)=>({m,k})).filter(({m})=>doneWeeks(t,m).length);
   const sumOf=(name,m)=>{const v=doneWeeks(t,m).map(i=>t.people[name][i]).filter(x=>x!==null&&x!==undefined);return v.length?v.reduce((a,b)=>a+b,0):null;};
   const names=Object.keys(t.people).filter(n=>ms.some(({m})=>sumOf(n,m)!==null));

@@ -35,6 +35,8 @@ Tab PM cần `data/latest.csv` ở định dạng mới, có thêm các cột `G
 
 PM đã rời team (hằng `HIDDEN_PM` trong `index.html`, hiện là Avril) không hiện trong tab PM và Overview; số của creator ở tab Creator vẫn giữ nguyên.
 
+Thành viên mới (kỳ đầu tiên có số nằm sau kỳ đầu của bảng): kỳ đầu tiên chỉ tiêu **2 video**, kỳ thứ hai **6**, từ kỳ thứ ba mới là 8 (hằng `RAMP` trong `index.html`). Tab Creator hiện nhãn "Mới · tuần 1/2" cạnh tên; chỉ tiêu đội, cột chênh so chuẩn và dự kiến tháng đều tính theo lộ trình này.
+
 Creator nghỉ phép vài ngày: thêm một dòng vào hằng `LEAVE` trong `index.html`, khoá là tên Period gốc trên Notion, ví dụ `"[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}}`. Tuần đó chỉ tiêu của người đó tính theo `quota` và tab Creator hiện ghi chú cạnh tên. Đầu trang (ô "Số lượng video tuần này") cũng hiện ghi chú "1 creator nghỉ phép 2 ngày nên số lượng giảm".
 
 Các bảng rộng (Overview, lịch tab Creator, tab PM) kéo được bằng chuột: nhấn giữ trong bảng rồi kéo để xem, khỏi kéo thanh cuộn bên dưới.
