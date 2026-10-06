@@ -391,6 +391,12 @@
     .ov-scroll.dragging,.pm-scroll.dragging{cursor:grabbing;user-select:none}
     .ov-scroll.dragging a,.pm-scroll.dragging a{pointer-events:none}
   }
+  #mo-table td.num.now,#mo-table th.num.now{background:var(--now-bg)}
+  #mo-table th.num.now{background:var(--now-head);color:var(--now-head-ink)}
+  #mo-table tr.grand td{background:var(--total-bg);font-weight:700;border-top:1px solid var(--line)}
+  #mo-table tr.grand td.now{background:var(--now-bg)}
+  #mo-table tr.mo-wk td{font-size:12px;color:var(--ink-2);border-bottom:0}
+  #mo-card{margin:16px 0 0}
 </style>
 
 <div class="wrap">
@@ -436,6 +442,7 @@
       <button id="m-total" aria-pressed="true"></button>
       <button id="m-per" aria-pressed="false"></button>
       <button id="m-month" aria-pressed="false"></button>
+      <button id="m-mtotal" aria-pressed="false"></button>
     </div>
   </div>
 
@@ -445,6 +452,11 @@
       <span class="hint" id="hint-video"></span>
     </div>
     <div class="canvas-holder"><canvas id="chart-video"></canvas></div>
+  </div>
+
+  <div class="tcard pm-card" id="mo-card" hidden>
+    <h2 class="ov-h" id="mo-title"></h2>
+    <div class="ov-scroll"><table id="mo-table"></table></div>
   </div>
 
   <div class="members">
@@ -575,9 +587,10 @@ const I18N={
   stamp:d=>`Số liệu cập nhật ${d}`,
   source:"nguồn: Creative Production DB",
   weekPicker:"Tuần", whyTitle:"Vì sao tuần này nhiều / ít hơn",
-  btn:{total:"Tổng đội",per:"Trung bình / người",month:"Trung bình tháng"},
+  btn:{total:"Tổng đội",per:"Trung bình / người",month:"Trung bình tháng",mtotal:"Tổng tháng"},
+  mo2:{title:"Số creative sản xuất trong tháng", creator:"Creator", total:"Tổng đội", weeks:"Số kỳ có số liệu", now:"Tháng này"},
   title:{total:"số video mỗi tuần",per:"số video mỗi người, theo tuần",
-         month:"trung bình mỗi tuần, gộp theo tháng"},
+         month:"trung bình mỗi tuần, gộp theo tháng", mtotal:"tổng số creative mỗi tháng"},
   wk:d=>`Tuần ${d}`, mo:(n,raw)=>raw,
   grand:"Tổng video hoàn thành", firstWeek:"tuần đầu của bảng",
   noPrev:"không có tuần trước để so sánh", notEntered:"chưa nhập",
@@ -608,7 +621,7 @@ const I18N={
   cardSum:(n,s,g)=>`${n} người · ${s}/${g} video cần làm`,
   kind:{under:"dưới chỉ tiêu",solo:"tự làm",pm:"có PM",assisted:"có dev/art",over:"vượt mức",etc:"ETC"},
   ds:{solo:"Trong chuẩn",over:"Vượt mức",assisted:"Có dev/art",etc:t=>`ETC (${t})`,
-      monthBar:"Trung bình video mỗi tuần trong tháng",
+      monthBar:"Trung bình video mỗi tuần trong tháng", mtotalBar:"Tổng creative trong tháng", mtotalTgt:"Tổng chỉ tiêu của tháng",
       monthTgt:q=>`Chỉ tiêu trung bình mỗi tuần (${q} video mỗi người)`,
       weekTgt:q=>`Chỉ tiêu ${q} video mỗi người (kỳ gộp cộng thêm)`},
   tip:{monthTitle:(m,w)=>`${m} — ${w} tuần có số liệu`, need:r=>` → tuần này cần ${r} video`,
@@ -650,9 +663,10 @@ const I18N={
   stamp:d=>`Data updated ${d}`,
   source:"source: Creative Production DB",
   weekPicker:"Week", whyTitle:"Why this week ran high or low",
-  btn:{total:"Team total",per:"Average per person",month:"Monthly average"},
+  btn:{total:"Team total",per:"Average per person",month:"Monthly average",mtotal:"Monthly total"},
+  mo2:{title:"Creatives produced per month", creator:"Creator", total:"Team total", weeks:"Periods with data", now:"This month"},
   title:{total:"videos per week",per:"videos per person, by week",
-         month:"weekly average, grouped by month"},
+         month:"weekly average, grouped by month", mtotal:"total creatives per month"},
   wk:d=>`Week ${d}`, mo:(n,raw)=>MONTH_EN[n]||raw,
   grand:"Videos completed", firstWeek:"first week on record",
   noPrev:"no previous week to compare", notEntered:"not entered",
@@ -683,7 +697,7 @@ const I18N={
   cardSum:(n,s,g)=>`${n} people · ${s}/${g} videos targeted`,
   kind:{under:"under target",solo:"solo",pm:"with PM",assisted:"dev/art support",over:"past target",etc:"ETC"},
   ds:{solo:"Within target",over:"Past target",assisted:"With dev/art",etc:t=>`ETC (${t})`,
-      monthBar:"Average videos per week in the month",
+      monthBar:"Average videos per week in the month", mtotalBar:"Creatives in the month", mtotalTgt:"Monthly target total",
       monthTgt:q=>`Average weekly target (${q} per person)`,
       weekTgt:q=>`Target ${q} videos per person (raised on merged periods)`},
   tip:{monthTitle:(m,w)=>`${m} — ${w} week${w>1?"s":""} with data`, need:r=>` → ${r} videos needed`,
@@ -725,8 +739,9 @@ const I18N={
   stamp:d=>`데이터 업데이트 ${d}`,
   source:"출처: Creative Production DB",
   weekPicker:"주차", whyTitle:"이번 주가 많거나 적었던 이유",
-  btn:{total:"팀 합계",per:"1인 평균",month:"월 평균"},
-  title:{total:"주별 영상 수",per:"주별 1인당 영상 수",month:"월별 주 평균"},
+  btn:{total:"팀 합계",per:"1인 평균",month:"월 평균",mtotal:"월 합계"},
+  mo2:{title:"월별 제작 크리에이티브 수", creator:"크리에이터", total:"팀 합계", weeks:"데이터 있는 기간", now:"이번 달"},
+  title:{total:"주별 영상 수",per:"주별 1인당 영상 수",month:"월별 주 평균",mtotal:"월별 크리에이티브 합계"},
   wk:d=>`${d} 주`, mo:(n,raw)=>`${n}월`,
   grand:"완료한 영상", firstWeek:"기록의 첫 주",
   noPrev:"비교할 이전 주가 없음", notEntered:"미입력",
@@ -757,7 +772,7 @@ const I18N={
   cardSum:(n,s,g)=>`${n}명 · ${s}/${g}개`,
   kind:{under:"목표 미달",solo:"단독",pm:"PM 협업",assisted:"dev/art 참여",over:"목표 초과",etc:"ETC"},
   ds:{solo:"기준 이내",over:"목표 초과",assisted:"dev/art 참여",etc:t=>`ETC (${t})`,
-      monthBar:"월 내 주 평균 영상 수",
+      monthBar:"월 내 주 평균 영상 수", mtotalBar:"월간 크리에이티브 합계", mtotalTgt:"월간 목표 합계",
       monthTgt:q=>`주 평균 목표 (1인당 ${q}개)`,
       weekTgt:q=>`목표 1인당 ${q}개 (합산 기간은 상향)`},
   tip:{monthTitle:(m,w)=>`${m} — 데이터 있는 ${w}주`, need:r=>` → 이번 기간 ${r}개 필요`,
@@ -1470,7 +1485,20 @@ function monthTargets(t){
     return Math.round(ws.reduce((s,i)=>s+targetOf(t,i),0)/ws.length*10)/10;
   });
 }
+function monthTotals(t){return MONTHS.map(m=>{const st=monthStats(t,m);return st?st.total:null})}
+function monthTargetSums(t){
+  return MONTHS.map(m=>{const ws=m.weeks.filter(i=>totalOf(t,i)!==null);return ws.length?ws.reduce((s,i)=>s+targetOf(t,i),0):null});
+}
 function datasetsFor(t){
+  if(mode==="mtotal"){
+    return [
+      {label:T().ds.mtotalBar,data:monthTotals(t),
+       backgroundColor:t.color,borderRadius:3,barPercentage:.55,categoryPercentage:.8,order:2},
+      {type:"line",label:T().ds.mtotalTgt,
+       data:monthTargetSums(t),borderColor:getCSS("--ink"),borderWidth:1.5,borderDash:[5,4],
+       pointRadius:0,pointHoverRadius:0,fill:false,tension:0,order:0}
+    ];
+  }
   if(mode==="month"){
     return [
       {label:T().ds.monthBar,data:monthBars(t),
@@ -1519,7 +1547,7 @@ function optionsFor(t){
         titleFont:{family:"IBM Plex Sans",size:12.5},bodyFont:{family:"IBM Plex Mono",size:12.5},
         footerFont:{family:"IBM Plex Sans",size:12,weight:"400"},
         callbacks:{
-          title:it=>mode==="month"
+          title:it=>isMonthMode()
             ? (()=>{const m=MONTHS[it[0].dataIndex],st=monthStats(t,m);
                 return T().tip.monthTitle(moLabel(m),st?st.weeks:0);})()
             : wkLabel(it[0].dataIndex),
@@ -1531,7 +1559,7 @@ function optionsFor(t){
           },
           footer:it=>{
             const i=it[0].dataIndex;
-            if(mode==="month"){
+            if(isMonthMode()){
               const st=monthStats(t,MONTHS[i]);
               if(!st) return T().tip.monthNone;
               return T().tip.monthFoot(fmt(st.avgPerson,1),Math.round(st.hit*100),st.total);
@@ -1548,7 +1576,7 @@ function optionsFor(t){
     onClick:(e,els)=>{
       if(!els.length) return;
       const idx=els[0].index;
-      const w=mode==="month"
+      const w=isMonthMode()
         ? [...MONTHS[idx].weeks].reverse().find(i=>totalOf(t,i)!==null)
         : idx;
       if(w!==undefined){document.getElementById("week").value=w;update();}
@@ -1556,7 +1584,7 @@ function optionsFor(t){
   };
 }
 function axisLabels(){
-  return mode==="month" ? MONTHS.map(moLabel) : WEEKS.map(w=>w.label.replace(/^Tuần\s*/,""));
+  return isMonthMode() ? MONTHS.map(moLabel) : WEEKS.map(w=>w.label.replace(/^Tuần\s*/,""));
 }
 
 function buildCharts(){
@@ -1569,7 +1597,29 @@ function buildCharts(){
   });
   renderHints();
 }
+// Bảng số creative từng người theo tháng — chỉ hiện ở chế độ "Tổng tháng"
+function renderMonthTable(){
+  const card=document.getElementById("mo-card");
+  card.hidden=mode!=="mtotal";
+  if(card.hidden) return;
+  const t=TEAMS[0], L=T().mo2;
+  document.getElementById("mo-title").textContent=L.title;
+  const ms=MONTHS.map((m,k)=>({m,k})).filter(({m})=>m.weeks.some(i=>totalOf(t,i)!==null));
+  const sumOf=(name,m)=>{const v=m.weeks.map(i=>t.people[name][i]).filter(x=>x!==null&&x!==undefined);return v.length?v.reduce((a,b)=>a+b,0):null;};
+  const names=Object.keys(t.people).filter(n=>ms.some(({m})=>sumOf(n,m)!==null));
+  const last=ms.length?ms[ms.length-1].m:null;
+  names.sort((a,b)=>(last?(sumOf(b,last)||0)-(sumOf(a,last)||0):0)||a.localeCompare(b));
+  const cur=MONTHS.indexOf(monthOfWeek(WEEKS.length-1));
+  let h=`<thead><tr><th>${L.creator}</th>${ms.map(({m,k})=>`<th class="num${k===cur?" now":""}">${escH(moLabel(m))}${k===cur?`<span class="now-badge">${escH(L.now)}</span>`:""}</th>`).join("")}</tr></thead><tbody>`;
+  names.forEach(n=>{
+    h+=`<tr><td>${escH(n)}</td>${ms.map(({m,k})=>{const v=sumOf(n,m);return `<td class="num${k===cur?" now":""}">${v===null?'<span class="ov-empty">–</span>':v}</td>`;}).join("")}</tr>`;
+  });
+  h+=`<tr class="grand"><td>${L.total}</td>${ms.map(({m,k})=>`<td class="num${k===cur?" now":""}">${monthStats(t,m).total}</td>`).join("")}</tr>`;
+  h+=`<tr class="mo-wk"><td>${L.weeks}</td>${ms.map(({m,k})=>`<td class="num${k===cur?" now":""}">${monthStats(t,m).weeks}</td>`).join("")}</tr>`;
+  document.getElementById("mo-table").innerHTML=h+"</tbody>";
+}
 function refreshCharts(){
+  renderMonthTable();
   TEAMS.forEach(t=>{
     const c=charts[t.key];
     c.data.labels=axisLabels();
@@ -1618,6 +1668,13 @@ function periodDate(name){
   return m?{m:+m[1],d:+m[2]}:null;
 }
 const MONTH_VI=n=>`Tháng ${n}`;
+// Tháng của một kỳ theo tên Period trên Notion ("Sep W1W2 (08/31~)" là tháng 9, "July W1 (06/29~)" là tháng 7),
+// vì đội đặt kỳ theo tháng làm việc chứ không theo ngày bắt đầu. Không có tên tháng thì lấy tháng của ngày bắt đầu.
+function monthOfPeriod(full){
+  const k=/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\b/i.exec(full||"");
+  if(k) return ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"].indexOf(k[1].toLowerCase())+1;
+  return (periodDate(full)||{m:0}).m;
+}
 
 function importCSV(text){
   const rows=parseCSV(text);
@@ -1704,7 +1761,7 @@ function importCSV(text){
 
   const bucket={}, newMonths=[];
   newWeeks.forEach((w,i)=>{
-    const key=`Tháng ${(periodDate(w.full)||{m:0}).m}`;
+    const key=`Tháng ${monthOfPeriod(w.full)}`;
     if(!(key in bucket)){bucket[key]=newMonths.length;newMonths.push({label:key,weeks:[]});}
     newMonths[bucket[key]].weeks.push(i);
   });
@@ -1773,7 +1830,8 @@ WEEKS.forEach((w,i)=>{
 });
 sel.value=WEEKS.length-1;
 
-const MODE_BTN={total:"m-total",per:"m-per",month:"m-month"};
+const MODE_BTN={total:"m-total",per:"m-per",month:"m-month",mtotal:"m-mtotal"};
+const isMonthMode=()=>mode==="month"||mode==="mtotal";
 
 function applyLang(){
   document.documentElement.lang=LANG;
