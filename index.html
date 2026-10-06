@@ -473,8 +473,8 @@
     <div class="tcard pm-card"><div class="pm-scroll"><table id="pm-table"></table></div></div>
     <div class="tcard pm-card"><div class="pmg-head"><h2 class="ov-h" id="pmg-title"></h2><span class="pmg-legend" id="pmg-legend"></span>
       <div class="toggle" role="group" id="pmg-mode">
-        <button type="button" data-mode="game" aria-pressed="true"></button>
-        <button type="button" data-mode="pm" aria-pressed="false"></button>
+        <button type="button" data-mode="pm" aria-pressed="true"></button>
+        <button type="button" data-mode="game" aria-pressed="false"></button>
       </div></div><div class="pm-scroll"><table id="pmg-table"></table></div></div>
     <p class="pm-note" id="pm-note"></p>
   </div>
@@ -845,7 +845,7 @@ function fillPmWeeks(){
   box.disabled=!ws.length;
 }
 // Bảng PM × game: game nào PM đang đảm nhận (có task tuần này hoặc sắp tới) và đã làm (chỉ còn ở các tuần trước)
-let PMG_MODE="game";   // "game": game nhiều PM / đang làm lên trước · "pm": nhóm theo PM phụ trách chính, PM xếp A→Z
+let PMG_MODE="pm";   // "game": game nhiều PM / đang làm lên trước · "pm": nhóm theo PM phụ trách chính, PM xếp A→Z
 document.getElementById("pmg-mode").addEventListener("click",e=>{
   const b=e.target.closest("button[data-mode]"); if(!b) return;
   PMG_MODE=b.dataset.mode; renderPMGames();
@@ -853,8 +853,8 @@ document.getElementById("pmg-mode").addEventListener("click",e=>{
 function renderPMGames(){
   const L=T().pm.g, table=document.getElementById("pmg-table");
   const [m1,m2]=document.querySelectorAll("#pmg-mode button");
-  m1.textContent=L.byGame; m2.textContent=L.byPM;
-  m1.setAttribute("aria-pressed",PMG_MODE==="game"); m2.setAttribute("aria-pressed",PMG_MODE==="pm");
+  m1.textContent=L.byPM; m2.textContent=L.byGame;
+  m1.setAttribute("aria-pressed",PMG_MODE==="pm"); m2.setAttribute("aria-pressed",PMG_MODE==="game");
   document.getElementById("pmg-title").textContent=L.title;
   document.getElementById("pmg-legend").innerHTML=escH(L.legend).replace("●",'<span class="pmg-dot"></span>');
   if(!TASKS){ table.innerHTML=`<tr><td class="empty">${T().pm.noData}</td></tr>`; return; }
