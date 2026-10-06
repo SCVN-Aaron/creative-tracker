@@ -22,8 +22,8 @@ Script chỉ thay phần giữa hai dòng `// <<< DATA_START` và `// <<< DATA_E
 Dashboard có ba tab và một link:
 
 - **Creator** — sản lượng từng creator so với chỉ tiêu, như trước giờ. Kỳ chưa bắt đầu (kế hoạch nhập trước) không được tính vào đây.
-  Cuối tab Creator có bảng **Lịch 4-Week Loop Schedule (🇻🇳 UA)** lấy nguyên từ Google Sheet tới hết file: "Theo creator" (creator × tuần → game, ✓/⚠ so với Notion) hoặc "Theo game" (game × tuần → creator, kèm số tuần).
-- **PM** — tổng quan từng tuần: PM nào làm game gì, iteration nào, với creator nào, bao nhiêu creative, trạng thái ra sao. Có cả các tuần sắp tới. Bấm tên iteration để mở task trên Notion. Bên dưới là bảng "PM và các game đảm nhận": mỗi hàng là một game, mỗi cột là một PM, nên game nhiều PM cùng làm nằm thẳng một hàng. Ô có chấm xanh là **đang đảm nhận** (có task từ tuần này trở đi), chữ mờ là **đã làm** trước đây, kèm số tuần. Nút "Theo game / Theo PM" đổi cách xếp: "Theo PM" là bảng hai cột: tên PM (A→Z) và các game PM đó làm, game đang đảm nhận có chấm xanh và đứng trước, game đã làm hiện mờ. Mở thẳng tab này bằng link có đuôi `#pm`.
+  Cuối tab Creator có bảng **Lịch 4-Week Loop Schedule (🇻🇳 UA)** lấy nguyên từ Google Sheet tới hết file: "Theo creator" (creator × tuần → game, ✓/⚠ so với Notion, dưới mỗi ô là PM của task trên Notion hoặc "Solo" nếu chưa gắn PM — không đoán PM) hoặc "Theo game" (game × tuần → creator, kèm số tuần).
+- **PM** — tổng quan từng tuần: PM nào làm game gì, iteration nào, với creator nào, bao nhiêu creative, trạng thái ra sao. Có cả các tuần sắp tới. Bấm tên iteration để mở task trên Notion. Bên dưới là bảng "PM và các game đảm nhận" gồm hai cột: tên PM (A→Z) và các game PM đó làm; game đang đảm nhận (có task từ tuần này trở đi) có chấm xanh và đứng trước, game đã làm hiện mờ. Mở thẳng tab này bằng link có đuôi `#pm`.
 - **Overview** — một bảng "PM đang làm game gì — theo tuần": mỗi hàng là một PM, mỗi cột là một tuần (từ lúc đội bắt đầu điền PM tới **hết file 4-Week Loop Schedule**), mỗi ô liệt kê game · creator · số lượng. Bấm một dòng để mở task trên Notion. Creator nào có trong lịch mà tuần đó chưa có task trên Notion thì hiện mờ, in nghiêng, kèm PM dự đoán (lần gần nhất creator/game đó làm). Bảng tự cuộn tới tuần này. Mở thẳng bằng link có đuôi `#overview`.
 - **4-Week Loop Schedule** — Google Sheet (chỉ các dòng 🇻🇳 베트남 — UA) được *Publish to web* dạng CSV, dashboard đọc trực tiếp link đó (hằng `SCHEDULE_URL` trong `index.html`), nên sửa Sheet là dashboard thấy ngay. Không đọc được link thì dùng bản lưu `data/schedule.csv`.
 - **Lên kế hoạch ↗** — mở [Creative Planner](https://claude.ai/artifact/4KF9BgskfgqJvzsSCgeCsS), nơi PM chọn tuần, PM, game, số lượng, creator làm chung rồi xác nhận để tạo task (Status = To do) trong Creative Production DB.
@@ -34,7 +34,9 @@ Tab PM cần `data/latest.csv` ở định dạng mới, có thêm các cột `G
 
 PM đã rời team (hằng `HIDDEN_PM` trong `index.html`, hiện là Avril) không hiện trong tab PM và Overview; số của creator ở tab Creator vẫn giữ nguyên.
 
-Creator nghỉ phép vài ngày: thêm một dòng vào hằng `LEAVE` trong `index.html`, khoá là tên Period gốc trên Notion, ví dụ `"[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, note:{vi:"Nghỉ thứ 5, thứ 6",en:"Off Thu–Fri",ko:"목·금 휴무"}}}`. Tuần đó chỉ tiêu của người đó tính theo `quota` và tab Creator hiện ghi chú cạnh tên.
+Creator nghỉ phép vài ngày: thêm một dòng vào hằng `LEAVE` trong `index.html`, khoá là tên Period gốc trên Notion, ví dụ `"[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}}`. Tuần đó chỉ tiêu của người đó tính theo `quota` và tab Creator hiện ghi chú cạnh tên. Đầu trang (ô "Số lượng video tuần này") cũng hiện ghi chú "1 creator nghỉ phép 2 ngày nên số lượng giảm".
+
+Các bảng rộng (Overview, lịch tab Creator, tab PM) kéo được bằng chuột: nhấn giữ trong bảng rồi kéo để xem, khỏi kéo thanh cuộn bên dưới.
 
 Màu tag mỗi game lấy theo thứ tự option `Game Title` trên Notion (hằng `GAME_ORDER` trong `index.html`, khớp với Creative Planner). Thêm game mới trên Notion thì thêm tên vào cuối `GAME_ORDER` để màu hai nơi giống nhau.
 
