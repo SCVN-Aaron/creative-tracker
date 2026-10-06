@@ -374,21 +374,12 @@
   .cs-pm{margin-top:4px}
   .pmg-head{display:flex;align-items:center;flex-wrap:wrap;gap:0 12px;border-bottom:1px solid var(--line);padding-right:18px}
   .pmg-head .ov-h{border-bottom:0}
-  .pmg-head .toggle{margin-left:auto;margin-bottom:6px;margin-top:6px}
   #pmg-table td.pmg-name{font-weight:600;white-space:nowrap;width:1%;border-right:1px solid var(--line);vertical-align:middle}
   .pmg-list{display:flex;flex-wrap:wrap;gap:8px 10px}
   .pmg-item{display:inline-flex;align-items:center}
   .pmg-item.off .game{opacity:.55}
   .pmg-legend{font-size:12px;color:var(--ink-2);padding:0 0 10px 18px}
   @media (min-width:721px){.pmg-legend{padding:0}}
-  #pmg-table td.pmg-g{white-space:nowrap;border-right:1px solid var(--line);width:1%}
-  #pmg-table td.pmg-g,#pmg-table th:first-child{position:sticky;left:0;z-index:1;background:var(--panel)}
-  #pmg-table th:first-child{background:var(--th);z-index:2}
-  #pmg-table th.pmg-pm,#pmg-table td.pmg-c{text-align:center;white-space:nowrap}
-  #pmg-table th.pmg-pm small{display:block;font-weight:400;text-transform:none;letter-spacing:0;font-size:11.5px}
-  #pmg-table td.pmg-c{font-size:13px}
-  #pmg-table td.pmg-c.on{font-weight:600;color:var(--ink)}
-  #pmg-table td.pmg-c.off{color:var(--ink-2)}
   .pmg-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--up);margin-right:6px;vertical-align:1px}
 </style>
 
@@ -471,11 +462,7 @@
       <div class="pm-sum" id="pm-sum"></div>
     </div>
     <div class="tcard pm-card"><div class="pm-scroll"><table id="pm-table"></table></div></div>
-    <div class="tcard pm-card"><div class="pmg-head"><h2 class="ov-h" id="pmg-title"></h2><span class="pmg-legend" id="pmg-legend"></span>
-      <div class="toggle" role="group" id="pmg-mode">
-        <button type="button" data-mode="pm" aria-pressed="true"></button>
-        <button type="button" data-mode="game" aria-pressed="false"></button>
-      </div></div><div class="pm-scroll"><table id="pmg-table"></table></div></div>
+    <div class="tcard pm-card"><div class="pmg-head"><h2 class="ov-h" id="pmg-title"></h2><span class="pmg-legend" id="pmg-legend"></span></div><div class="pm-scroll"><table id="pmg-table"></table></div></div>
     <p class="pm-note" id="pm-note"></p>
   </div>
 
@@ -565,7 +552,7 @@ const I18N={
         noData:"Không đọc được 4-Week Loop Schedule.", loading:"Đang đọc 4-Week Loop Schedule…"},
       note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Ô in nghiêng, mờ là theo 4-Week Loop Schedule (tới hết file) nhưng chưa có task trên Notion, PM là dự đoán. ETC là game mới chưa có tên; game mới chưa có PM nằm ở hàng “Chưa rõ PM”. “Creator solo” là task trên Notion không gắn PM. Kéo ngang để xem các tuần khác."},
   pm:{week:"Tuần", now:" · tuần này", soon:" · sắp tới",
-      g:{title:"PM và các game đảm nhận", game:"Game", active:"Đang đảm nhận", done:"Đã làm", legend:"● Đang đảm nhận (có task từ tuần này trở đi) · chữ mờ: đã làm trước đây", byGame:"Theo game", byPM:"Theo PM", count:n=>`${n} game`, meta:w=>`${w} tuần`},
+      g:{title:"PM và các game đảm nhận", game:"Game", active:"Đang đảm nhận", done:"Đã làm", legend:"● Đang đảm nhận (có task từ tuần này trở đi) · chữ mờ: đã làm trước đây", meta:w=>`${w} tuần`},
       sum:["creative","task","PM","game","creator"],
       th:["PM","Game","Iteration","Creator","Số lượng","Trạng thái"],
       meta:(g,c)=>`<b>${g}</b> game · <b>${c}</b> creator`, noPM:"Creator solo (không PM)", total:"Tổng cộng",
@@ -639,7 +626,7 @@ const I18N={
         noData:"Could not read the 4-Week Loop Schedule.", loading:"Loading the 4-Week Loop Schedule…"},
       note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Faded italic lines come from the 4-Week Loop Schedule (through the end of the file) with no Notion task yet; their PM is guessed. ETC is a new, not-yet-named game; new games with no PM yet sit in the “PM not known yet” row. “Creator solo” means the Notion task has no PM tagged. Scroll sideways for other weeks."},
   pm:{week:"Week", now:" · this week", soon:" · upcoming",
-      g:{title:"PMs and their games", game:"Game", active:"Currently on", done:"Done before", legend:"● Currently on (tasks from this week on) · faded: done before", byGame:"By game", byPM:"By PM", count:n=>`${n} game${n>1?"s":""}`, meta:w=>`${w} week${w>1?"s":""}`},
+      g:{title:"PMs and their games", game:"Game", active:"Currently on", done:"Done before", legend:"● Currently on (tasks from this week on) · faded: done before", meta:w=>`${w} week${w>1?"s":""}`},
       sum:["creatives","tasks","PMs","games","creators"],
       th:["PM","Game","Iteration","Creator","Count","Status"],
       meta:(g,c)=>`<b>${g}</b> game${g>1?"s":""} · <b>${c}</b> creator${c>1?"s":""}`, noPM:"Creator solo (no PM)", total:"Total",
@@ -713,7 +700,7 @@ const I18N={
         noData:"4-Week Loop Schedule을 읽지 못했습니다.", loading:"4-Week Loop Schedule 읽는 중…"},
       note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 흐린 기울임 줄은 4-Week Loop Schedule(파일 끝까지) 기준이며 아직 Notion 작업이 없고 PM은 추정입니다. ETC는 아직 이름이 없는 신규 게임이며, PM이 없는 신규 게임은 “PM 미정” 줄에 표시됩니다. “크리에이터 단독”은 Notion 작업에 PM 태그가 없는 경우입니다. 옆으로 스크롤해 다른 주를 보세요."},
   pm:{week:"주차", now:" · 이번 주", soon:" · 예정",
-      g:{title:"PM별 담당 게임", game:"게임", active:"현재 담당", done:"이전 담당", legend:"● 현재 담당 (이번 주 이후 작업 있음) · 흐린 글씨: 이전 담당", byGame:"게임별", byPM:"PM별", count:n=>`게임 ${n}개`, meta:w=>`${w}주`},
+      g:{title:"PM별 담당 게임", game:"게임", active:"현재 담당", done:"이전 담당", legend:"● 현재 담당 (이번 주 이후 작업 있음) · 흐린 글씨: 이전 담당", meta:w=>`${w}주`},
       sum:["크리에이티브","작업","PM","게임","크리에이터"],
       th:["PM","게임","Iteration","크리에이터","수량","상태"],
       meta:(g,c)=>`게임 <b>${g}</b> · 크리에이터 <b>${c}</b>`, noPM:"크리에이터 단독 (PM 없음)", total:"합계",
@@ -845,16 +832,10 @@ function fillPmWeeks(){
   box.disabled=!ws.length;
 }
 // Bảng PM × game: game nào PM đang đảm nhận (có task tuần này hoặc sắp tới) và đã làm (chỉ còn ở các tuần trước)
-let PMG_MODE="pm";   // "game": game nhiều PM / đang làm lên trước · "pm": nhóm theo PM phụ trách chính, PM xếp A→Z
-document.getElementById("pmg-mode").addEventListener("click",e=>{
-  const b=e.target.closest("button[data-mode]"); if(!b) return;
-  PMG_MODE=b.dataset.mode; renderPMGames();
-});
+// Bảng PM → game: tên PM (A→Z) | các game PM đó làm. Đang đảm nhận (có task tuần này hoặc sắp tới)
+// có chấm xanh và đứng trước; đã làm (chỉ còn ở các tuần trước) hiện mờ.
 function renderPMGames(){
   const L=T().pm.g, table=document.getElementById("pmg-table");
-  const [m1,m2]=document.querySelectorAll("#pmg-mode button");
-  m1.textContent=L.byPM; m2.textContent=L.byGame;
-  m1.setAttribute("aria-pressed",PMG_MODE==="pm"); m2.setAttribute("aria-pressed",PMG_MODE==="game");
   document.getElementById("pmg-title").textContent=L.title;
   document.getElementById("pmg-legend").innerHTML=escH(L.legend).replace("●",'<span class="pmg-dot"></span>');
   if(!TASKS){ table.innerHTML=`<tr><td class="empty">${T().pm.noData}</td></tr>`; return; }
@@ -862,35 +843,15 @@ function renderPMGames(){
   TASKS.filter(t=>t.pm&&t.game).forEach(t=>{
     if(!by.has(t.pm)) by.set(t.pm,new Map());
     const m=by.get(t.pm), st=periodStart(t.period);
-    const e=m.get(t.game)||{weeks:new Set(),n:0,cr:new Set(),last:0,active:false};
-    e.weeks.add(t.period); e.n+=t.count||0; t.creators.forEach(c=>e.cr.add(c));
-    e.last=Math.max(e.last,+st||0); e.active=e.active||!!st&&(isNowWeek(t.period)||st>now);
+    const e=m.get(t.game)||{weeks:new Set(),active:false};
+    e.weeks.add(t.period); e.active=e.active||!!st&&(isNowWeek(t.period)||st>now);
     m.set(t.game,e);
   });
-  // Bảng game × PM: game trùng giữa các PM nằm trên cùng một hàng. Ô có chấm = đang đảm nhận, chữ mờ = đã làm.
-  const tot=pm=>[...by.get(pm).values()].reduce((s,e)=>s+e.n,0);
-  const pms=[...by.keys()].sort(PMG_MODE==="pm"?(a,b)=>a.localeCompare(b):(a,b)=>tot(b)-tot(a)||a.localeCompare(b));
-  const games=[...new Set(pms.flatMap(pm=>[...by.get(pm).keys()]))];
-  const info=g=>{const es=pms.map(pm=>by.get(pm).get(g)).filter(Boolean);
-    return {active:es.some(e=>e.active), n:es.length, last:Math.max(...es.map(e=>e.last))};};
-  games.sort((a,b)=>{const x=info(a),y=info(b);return y.active-x.active||y.n-x.n||y.last-x.last||a.localeCompare(b);});
-  let h=`<thead><tr><th>${L.game}</th>${pms.map(pm=>`<th class="pmg-pm">${escH(pm)}<small>${L.count(by.get(pm).size)}</small></th>`).join("")}</tr></thead><tbody>`;
-  if(PMG_MODE==="pm"){
-    // Hai cột: tên PM | các game PM đó làm (đang đảm nhận có chấm xanh, lên trước; đã làm chữ mờ)
-    h=`<thead><tr><th>${T().ov.pm}</th><th>${L.game}</th></tr></thead><tbody>`;
-    pms.forEach(pm=>{
-      const list=[...by.get(pm).entries()].sort((a,b)=>b[1].active-a[1].active||b[1].weeks.size-a[1].weeks.size||a[0].localeCompare(b[0]));
-      h+=`<tr><td class="pmg-name">${escH(pm)}</td><td><div class="pmg-list">${list.map(([g,e])=>
-        `<span class="pmg-item ${e.active?"on":"off"}" title="${escH((e.active?L.active:L.done)+" · "+L.meta(e.weeks.size))}">${e.active?`<span class="pmg-dot"></span>`:""}${gameTag(g)}</span>`).join("")}</div></td></tr>`;
-    });
-    table.innerHTML=h+"</tbody>"; return;
-  }
-  games.forEach(g=>{
-    h+=`<tr><td class="pmg-g">${gameTag(g)}</td>`+pms.map(pm=>{
-      const e=by.get(pm).get(g);
-      if(!e) return `<td class="pmg-c"><span class="ov-empty">–</span></td>`;
-      return `<td class="pmg-c ${e.active?"on":"off"}" title="${escH(e.active?L.active:L.done)}">${e.active?`<span class="pmg-dot"></span>`:""}${escH(L.meta(e.weeks.size))}</td>`;
-    }).join("")+`</tr>`;
+  let h=`<thead><tr><th>${T().ov.pm}</th><th>${L.game}</th></tr></thead><tbody>`;
+  [...by.keys()].sort((a,b)=>a.localeCompare(b)).forEach(pm=>{
+    const list=[...by.get(pm).entries()].sort((a,b)=>b[1].active-a[1].active||b[1].weeks.size-a[1].weeks.size||a[0].localeCompare(b[0]));
+    h+=`<tr><td class="pmg-name">${escH(pm)}</td><td><div class="pmg-list">${list.map(([g,e])=>
+      `<span class="pmg-item ${e.active?"on":"off"}" title="${escH((e.active?L.active:L.done)+" · "+L.meta(e.weeks.size))}">${e.active?`<span class="pmg-dot"></span>`:""}${gameTag(g)}</span>`).join("")}</div></td></tr>`;
   });
   table.innerHTML=h+"</tbody>";
 }
