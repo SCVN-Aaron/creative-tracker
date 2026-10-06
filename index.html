@@ -381,6 +381,11 @@
   .pmg-legend{font-size:12px;color:var(--ink-2);padding:0 0 10px 18px}
   @media (min-width:721px){.pmg-legend{padding:0}}
   .pmg-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--up);margin-right:6px;vertical-align:1px}
+  @media (hover:hover) and (pointer:fine){
+    .ov-scroll,.pm-scroll{cursor:grab}
+    .ov-scroll.dragging,.pm-scroll.dragging{cursor:grabbing;user-select:none}
+    .ov-scroll.dragging a,.pm-scroll.dragging a{pointer-events:none}
+  }
 </style>
 
 <div class="wrap">
@@ -579,6 +584,7 @@ const I18N={
   vsPrev:(s,h)=>`${s} video so với tuần trước · ${h} người làm`,
   assistLine:(na,av,no)=>(na?`${na} creator có dev/art tham gia (${av} video)`
     :"không creator nào có dev/art")+(no?` · ${no} creator vượt mức`:""),
+  leaveNote:ls=>`${ls.length} creator nghỉ phép ${ls.map(l=>l.days).join("/")} ngày nên số lượng giảm (${ls.map(l=>`${l.name}: ${(l.note.vi||"").toLowerCase()}, còn ${l.quota} video`).join("; ")})`,
   mergedNote:(b,e)=>b>0
     ?`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người${e?"":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`
     :`Kỳ nghỉ lễ — chỉ tiêu giảm ${-b} video mỗi người${e?" (kể cả vai trò ETC)":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`,
@@ -653,6 +659,7 @@ const I18N={
   vsPrev:(s,h)=>`${s} videos vs last week · ${h} people`,
   assistLine:(na,av,no)=>(na?`${na} creator${na>1?"s":""} had dev/art support (${av} videos)`
     :"no creator had dev/art support")+(no?` · ${no} past target`:""),
+  leaveNote:ls=>`${ls.length} creator${ls.length>1?"s":""} on leave for ${ls.map(l=>l.days).join("/")} day${ls.length>1||ls[0].days>1?"s":""}, so the count is lower (${ls.map(l=>`${l.name}: ${l.note.en}, ${l.quota} videos`).join("; ")})`,
   mergedNote:(b,e)=>b>0
     ?`Merged period covering a public holiday — target raised by ${b} videos per person${e?"":", except the ETC role which keeps its own standard"}`
     :`Holiday period — target lowered by ${-b} videos per person${e?" (including the ETC role)":", except the ETC role which keeps its own standard"}`,
@@ -726,6 +733,7 @@ const I18N={
   vsPrev:(s,h)=>`지난주 대비 ${s}개 · ${h}명 작업`,
   assistLine:(na,av,no)=>(na?`dev/art 참여 ${na}명 (${av}개)`:"dev/art 참여 없음")
     +(no?` · 목표 초과 ${no}명`:""),
+  leaveNote:ls=>`크리에이터 ${ls.length}명 ${ls.map(l=>l.days).join("/")}일 휴가로 수량 감소 (${ls.map(l=>`${l.name}: ${l.note.ko}, ${l.quota}개`).join("; ")})`,
   mergedNote:(b,e)=>b>0
     ?`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향${e?"":", 단 ETC 담당자는 자체 기준 유지"}`
     :`휴무 기간 — 1인당 목표 ${-b}개 하향${e?" (ETC 담당자 포함)":", 단 ETC 담당자는 자체 기준 유지"}`,
@@ -1168,8 +1176,9 @@ function quotaAt(team,i){return team.quota+bonusAt(i)}
 // Nghỉ phép riêng từng người: chỉ tiêu tuần đó của người đó đổi thành "quota", kèm ghi chú.
 // Khoá là tên Period gốc trên Notion. Thêm dòng mới mỗi khi có người nghỉ.
 const LEAVE={
-  "[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, note:{vi:"Nghỉ thứ 5, thứ 6",en:"Off Thu–Fri",ko:"목·금 휴무"}}}
+  "[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}}
 };
+function leavesAt(i){const w=WEEKS[i];return w&&LEAVE[w.full]?Object.entries(LEAVE[w.full]).map(([name,v])=>({name,...v})):[]}
 function leaveOf(name,i){const w=WEEKS[i];return (w&&LEAVE[w.full]&&LEAVE[w.full][name])||null}
 // Vai trò ETC có chuẩn riêng (12) và không nhận phần cộng thêm của kỳ gộp.
 function quotaFor(team,name,i){
@@ -1272,6 +1281,7 @@ function renderHeadline(i){
         : `<div class="delta ${cls(d)}">${T().vsWeek(signed(d),wkLabel(prev),prevSum?` (${signed(d/prevSum*100,0)}%)`:"")}</div>`}
       ${isOngoing(i)?`<div class="delta note">${T().ongoing}</div>`:""}
       ${bonusAt(i)?`<div class="delta note">${T().mergedNote(bonusAt(i),bonusEtcAt(i)!==0)}</div>`:""}
+      ${leavesAt(i).length?`<div class="delta note">${T().leaveNote(leavesAt(i))}</div>`:""}
     </div>`];
 
   TEAMS.forEach(t=>{
@@ -1855,4 +1865,31 @@ loadLiveCSV().then(r=>{
   boot();
 }).catch(()=>boot());
 loadSchedule().then(()=>{ if(VIEW==="ov") renderOV(); renderCreatorSchedule(); });
+
+// ---------------------------------------------------------------- kéo bảng bằng chuột
+// Bảng rộng (.ov-scroll, .pm-scroll): nhấn giữ chuột trong bảng rồi kéo ngang/dọc để xem, khỏi kéo thanh cuộn.
+// Chỉ áp dụng cho chuột; điện thoại vuốt như bình thường. Kéo xong thì không tính là bấm link.
+(function(){
+  let box=null, sx=0, sy=0, sl=0, st=0, moved=false;
+  document.addEventListener("pointerdown",e=>{
+    moved=false;
+    if(e.pointerType!=="mouse"||e.button!==0) return;
+    const b=e.target.closest(".ov-scroll,.pm-scroll");
+    if(!b||b.scrollWidth<=b.clientWidth||e.target.closest("button,select,input")) return;
+    box=b; sx=e.clientX; sy=e.clientY; sl=b.scrollLeft; st=window.scrollY; moved=false;
+  });
+  document.addEventListener("pointermove",e=>{
+    if(!box) return;
+    const dx=e.clientX-sx, dy=e.clientY-sy;
+    if(!moved&&Math.abs(dx)+Math.abs(dy)<5) return;
+    if(!moved){ moved=true; box.classList.add("dragging"); }
+    box.scrollLeft=sl-dx; window.scrollTo(window.scrollX,st-dy);
+    e.preventDefault();
+  });
+  const end=()=>{ if(box){ box.classList.remove("dragging"); box=null; } };
+  document.addEventListener("pointerup",end);
+  document.addEventListener("pointercancel",end);
+  // chặn cú bấm ngay sau khi kéo (để không mở nhầm link Notion)
+  document.addEventListener("click",e=>{ if(moved&&e.target.closest(".ov-scroll,.pm-scroll")){ e.preventDefault(); e.stopPropagation(); moved=false; } },true);
+})();
 </script>
