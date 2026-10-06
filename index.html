@@ -397,6 +397,8 @@
   #mo-table tr.grand td.now{background:var(--now-bg)}
   #mo-table tr.mo-wk td{font-size:12px;color:var(--ink-2);border-bottom:0}
   #mo-card{margin:16px 0 0}
+  #mo-table th.proj,#mo-table td.proj{font-style:italic;color:var(--ink-2);border-left:1px dashed var(--line)}
+  #mo-table tr.grand td.proj{color:var(--ink)}
 </style>
 
 <div class="wrap">
@@ -457,6 +459,7 @@
   <div class="tcard pm-card" id="mo-card" hidden>
     <h2 class="ov-h" id="mo-title"></h2>
     <div class="ov-scroll"><table id="mo-table"></table></div>
+    <p class="pm-note" id="mo-note" style="padding:0 18px 14px;margin:10px 0 0"></p>
   </div>
 
   <div class="members">
@@ -588,7 +591,8 @@ const I18N={
   source:"nguồn: Creative Production DB",
   weekPicker:"Tuần", whyTitle:"Vì sao tuần này nhiều / ít hơn",
   btn:{total:"Tổng đội",per:"Trung bình / người",month:"Trung bình tháng",mtotal:"Tổng tháng"},
-  mo2:{title:"Số creative sản xuất trong tháng", creator:"Creator", total:"Tổng đội", weeks:"Số kỳ có số liệu", now:"Tháng này"},
+  mo2:{title:"Số creative sản xuất trong tháng", creator:"Creator", total:"Tổng đội", weeks:"Số kỳ đã xong", now:"Tháng này", wk:"tuần", projCol:m=>`${m} dự kiến`,
+      projNote:(m,sum,done,dw,left,pace,etc,eq)=>`Dự kiến ${m} với đà hiện tại: khoảng ${sum} creative = ${done} đã xong (${dw} kỳ) + ${left} tuần còn lại × ~${pace}/tuần. Đà mỗi người = trung bình mỗi tuần của 4 kỳ gần nhất; ${etc} làm ETC tính ${eq}/tuần.`, ongoing:w=>`${w} đang làm nên chưa cộng vào tổng tháng — hết tuần mới cộng.`},
   title:{total:"số video mỗi tuần",per:"số video mỗi người, theo tuần",
          month:"trung bình mỗi tuần, gộp theo tháng", mtotal:"tổng số creative mỗi tháng"},
   wk:d=>`Tuần ${d}`, mo:(n,raw)=>raw,
@@ -621,7 +625,7 @@ const I18N={
   cardSum:(n,s,g)=>`${n} người · ${s}/${g} video cần làm`,
   kind:{under:"dưới chỉ tiêu",solo:"tự làm",pm:"có PM",assisted:"có dev/art",over:"vượt mức",etc:"ETC"},
   ds:{solo:"Trong chuẩn",over:"Vượt mức",assisted:"Có dev/art",etc:t=>`ETC (${t})`,
-      monthBar:"Trung bình video mỗi tuần trong tháng", mtotalBar:"Tổng creative trong tháng", mtotalTgt:"Tổng chỉ tiêu của tháng",
+      monthBar:"Trung bình video mỗi tuần trong tháng", mtotalBar:"Tổng creative trong tháng", mtotalTgt:"Tổng chỉ tiêu của tháng", mtotalProj:"Dự kiến thêm tới hết tháng (đà hiện tại)",
       monthTgt:q=>`Chỉ tiêu trung bình mỗi tuần (${q} video mỗi người)`,
       weekTgt:q=>`Chỉ tiêu ${q} video mỗi người (kỳ gộp cộng thêm)`},
   tip:{monthTitle:(m,w)=>`${m} — ${w} tuần có số liệu`, need:r=>` → tuần này cần ${r} video`,
@@ -664,7 +668,8 @@ const I18N={
   source:"source: Creative Production DB",
   weekPicker:"Week", whyTitle:"Why this week ran high or low",
   btn:{total:"Team total",per:"Average per person",month:"Monthly average",mtotal:"Monthly total"},
-  mo2:{title:"Creatives produced per month", creator:"Creator", total:"Team total", weeks:"Periods with data", now:"This month"},
+  mo2:{title:"Creatives produced per month", creator:"Creator", total:"Team total", weeks:"Finished periods", now:"This month", wk:"wk", projCol:m=>`${m} forecast`,
+      projNote:(m,sum,done,dw,left,pace,etc,eq)=>`${m} forecast at the current pace: about ${sum} creatives = ${done} done (${dw} period${dw>1?"s":""}) + ${left} weeks left × ~${pace}/week. Each person\u2019s pace = weekly average over their last 4 periods; ${etc} (ETC) counts ${eq}/week.`, ongoing:w=>`${w} is still in progress, so it is not in the monthly total yet — it is added once the week ends.`},
   title:{total:"videos per week",per:"videos per person, by week",
          month:"weekly average, grouped by month", mtotal:"total creatives per month"},
   wk:d=>`Week ${d}`, mo:(n,raw)=>MONTH_EN[n]||raw,
@@ -697,7 +702,7 @@ const I18N={
   cardSum:(n,s,g)=>`${n} people · ${s}/${g} videos targeted`,
   kind:{under:"under target",solo:"solo",pm:"with PM",assisted:"dev/art support",over:"past target",etc:"ETC"},
   ds:{solo:"Within target",over:"Past target",assisted:"With dev/art",etc:t=>`ETC (${t})`,
-      monthBar:"Average videos per week in the month", mtotalBar:"Creatives in the month", mtotalTgt:"Monthly target total",
+      monthBar:"Average videos per week in the month", mtotalBar:"Creatives in the month", mtotalTgt:"Monthly target total", mtotalProj:"Expected by month end (current pace)",
       monthTgt:q=>`Average weekly target (${q} per person)`,
       weekTgt:q=>`Target ${q} videos per person (raised on merged periods)`},
   tip:{monthTitle:(m,w)=>`${m} — ${w} week${w>1?"s":""} with data`, need:r=>` → ${r} videos needed`,
@@ -740,7 +745,8 @@ const I18N={
   source:"출처: Creative Production DB",
   weekPicker:"주차", whyTitle:"이번 주가 많거나 적었던 이유",
   btn:{total:"팀 합계",per:"1인 평균",month:"월 평균",mtotal:"월 합계"},
-  mo2:{title:"월별 제작 크리에이티브 수", creator:"크리에이터", total:"팀 합계", weeks:"데이터 있는 기간", now:"이번 달"},
+  mo2:{title:"월별 제작 크리에이티브 수", creator:"크리에이터", total:"팀 합계", weeks:"완료된 기간", now:"이번 달", wk:"주", projCol:m=>`${m} 예상`,
+      projNote:(m,sum,done,dw,left,pace,etc,eq)=>`현재 속도로 ${m} 예상: 약 ${sum}개 = 완료 ${done}개 (${dw}개 기간) + 남은 ${left}주 × 주당 ~${pace}개. 1인 속도 = 최근 4개 기간의 주 평균, ${etc}(ETC)는 주당 ${eq}개.`, ongoing:w=>`${w}은(는) 진행 중이라 월 합계에 아직 포함되지 않습니다 — 주가 끝나면 포함됩니다.`},
   title:{total:"주별 영상 수",per:"주별 1인당 영상 수",month:"월별 주 평균",mtotal:"월별 크리에이티브 합계"},
   wk:d=>`${d} 주`, mo:(n,raw)=>`${n}월`,
   grand:"완료한 영상", firstWeek:"기록의 첫 주",
@@ -772,7 +778,7 @@ const I18N={
   cardSum:(n,s,g)=>`${n}명 · ${s}/${g}개`,
   kind:{under:"목표 미달",solo:"단독",pm:"PM 협업",assisted:"dev/art 참여",over:"목표 초과",etc:"ETC"},
   ds:{solo:"기준 이내",over:"목표 초과",assisted:"dev/art 참여",etc:t=>`ETC (${t})`,
-      monthBar:"월 내 주 평균 영상 수", mtotalBar:"월간 크리에이티브 합계", mtotalTgt:"월간 목표 합계",
+      monthBar:"월 내 주 평균 영상 수", mtotalBar:"월간 크리에이티브 합계", mtotalTgt:"월간 목표 합계", mtotalProj:"월말까지 예상 추가분 (현재 속도)",
       monthTgt:q=>`주 평균 목표 (1인당 ${q}개)`,
       weekTgt:q=>`목표 1인당 ${q}개 (합산 기간은 상향)`},
   tip:{monthTitle:(m,w)=>`${m} — 데이터 있는 ${w}주`, need:r=>` → 이번 기간 ${r}개 필요`,
@@ -1262,8 +1268,10 @@ function isOngoing(i){
   return now<r.end;
 }
 
+// Các kỳ của tháng đã có số và đã kết thúc. Tuần đang làm chưa cộng vào số tháng, hết tuần mới cộng.
+function doneWeeks(team,m){return m.weeks.filter(i=>totalOf(team,i)!==null&&!isOngoing(i))}
 function monthStats(team,m){
-  const ws=m.weeks.filter(i=>totalOf(team,i)!==null);
+  const ws=doneWeeks(team,m);
   if(!ws.length) return null;
   const tot=ws.reduce((s,i)=>s+totalOf(team,i),0);
   const tgt=ws.reduce((s,i)=>s+targetOf(team,i),0);
@@ -1480,20 +1488,56 @@ function monthBars(t){
 }
 function monthTargets(t){
   return MONTHS.map(m=>{
-    const ws=m.weeks.filter(i=>totalOf(t,i)!==null);
+    const ws=doneWeeks(t,m);
     if(!ws.length) return null;
     return Math.round(ws.reduce((s,i)=>s+targetOf(t,i),0)/ws.length*10)/10;
   });
 }
+// Số tuần của một tháng: tuần (bắt đầu thứ Hai) thuộc tháng có ngày thứ Năm của nó —
+// đúng cách đội đặt tên kỳ ("Oct W1 (09/28~)" là tuần đầu tháng 10, "Oct W5 (10/26~)" là tuần cuối).
+function weeksInMonth(mon,year){
+  let n=0;
+  for(let d=new Date(year,mon-1,1);d.getMonth()===mon-1;d.setDate(d.getDate()+1)) if(d.getDay()===4) n++;
+  return n;
+}
+// Dự kiến cả tháng hiện tại theo đà hiện tại: số đã xong + số tuần còn lại × tốc độ mỗi tuần.
+// Tốc độ từng người = trung bình 4 kỳ đã xong gần nhất của người đó; vai trò ETC (Miko) tính đúng chuẩn ETC mỗi tuần.
+function monthProjection(t){
+  const now=new Date(), k=MONTHS.indexOf(monthOfWeek(WEEKS.length-1)); if(k<0) return null;
+  const m=MONTHS[k], mon=parseInt(String(m.label).replace(/\D+/g,""),10); if(!mon) return null;
+  const year=now.getFullYear()+(mon<now.getMonth()-5?1:mon>now.getMonth()+7?-1:0);
+  const total=weeksInMonth(mon,year), done=doneWeeks(t,m), left=total-done.length;
+  if(left<=0) return null;
+  const finished=WEEKS.map((_,i)=>i).filter(i=>totalOf(t,i)!==null&&!isOngoing(i));
+  const names=roster(t,WEEKS.length-1).map(r=>r.name);
+  const rate=n=>{
+    if(n===t.etc) return t.etcQuota||t.quota;
+    // kỳ gộp 2 tuần (W1W2) tính là 2 tuần để tốc độ mỗi tuần không bị đội lên
+    const v=finished.filter(i=>t.people[n][i]!==null&&t.people[n][i]!==undefined).slice(-4);
+    const wks=v.reduce((s,i)=>s+(/W\d+W\d+/.test(WEEKS[i].full)?2:1),0);
+    return v.length?v.reduce((s,i)=>s+t.people[n][i],0)/wks:t.quota;
+  };
+  const doneOf=n=>done.reduce((s,i)=>s+(t.people[n][i]||0),0);
+  const per={}; let pace=0;
+  names.forEach(n=>{ const r=rate(n); pace+=r; per[n]=Math.round(doneOf(n)+left*r); });
+  const doneSum=done.reduce((s,i)=>s+totalOf(t,i),0);
+  return {k,month:m,total,doneWeeks:done.length,left,pace:Math.round(pace),doneSum,per,sum:Math.round(doneSum+left*pace)};
+}
 function monthTotals(t){return MONTHS.map(m=>{const st=monthStats(t,m);return st?st.total:null})}
 function monthTargetSums(t){
-  return MONTHS.map(m=>{const ws=m.weeks.filter(i=>totalOf(t,i)!==null);return ws.length?ws.reduce((s,i)=>s+targetOf(t,i),0):null});
+  // Tháng hiện tại: chỉ tiêu cả tháng = chỉ tiêu các kỳ đã xong + số tuần còn lại × chỉ tiêu một tuần của đội
+  const pj=monthProjection(t), wk=targetOf(t,WEEKS.length-1);
+  return MONTHS.map((m,k)=>{const ws=doneWeeks(t,m);const v=ws.length?ws.reduce((s,i)=>s+targetOf(t,i),0):null;
+    return pj&&k===pj.k?(v||0)+pj.left*wk:v;});
 }
 function datasetsFor(t){
   if(mode==="mtotal"){
+    const pj=monthProjection(t);
     return [
-      {label:T().ds.mtotalBar,data:monthTotals(t),
+      {label:T().ds.mtotalBar,data:monthTotals(t),stack:"m",
        backgroundColor:t.color,borderRadius:3,barPercentage:.55,categoryPercentage:.8,order:2},
+      ...(pj?[{label:T().ds.mtotalProj,data:MONTHS.map((_,k)=>k===pj.k?pj.sum-pj.doneSum:null),stack:"m",
+       backgroundColor:t.color+"55",borderColor:t.color,borderWidth:1.5,borderDash:[4,3],borderRadius:3,barPercentage:.55,categoryPercentage:.8,order:3}]:[]),
       {type:"line",label:T().ds.mtotalTgt,
        data:monthTargetSums(t),borderColor:getCSS("--ink"),borderWidth:1.5,borderDash:[5,4],
        pointRadius:0,pointHoverRadius:0,fill:false,tension:0,order:0}
@@ -1530,7 +1574,7 @@ function datasetsFor(t){
   ];
 }
 function optionsFor(t){
-  const stacked = !!(t.support && mode==="total");
+  const stacked = !!(t.support && mode==="total") || mode==="mtotal";
   return {
     responsive:true,maintainAspectRatio:false,animation:{duration:260},
     scales:{
@@ -1604,18 +1648,23 @@ function renderMonthTable(){
   if(card.hidden) return;
   const t=TEAMS[0], L=T().mo2;
   document.getElementById("mo-title").textContent=L.title;
-  const ms=MONTHS.map((m,k)=>({m,k})).filter(({m})=>m.weeks.some(i=>totalOf(t,i)!==null));
-  const sumOf=(name,m)=>{const v=m.weeks.map(i=>t.people[name][i]).filter(x=>x!==null&&x!==undefined);return v.length?v.reduce((a,b)=>a+b,0):null;};
+  const on=WEEKS.map((_,i)=>i).filter(i=>isOngoing(i)&&totalOf(t,i)!==null);
+  const pjN=monthProjection(t);
+  document.getElementById("mo-note").textContent=[pjN?L.projNote(moLabel(pjN.month),pjN.sum,pjN.doneSum,pjN.doneWeeks,pjN.left,pjN.pace,t.etc,t.etcQuota):"",on.length?L.ongoing(on.map(wkLabel).join(", ")):""].filter(Boolean).join(" ");
+  const ms=MONTHS.map((m,k)=>({m,k})).filter(({m})=>doneWeeks(t,m).length);
+  const sumOf=(name,m)=>{const v=doneWeeks(t,m).map(i=>t.people[name][i]).filter(x=>x!==null&&x!==undefined);return v.length?v.reduce((a,b)=>a+b,0):null;};
   const names=Object.keys(t.people).filter(n=>ms.some(({m})=>sumOf(n,m)!==null));
   const last=ms.length?ms[ms.length-1].m:null;
   names.sort((a,b)=>(last?(sumOf(b,last)||0)-(sumOf(a,last)||0):0)||a.localeCompare(b));
   const cur=MONTHS.indexOf(monthOfWeek(WEEKS.length-1));
-  let h=`<thead><tr><th>${L.creator}</th>${ms.map(({m,k})=>`<th class="num${k===cur?" now":""}">${escH(moLabel(m))}${k===cur?`<span class="now-badge">${escH(L.now)}</span>`:""}</th>`).join("")}</tr></thead><tbody>`;
+  const pj=monthProjection(t), pjTh=pj?`<th class="num proj">${escH(L.projCol(moLabel(pj.month)))}</th>`:"";
+  const pjTd=v=>pj?`<td class="num proj">${v}</td>`:"";
+  let h=`<thead><tr><th>${L.creator}</th>${ms.map(({m,k})=>`<th class="num${k===cur?" now":""}">${escH(moLabel(m))}${k===cur?`<span class="now-badge">${escH(L.now)}</span>`:""}</th>`).join("")}${pjTh}</tr></thead><tbody>`;
   names.forEach(n=>{
-    h+=`<tr><td>${escH(n)}</td>${ms.map(({m,k})=>{const v=sumOf(n,m);return `<td class="num${k===cur?" now":""}">${v===null?'<span class="ov-empty">–</span>':v}</td>`;}).join("")}</tr>`;
+    h+=`<tr><td>${escH(n)}${pj&&n===t.etc?` <span class="tag tag-etc">ETC ${t.etcQuota}/${escH(L.wk)}</span>`:""}</td>${ms.map(({m,k})=>{const v=sumOf(n,m);return `<td class="num${k===cur?" now":""}">${v===null?'<span class="ov-empty">–</span>':v}</td>`;}).join("")}${pjTd(pj&&n in pj.per?"~"+pj.per[n]:'<span class="ov-empty">–</span>')}</tr>`;
   });
-  h+=`<tr class="grand"><td>${L.total}</td>${ms.map(({m,k})=>`<td class="num${k===cur?" now":""}">${monthStats(t,m).total}</td>`).join("")}</tr>`;
-  h+=`<tr class="mo-wk"><td>${L.weeks}</td>${ms.map(({m,k})=>`<td class="num${k===cur?" now":""}">${monthStats(t,m).weeks}</td>`).join("")}</tr>`;
+  h+=`<tr class="grand"><td>${L.total}</td>${ms.map(({m,k})=>`<td class="num${k===cur?" now":""}">${monthStats(t,m).total}</td>`).join("")}${pjTd(pj?"~"+pj.sum:"")}</tr>`;
+  h+=`<tr class="mo-wk"><td>${L.weeks}</td>${ms.map(({m,k})=>`<td class="num${k===cur?" now":""}">${monthStats(t,m).weeks}</td>`).join("")}${pjTd(pj?`${pj.total} ${escH(L.wk)}`:"")}</tr>`;
   document.getElementById("mo-table").innerHTML=h+"</tbody>";
 }
 function refreshCharts(){
