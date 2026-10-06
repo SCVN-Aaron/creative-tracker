@@ -592,7 +592,7 @@ const I18N={
   weekPicker:"Tuần", whyTitle:"Vì sao tuần này nhiều / ít hơn",
   btn:{total:"Tổng đội",per:"Trung bình / người",month:"Trung bình tháng",mtotal:"Tổng tháng"},
   mo2:{title:"Số creative sản xuất trong tháng", creator:"Creator", total:"Tổng đội", weeks:"Số kỳ đã xong", now:"Tháng này", wk:"tuần", projCol:m=>`${m} dự kiến`,
-      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`Dự kiến ${m} theo KPI: ${sum} creative = ${done} đã xong (${dw} kỳ) + ${left} tuần còn lại × ${pace}/tuần (KPI ${q} video/người/tuần, riêng ${etc} làm ETC là ${eq}).`, ongoing:w=>`${w} đang làm nên chưa cộng vào tổng tháng — hết tuần mới cộng.`},
+      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`Dự kiến ${m} theo KPI: ${sum} creative = ${done} đã xong (${dw} kỳ, chỉ tính tới KPI, không tính phần làm vượt) + ${left} tuần còn lại × ${pace}/tuần (KPI ${q} video/người/tuần, riêng ${etc} làm ETC là ${eq}).`, ongoing:w=>`${w} đang làm nên chưa cộng vào tổng tháng — hết tuần mới cộng.`},
   title:{total:"số video mỗi tuần",per:"số video mỗi người, theo tuần",
          month:"trung bình mỗi tuần, gộp theo tháng", mtotal:"tổng số creative mỗi tháng"},
   wk:d=>`Tuần ${d}`, mo:(n,raw)=>raw,
@@ -669,7 +669,7 @@ const I18N={
   weekPicker:"Week", whyTitle:"Why this week ran high or low",
   btn:{total:"Team total",per:"Average per person",month:"Monthly average",mtotal:"Monthly total"},
   mo2:{title:"Creatives produced per month", creator:"Creator", total:"Team total", weeks:"Finished periods", now:"This month", wk:"wk", projCol:m=>`${m} forecast`,
-      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`${m} forecast at KPI: ${sum} creatives = ${done} done (${dw} period${dw>1?"s":""}) + ${left} weeks left × ${pace}/week (KPI ${q} videos per person per week, ${eq} for ${etc} on ETC).`, ongoing:w=>`${w} is still in progress, so it is not in the monthly total yet — it is added once the week ends.`},
+      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`${m} forecast at KPI: ${sum} creatives = ${done} done (${dw} period${dw>1?"s":""}, counted up to KPI only, extra output left out) + ${left} weeks left × ${pace}/week (KPI ${q} videos per person per week, ${eq} for ${etc} on ETC).`, ongoing:w=>`${w} is still in progress, so it is not in the monthly total yet — it is added once the week ends.`},
   title:{total:"videos per week",per:"videos per person, by week",
          month:"weekly average, grouped by month", mtotal:"total creatives per month"},
   wk:d=>`Week ${d}`, mo:(n,raw)=>MONTH_EN[n]||raw,
@@ -746,7 +746,7 @@ const I18N={
   weekPicker:"주차", whyTitle:"이번 주가 많거나 적었던 이유",
   btn:{total:"팀 합계",per:"1인 평균",month:"월 평균",mtotal:"월 합계"},
   mo2:{title:"월별 제작 크리에이티브 수", creator:"크리에이터", total:"팀 합계", weeks:"완료된 기간", now:"이번 달", wk:"주", projCol:m=>`${m} 예상`,
-      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`KPI 기준 ${m} 예상: ${sum}개 = 완료 ${done}개 (${dw}개 기간) + 남은 ${left}주 × 주당 ${pace}개 (KPI 1인 주당 ${q}개, ETC ${etc}는 ${eq}개).`, ongoing:w=>`${w}은(는) 진행 중이라 월 합계에 아직 포함되지 않습니다 — 주가 끝나면 포함됩니다.`},
+      projNote:(m,sum,done,dw,left,pace,q,etc,eq)=>`KPI 기준 ${m} 예상: ${sum}개 = 완료 ${done}개 (${dw}개 기간, KPI까지만 계산·초과분 제외) + 남은 ${left}주 × 주당 ${pace}개 (KPI 1인 주당 ${q}개, ETC ${etc}는 ${eq}개).`, ongoing:w=>`${w}은(는) 진행 중이라 월 합계에 아직 포함되지 않습니다 — 주가 끝나면 포함됩니다.`},
   title:{total:"주별 영상 수",per:"주별 1인당 영상 수",month:"월별 주 평균",mtotal:"월별 크리에이티브 합계"},
   wk:d=>`${d} 주`, mo:(n,raw)=>`${n}월`,
   grand:"완료한 영상", firstWeek:"기록의 첫 주",
@@ -1510,11 +1510,14 @@ function monthProjection(t){
   if(left<=0) return null;
   const names=roster(t,WEEKS.length-1).map(r=>r.name);
   const rate=n=>n===t.etc?(t.etcQuota||t.quota):t.quota;
-  const doneOf=n=>done.reduce((s,i)=>s+(t.people[n][i]||0),0);
+  // Kỳ đã xong: mỗi người chỉ tính tối đa bằng chỉ tiêu của kỳ đó — phần làm vượt không cộng vào dự kiến
+  const capOf=(n,i)=>{const v=t.people[n][i];return v===null||v===undefined?0:Math.min(v,quotaFor(t,n,i));};
+  const doneOf=n=>done.reduce((s,i)=>s+capOf(n,i),0);
   const per={}; let pace=0;
   names.forEach(n=>{ const r=rate(n); pace+=r; per[n]=doneOf(n)+left*r; });
   const doneSum=done.reduce((s,i)=>s+totalOf(t,i),0);
-  return {k,month:m,total,doneWeeks:done.length,left,pace:Math.round(pace),doneSum,per,sum:Math.round(doneSum+left*pace)};
+  const doneCap=done.reduce((s,i)=>s+Object.keys(t.people).reduce((a,n)=>a+capOf(n,i),0),0);
+  return {k,month:m,total,doneWeeks:done.length,left,pace:Math.round(pace),doneSum,doneCap,per,sum:Math.round(doneCap+left*pace)};
 }
 function monthTotals(t){return MONTHS.map(m=>{const st=monthStats(t,m);return st?st.total:null})}
 function monthTargetSums(t){
@@ -1643,7 +1646,7 @@ function renderMonthTable(){
   document.getElementById("mo-title").textContent=L.title;
   const on=WEEKS.map((_,i)=>i).filter(i=>isOngoing(i)&&totalOf(t,i)!==null);
   const pjN=monthProjection(t);
-  document.getElementById("mo-note").textContent=[pjN?L.projNote(moLabel(pjN.month),pjN.sum,pjN.doneSum,pjN.doneWeeks,pjN.left,pjN.pace,t.quota,t.etc,t.etcQuota):"",on.length?L.ongoing(on.map(wkLabel).join(", ")):""].filter(Boolean).join(" ");
+  document.getElementById("mo-note").textContent=[pjN?L.projNote(moLabel(pjN.month),pjN.sum,pjN.doneCap,pjN.doneWeeks,pjN.left,pjN.pace,t.quota,t.etc,t.etcQuota):"",on.length?L.ongoing(on.map(wkLabel).join(", ")):""].filter(Boolean).join(" ");
   const ms=MONTHS.map((m,k)=>({m,k})).filter(({m})=>doneWeeks(t,m).length);
   const sumOf=(name,m)=>{const v=doneWeeks(t,m).map(i=>t.people[name][i]).filter(x=>x!==null&&x!==undefined);return v.length?v.reduce((a,b)=>a+b,0):null;};
   const names=Object.keys(t.people).filter(n=>ms.some(({m})=>sumOf(n,m)!==null));
