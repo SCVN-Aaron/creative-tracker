@@ -569,13 +569,13 @@ const I18N={
     cs:{title:"Lịch 4-Week Loop Schedule (🇻🇳 UA)", byCreator:"Theo creator", byGame:"Theo game", creator:"Creator", game:"Game", weeks:"Số tuần", pmReal:"PM theo task trên Notion", solo:"Solo", soloTip:"Notion chưa gắn PM cho creator này tuần đó (làm solo)",
       note:"Lấy nguyên từ Google Sheet 4-Week Loop Schedule, tới hết file. ✓: tuần đó Notion đã có task đúng game. ⚠: Notion ghi game khác. “PM Zoe” = PM của task trên Notion; “Solo” = Notion chưa gắn PM. Cột tô màu là tuần này."},
   theme:{label:"Giao diện",light:"Giao diện sáng",dark:"Giao diện tối"},
-  ov:{pm:"PM", total:"Tổng", gTitle:"PM đang làm game gì — theo tuần", unk:"Chưa rõ PM", nowBadge:"Tuần này", etc:"ETC · game mới", etcTip:"ETC trên 4-Week Loop Schedule: game mới, chưa có tên và chưa có PM", schTip:"Theo 4-Week Loop Schedule, chưa có task trên Notion · PM dự đoán", wTitle:"Theo tuần", gNow:"Tuần này & sắp tới", gPast:"Các tuần trước", gMore:"+ Xem các tuần trước", gLess:"Thu gọn",
+  ov:{pm:"PM", total:"Tổng", gTitle:"PM đang làm game gì — theo tuần", nowBadge:"Tuần này", etc:"ETC · game mới", etcTip:"ETC trên 4-Week Loop Schedule: game mới, chưa có tên và chưa có PM", schTip:"Theo 4-Week Loop Schedule, chưa có task trên Notion · PM dự đoán", wTitle:"Theo tuần", gNow:"Tuần này & sắp tới", gPast:"Các tuần trước", gMore:"+ Xem các tuần trước", gLess:"Thu gọn",
       gTip:(g,n,c)=>`${g} · ${n} creative · ${c}`,
       sch:{title:"Đối chiếu 4-Week Loop Schedule (🇻🇳 UA)", creator:"Creator", ok:"✓ khớp", etc:"ETC · Notion:", diff:"⚠ Notion:", miss:"Chưa có task trên Notion", missLate:"⚠ Chưa có task trên Notion", extra:"⚠ Ngoài schedule:", none:"—",
         sum:(w,ok,n,diff,miss)=>`${w}: <b>${ok}/${n}</b> khớp`+(diff?` · <b>${diff}</b> lệch game`:"")+(miss?` · <b>${miss}</b> chưa có task`:""),
         src:(live)=>live?"Nguồn: Google Sheet 4-Week Loop Schedule (đọc trực tiếp)":"Nguồn: bản lưu data/schedule.csv (không đọc được Google Sheet lúc này)",
         noData:"Không đọc được 4-Week Loop Schedule.", loading:"Đang đọc 4-Week Loop Schedule…"},
-      note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Ô in nghiêng, mờ là theo 4-Week Loop Schedule (tới hết file) nhưng chưa có task trên Notion, PM là dự đoán. ETC là game mới chưa có tên; game mới chưa có PM nằm ở hàng “Chưa rõ PM”. “Creator solo” là task trên Notion không gắn PM. Kéo ngang để xem các tuần khác."},
+      note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Ô in nghiêng, mờ là theo 4-Week Loop Schedule (tới hết file) nhưng chưa có task trên Notion, PM là dự đoán. ETC là game mới chưa có tên; game mới chưa có PM nằm ở hàng “Creator solo”. “Creator solo” là task trên Notion không gắn PM. Kéo ngang để xem các tuần khác."},
   pm:{week:"Tuần", now:" · tuần này", soon:" · sắp tới",
       g:{title:"PM và các game đảm nhận", game:"Game", active:"Đang đảm nhận", done:"Đã làm", legend:"● Đang đảm nhận (có task từ tuần này trở đi) · chữ mờ: đã làm trước đây", meta:w=>`${w} tuần`},
       sum:["creative","task","PM","game","creator"],
@@ -646,13 +646,13 @@ const I18N={
     cs:{title:"4-Week Loop Schedule (🇻🇳 UA)", byCreator:"By creator", byGame:"By game", creator:"Creator", game:"Game", weeks:"Weeks", pmReal:"PM from the Notion task", solo:"Solo", soloTip:"No PM tagged on Notion for this creator that week (solo)",
       note:"Taken straight from the 4-Week Loop Schedule Google Sheet, through the end of the file. ✓: Notion has a task for that game that week. ⚠: Notion shows a different game. “PM Zoe” = PM on the Notion task; “Solo” = no PM tagged on Notion. The tinted column is this week."},
   theme:{label:"Theme",light:"Light theme",dark:"Dark theme"},
-  ov:{pm:"PM", total:"Total", gTitle:"Which games each PM is on — by week", unk:"PM not known yet", nowBadge:"This week", etc:"ETC · new game", etcTip:"ETC on the 4-Week Loop Schedule: a new game, no title or PM yet", schTip:"From the 4-Week Loop Schedule, no Notion task yet · guessed PM", wTitle:"By week", gNow:"This week & upcoming", gPast:"Earlier weeks", gMore:"+ Show earlier weeks", gLess:"Collapse",
+  ov:{pm:"PM", total:"Total", gTitle:"Which games each PM is on — by week", nowBadge:"This week", etc:"ETC · new game", etcTip:"ETC on the 4-Week Loop Schedule: a new game, no title or PM yet", schTip:"From the 4-Week Loop Schedule, no Notion task yet · guessed PM", wTitle:"By week", gNow:"This week & upcoming", gPast:"Earlier weeks", gMore:"+ Show earlier weeks", gLess:"Collapse",
       gTip:(g,n,c)=>`${g} · ${n} creatives · ${c}`,
       sch:{title:"4-Week Loop Schedule check (🇻🇳 UA)", creator:"Creator", ok:"✓ matches", etc:"ETC · Notion:", diff:"⚠ Notion:", miss:"No task in Notion yet", missLate:"⚠ No task in Notion", extra:"⚠ Off schedule:", none:"—",
         sum:(w,ok,n,diff,miss)=>`${w}: <b>${ok}/${n}</b> match`+(diff?` · <b>${diff}</b> different game`:"")+(miss?` · <b>${miss}</b> no task`:""),
         src:(live)=>live?"Source: 4-Week Loop Schedule Google Sheet (live)":"Source: saved copy data/schedule.csv (Google Sheet unreachable right now)",
         noData:"Could not read the 4-Week Loop Schedule.", loading:"Loading the 4-Week Loop Schedule…"},
-      note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Faded italic lines come from the 4-Week Loop Schedule (through the end of the file) with no Notion task yet; their PM is guessed. ETC is a new, not-yet-named game; new games with no PM yet sit in the “PM not known yet” row. “Creator solo” means the Notion task has no PM tagged. Scroll sideways for other weeks."},
+      note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Faded italic lines come from the 4-Week Loop Schedule (through the end of the file) with no Notion task yet; their PM is guessed. ETC is a new, not-yet-named game; new games with no PM yet sit in the “Creator solo” row. “Creator solo” means the Notion task has no PM tagged. Scroll sideways for other weeks."},
   pm:{week:"Week", now:" · this week", soon:" · upcoming",
       g:{title:"PMs and their games", game:"Game", active:"Currently on", done:"Done before", legend:"● Currently on (tasks from this week on) · faded: done before", meta:w=>`${w} week${w>1?"s":""}`},
       sum:["creatives","tasks","PMs","games","creators"],
@@ -723,13 +723,13 @@ const I18N={
     cs:{title:"4-Week Loop Schedule (🇻🇳 UA)", byCreator:"크리에이터별", byGame:"게임별", creator:"크리에이터", game:"게임", weeks:"주 수", pmReal:"Notion 작업의 PM", solo:"단독", soloTip:"해당 주 Notion에 PM 태그 없음 (단독)",
       note:"구글 시트 4-Week Loop Schedule을 파일 끝까지 그대로 가져옵니다. ✓: 그 주 Notion에 같은 게임 작업이 있음. ⚠: Notion은 다른 게임. “PM Zoe” = Notion 작업의 PM, “단독” = Notion에 PM 태그 없음. 색칠된 열이 이번 주입니다."},
   theme:{label:"화면",light:"밝은 화면",dark:"어두운 화면"},
-  ov:{pm:"PM", total:"합계", gTitle:"PM별 담당 게임 — 주차별", unk:"PM 미정", nowBadge:"이번 주", etc:"ETC · 신규 게임", etcTip:"4-Week Loop Schedule의 ETC: 이름과 PM이 아직 없는 신규 게임", schTip:"4-Week Loop Schedule 기준, 아직 Notion 작업 없음 · 추정 PM", wTitle:"주차별", gNow:"이번 주 & 예정", gPast:"이전 주", gMore:"+ 이전 주 보기", gLess:"접기",
+  ov:{pm:"PM", total:"합계", gTitle:"PM별 담당 게임 — 주차별", nowBadge:"이번 주", etc:"ETC · 신규 게임", etcTip:"4-Week Loop Schedule의 ETC: 이름과 PM이 아직 없는 신규 게임", schTip:"4-Week Loop Schedule 기준, 아직 Notion 작업 없음 · 추정 PM", wTitle:"주차별", gNow:"이번 주 & 예정", gPast:"이전 주", gMore:"+ 이전 주 보기", gLess:"접기",
       gTip:(g,n,c)=>`${g} · 크리에이티브 ${n} · ${c}`,
       sch:{title:"4-Week Loop Schedule 대조 (🇻🇳 UA)", creator:"크리에이터", ok:"✓ 일치", etc:"ETC · Notion:", diff:"⚠ Notion:", miss:"Notion 작업 없음", missLate:"⚠ Notion 작업 없음", extra:"⚠ 스케줄 외:", none:"—",
         sum:(w,ok,n,diff,miss)=>`${w}: <b>${ok}/${n}</b> 일치`+(diff?` · 게임 불일치 <b>${diff}</b>`:"")+(miss?` · 작업 없음 <b>${miss}</b>`:""),
         src:(live)=>live?"출처: 4-Week Loop Schedule 구글 시트 (실시간)":"출처: 저장본 data/schedule.csv (구글 시트를 읽지 못함)",
         noData:"4-Week Loop Schedule을 읽지 못했습니다.", loading:"4-Week Loop Schedule 읽는 중…"},
-      note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 흐린 기울임 줄은 4-Week Loop Schedule(파일 끝까지) 기준이며 아직 Notion 작업이 없고 PM은 추정입니다. ETC는 아직 이름이 없는 신규 게임이며, PM이 없는 신규 게임은 “PM 미정” 줄에 표시됩니다. “크리에이터 단독”은 Notion 작업에 PM 태그가 없는 경우입니다. 옆으로 스크롤해 다른 주를 보세요."},
+      note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 흐린 기울임 줄은 4-Week Loop Schedule(파일 끝까지) 기준이며 아직 Notion 작업이 없고 PM은 추정입니다. ETC는 아직 이름이 없는 신규 게임이며, PM이 없는 신규 게임은 “크리에이터 단독” 줄에 표시됩니다. “크리에이터 단독”은 Notion 작업에 PM 태그가 없는 경우입니다. 옆으로 스크롤해 다른 주를 보세요."},
   pm:{week:"주차", now:" · 이번 주", soon:" · 예정",
       g:{title:"PM별 담당 게임", game:"게임", active:"현재 담당", done:"이전 담당", legend:"● 현재 담당 (이번 주 이후 작업 있음) · 흐린 글씨: 이전 담당", meta:w=>`${w}주`},
       sum:["크리에이티브","작업","PM","게임","크리에이터"],
@@ -1094,7 +1094,7 @@ function renderOV(){
   const first=all.findIndex(p=>{const ts=TASKS.filter(t=>t.period===p);return ts.length&&ts.filter(t=>t.pm).length*2>ts.length;});
   const weeks=first<0?all:all.slice(first);
   if(!weeks.length){ table.innerHTML=`<tr><td class="empty">${T().pm.empty}</td></tr>`; return; }
-  const NOPM="\u0000", UNK="\u0001";
+  const NOPM="\u0000";
   const inRange=new Set(weeks);
   const rows=TASKS.filter(t=>inRange.has(t.period));
   const pms=[...new Set(rows.map(t=>t.pm||NOPM))];
@@ -1124,21 +1124,20 @@ function renderOV(){
       if(c.period&&ALL_TASKS.some(t=>t.period===c.period&&t.creators.includes(per.name))) return;
       const etc=/^etc$/i.test(v.trim()), g=etc?"ETC":toNotionGame(v), key=per.name+"|"+gameKey(g);
       if(seen.has(key)) return; seen.add(key);
-      // ETC = game mới chưa có tên; game chưa ai làm trên Notion cũng không đoán được PM → hàng "Chưa rõ PM"
+      // ETC = game mới chưa có tên; game chưa ai làm trên Notion cũng không đoán được PM → để vào hàng Creator solo
       const pm=etc?null:pmForCell(per.name,sc,v);
-      plan.push({col:c,pm:pm?pm.pm:UNK,game:g,etc,creator:per.name});
+      plan.push({col:c,pm:pm?pm.pm:NOPM,game:g,etc,creator:per.name});
     }));
   });
-  // PM mới chỉ có trong lịch chèn trước 2 hàng cuối; thứ tự cuối bảng: … → Creator solo → Chưa rõ PM
-  plan.forEach(x=>{ if(x.pm!==UNK&&!pms.includes(x.pm)){ const i=pms.indexOf(NOPM); pms.splice(i<0?pms.length:i,0,x.pm); } });
-  if(plan.some(x=>x.pm===UNK)) pms.push(UNK);
+  // PM mới chỉ có trong lịch chèn trước hàng Creator solo; hàng Creator solo luôn ở cuối
+  plan.forEach(x=>{ if(!pms.includes(x.pm)){ const i=pms.indexOf(NOPM); pms.splice(x.pm===NOPM||i<0?pms.length:i,0,x.pm); } });
   const nowCls=c=>c.now?" now":"";
   const ofCol=c=>c.period?rows.filter(t=>t.period===c.period):[];
   let h=`<thead><tr><th class="sticky">${T().ov.pm}</th>`+cols.map(c=>{
       return `<th class="${nowCls(c).trim()}"${c.period?` title="${escH(c.period)}"`:""}>${escH(c.label)}${c.now?`<span class="now-badge">${escH(T().ov.nowBadge)}</span>`:""}</th>`;
     }).join("")+`</tr></thead><tbody>`;
   pms.forEach(k=>{
-    h+=`<tr><td class="sticky">${k===NOPM?T().pm.noPM:k===UNK?T().ov.unk:escH(k)}</td>`;
+    h+=`<tr><td class="sticky">${k===NOPM?T().pm.noPM:escH(k)}</td>`;
     cols.forEach(c=>{
       const list=ofCol(c).filter(t=>(t.pm||NOPM)===k).sort((a,b)=>(a.game||"").localeCompare(b.game||""));
       const sch=plan.filter(x=>x.col===c&&x.pm===k).sort((a,b)=>a.game.localeCompare(b.game)).map(x=>
