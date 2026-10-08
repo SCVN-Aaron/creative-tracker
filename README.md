@@ -2,6 +2,15 @@
 
 Dashboard theo tuần cho Video Ads Team, đọc số liệu từ Creative Production DB trên Notion. Các dòng thuộc đội khác trong database sẽ được bỏ qua.
 
+## Cập nhật data thủ công (từ 08/10/2026)
+
+Theo chính sách công ty, Claude không còn nối với Notion: routine "Update Tracking" và Creative Planner tạm tắt (`NOTION_AI=false` trong `index.html`). Data cũ trong `data/latest.csv` được giữ nguyên. Mỗi tuần cập nhật bằng một trong hai cách:
+
+1. **File CSV:** trên Notion mở 🗓️ Creative Production DB (hoặc view 📍 Video Ads Team) → `•••` → Export → Markdown & CSV, rồi gửi file cho Claude để gộp vào `data/latest.csv` (task mới thêm vào, task cũ cập nhật, không xoá data cũ).
+2. **Ảnh chụp màn hình:** chụp Table view thấy đủ các cột Period, Creator, PM, Video Count, Game Title, Iteration, Status, gửi cho Claude đọc và gộp vào. Kiểm tra lại bảng Claude đọc ra trước khi cập nhật.
+
+Khi được phép nối lại: bật routine, đổi `NOTION_AI` thành `true`.
+
 ## Có gì trong này
 
 | File | Việc của nó |

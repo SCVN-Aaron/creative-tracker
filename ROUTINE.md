@@ -1,5 +1,7 @@
 # Cập nhật tự động bằng Claude Routine
 
+> **⏸ Tạm dừng (từ 08/10/2026).** Theo chính sách công ty, tài khoản Claude không còn nối với Notion. Hãy tắt routine "Update Tracking" tại claude.ai/code/routines. Data giờ được cập nhật bằng file CSV export từ Notion hoặc ảnh chụp màn hình gửi cho Claude (xem README, mục "Cập nhật data thủ công"). Khi được phép trở lại: nối lại connector Notion, bật lại routine và đổi `NOTION_AI` thành `true` trong `index.html`.
+
 Cách này không cần integration token của Notion, nên không cần admin workspace duyệt gì cả. Routine dùng connector Notion đã nối sẵn trong tài khoản Claude của bạn, chạy trên cloud của Anthropic, và commit vào repo dưới danh nghĩa tài khoản GitHub của bạn.
 
 ## Cần có trước
