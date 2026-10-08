@@ -256,6 +256,7 @@
   .tabs button[aria-selected="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--video)}
   .tabs button:hover,.tabs a:hover{color:var(--ink)}
   .tabs a{margin-left:auto;color:var(--accent)}
+  .tabs a[hidden]{display:none}
 
   /* ---------- PM ---------- */
   .pm-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin-top:16px}
@@ -582,8 +583,8 @@ const I18N={
       th:["PM","Game","Iteration","Creator","Số lượng","Trạng thái"],
       meta:(g,c)=>`<b>${g}</b> game · <b>${c}</b> creator`, noPM:"Creator solo (không PM)", total:"Tổng cộng",
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
-      noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (Routine cập nhật hằng tuần sẽ ghi các cột này).",
-      note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước. Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`},
+      noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (file CSV export từ Notion có sẵn các cột này).",
+      note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước.${u?` Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`:""}`},
   soloTag:"tự làm", rampTag:n=>`Mới · tuần ${n}`, rampTip:q=>`Thành viên mới — chỉ tiêu tuần này ${q} video (tuần 1: 2, tuần 2: 6, từ tuần 3: 8)`, leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
   grandNow:"Số lượng video tuần này", ongoing:"Tuần đang diễn ra — số liệu còn tăng, chưa phải kết quả cuối.",
@@ -659,8 +660,8 @@ const I18N={
       th:["PM","Game","Iteration","Creator","Count","Status"],
       meta:(g,c)=>`<b>${g}</b> game${g>1?"s":""} · <b>${c}</b> creator${c>1?"s":""}`, noPM:"Creator solo (no PM)", total:"Total",
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
-      noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the weekly Routine writes them).",
-      note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time. Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`},
+      noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the CSV exported from Notion has them).",
+      note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time.${u?` Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`:""}`},
   soloTag:"solo", rampTag:n=>`New · week ${n}`, rampTip:q=>`New member — target this week is ${q} videos (week 1: 2, week 2: 6, from week 3: 8)`, leaveTip:q=>`On leave — target this week is ${q} videos`,
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
   grandNow:"Videos so far this week", ongoing:"Week in progress — numbers are still coming in, not the final result.",
@@ -736,8 +737,8 @@ const I18N={
       th:["PM","게임","Iteration","크리에이터","수량","상태"],
       meta:(g,c)=>`게임 <b>${g}</b> · 크리에이터 <b>${c}</b>`, noPM:"크리에이터 단독 (PM 없음)", total:"합계",
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
-      noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(주간 Routine이 기록).",
-      note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다. 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`},
+      noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(Notion에서 내보낸 CSV에 포함).",
+      note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다.${u?` 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`:""}`},
   soloTag:"단독", rampTag:n=>`신규 · ${n}주차`, rampTip:q=>`신규 인원 — 이번 주 목표 ${q}개 (1주차 2개, 2주차 6개, 3주차부터 8개)`, leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
   grandNow:"이번 주 영상 수", ongoing:"진행 중인 주 — 수치가 계속 늘어나며 최종 결과가 아닙니다.",
@@ -805,6 +806,9 @@ function getCSS(v){return getComputedStyle(document.documentElement).getProperty
 // ---------------------------------------------------------------- PM / kế hoạch
 // Creative Planner chạy trên claude.ai (cần connector Notion để ghi), dashboard chỉ link sang.
 const PLANNER_URL="https://claude.ai/artifact/4KF9BgskfgqJvzsSCgeCsS";
+// Tạm tắt kết nối Claude ↔ Notion theo chính sách công ty: ẩn Creative Planner.
+// Data giờ cập nhật bằng file CSV export từ Notion. Được phép lại thì đổi thành true.
+const NOTION_AI=false;
 // Thứ tự option "Game Title" trên Notion — mỗi game một màu cố định, khớp với Creative Planner.
 // Game mới thêm trên Notion mà chưa có ở đây vẫn có màu (tính từ tên), chỉ là không khớp Planner.
 const GAME_ORDER=["Arrow Fever","BEHIND","Bulldozer Master","Burger Please!","Captain of Space","CrabLife",
@@ -892,7 +896,7 @@ function renderPMGames(){
 function renderPM(){
   renderPMGames();
   document.getElementById("lbl-pm-week").textContent=T().pm.week;
-  document.getElementById("pm-note").innerHTML=T().pm.note(PLANNER_URL);
+  document.getElementById("pm-note").innerHTML=T().pm.note(NOTION_AI?PLANNER_URL:"");
   const table=document.getElementById("pm-table"), sum=document.getElementById("pm-sum");
   if(!TASKS){ sum.innerHTML=""; table.innerHTML=`<tr><td class="empty">${T().pm.noData}</td></tr>`; return; }
   fillPmWeeks();
@@ -1909,7 +1913,7 @@ function applyLang(){
   document.getElementById("tab-pm").textContent=T().tab.pm;
   document.getElementById("tab-ov").textContent=T().tab.ov;
   const plan=document.getElementById("tab-plan");
-  plan.textContent=T().tab.plan; plan.href=PLANNER_URL;
+  plan.textContent=T().tab.plan; plan.href=PLANNER_URL; plan.hidden=!NOTION_AI;
   if(VIEW==="pm") renderPM();
   if(VIEW==="ov") renderOV();
   Object.entries(MODE_BTN).forEach(([k,id])=>
