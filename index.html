@@ -288,10 +288,10 @@
   #ov-table th{background:var(--th);white-space:nowrap;font-size:12.5px}
   #ov-table th small{display:block;font-weight:400;font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
   /* tuần hiện tại: đầu cột đặc màu + nhãn "Tuần này", cả cột có viền accent */
-  #ov-table th.now,#cs-table th.now{background:var(--now-head);color:var(--now-head-ink);font-weight:700}
+  #ov-table th.now,#cs-table th.now,#ps-table th.now{background:var(--now-head);color:var(--now-head-ink);font-weight:700}
   th.now .now-badge{display:block;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;opacity:.92;margin-top:1px}
-  #ov-table td.now,#cs-table td.now{background:var(--now-bg);box-shadow:inset 2px 0 0 var(--now-line),inset -2px 0 0 var(--now-line)}
-  #ov-table tr:last-child td.now,#cs-table tr:last-child td.now{box-shadow:inset 2px 0 0 var(--now-line),inset -2px 0 0 var(--now-line),inset 0 -2px 0 var(--now-line)}
+  #ov-table td.now,#cs-table td.now,#ps-table td.now{background:var(--now-bg);box-shadow:inset 2px 0 0 var(--now-line),inset -2px 0 0 var(--now-line)}
+  #ov-table tr:last-child td.now,#cs-table tr:last-child td.now,#ps-table tr:last-child td.now{box-shadow:inset 2px 0 0 var(--now-line),inset -2px 0 0 var(--now-line),inset 0 -2px 0 var(--now-line)}
   #ov-table .sticky{position:sticky;left:0;z-index:1;background:var(--panel);min-width:120px;font-weight:600;white-space:nowrap}
   #ov-table th.sticky{background:var(--th);z-index:2}
   #ov-table .sticky small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);font-family:"IBM Plex Mono",monospace}
@@ -320,26 +320,24 @@
   /* lịch 4-Week Loop ở tab Creator */
   .cs-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-right:14px}
   .cs-head .ov-h{border-bottom:0;flex:1;min-width:0}
-  #cs-table{border-collapse:separate;border-spacing:0}
-  #cs-table th,#cs-table td{border-bottom:1px solid var(--grid);border-right:1px solid var(--grid);padding:7px 9px;white-space:nowrap;vertical-align:top}
-  #cs-table th{font-size:12.5px;font-weight:500;color:var(--ink-2)}
-  #cs-table td.past{opacity:.72}
-  #cs-table .sticky{position:sticky;left:0;z-index:1;background:var(--panel);font-weight:600}
-  #cs-table th.sticky{background:var(--th);z-index:2;color:var(--ink)}
+  #cs-table,  #ps-table{border-collapse:separate;border-spacing:0}
+  #cs-table th,#cs-table td,  #ps-table th,#ps-table td{border-bottom:1px solid var(--grid);border-right:1px solid var(--grid);padding:7px 9px;white-space:nowrap;vertical-align:top}
+  #cs-table th,  #ps-table th{font-size:12.5px;font-weight:500;color:var(--ink-2)}
+  #cs-table td.past,  #ps-table td.past{opacity:.72}
+  #cs-table .sticky,  #ps-table .sticky{position:sticky;left:0;z-index:1;background:var(--panel);font-weight:600}
+  #cs-table th.sticky,  #ps-table th.sticky{background:var(--th);z-index:2;color:var(--ink)}
   .cs-mk{font-size:11px;margin-left:4px;font-weight:700}
   .cs-mk.ok{color:var(--up)} .cs-mk.diff{color:var(--warn)}
   .cs-names{font-size:12.5px;color:var(--ink)}
   .cs-pm{display:block;font-size:11px;color:var(--ink-2);margin-top:2px}
-  #px-table td{vertical-align:middle}
-  .px-wk{white-space:nowrap;color:var(--ink-2)}
-  .px-pm{font-size:12px;color:var(--ink-2);white-space:nowrap}
-  .px-pm.bad{color:var(--bad,#c0392b);font-weight:600}
-  .px-bad{color:var(--bad,#c0392b);font-weight:700}
-  .px-ok{color:var(--ink-2);font-size:12px}
-  .px-n+.px-n{margin-top:4px}
+  .ps-item{display:flex;align-items:center;gap:6px}
+  .ps-item+.ps-item{margin-top:4px}
+  .ps-cr{font-size:12.5px;color:var(--ink)}
+  .ps-pm{font-size:12.5px;font-weight:600;color:var(--ink)}
+  .ps-pm.solo{font-weight:400;color:var(--ink-2)}
   .cs-pmi{font-size:11px;color:var(--ink-2)}
   .cs-pm.solo,.cs-pmi.solo{color:var(--ink-2);opacity:.75}
-  #cs-table td.cnt{font-family:"IBM Plex Mono",monospace;color:var(--ink-2);text-align:right}
+  #cs-table td.cnt,  #ps-table td.cnt{font-family:"IBM Plex Mono",monospace;color:var(--ink-2);text-align:right}
 
   /* đối chiếu 4-Week Loop Schedule */
   td.cell.bad{box-shadow:inset 3px 0 0 var(--warn)}
@@ -379,12 +377,12 @@
   #pm-table td.pmc{border-right:1px solid var(--line)}
   #pm-table tr.grand td,#ov-table tr.grand td,#ov-table tr.grand td.sticky{background:var(--total-bg);border-top:1px solid var(--line)}
   /* bảng ma trận (Overview, lịch tab Creator): tiêu đề tuần không viết hoa, kẻ dọc thật nhạt */
-  #ov-table th,#cs-table th{text-transform:none;letter-spacing:0;font-size:12.5px}
-  #ov-table th,#ov-table td,#cs-table th,#cs-table td{border-right:1px solid var(--grid-v)}
-  #ov-table th:last-child,#ov-table td:last-child,#cs-table th:last-child,#cs-table td:last-child{border-right:0}
-  #cs-table th,#cs-table td{padding:9px 12px}
-  #cs-table .sticky,#ov-table .sticky{min-width:112px;border-right:1px solid var(--line);box-shadow:6px 0 8px -6px var(--shadow)}
-  #cs-table th.sticky,#ov-table th.sticky{color:var(--ink-2)}
+  #ov-table th,#cs-table th,#ps-table th{text-transform:none;letter-spacing:0;font-size:12.5px}
+  #ov-table th,#ov-table td,#cs-table th,#cs-table td,#ps-table th,#ps-table td{border-right:1px solid var(--grid-v)}
+  #ov-table th:last-child,#ov-table td:last-child,#cs-table th:last-child,#cs-table td:last-child,#ps-table th:last-child,#ps-table td:last-child{border-right:0}
+  #cs-table th,#cs-table td,  #ps-table th,#ps-table td{padding:9px 12px}
+  #cs-table .sticky,#ov-table .sticky,  #ps-table .sticky{min-width:112px;border-right:1px solid var(--line);box-shadow:6px 0 8px -6px var(--shadow)}
+  #cs-table th.sticky,#ov-table th.sticky,  #ps-table th.sticky{color:var(--ink-2)}
   .cs-pm{margin-top:4px}
   .pmg-head{display:flex;align-items:center;flex-wrap:wrap;gap:0 12px;border-bottom:1px solid var(--line);padding-right:18px}
   .pmg-head .ov-h{border-bottom:0}
@@ -496,7 +494,16 @@
     </div>
     <div class="tcard pm-card"><div class="pm-scroll"><table id="pm-table"></table></div></div>
     <div class="tcard pm-card"><div class="pmg-head"><h2 class="ov-h" id="pmg-title"></h2><span class="pmg-legend" id="pmg-legend"></span></div><div class="pm-scroll"><table id="pmg-table"></table></div></div>
-    <div class="tcard pm-card" id="px-card" hidden><h2 class="ov-h" id="px-title"></h2><div class="pm-scroll"><table id="px-table"></table></div><p class="pm-note" id="px-note" style="padding:0 18px 14px;margin:0"></p></div>
+    <div class="tcard pm-card" id="ps-card" hidden>
+      <div class="cs-head"><h2 class="ov-h" id="ps-title"></h2>
+        <div class="toggle" role="group" id="ps-mode">
+          <button type="button" data-mode="pm" aria-pressed="true"></button>
+          <button type="button" data-mode="game" aria-pressed="false"></button>
+        </div>
+      </div>
+      <div class="ov-scroll" id="ps-scroll"><table id="ps-table"></table></div>
+      <p class="pm-note" id="ps-note" style="padding:0 18px 14px;margin:0"></p>
+    </div>
     <p class="pm-note" id="pm-note"></p>
   </div>
 
@@ -586,7 +593,7 @@ const I18N={
         noData:"Không đọc được 4-Week Loop Schedule.", loading:"Đang đọc 4-Week Loop Schedule…"},
       note:"Mỗi ô là các task của PM đó trong tuần: game · creator · số lượng. Bấm một dòng để mở task trên Notion. Cột tô xanh là tuần này; dòng mờ là task chưa xong (To do / In-progress). Ô in nghiêng, mờ là theo lịch (PM×Creator, ngoài ra 4-Week Loop, tới hết file) nhưng chưa có task trên Notion; PM lấy theo lịch PM×Creator, tuần nào lịch chưa có thì dự đoán. ETC là game mới chưa có tên; No PM / PM TBD nằm ở hàng “Creator solo”. “Creator solo” là task trên Notion không gắn PM. Kéo ngang để xem các tuần khác."},
   pm:{week:"Tuần", now:" · tuần này", soon:" · sắp tới",
-      x:{title:"Đối chiếu lịch: PM×Creator · 4-Week Loop · Notion", week:"Tuần", creator:"Creator", sheet:"Lịch PM×Creator", loop:"4-Week Loop", notion:"Task trên Notion", same:"✓ khớp", none:"chưa có task", noPM:"No PM", tbd:"PM: TBD", empty:"Từ tuần này trở đi, ba nguồn đều khớp.", note:"Chỉ liệt kê các tuần từ tuần này trở đi có chỗ lệch. ⚠ = khác với lịch PM×Creator (game hoặc PM; chữ đỏ là PM lệch). ETC không so game, PM TBD không so PM."},
+      s:{title:"Lịch PM theo tuần (🇻🇳 UA)", byPM:"Theo PM", byGame:"Theo game", pm:"PM", game:"Game", weeks:"Số tuần", solo:"Creator solo", note:"Lấy từ lịch PM×Creator và 4-Week Loop, tới hết file. PM là PM của task trên Notion, Notion chưa gắn thì theo lịch PM×Creator; không có PM thì nằm ở hàng Creator solo. ETC là game mới chưa có tên. Cột tô màu là tuần này."},
       g:{title:"PM và các game đảm nhận", game:"Game", active:"Đang đảm nhận", done:"Đã làm", legend:"● Đang đảm nhận (có task từ tuần này trở đi) · chữ mờ: đã làm trước đây", meta:w=>`${w} tuần`},
       sum:["creative","task","PM","game","creator"],
       th:["PM","Game","Iteration","Creator","Số lượng","Trạng thái"],
@@ -664,7 +671,7 @@ const I18N={
         noData:"Could not read the 4-Week Loop Schedule.", loading:"Loading the 4-Week Loop Schedule…"},
       note:"Each cell lists that PM\u2019s tasks for the week: game · creator · count. Click a line to open the task in Notion. The tinted column is this week; faded lines are tasks not done yet (To do / In-progress). Faded italic lines come from the schedules (PM×Creator, otherwise 4-Week Loop, through the end of the file) with no Notion task yet; their PM comes from the PM×Creator schedule, or is guessed where it has none. ETC is a new, not-yet-named game; No PM / PM TBD sit in the “Creator solo” row. “Creator solo” means the Notion task has no PM tagged. Scroll sideways for other weeks."},
   pm:{week:"Week", now:" · this week", soon:" · upcoming",
-      x:{title:"Schedule check: PM×Creator · 4-Week Loop · Notion", week:"Week", creator:"Creator", sheet:"PM×Creator schedule", loop:"4-Week Loop", notion:"Notion tasks", same:"✓ matches", none:"no task yet", noPM:"No PM", tbd:"PM: TBD", empty:"From this week on, all three sources match.", note:"Lists only weeks from this week on that have a mismatch. ⚠ = differs from the PM×Creator schedule (game or PM; red = PM differs). ETC skips the game check, PM TBD skips the PM check."},
+      s:{title:"PM schedule by week (🇻🇳 UA)", byPM:"By PM", byGame:"By game", pm:"PM", game:"Game", weeks:"Weeks", solo:"Creator solo", note:"From the PM×Creator schedule and the 4-Week Loop, through the end of the file. PM is the PM on the Notion task, or from the PM×Creator schedule when Notion has none; no PM goes to the Creator solo row. ETC is a new, not-yet-named game. The tinted column is this week."},
       g:{title:"PMs and their games", game:"Game", active:"Currently on", done:"Done before", legend:"● Currently on (tasks from this week on) · faded: done before", meta:w=>`${w} week${w>1?"s":""}`},
       sum:["creatives","tasks","PMs","games","creators"],
       th:["PM","Game","Iteration","Creator","Count","Status"],
@@ -742,7 +749,7 @@ const I18N={
         noData:"4-Week Loop Schedule을 읽지 못했습니다.", loading:"4-Week Loop Schedule 읽는 중…"},
       note:"각 칸은 해당 주 PM의 작업입니다: 게임 · 크리에이터 · 수량. 줄을 누르면 Notion에서 작업이 열립니다. 색칠된 열이 이번 주이고, 흐린 줄은 아직 완료되지 않은 작업(To do / In-progress)입니다. 흐린 기울임 줄은 스케줄(PM×Creator, 없으면 4-Week Loop, 파일 끝까지) 기준이며 아직 Notion 작업이 없습니다. PM은 PM×Creator 스케줄 기준이며, 없으면 추정입니다. ETC는 아직 이름이 없는 신규 게임이며, No PM / PM TBD는 “크리에이터 단독” 줄에 표시됩니다. “크리에이터 단독”은 Notion 작업에 PM 태그가 없는 경우입니다. 옆으로 스크롤해 다른 주를 보세요."},
   pm:{week:"주차", now:" · 이번 주", soon:" · 예정",
-      x:{title:"스케줄 대조: PM×Creator · 4-Week Loop · Notion", week:"주차", creator:"크리에이터", sheet:"PM×Creator 스케줄", loop:"4-Week Loop", notion:"Notion 작업", same:"✓ 일치", none:"작업 없음", noPM:"No PM", tbd:"PM: TBD", empty:"이번 주 이후 세 소스가 모두 일치합니다.", note:"이번 주 이후 불일치가 있는 주만 표시합니다. ⚠ = PM×Creator 스케줄과 다름 (게임 또는 PM, 빨간색은 PM 불일치). ETC는 게임, PM TBD는 PM을 비교하지 않습니다."},
+      s:{title:"주간 PM 스케줄 (🇻🇳 UA)", byPM:"PM별", byGame:"게임별", pm:"PM", game:"게임", weeks:"주 수", solo:"크리에이터 단독", note:"PM×Creator 스케줄과 4-Week Loop을 파일 끝까지 사용합니다. PM은 Notion 작업의 PM, 없으면 PM×Creator 스케줄의 PM이며, PM이 없으면 크리에이터 단독 줄에 표시됩니다. ETC는 이름이 없는 신규 게임입니다. 색칠된 열이 이번 주입니다."},
       g:{title:"PM별 담당 게임", game:"게임", active:"현재 담당", done:"이전 담당", legend:"● 현재 담당 (이번 주 이후 작업 있음) · 흐린 글씨: 이전 담당", meta:w=>`${w}주`},
       sum:["크리에이티브","작업","PM","게임","크리에이터"],
       th:["PM","게임","Iteration","크리에이터","수량","상태"],
@@ -904,40 +911,61 @@ function renderPMGames(){
   });
   table.innerHTML=h+"</tbody>";
 }
-// Đối chiếu 3 nguồn từ tuần này trở đi: lịch PM × Creator ↔ 4-Week Loop (game) ↔ task Notion (game + PM).
-// Chỉ liệt kê ô có chỗ lệch. ETC (game mới) không so game; PM TBD không so PM.
-function renderPlanCheck(){
-  const L=T().pm.x, card=document.getElementById("px-card");
-  if(!SCHEDULE||!PMSCHED){ card.hidden=true; return; }
+// Lịch PM theo tuần (giống lịch ở tab Creator): "Theo PM" = PM × tuần → game · creator,
+// "Theo game" = game × tuần → PM (creator). PM = PM của task Notion, chưa gắn thì theo lịch PM×Creator.
+let PS_MODE="pm";
+function renderPMSchedule(){
+  const L=T().pm.s, card=document.getElementById("ps-card");
+  if(!SCHEDULE){ card.hidden=true; return; }
   card.hidden=false;
-  document.getElementById("px-title").textContent=L.title;
-  document.getElementById("px-note").textContent=L.note;
-  const now=new Date(), list=[];
-  SCHEDULE.cols.forEach(c=>{
-    if(c.start.getTime()+7*864e5<=now) return;
-    const p=periodForCol(c);
-    SCHEDULE.people.forEach(per=>{
-      const a=per.pmBy&&per.pmBy[c.key]; if(!a) return;
-      const etc=/^etc$/i.test(a.game), loop=(per.loop||{})[c.key]||"";
-      const loopDiff=!isBlank(loop)&&gameKey(loop)!==gameKey(a.game);
-      const ts=p&&ALL_TASKS?ALL_TASKS.filter(t=>t.period===p&&t.creators.includes(per.name)):[];
-      const items=ts.map(t=>({t, gOk:etc||gameKey(t.game)===gameKey(a.game), pmOk:a.pm===undefined||a.tbd||(t.pm||"")===a.pm}));
-      if(loopDiff||items.some(x=>!x.gOk||!x.pmOk)) list.push({c,per,a,loop,loopDiff,items});
+  document.getElementById("ps-title").textContent=L.title;
+  document.getElementById("ps-note").textContent=L.note;
+  const [b1,b2]=document.querySelectorAll("#ps-mode button");
+  b1.textContent=L.byPM; b2.textContent=L.byGame;
+  b1.setAttribute("aria-pressed",PS_MODE==="pm"); b2.setAttribute("aria-pressed",PS_MODE==="game");
+  const now=new Date(), cols=SCHEDULE.cols, SOLO="\u0000";
+  const colCls=c=>{ const end=new Date(c.start.getTime()+7*864e5); return now>=c.start&&now<end?"now":(end<=now?"past":""); };
+  // mọi ô lịch: {key, pm, game, etc, creator}
+  const cells=[];
+  SCHEDULE.people.forEach(p=>cols.forEach(c=>{
+    const v=p.byDate[c.key]||""; if(isBlank(v)) return;
+    const etc=/^etc$/i.test(v);
+    cells.push({key:c.key, pm:pmOfCell(p,c,v).pm||SOLO, game:etc?"ETC":toNotionGame(v), etc, creator:p.name});
+  }));
+  const tag=x=>x.etc?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:gameTag(x.game);
+  const pmName=k=>k===SOLO?L.solo:k;
+  let h=`<thead><tr><th class="sticky">${PS_MODE==="pm"?L.pm:L.game}</th>`+cols.map(c=>`<th class="${colCls(c)==="now"?"now":""}">${escH(T().wk(String(c.start.getDate()).padStart(2,"0")+"/"+String(c.start.getMonth()+1).padStart(2,"0")))}${colCls(c)==="now"?`<span class="now-badge">${escH(T().ov.nowBadge)}</span>`:""}</th>`).join("")
+    +(PS_MODE==="game"?`<th>${L.weeks}</th>`:"")+`</tr></thead><tbody>`;
+  if(PS_MODE==="pm"){
+    const pms=[...new Set(cells.map(x=>x.pm))].sort((a,b)=>a===SOLO?1:b===SOLO?-1:a.localeCompare(b));
+    pms.forEach(k=>{
+      h+=`<tr><td class="sticky">${escH(pmName(k))}</td>`+cols.map(c=>{
+        const list=cells.filter(x=>x.pm===k&&x.key===c.key).sort((a,b)=>a.game.localeCompare(b.game)||a.creator.localeCompare(b.creator));
+        return `<td class="${colCls(c)}">${list.length?list.map(x=>`<div class="ps-item">${tag(x)}<span class="ps-cr">${escH(x.creator)}</span></div>`).join(""):`<span class="ov-empty">—</span>`}</td>`;
+      }).join("")+`</tr>`;
     });
-  });
-  const wk=c=>T().wk(String(c.start.getDate()).padStart(2,"0")+"/"+String(c.start.getMonth()+1).padStart(2,"0"));
-  const pmTxt=pm=>pm?`PM ${escH(pm)}`:escH(L.noPM);
-  const g=x=>/^etc$/i.test(x)?`<span class="game etc-tag">${escH(T().ov.etc)}</span>`:gameTag(toNotionGame(x));
-  const table=document.getElementById("px-table");
-  if(!list.length){ table.innerHTML=`<tr><td class="empty">${escH(L.empty)}</td></tr>`; return; }
-  table.innerHTML=`<thead><tr><th>${L.week}</th><th>${L.creator}</th><th>${L.sheet}</th><th>${L.loop}</th><th>${L.notion}</th></tr></thead><tbody>`+
-    list.map(r=>`<tr><td class="px-wk">${escH(wk(r.c))}</td><td class="pmg-name">${escH(r.per.name)}</td>`+
-      `<td>${g(r.a.game)} <span class="px-pm">${r.a.tbd?escH(L.tbd):r.a.pm===undefined?"":pmTxt(r.a.pm)}</span></td>`+
-      `<td>${r.loopDiff?`<span class="px-bad">⚠</span> ${g(r.loop)}`:`<span class="px-ok">${escH(isBlank(r.loop)?"—":L.same)}</span>`}</td>`+
-      `<td>${r.items.length?r.items.map(x=>`<div class="px-n">${x.gOk&&x.pmOk?`<span class="px-ok">✓</span>`:`<span class="px-bad">⚠</span>`} ${gameTag(x.t.game)} <span class="px-pm${x.pmOk?"":" bad"}">${pmTxt(x.t.pm)}</span></div>`).join(""):`<span class="px-ok">${escH(L.none)}</span>`}</td></tr>`).join("")+`</tbody>`;
+  }else{
+    const games=new Map();
+    cells.filter(x=>!x.etc).forEach(x=>{ const k=gameKey(x.game); if(!games.has(k)) games.set(k,{g:x.game,list:[],weeks:new Set()}); const e=games.get(k); e.list.push(x); e.weeks.add(x.key); });
+    [...games.values()].sort((a,b)=>b.weeks.size-a.weeks.size||a.g.localeCompare(b.g)).forEach(e=>{
+      h+=`<tr><td class="sticky">${gameTag(e.g)}</td>`+cols.map(c=>{
+        const list=e.list.filter(x=>x.key===c.key);
+        const by=new Map(); list.forEach(x=>{ if(!by.has(x.pm)) by.set(x.pm,[]); by.get(x.pm).push(x.creator); });
+        return `<td class="${colCls(c)}">${by.size?[...by.entries()].map(([k,cr])=>`<div class="ps-item"><span class="ps-pm${k===SOLO?" solo":""}">${escH(k===SOLO?L.solo:"PM "+k)}</span><small class="cs-pmi">${cr.map(escH).join(", ")}</small></div>`).join(""):`<span class="ov-empty">—</span>`}</td>`;
+      }).join("")+`<td class="cnt">${e.weeks.size}</td></tr>`;
+    });
+  }
+  const table=document.getElementById("ps-table");
+  table.innerHTML=h+"</tbody>";
+  const box=document.getElementById("ps-scroll"), cur=table.querySelector("th.now"), st=table.querySelector("th.sticky");
+  if(cur&&st) box.scrollLeft=Math.max(0,cur.offsetLeft-st.offsetWidth-(cur.previousElementSibling?cur.previousElementSibling.offsetWidth:0)*2);
 }
+document.getElementById("ps-mode").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-mode]"); if(!b) return;
+  PS_MODE=b.dataset.mode; renderPMSchedule();
+});
 function renderPM(){
-  renderPMGames(); renderPlanCheck();
+  renderPMGames(); renderPMSchedule();
   document.getElementById("lbl-pm-week").textContent=T().pm.week;
   document.getElementById("pm-note").innerHTML=T().pm.note(NOTION_AI?PLANNER_URL:"");
   const table=document.getElementById("pm-table"), sum=document.getElementById("pm-sum");
@@ -1077,6 +1105,17 @@ async function loadSchedule(){
 }
 // PM được phân công trên lịch PM × Creator: tên, "" = không PM, undefined = lịch không ghi
 const pmPlanned=(per,key)=>per.pmBy&&per.pmBy[key]?per.pmBy[key].pm:undefined;
+// PM của một ô lịch (dùng chung tab Creator và tab PM): task Notion đúng game → lịch PM×Creator
+// (No PM / TBD = solo) → PM task Notion bất kỳ của creator tuần đó → solo. Trả {pm:"" nếu solo, real}
+function pmOfCell(per,col,v){
+  const p=periodForCol(col);
+  const exact=p&&ALL_TASKS&&ALL_TASKS.find(t=>t.period===p&&t.creators.includes(per.name)&&t.pm&&!HIDDEN_PM.includes(t.pm)&&gameKey(t.game)===gameKey(v));
+  if(exact) return {pm:exact.pm, real:true};
+  const plan=pmPlanned(per,col.key);
+  if(plan!==undefined) return {pm:plan, real:false};
+  const any=pmRealForCell(per.name,col,v);
+  return {pm:any||"", real:!!any};
+}
 // Tên game trong Sheet viết hơi khác Notion ("Themepark Manager", "Crab Life", "Dinosaur Universe", "(YT) …")
 const gameKey=g=>{const k=String(g||"").toLowerCase().replace(/\(.*?\)/g,"").replace(/[^a-z0-9]/g,""); return ({dinosauruniverse:"dinouniverse"})[k]||k;};
 const toNotionGame=g=>GAME_ORDER.find(x=>gameKey(x)===gameKey(g))||String(g||"").trim();
@@ -1151,8 +1190,8 @@ function renderCreatorSchedule(){
         const v=p.byDate[c.key]||"";
         const mk=notionStatus(p.name,c,v);
         const body=isBlank(v)?`<span class="ov-empty">—</span>`:(/^etc$/i.test(v)?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:gameTag(toNotionGame(v)));
-        const real=isBlank(v)?null:pmRealForCell(p.name,c,v), pm=real||(isBlank(v)?null:pmPlanned(p,c.key));
-        const pmLine=isBlank(v)?"":pm?`<span class="cs-pm" title="${escH(real?L.pmReal:L.pmPlan)}">PM ${escH(pm)}</span>`:`<span class="cs-pm solo" title="${escH(L.soloTip)}">${escH(L.solo)}</span>`;
+        const o=isBlank(v)?{pm:""}:pmOfCell(p,c,v), pm=o.pm;
+        const pmLine=isBlank(v)?"":pm?`<span class="cs-pm" title="${escH(o.real?L.pmReal:L.pmPlan)}">PM ${escH(pm)}</span>`:`<span class="cs-pm solo" title="${escH(L.soloTip)}">${escH(L.solo)}</span>`;
         return `<td class="${colCls(c)}">${body}${mk?`<span class="cs-mk ${mk}">${mk==="ok"?"✓":"⚠"}</span>`:""}${pmLine}</td>`;
       }).join("")+`</tr>`;
     });
@@ -1163,7 +1202,7 @@ function renderCreatorSchedule(){
       const v=p.byDate[c.key]||""; if(isBlank(v)||/^etc$/i.test(v)) return;
       const g=toNotionGame(v), k=gameKey(g);
       if(!games.has(k)) games.set(k,{g,by:{},n:0});
-      const e=games.get(k), pm=pmRealForCell(p.name,c,v)||pmPlanned(p,c.key); (e.by[c.key]=e.by[c.key]||[]).push({n:p.name,pm}); e.n++;
+      const e=games.get(k), pm=pmOfCell(p,c,v).pm; (e.by[c.key]=e.by[c.key]||[]).push({n:p.name,pm}); e.n++;
     }));
     [...games.values()].sort((a,b)=>b.n-a.n||a.g.localeCompare(b.g)).forEach(e=>{
       h+=`<tr><td class="sticky">${gameTag(e.g)}</td>`+cols.map(c=>{
