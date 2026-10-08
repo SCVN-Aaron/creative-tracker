@@ -930,11 +930,7 @@ function renderPMSchedule(){
   SCHEDULE.people.forEach(p=>cols.forEach(c=>{
     const v=p.byDate[c.key]||""; if(isBlank(v)) return;
     const etc=/^etc$/i.test(v);
-    // PM: task Notion đúng game → lịch PM×Creator (No PM/TBD = solo) → PM task Notion bất kỳ tuần đó → solo
-    const per=periodForCol(c), exact=per&&ALL_TASKS&&ALL_TASKS.find(t=>t.period===per&&t.creators.includes(p.name)&&t.pm&&!HIDDEN_PM.includes(t.pm)&&gameKey(t.game)===gameKey(v));
-    const plan=pmPlanned(p,c.key);
-    const pm=exact?exact.pm:plan!==undefined?(plan||SOLO):(pmRealForCell(p.name,c,v)||SOLO);
-    cells.push({key:c.key, pm, game:etc?"ETC":toNotionGame(v), etc, creator:p.name});
+    cells.push({key:c.key, pm:pmOfCell(p,c,v).pm||SOLO, game:etc?"ETC":toNotionGame(v), etc, creator:p.name});
   }));
   const tag=x=>x.etc?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:gameTag(x.game);
   const pmName=k=>k===SOLO?L.solo:k;
@@ -1109,6 +1105,17 @@ async function loadSchedule(){
 }
 // PM được phân công trên lịch PM × Creator: tên, "" = không PM, undefined = lịch không ghi
 const pmPlanned=(per,key)=>per.pmBy&&per.pmBy[key]?per.pmBy[key].pm:undefined;
+// PM của một ô lịch (dùng chung tab Creator và tab PM): task Notion đúng game → lịch PM×Creator
+// (No PM / TBD = solo) → PM task Notion bất kỳ của creator tuần đó → solo. Trả {pm:"" nếu solo, real}
+function pmOfCell(per,col,v){
+  const p=periodForCol(col);
+  const exact=p&&ALL_TASKS&&ALL_TASKS.find(t=>t.period===p&&t.creators.includes(per.name)&&t.pm&&!HIDDEN_PM.includes(t.pm)&&gameKey(t.game)===gameKey(v));
+  if(exact) return {pm:exact.pm, real:true};
+  const plan=pmPlanned(per,col.key);
+  if(plan!==undefined) return {pm:plan, real:false};
+  const any=pmRealForCell(per.name,col,v);
+  return {pm:any||"", real:!!any};
+}
 // Tên game trong Sheet viết hơi khác Notion ("Themepark Manager", "Crab Life", "Dinosaur Universe", "(YT) …")
 const gameKey=g=>{const k=String(g||"").toLowerCase().replace(/\(.*?\)/g,"").replace(/[^a-z0-9]/g,""); return ({dinosauruniverse:"dinouniverse"})[k]||k;};
 const toNotionGame=g=>GAME_ORDER.find(x=>gameKey(x)===gameKey(g))||String(g||"").trim();
@@ -1183,8 +1190,8 @@ function renderCreatorSchedule(){
         const v=p.byDate[c.key]||"";
         const mk=notionStatus(p.name,c,v);
         const body=isBlank(v)?`<span class="ov-empty">—</span>`:(/^etc$/i.test(v)?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:gameTag(toNotionGame(v)));
-        const real=isBlank(v)?null:pmRealForCell(p.name,c,v), pm=real||(isBlank(v)?null:pmPlanned(p,c.key));
-        const pmLine=isBlank(v)?"":pm?`<span class="cs-pm" title="${escH(real?L.pmReal:L.pmPlan)}">PM ${escH(pm)}</span>`:`<span class="cs-pm solo" title="${escH(L.soloTip)}">${escH(L.solo)}</span>`;
+        const o=isBlank(v)?{pm:""}:pmOfCell(p,c,v), pm=o.pm;
+        const pmLine=isBlank(v)?"":pm?`<span class="cs-pm" title="${escH(o.real?L.pmReal:L.pmPlan)}">PM ${escH(pm)}</span>`:`<span class="cs-pm solo" title="${escH(L.soloTip)}">${escH(L.solo)}</span>`;
         return `<td class="${colCls(c)}">${body}${mk?`<span class="cs-mk ${mk}">${mk==="ok"?"✓":"⚠"}</span>`:""}${pmLine}</td>`;
       }).join("")+`</tr>`;
     });
@@ -1195,7 +1202,7 @@ function renderCreatorSchedule(){
       const v=p.byDate[c.key]||""; if(isBlank(v)||/^etc$/i.test(v)) return;
       const g=toNotionGame(v), k=gameKey(g);
       if(!games.has(k)) games.set(k,{g,by:{},n:0});
-      const e=games.get(k), pm=pmRealForCell(p.name,c,v)||pmPlanned(p,c.key); (e.by[c.key]=e.by[c.key]||[]).push({n:p.name,pm}); e.n++;
+      const e=games.get(k), pm=pmOfCell(p,c,v).pm; (e.by[c.key]=e.by[c.key]||[]).push({n:p.name,pm}); e.n++;
     }));
     [...games.values()].sort((a,b)=>b.n-a.n||a.g.localeCompare(b.g)).forEach(e=>{
       h+=`<tr><td class="sticky">${gameTag(e.g)}</td>`+cols.map(c=>{
