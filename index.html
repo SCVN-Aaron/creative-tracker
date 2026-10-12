@@ -1427,9 +1427,28 @@ function rampQuota(team,name,i){
   const n=i-first;
   return n>=0&&n<RAMP.length?RAMP[n]:null;
 }
+// Game có chỉ tiêu riêng: tuần nào creator làm game này thì chỉ tiêu tuần đó theo số ở đây (thay cho 8 / ETC 12).
+// Khoá là tên game viết thường, bỏ dấu cách/ký tự (gameKey). Thêm game mới vào đây khi cần.
+const GAME_QUOTA={hypereels:24};
+// Game của creator trong một tuần theo lịch (4-Week Loop / PM×Creator), tính theo ngày bắt đầu tuần
+function schedGameOn(name,date){
+  if(!SCHEDULE||!date) return "";
+  const per=SCHEDULE.people.find(p=>p.name.toLowerCase()===name.toLowerCase()); if(!per) return "";
+  return per.byDate[`${date.getMonth()+1}/${date.getDate()}`]||"";
+}
+// Chỉ tiêu riêng theo game ở kỳ i (Notion trước, chưa có task thì theo lịch); null = không có
+function gameQuotaOf(name,i,date){
+  const w=WEEKS[i]; let q=null;
+  const take=g=>{ const v=GAME_QUOTA[gameKey(g)]; if(v) q=Math.max(q||0,v); };
+  if(w&&ALL_TASKS) ALL_TASKS.forEach(t=>{ if(t.period===w.full&&t.creators.includes(name)) take(t.game); });
+  if(q===null) take(schedGameOn(name,date||(w?periodStart(w.full):null)));
+  return q;
+}
 function quotaFor(team,name,i){
   const lv=leaveOf(name,i);
   if(lv) return lv.quota;
+  const gq=gameQuotaOf(name,i);
+  if(gq!==null) return gq;
   const rq=rampQuota(team,name,i);
   if(rq!==null) return rq;
   return name===team.etc
@@ -1449,6 +1468,7 @@ function pmOf(team,name,i){
 // Một người có thể vừa vượt mức vừa có PM.
 function kindOf(team,name,v,i){
   const q=quotaFor(team,name,i), sup=supportAt(team,i);
+  if(gameQuotaOf(name,i)!==null) return v<q?"under":v>q?"over":"solo";   // game chỉ tiêu riêng: so với chỉ tiêu đó
   if(name===team.etc) return "etc";
   if(sup&&v===sup) return "assisted";
   if(v<q) return "under";
@@ -1736,7 +1756,11 @@ function monthProjection(t){
   const slots=[]; m.weeks.forEach(i=>{ const w=/W\d+W\d+/.test(WEEKS[i].full)?2:1; for(let j=0;j<w;j++) slots.push(i); });
   for(let j=1;slots.length<total;j++) slots.push(WEEKS.length-1+j);
   const names=roster(t,WEEKS.length-1).map(r=>r.name);
+  const last=WEEKS.length-1, lastSt=periodStart(WEEKS[last].full);
   const kpi=(n,idx)=>{
+    // game chỉ tiêu riêng (Hypereels 24): kỳ đã có thì xem Notion/lịch, tuần sau đó xem lịch
+    const gq=idx<=last?gameQuotaOf(n,idx):(lastSt?gameQuotaOf(n,-1,new Date(lastSt.getTime()+(idx-last)*7*864e5)):null);
+    if(gq!==null) return gq;
     if(n===t.etc) return t.etcQuota||t.quota;
     const arr=t.people[n]||[], first=arr.findIndex(v=>v!==null&&v!==undefined);
     if(first<0||idx<first) return 0;                      // chưa vào đội
@@ -2206,7 +2230,8 @@ loadLiveCSV().then(r=>{
   if(r){ LIVE=r; }
   boot();
 }).catch(()=>boot());
-const reSched=()=>{ if(VIEW==="ov") renderOV(); if(VIEW==="pm") renderPM(); renderCreatorSchedule(); };
+// Lịch ảnh hưởng cả chỉ tiêu (game chỉ tiêu riêng như Hypereels) nên vẽ lại toàn bộ
+const reSched=()=>repaint();
 loadSchedule().then(reSched);
 // Tự đọc lại Sheet mỗi 2 phút khi tab đang mở, và ngay khi quay lại tab; chỉ vẽ lại khi Sheet có thay đổi
 let schedBusy=false;
