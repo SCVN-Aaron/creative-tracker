@@ -949,7 +949,7 @@ function renderPMSchedule(){
     const etc=/^etc$/i.test(v);
     const pm=pmOfCell(p,c,v).pm||SOLO;
     cells.push({key:c.key, pm, game:etc?"ETC":toNotionGame(v), etc, creator:p.name});
-    ytOf(p,c.key).forEach(y=>cells.push({key:c.key, pm, game:toNotionGame(y), etc:false, yt:true, creator:p.name}));
+    ytOf(p,c.key).forEach(y=>cells.push({key:c.key, pm:y.pm||SOLO, game:toNotionGame(y.g), etc:false, yt:true, creator:p.name}));
   }));
   const tag=x=>x.etc?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:x.yt?ytTag(x.game):gameTag(x.game);
   const pmName=k=>k===SOLO?L.solo:k;
@@ -1126,13 +1126,16 @@ async function loadSchedule(){
 }
 // PM được phân công trên lịch PM × Creator: tên, "" = không PM, undefined = lịch không ghi
 const pmPlanned=(per,key)=>per.pmBy&&per.pmBy[key]?per.pmBy[key].pm:undefined;
-// Game YT của một ô: lấy từ lịch (dòng "(YT) Game") + task Notion tuần đó có Iteration "(YT) …", bỏ trùng
+// Game YT của một ô: lấy từ lịch (dòng "(YT) Game") + task Notion tuần đó có Iteration "(YT) …", bỏ trùng.
+// Trả [{g, pm}]: PM là PM của chính task YT trên Notion — không lấy PM của game chính; không có thì "" (solo).
 function ytOf(per,key){
-  const out=[...(per.ytBy&&per.ytBy[key]||[])];
+  const out=[];
   const col=SCHEDULE&&SCHEDULE.cols.find(c=>c.key===key), p=col&&periodForCol(col);
-  if(p&&ALL_TASKS) ALL_TASKS.filter(t=>t.period===p&&t.creators.includes(per.name)&&isYT(t)).forEach(t=>out.push(t.game||t.iteration.replace(/^\s*\(YT\)\s*/i,"")));
+  if(p&&ALL_TASKS) ALL_TASKS.filter(t=>t.period===p&&t.creators.includes(per.name)&&isYT(t))
+    .forEach(t=>out.push({g:t.game||t.iteration.replace(/^\s*\(YT\)\s*/i,""), pm:t.pm&&!HIDDEN_PM.includes(t.pm)?t.pm:""}));
+  (per.ytBy&&per.ytBy[key]||[]).forEach(g=>out.push({g, pm:""}));
   const seen=new Set();
-  return out.filter(g=>{ const k=gameKey(toNotionGame(g)); if(!k||seen.has(k)) return false; seen.add(k); return true; });
+  return out.filter(y=>{ const k=gameKey(toNotionGame(y.g)); if(!k||seen.has(k)) return false; seen.add(k); return true; });
 }
 // PM của một ô lịch (dùng chung tab Creator và tab PM): task Notion đúng game → lịch PM×Creator
 // (No PM / TBD = solo) → PM task Notion bất kỳ của creator tuần đó → solo. Trả {pm:"" nếu solo, real}
@@ -1221,7 +1224,7 @@ function renderCreatorSchedule(){
         const body=isBlank(v)?`<span class="ov-empty">—</span>`:(/^etc$/i.test(v)?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:gameTag(toNotionGame(v)));
         const o=isBlank(v)?{pm:""}:pmOfCell(p,c,v), pm=o.pm;
         const pmLine=isBlank(v)?"":pm?`<span class="cs-pm" title="${escH(o.real?L.pmReal:L.pmPlan)}">PM ${escH(pm)}</span>`:`<span class="cs-pm solo" title="${escH(L.soloTip)}">${escH(L.solo)}</span>`;
-        const yts=isBlank(v)?"":ytOf(p,c.key).map(ytTag).join("");
+        const yts=isBlank(v)?"":ytOf(p,c.key).map(y=>ytTag(y.g)+` <small class="cs-pmi${y.pm?"":" solo"}">${y.pm?"PM "+escH(y.pm):escH(L.solo)}</small>`).join(" ");
         return `<td class="${colCls(c)}">${body}${mk?`<span class="cs-mk ${mk}">${mk==="ok"?"✓":"⚠"}</span>`:""}${yts?`<div class="cs-yt">${yts}</div>`:""}${pmLine}</td>`;
       }).join("")+`</tr>`;
     });
@@ -1233,8 +1236,8 @@ function renderCreatorSchedule(){
       const g=toNotionGame(v), k=gameKey(g);
       if(!games.has(k)) games.set(k,{g,by:{},n:0});
       const e=games.get(k), pm=pmOfCell(p,c,v).pm; (e.by[c.key]=e.by[c.key]||[]).push({n:p.name,pm}); e.n++;
-      ytOf(p,c.key).forEach(y=>{ const g2=toNotionGame(y), k2=gameKey(g2); if(!games.has(k2)) games.set(k2,{g:g2,by:{},n:0});
-        const e2=games.get(k2); (e2.by[c.key]=e2.by[c.key]||[]).push({n:p.name+" · YT",pm}); e2.n++; });
+      ytOf(p,c.key).forEach(y=>{ const g2=toNotionGame(y.g), k2=gameKey(g2); if(!games.has(k2)) games.set(k2,{g:g2,by:{},n:0});
+        const e2=games.get(k2); (e2.by[c.key]=e2.by[c.key]||[]).push({n:p.name+" · YT",pm:y.pm}); e2.n++; });
     }));
     [...games.values()].sort((a,b)=>b.n-a.n||a.g.localeCompare(b.g)).forEach(e=>{
       h+=`<tr><td class="sticky">${gameTag(e.g)}</td>`+cols.map(c=>{
@@ -1296,7 +1299,7 @@ function renderOV(){
       // ETC = game mới chưa có tên; game chưa ai làm trên Notion cũng không đoán được PM → để vào hàng Creator solo
       const pp=pmPlanned(per,sc.key), pm=pp!==undefined?(pp?{pm:pp}:null):etc?null:pmForCell(per.name,sc,v);
       plan.push({col:c,pm:pm?pm.pm:NOPM,game:g,etc,creator:per.name,planned:pp!==undefined});
-      ytOf(per,sc.key).forEach(y=>plan.push({col:c,pm:pm?pm.pm:NOPM,game:toNotionGame(y),etc:false,yt:true,creator:per.name,planned:pp!==undefined}));
+      ytOf(per,sc.key).forEach(y=>plan.push({col:c,pm:y.pm||NOPM,game:toNotionGame(y.g),etc:false,yt:true,creator:per.name,planned:pp!==undefined}));
     }));
   });
   // PM mới chỉ có trong lịch chèn trước hàng Creator solo; hàng Creator solo luôn ở cuối
