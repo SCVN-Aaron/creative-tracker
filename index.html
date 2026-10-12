@@ -307,6 +307,9 @@
   .ov-sch{opacity:var(--faded);font-style:italic}
   .ov-sch .game{border:1px dashed currentColor}
   .game.etc-tag{background:var(--etc-bg);color:var(--warn)}
+  .yt-item{display:inline-flex;align-items:center;gap:3px;max-width:100%}
+  .yt-mark{font-size:10px;font-weight:800;letter-spacing:.02em;line-height:1;padding:3px 5px;border-radius:4px;background:#E0352B;color:#fff;flex:none}
+  .cs-yt{margin-top:3px}
   .ov-empty{color:var(--muted)}
   #ov-table tr.grand td{background:var(--accent-bg);font-weight:700;font-family:"IBM Plex Mono",monospace}
   #ov-table tr.grand td.sticky{background:var(--accent-bg);font-family:inherit}
@@ -601,6 +604,7 @@ const I18N={
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
       noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (file CSV export từ Notion có sẵn các cột này).",
       note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước.${u?` Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`:""}`},
+  ytTip:"(YT) — video YouTube làm kèm, tiêu đề phụ của tuần đó",
   soloTag:"tự làm", rampTag:n=>`Mới · tuần ${n}`, rampTip:q=>`Thành viên mới — chỉ tiêu tuần này ${q} video (tuần 1: 2, tuần 2: 6, từ tuần 3: 8)`, leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
   grandNow:"Số lượng video tuần này", ongoing:"Tuần đang diễn ra — số liệu còn tăng, chưa phải kết quả cuối.",
@@ -679,6 +683,7 @@ const I18N={
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
       noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the CSV exported from Notion has them).",
       note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time.${u?` Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`:""}`},
+  ytTip:"(YT) — extra YouTube video, a side title for that week",
   soloTag:"solo", rampTag:n=>`New · week ${n}`, rampTip:q=>`New member — target this week is ${q} videos (week 1: 2, week 2: 6, from week 3: 8)`, leaveTip:q=>`On leave — target this week is ${q} videos`,
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
   grandNow:"Videos so far this week", ongoing:"Week in progress — numbers are still coming in, not the final result.",
@@ -757,6 +762,7 @@ const I18N={
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
       noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(Notion에서 내보낸 CSV에 포함).",
       note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다.${u?` 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`:""}`},
+  ytTip:"(YT) — 추가 YouTube 영상, 해당 주의 보조 타이틀",
   soloTag:"단독", rampTag:n=>`신규 · ${n}주차`, rampTip:q=>`신규 인원 — 이번 주 목표 ${q}개 (1주차 2개, 2주차 6개, 3주차부터 8개)`, leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
   grandNow:"이번 주 영상 수", ongoing:"진행 중인 주 — 수치가 계속 늘어나며 최종 결과가 아닙니다.",
@@ -841,6 +847,17 @@ function gameHue(g){
 }
 const escH=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const gameTag=g=>g?`<span class="game" style="--h:${gameHue(g)}">${escH(g)}</span>`:"—";
+// Tiêu đề phụ "(YT) Game" — video YouTube làm kèm game chính; hiện bằng nhãn YT đỏ trước tag game
+const ytTag=g=>`<span class="yt-item" title="${escH(T().ytTip)}"><span class="yt-mark">YT</span>${gameTag(toNotionGame(g))}</span>`;
+const isYT=t=>/^\s*\(YT\)/i.test(t&&t.iteration||"");
+// Tách các "(YT) X" ra khỏi một ô lịch: {main: game chính, yt:[game YT]}
+function splitYT(v){
+  const yt=[];
+  let main=String(v||"").replace(/\(YT\)\s*([^\n,\/+|&]+)/gi,(m,g)=>{ yt.push(g.trim()); return "\n"; });
+  main=main.split("\n").map(x=>x.replace(/^[\s,\/+|&]+|[\s,\/+|&]+$/g,"")).filter(Boolean).join(" ").trim();
+  if(!main&&yt.length) main=yt.shift();
+  return {main, yt};
+}
 // PM đã rời team: không hiện trong tab PM / Overview (số của creator ở tab Creator vẫn giữ nguyên).
 const HIDDEN_PM=["Avril","Khong xac dinh"];
 let TASKS=null, ALL_TASKS=null;          // null = CSV chưa có cột chi tiết từng task
@@ -930,9 +947,11 @@ function renderPMSchedule(){
   SCHEDULE.people.forEach(p=>cols.forEach(c=>{
     const v=p.byDate[c.key]||""; if(isBlank(v)) return;
     const etc=/^etc$/i.test(v);
-    cells.push({key:c.key, pm:pmOfCell(p,c,v).pm||SOLO, game:etc?"ETC":toNotionGame(v), etc, creator:p.name});
+    const pm=pmOfCell(p,c,v).pm||SOLO;
+    cells.push({key:c.key, pm, game:etc?"ETC":toNotionGame(v), etc, creator:p.name});
+    ytOf(p,c.key).forEach(y=>cells.push({key:c.key, pm, game:toNotionGame(y), etc:false, yt:true, creator:p.name}));
   }));
-  const tag=x=>x.etc?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:gameTag(x.game);
+  const tag=x=>x.etc?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:x.yt?ytTag(x.game):gameTag(x.game);
   const pmName=k=>k===SOLO?L.solo:k;
   let h=`<thead><tr><th class="sticky">${PS_MODE==="pm"?L.pm:L.game}</th>`+cols.map(c=>`<th class="${colCls(c)==="now"?"now":""}">${escH(T().wk(String(c.start.getDate()).padStart(2,"0")+"/"+String(c.start.getMonth()+1).padStart(2,"0")))}${colCls(c)==="now"?`<span class="now-badge">${escH(T().ov.nowBadge)}</span>`:""}</th>`).join("")
     +(PS_MODE==="game"?`<th>${L.weeks}</th>`:"")+`</tr></thead><tbody>`;
@@ -950,7 +969,7 @@ function renderPMSchedule(){
     [...games.values()].sort((a,b)=>b.weeks.size-a.weeks.size||a.g.localeCompare(b.g)).forEach(e=>{
       h+=`<tr><td class="sticky">${gameTag(e.g)}</td>`+cols.map(c=>{
         const list=e.list.filter(x=>x.key===c.key);
-        const by=new Map(); list.forEach(x=>{ if(!by.has(x.pm)) by.set(x.pm,[]); by.get(x.pm).push(x.creator); });
+        const by=new Map(); list.forEach(x=>{ if(!by.has(x.pm)) by.set(x.pm,[]); by.get(x.pm).push(x.creator+(x.yt?" · YT":"")); });
         return `<td class="${colCls(c)}">${by.size?[...by.entries()].map(([k,cr])=>`<div class="ps-item"><span class="ps-pm${k===SOLO?" solo":""}">${escH(k===SOLO?L.solo:"PM "+k)}</span><small class="cs-pmi">${cr.map(escH).join(", ")}</small></div>`).join(""):`<span class="ov-empty">—</span>`}</td>`;
       }).join("")+`<td class="cnt">${e.weeks.size}</td></tr>`;
     });
@@ -1036,8 +1055,9 @@ function parseSchedule(text,live){
   if(hi<0) throw new Error("no header");
   const dates=rows[hi].map((c,i)=>{ if(i<2) return null; const m=/(\d{1,2})[\/.](\d{1,2})\s*$/.exec(c.trim()); return m?`${+m[1]}/${+m[2]}`:null; });
   const people=rows.slice(hi+1).filter(r=>SCHEDULE_TEAM(r[0]||"")&&(r[1]||"").trim()).map(r=>{
-    const byDate={}; dates.forEach((d,i)=>{ if(d) byDate[d]=(r[i]||"").trim(); });
-    return {name:r[1].trim(), byDate};
+    const byDate={}, ytBy={};
+    dates.forEach((d,i)=>{ if(!d) return; const sp=splitYT((r[i]||"").trim()); byDate[d]=sp.main; if(sp.yt.length) ytBy[d]=sp.yt; });
+    return {name:r[1].trim(), byDate, ytBy};
   });
   if(!people.length) throw new Error("no rows");
   const cols=dates.filter(Boolean).map(k=>({key:k, start:periodStart(`(${k}~)`)})).filter(c=>c.start);
@@ -1064,7 +1084,8 @@ function parsePMSched(text,live){
       const lines=v.split("\n").map(x=>x.trim()).filter(Boolean);
       const pl=lines.find(x=>/^PM\s*:/i.test(x)), raw=pl?pl.replace(/^PM\s*:/i,"").trim():undefined;
       const tbd=!!raw&&/^tbd$/i.test(raw);
-      byDate[d]={game:lines.filter(x=>x!==pl).join(" ").trim(), pm:raw===undefined?undefined:(tbd||/^no\s*pm$/i.test(raw)||isBlank(raw))?"":raw, tbd};
+      const sp=splitYT(lines.filter(x=>x!==pl).join("\n"));
+      byDate[d]={game:sp.main, yt:sp.yt, pm:raw===undefined?undefined:(tbd||/^no\s*pm$/i.test(raw)||isBlank(raw))?"":raw, tbd};
     });
     return {name:r[0].trim(), byDate};
   });
@@ -1091,9 +1112,9 @@ function mergeSchedules(){
   SCHEDULE.cols.sort((a,b)=>a.start-b.start);
   PMSCHED.people.forEach(pp=>{
     let per=SCHEDULE.people.find(x=>x.name.toLowerCase()===pp.name.toLowerCase());
-    if(!per){ per={name:pp.name, byDate:{}}; SCHEDULE.people.push(per); }
-    per.loop={...per.byDate}; per.pmBy={};
-    Object.entries(pp.byDate).forEach(([k,v])=>{ if(v.game) per.byDate[k]=v.game; per.pmBy[k]=v; });
+    if(!per){ per={name:pp.name, byDate:{}, ytBy:{}}; SCHEDULE.people.push(per); }
+    per.loop={...per.byDate}; per.pmBy={}; per.ytBy=per.ytBy||{};
+    Object.entries(pp.byDate).forEach(([k,v])=>{ if(v.game){ per.byDate[k]=v.game; per.ytBy[k]=v.yt||[]; } per.pmBy[k]=v; });
   });
 }
 async function loadSchedule(){
@@ -1105,6 +1126,7 @@ async function loadSchedule(){
 }
 // PM được phân công trên lịch PM × Creator: tên, "" = không PM, undefined = lịch không ghi
 const pmPlanned=(per,key)=>per.pmBy&&per.pmBy[key]?per.pmBy[key].pm:undefined;
+const ytOf=(per,key)=>per.ytBy&&per.ytBy[key]||[];
 // PM của một ô lịch (dùng chung tab Creator và tab PM): task Notion đúng game → lịch PM×Creator
 // (No PM / TBD = solo) → PM task Notion bất kỳ của creator tuần đó → solo. Trả {pm:"" nếu solo, real}
 function pmOfCell(per,col,v){
@@ -1192,7 +1214,8 @@ function renderCreatorSchedule(){
         const body=isBlank(v)?`<span class="ov-empty">—</span>`:(/^etc$/i.test(v)?`<span class="game etc-tag" title="${escH(T().ov.etcTip)}">${escH(T().ov.etc)}</span>`:gameTag(toNotionGame(v)));
         const o=isBlank(v)?{pm:""}:pmOfCell(p,c,v), pm=o.pm;
         const pmLine=isBlank(v)?"":pm?`<span class="cs-pm" title="${escH(o.real?L.pmReal:L.pmPlan)}">PM ${escH(pm)}</span>`:`<span class="cs-pm solo" title="${escH(L.soloTip)}">${escH(L.solo)}</span>`;
-        return `<td class="${colCls(c)}">${body}${mk?`<span class="cs-mk ${mk}">${mk==="ok"?"✓":"⚠"}</span>`:""}${pmLine}</td>`;
+        const yts=isBlank(v)?"":ytOf(p,c.key).map(ytTag).join("");
+        return `<td class="${colCls(c)}">${body}${mk?`<span class="cs-mk ${mk}">${mk==="ok"?"✓":"⚠"}</span>`:""}${yts?`<div class="cs-yt">${yts}</div>`:""}${pmLine}</td>`;
       }).join("")+`</tr>`;
     });
   }else{
@@ -1203,6 +1226,8 @@ function renderCreatorSchedule(){
       const g=toNotionGame(v), k=gameKey(g);
       if(!games.has(k)) games.set(k,{g,by:{},n:0});
       const e=games.get(k), pm=pmOfCell(p,c,v).pm; (e.by[c.key]=e.by[c.key]||[]).push({n:p.name,pm}); e.n++;
+      ytOf(p,c.key).forEach(y=>{ const g2=toNotionGame(y), k2=gameKey(g2); if(!games.has(k2)) games.set(k2,{g:g2,by:{},n:0});
+        const e2=games.get(k2); (e2.by[c.key]=e2.by[c.key]||[]).push({n:p.name+" · YT",pm}); e2.n++; });
     }));
     [...games.values()].sort((a,b)=>b.n-a.n||a.g.localeCompare(b.g)).forEach(e=>{
       h+=`<tr><td class="sticky">${gameTag(e.g)}</td>`+cols.map(c=>{
@@ -1264,6 +1289,7 @@ function renderOV(){
       // ETC = game mới chưa có tên; game chưa ai làm trên Notion cũng không đoán được PM → để vào hàng Creator solo
       const pp=pmPlanned(per,sc.key), pm=pp!==undefined?(pp?{pm:pp}:null):etc?null:pmForCell(per.name,sc,v);
       plan.push({col:c,pm:pm?pm.pm:NOPM,game:g,etc,creator:per.name,planned:pp!==undefined});
+      ytOf(per,sc.key).forEach(y=>plan.push({col:c,pm:pm?pm.pm:NOPM,game:toNotionGame(y),etc:false,yt:true,creator:per.name,planned:pp!==undefined}));
     }));
   });
   // PM mới chỉ có trong lịch chèn trước hàng Creator solo; hàng Creator solo luôn ở cuối
@@ -1278,10 +1304,10 @@ function renderOV(){
     cols.forEach(c=>{
       const list=ofCol(c).filter(t=>(t.pm||NOPM)===k).sort((a,b)=>(a.game||"").localeCompare(b.game||""));
       const sch=plan.filter(x=>x.col===c&&x.pm===k).sort((a,b)=>a.game.localeCompare(b.game)).map(x=>
-        `<div class="ov-item ov-sch" title="${escH(x.etc?T().ov.etcTip:x.planned?T().ov.schTipPM:T().ov.schTip)}">${x.etc?`<span class="game etc-tag">${escH(T().ov.etc)}</span>`:gameTag(x.game)}<span class="ov-cr">${escH(x.creator)}</span><span class="ov-n">—</span></div>`).join("");
+        `<div class="ov-item ov-sch" title="${escH(x.etc?T().ov.etcTip:x.planned?T().ov.schTipPM:T().ov.schTip)}">${x.etc?`<span class="game etc-tag">${escH(T().ov.etc)}</span>`:x.yt?ytTag(x.game):gameTag(x.game)}<span class="ov-cr">${escH(x.creator)}</span><span class="ov-n">—</span></div>`).join("");
       const items=list.map(t=>{
         const href=pageLink(t.pageId), cls=`ov-item${t.status&&t.status!=="Done"?" ov-plan":""}`;
-        const inner=`${gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}</span><span class="ov-n">${t.count??"—"}</span>`;
+        const inner=`${isYT(t)?ytTag(t.game):gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}</span><span class="ov-n">${t.count??"—"}</span>`;
         const tip=escH([t.game,t.creators.join(", "),t.iteration,t.status].filter(Boolean).join(" · "));
         return href?`<a class="${cls}" href="${href}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`:`<div class="${cls}" title="${tip}">${inner}</div>`;
       }).join("");
