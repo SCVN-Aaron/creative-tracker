@@ -310,6 +310,9 @@
   .yt-item{display:inline-flex;align-items:center;gap:3px;max-width:100%}
   .yt-mark{font-size:10px;font-weight:800;letter-spacing:.02em;line-height:1;padding:3px 5px;border-radius:4px;background:#E0352B;color:#fff;flex:none}
   .cs-yt{margin-top:3px}
+  .src-line{padding:0 18px 14px;margin:0;font-size:12px}
+  .src-ok{color:var(--up);font-weight:600}
+  .src-bad{color:var(--warn);font-weight:600}
   .ov-empty{color:var(--muted)}
   #ov-table tr.grand td{background:var(--accent-bg);font-weight:700;font-family:"IBM Plex Mono",monospace}
   #ov-table tr.grand td.sticky{background:var(--accent-bg);font-family:inherit}
@@ -484,7 +487,8 @@
       </div>
     </div>
     <div class="ov-scroll" id="cs-scroll"><table id="cs-table"></table></div>
-    <p class="pm-note" id="cs-note" style="padding:0 18px 14px;margin:0"></p>
+    <p class="pm-note" id="cs-note" style="padding:0 18px 4px;margin:0"></p>
+    <p class="pm-note src-line" id="cs-src"></p>
   </div>
 
   <footer id="footer"></footer>
@@ -505,7 +509,8 @@
         </div>
       </div>
       <div class="ov-scroll" id="ps-scroll"><table id="ps-table"></table></div>
-      <p class="pm-note" id="ps-note" style="padding:0 18px 14px;margin:0"></p>
+      <p class="pm-note" id="ps-note" style="padding:0 18px 4px;margin:0"></p>
+      <p class="pm-note src-line" id="ps-src"></p>
     </div>
     <p class="pm-note" id="pm-note"></p>
   </div>
@@ -604,6 +609,7 @@ const I18N={
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
       noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (file CSV export từ Notion có sẵn các cột này).",
       note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước.${u?` Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`:""}`},
+  src:{live:"Google Sheet trực tiếp", cached:"bản lưu trong repo (không đọc được Google Sheet)", none:"không đọc được", at:t=>`đọc lúc ${t} · tự đọc lại mỗi 2 phút`},
   ytTip:"(YT) — video YouTube làm kèm, tiêu đề phụ của tuần đó",
   soloTag:"tự làm", rampTag:n=>`Mới · tuần ${n}`, rampTip:q=>`Thành viên mới — chỉ tiêu tuần này ${q} video (tuần 1: 2, tuần 2: 6, từ tuần 3: 8)`, leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
@@ -683,6 +689,7 @@ const I18N={
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
       noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the CSV exported from Notion has them).",
       note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time.${u?` Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`:""}`},
+  src:{live:"live Google Sheet", cached:"saved copy in the repo (could not read the Google Sheet)", none:"could not read", at:t=>`read at ${t} · re-reads every 2 minutes`},
   ytTip:"(YT) — extra YouTube video, a side title for that week",
   soloTag:"solo", rampTag:n=>`New · week ${n}`, rampTip:q=>`New member — target this week is ${q} videos (week 1: 2, week 2: 6, from week 3: 8)`, leaveTip:q=>`On leave — target this week is ${q} videos`,
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
@@ -762,6 +769,7 @@ const I18N={
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
       noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(Notion에서 내보낸 CSV에 포함).",
       note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다.${u?` 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`:""}`},
+  src:{live:"구글 시트 실시간", cached:"저장소 사본 (구글 시트를 읽지 못함)", none:"읽지 못함", at:t=>`${t}에 읽음 · 2분마다 다시 읽음`},
   ytTip:"(YT) — 추가 YouTube 영상, 해당 주의 보조 타이틀",
   soloTag:"단독", rampTag:n=>`신규 · ${n}주차`, rampTip:q=>`신규 인원 — 이번 주 목표 ${q}개 (1주차 2개, 2주차 6개, 3주차부터 8개)`, leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
@@ -1093,14 +1101,20 @@ function parsePMSched(text,live){
   const cols=dates.filter(Boolean).map(k=>({key:k, start:periodStart(`(${k}~)`)})).filter(c=>c.start);
   return {live, people, cols};
 }
-async function fetchFirst(list,parse){
+// Link Google Sheet thêm tham số t=… để trình duyệt/CDN không trả bản cũ. RAW giữ nội dung đã đọc để biết có gì đổi.
+let SCHED_RAW="", SCHED_AT=null;
+async function fetchFirst(list,parse,raw){
   for(const [url,live] of list){
     try{
-      const res=await fetch(url,{cache:"no-store"});
+      const u=live?url+(url.includes("?")?"&":"?")+"t="+Date.now():url;
+      const res=await fetch(u,{cache:"no-store"});
       if(!res.ok) continue;
-      return parse(await res.text(),live);
+      const text=await res.text(), data=parse(text,live);
+      raw.push(text);
+      return data;
     }catch(e){}
   }
+  raw.push("");
   return null;
 }
 // Gộp lịch PM × Creator vào SCHEDULE: game ở PM × Creator được ưu tiên, game của Loop giữ ở per.loop để đối chiếu
@@ -1117,12 +1131,29 @@ function mergeSchedules(){
     Object.entries(pp.byDate).forEach(([k,v])=>{ if(v.game){ per.byDate[k]=v.game; per.ytBy[k]=v.yt||[]; } per.pmBy[k]=v; });
   });
 }
+// Đọc 2 Sheet; chỉ dựng lại lịch khi nội dung khác lần trước. Trả true nếu có thay đổi.
+let SCHED_LOOP_LIVE=null, SCHED_PM_LIVE=null;   // true = Google Sheet trực tiếp, false = bản lưu, null = không đọc được
 async function loadSchedule(){
+  const r1=[], r2=[];
   const [loop,pmx]=await Promise.all([
-    fetchFirst([[SCHEDULE_URL,true],["data/schedule.csv",false]],parseSchedule),
-    fetchFirst(PMSCHED_SRC,parsePMSched)]);
-  SCHEDULE=loop; PMSCHED=pmx; mergeSchedules();
+    fetchFirst([[SCHEDULE_URL,true],["data/schedule.csv",false]],parseSchedule,r1),
+    fetchFirst(PMSCHED_SRC,parsePMSched,r2)]);
+  SCHED_AT=new Date();
+  SCHED_LOOP_LIVE=loop?loop.live:null; SCHED_PM_LIVE=pmx?pmx.live:null;
+  const raw=r1.join("")+"\u0001"+r2.join("");
+  const changed=!SCHEDULE_DONE||raw!==SCHED_RAW;
+  SCHED_RAW=raw;
+  if(changed){ SCHEDULE=loop; PMSCHED=pmx; mergeSchedules(); }
   SCHEDULE_DONE=true;
+  renderSchedSrc();
+  return changed;
+}
+// Dòng nguồn dưới lịch: đọc trực tiếp từ Google Sheet hay đang dùng bản lưu trong repo
+function renderSchedSrc(){
+  const L=T().src, t=SCHED_AT?String(SCHED_AT.getHours()).padStart(2,"0")+":"+String(SCHED_AT.getMinutes()).padStart(2,"0"):"—";
+  const one=(name,v)=>`${name}: <b class="${v?"src-ok":"src-bad"}">${v===null?L.none:v?L.live:L.cached}</b>`;
+  const html=`${one("4-Week Loop",SCHED_LOOP_LIVE)} · ${one("PM×Creator",SCHED_PM_LIVE)} · ${escH(L.at(t))}`;
+  ["cs-src","ps-src"].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=html; });
 }
 // PM được phân công trên lịch PM × Creator: tên, "" = không PM, undefined = lịch không ghi
 const pmPlanned=(per,key)=>per.pmBy&&per.pmBy[key]?per.pmBy[key].pm:undefined;
@@ -1201,6 +1232,7 @@ function notionStatus(name,col,sch){
   return ts.some(t=>gameKey(t.game)===gameKey(sch))?"ok":"diff";
 }
 function renderCreatorSchedule(){
+  renderSchedSrc();
   const L=T().cs, card=document.getElementById("cs-card");
   if(!SCHEDULE){ card.hidden=!SCHEDULE_DONE?false:true; document.getElementById("cs-title").textContent=L.title;
     document.getElementById("cs-table").innerHTML=`<tr><td class="empty">${SCHEDULE_DONE?T().ov.sch.noData:T().ov.sch.loading}</td></tr>`; return; }
@@ -2168,7 +2200,14 @@ loadLiveCSV().then(r=>{
   if(r){ LIVE=r; }
   boot();
 }).catch(()=>boot());
-loadSchedule().then(()=>{ if(VIEW==="ov") renderOV(); if(VIEW==="pm") renderPM(); renderCreatorSchedule(); });
+const reSched=()=>{ if(VIEW==="ov") renderOV(); if(VIEW==="pm") renderPM(); renderCreatorSchedule(); };
+loadSchedule().then(reSched);
+// Tự đọc lại Sheet mỗi 2 phút khi tab đang mở, và ngay khi quay lại tab; chỉ vẽ lại khi Sheet có thay đổi
+let schedBusy=false;
+const pollSched=async()=>{ if(schedBusy||document.hidden) return; schedBusy=true;
+  try{ if(await loadSchedule()) reSched(); }finally{ schedBusy=false; } };
+setInterval(pollSched,120000);
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden&&SCHED_AT&&Date.now()-SCHED_AT>30000) pollSched(); });
 
 // ---------------------------------------------------------------- kéo bảng bằng chuột
 // Bảng rộng (.ov-scroll, .pm-scroll): nhấn giữ chuột trong bảng rồi kéo ngang/dọc để xem, khỏi kéo thanh cuộn.
