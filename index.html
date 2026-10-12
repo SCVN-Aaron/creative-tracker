@@ -193,6 +193,8 @@
   .why .team{font-weight:600;font-size:14px;margin-bottom:5px}
   .why .team .n{font-family:"IBM Plex Mono",monospace;font-weight:500;color:var(--ink-2);margin-left:6px}
   .why p{margin:0 0 6px;font-size:14px}
+  .why-reasons{margin:0 0 8px;padding-left:18px;font-size:14px}
+  .why-reasons li{margin:2px 0}
   .bars{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
   .chip{
     font-size:12.5px;padding:4px 9px;border-radius:6px;
@@ -633,6 +635,9 @@ const I18N={
   vsPrev:(s,h)=>`${s} video so với tuần trước · ${h} người làm`,
   assistLine:(na,av,no)=>(na?`${na} creator có dev/art tham gia (${av} video)`
     :"không creator nào có dev/art")+(no?` · ${no} creator vượt mức`:""),
+  gameWhyOn:(n,g,q,b,v0,v1,d)=>`<b>${escH(n)}</b> làm <b>${escH(g)}</b> (chỉ tiêu ${q} video/tuần thay vì ${b}) nên số lượng tăng mạnh: ${v0} → ${v1} video (${d})`,
+  gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b> thôi làm <b>${escH(g)}</b>, quay lại chỉ tiêu thường nên số lượng giảm: ${v0} → ${v1} video (${d})`,
+  gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> vẫn làm <b>${escH(g)}</b> (chỉ tiêu ${q} video/tuần): ${v} video`,
   leaveNote:ls=>`${ls.length} creator nghỉ phép ${ls.map(l=>l.days).join("/")} ngày nên số lượng giảm (${ls.map(l=>`${l.name}: ${(l.note.vi||"").toLowerCase()}, còn ${l.quota} video`).join("; ")})`,
   mergedNote:(b,e)=>b>0
     ?`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người${e?"":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`
@@ -713,6 +718,9 @@ const I18N={
   vsPrev:(s,h)=>`${s} videos vs last week · ${h} people`,
   assistLine:(na,av,no)=>(na?`${na} creator${na>1?"s":""} had dev/art support (${av} videos)`
     :"no creator had dev/art support")+(no?` · ${no} past target`:""),
+  gameWhyOn:(n,g,q,b,v0,v1,d)=>`<b>${escH(n)}</b> is on <b>${escH(g)}</b> (target ${q} videos/week instead of ${b}), so the count jumps: ${v0} → ${v1} videos (${d})`,
+  gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b> came off <b>${escH(g)}</b> and is back on the normal target, so the count drops: ${v0} → ${v1} videos (${d})`,
+  gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> is still on <b>${escH(g)}</b> (target ${q} videos/week): ${v} videos`,
   leaveNote:ls=>`${ls.length} creator${ls.length>1?"s":""} on leave for ${ls.map(l=>l.days).join("/")} day${ls.length>1||ls[0].days>1?"s":""}, so the count is lower (${ls.map(l=>`${l.name}: ${l.note.en}, ${l.quota} videos`).join("; ")})`,
   mergedNote:(b,e)=>b>0
     ?`Merged period covering a public holiday — target raised by ${b} videos per person${e?"":", except the ETC role which keeps its own standard"}`
@@ -792,6 +800,9 @@ const I18N={
   vsPrev:(s,h)=>`지난주 대비 ${s}개 · ${h}명 작업`,
   assistLine:(na,av,no)=>(na?`dev/art 참여 ${na}명 (${av}개)`:"dev/art 참여 없음")
     +(no?` · 목표 초과 ${no}명`:""),
+  gameWhyOn:(n,g,q,b,v0,v1,d)=>`<b>${escH(n)}</b>이(가) <b>${escH(g)}</b> 담당 (주 ${q}개 목표, 기본 ${b}개) → 수량 급증: ${v0} → ${v1}개 (${d})`,
+  gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b>이(가) <b>${escH(g)}</b>에서 빠져 기본 목표로 복귀 → 수량 감소: ${v0} → ${v1}개 (${d})`,
+  gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> <b>${escH(g)}</b> 계속 담당 (주 ${q}개 목표): ${v}개`,
   leaveNote:ls=>`크리에이터 ${ls.length}명 ${ls.map(l=>l.days).join("/")}일 휴가로 수량 감소 (${ls.map(l=>`${l.name}: ${l.note.ko}, ${l.quota}개`).join("; ")})`,
   mergedNote:(b,e)=>b>0
     ?`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향${e?"":", 단 ETC 담당자는 자체 기준 유지"}`
@@ -1437,13 +1448,14 @@ function schedGameOn(name,date){
   return per.byDate[`${date.getMonth()+1}/${date.getDate()}`]||"";
 }
 // Chỉ tiêu riêng theo game ở kỳ i (Notion trước, chưa có task thì theo lịch); null = không có
-function gameQuotaOf(name,i,date){
-  const w=WEEKS[i]; let q=null;
-  const take=g=>{ const v=GAME_QUOTA[gameKey(g)]; if(v) q=Math.max(q||0,v); };
+function gameQuotaInfo(name,i,date){
+  const w=WEEKS[i]; let r=null;
+  const take=g=>{ const v=GAME_QUOTA[gameKey(g)]; if(v&&(!r||v>r.q)) r={q:v,game:String(g).trim()}; };
   if(w&&ALL_TASKS) ALL_TASKS.forEach(t=>{ if(t.period===w.full&&t.creators.includes(name)) take(t.game); });
-  if(q===null) take(schedGameOn(name,date||(w?periodStart(w.full):null)));
-  return q;
+  if(!r) take(schedGameOn(name,date||(w?periodStart(w.full):null)));
+  return r;
 }
+function gameQuotaOf(name,i,date){ const r=gameQuotaInfo(name,i,date); return r?r.q:null; }
 function quotaFor(team,name,i){
   const lv=leaveOf(name,i);
   if(lv) return lv.quota;
@@ -1615,6 +1627,16 @@ function renderReading(i){
     else
       verdict=T().vBoth(h0,h1,fmt(a0),fmt(a1));
 
+    // Lý do cụ thể: ai bắt đầu / thôi làm game có chỉ tiêu riêng (Hypereels 24), ai nghỉ phép
+    const reasons=[];
+    Object.entries(t.people).forEach(([name,arr])=>{
+      const g1=arr[i]!=null?gameQuotaInfo(name,i):null, g0=arr[prev]!=null?gameQuotaInfo(name,prev):null;
+      if(g1&&!g0) reasons.push(T().gameWhyOn(name,g1.game,g1.q,quotaAt(t,i),arr[prev]??0,arr[i]??0,signed((arr[i]??0)-(arr[prev]??0))));
+      else if(g0&&!g1) reasons.push(T().gameWhyOff(name,g0.game,arr[prev]??0,arr[i]??0,signed((arr[i]??0)-(arr[prev]??0))));
+      else if(g1&&g0) reasons.push(T().gameWhyStay(name,g1.game,g1.q,arr[i]??0));
+    });
+    if(leavesAt(i).length) reasons.push(T().leaveNote(leavesAt(i)));
+    const reasonLine=reasons.length?`<ul class="why-reasons">${reasons.map(r=>`<li>${r}</li>`).join("")}</ul>`:"";
     const hit1=hitOf(t,i), hit0=hitOf(t,prev);
     const quotaLine=`<p style="color:var(--ink-2);font-size:13.5px">
         ${T().quotaLine(quotaAt(t,i),targetOf(t,i),now,Math.round(hit1*100),Math.round(hit0*100))}
@@ -1635,6 +1657,7 @@ function renderReading(i){
     return `<div class="why">
       <div class="team">${t.name}<span class="n">${T().teamHead(before,now,signed(dTot))}</span></div>
       <p>${verdict}</p>
+      ${reasonLine}
       <p style="color:var(--ink-2);font-size:13.5px">
         ${T().splitLine(signed(effHead,1),signed(effRate,1))}
       </p>
