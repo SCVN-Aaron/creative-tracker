@@ -1126,7 +1126,14 @@ async function loadSchedule(){
 }
 // PM được phân công trên lịch PM × Creator: tên, "" = không PM, undefined = lịch không ghi
 const pmPlanned=(per,key)=>per.pmBy&&per.pmBy[key]?per.pmBy[key].pm:undefined;
-const ytOf=(per,key)=>per.ytBy&&per.ytBy[key]||[];
+// Game YT của một ô: lấy từ lịch (dòng "(YT) Game") + task Notion tuần đó có Iteration "(YT) …", bỏ trùng
+function ytOf(per,key){
+  const out=[...(per.ytBy&&per.ytBy[key]||[])];
+  const col=SCHEDULE&&SCHEDULE.cols.find(c=>c.key===key), p=col&&periodForCol(col);
+  if(p&&ALL_TASKS) ALL_TASKS.filter(t=>t.period===p&&t.creators.includes(per.name)&&isYT(t)).forEach(t=>out.push(t.game||t.iteration.replace(/^\s*\(YT\)\s*/i,"")));
+  const seen=new Set();
+  return out.filter(g=>{ const k=gameKey(toNotionGame(g)); if(!k||seen.has(k)) return false; seen.add(k); return true; });
+}
 // PM của một ô lịch (dùng chung tab Creator và tab PM): task Notion đúng game → lịch PM×Creator
 // (No PM / TBD = solo) → PM task Notion bất kỳ của creator tuần đó → solo. Trả {pm:"" nếu solo, real}
 function pmOfCell(per,col,v){
