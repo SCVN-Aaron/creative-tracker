@@ -1,0 +1,7 @@
+{
+  "name": "vn.supercent.creative-recorder",
+  "version": "1.1.0",
+  "displayName": "Creative Recorder",
+  "description": "Cửa sổ Tools > Creative Recorder: logic game, tuỳ chỉnh mọi option, phím tắt, ẩn joystick/UI, đổi skin/texture, gắn SFX, slow-mo khi quay creative.",
+  "unity": "2019.4"
+}

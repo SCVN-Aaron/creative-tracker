@@ -5,7 +5,7 @@ Bộ tool cho người quay creative trực tiếp từ project Unity (playable 
 | Phần | Làm gì | Cần gì |
 |---|---|---|
 | `unity_scan.py` | Quét project **không cần mở Unity**, xuất báo cáo: phím tắt, joystick, skin, material/texture, âm thanh, scene | Python 3.8+ |
-| `CreativeRecorder/` | Cửa sổ **Tools ▸ Creative Recorder** trong Unity: ẩn joystick, đổi skin, đổi texture, gắn SFX, chỉnh tốc độ khi quay | Unity 2019.4+ |
+| `CreativeRecorder/` | Cửa sổ **Tools ▸ Creative Recorder** ngay trong Unity: phân loại & giải thích logic game, sửa mọi tuỳ chọn (âm thanh, skin, thông số…), ẩn joystick, gắn SFX, chỉnh tốc độ khi quay | Unity 2019.4+, không cần Python |
 
 ## 1. Quét project → báo cáo
 
@@ -36,10 +36,17 @@ Tool chỉ đọc file, không sửa gì trong project.
 
 ## 2. Cửa sổ Creative Recorder trong Unity
 
-Copy cả thư mục `CreativeRecorder/` vào `Assets/` của project, chờ Unity biên dịch, rồi mở **Tools ▸ Creative Recorder**.
+Cài một trong hai cách, rồi mở **Tools ▸ Creative Recorder**:
+
+- **Copy:** chép cả thư mục `CreativeRecorder/` vào `Assets/` của project, chờ Unity biên dịch.
+- **Package Manager:** Window ▸ Package Manager ▸ **+** ▸ *Add package from git URL…* rồi dán
+  `https://github.com/SCVN-Aaron/creative-tracker.git?path=/tools/unity-scanner/CreativeRecorder#main`
+  (repo private thì máy cần đăng nhập Git có quyền đọc repo). Cách này không chép file vào `Assets/`, gỡ trong Package Manager là sạch.
 
 | Tab | Dùng để |
 |---|---|
+| Logic game | Quét mọi script của game, xếp vào nhóm: điều khiển nhân vật, camera, kẻ địch/AI, spawner, luồng thắng/thua, tiền & phần thưởng, tutorial, end card/SDK, UI, âm thanh, VFX, va chạm, animation, map, skin, input, dữ liệu, tiện ích. Mỗi script có giải thích: nhóm đó làm gì, code đọc phím nào / tạo object / phát âm thanh…, tuỳ chọn trong Inspector, hàm gọi được, đang gắn ở bao nhiêu object (bấm để chọn). **Copy giải thích cho AI** xuất toàn bộ ra Markdown |
+| Tuỳ chỉnh | Gom **mọi tuỳ chọn** trong scene (script game + AudioSource, Renderer, Image, Text, Camera, Light; tuỳ chọn thêm ScriptableObject và prefab) để sửa thẳng, xếp theo loại: âm thanh, skin & hình ảnh, thông số số, bật/tắt, màu, phím, lựa chọn, prefab, chữ. Xem theo loại / theo script / theo object, có ô lọc. **Thay tất cả**: đổi một âm thanh / material / sprite / prefab ở mọi chỗ dùng nó trong một lần bấm. Từ tab Logic bấm **Tuỳ chỉnh** cạnh script để chỉ xem tuỳ chọn của script đó |
 | Phím tắt | Quét script, liệt kê phím + việc nó làm, bấm **Mở** để nhảy tới dòng code, **Copy danh sách** |
 | Joystick & UI | Tìm joystick và UI hướng dẫn trong scene. **Ẩn (vẫn chạy)**: joystick vô hình nhưng vẫn kéo được để điều khiển (CanvasGroup alpha = 0). **Tắt hẳn**: SetActive(false). Nút ẩn tất cả joystick / toàn bộ UI |
 | Skin | Chọn nhân vật trong Hierarchy → danh sách skin có sẵn trong script (bấm **Áp dụng**), gọi hàm `SetSkin(int)` khi đang Play, kéo thả material/mesh/sprite để thay trực tiếp |
@@ -47,7 +54,7 @@ Copy cả thư mục `CreativeRecorder/` vào `Assets/` của project, chờ Uni
 | SFX | Chọn âm thanh + lúc phát (nhấn phím, click/chạm, object bật/tắt, va chạm, Button onClick) → **Gắn vào object** đang chọn. Nghe thử, tắt tiếng AudioSource có sẵn |
 | Quay | Time.timeScale (slow-mo 0.25×/0.5×…), Play/Pause/tiến 1 frame, ẩn UI một chạm, ẩn con trỏ, chụp ảnh ×1/×2/×4 vào `Screenshots/` |
 
-Nên **bấm Play rồi mới chỉnh**: mọi thay đổi tự mất khi dừng Play, project giữ nguyên. Chỉnh ở Edit mode thì thay đổi được lưu vào scene (Ctrl+Z để hoàn tác).
+Nên **bấm Play rồi mới chỉnh**: mọi thay đổi trên object trong scene tự mất khi dừng Play, project giữ nguyên. Chỉnh ở Edit mode thì thay đổi được lưu vào scene (Ctrl+Z để hoàn tác). Riêng mục ghi **asset** trong tab Tuỳ chỉnh (ScriptableObject, prefab) là sửa thẳng vào file kể cả khi đang Play — nên commit project trước khi sửa.
 
 SFX gắn bằng tool là component `CreativeSfxTrigger`. Muốn chèn vào code game thì thêm một dòng ở hàm hành động mà báo cáo đánh dấu ✗:
 
@@ -55,4 +62,4 @@ SFX gắn bằng tool là component `CreativeSfxTrigger`. Muốn chèn vào code
 CreativeRecorder.CreativeSfxTrigger.PlayClip(coinClip);
 ```
 
-**Trước khi build playable gửi đi, xoá thư mục `Assets/CreativeRecorder/`** (hoặc chỉ cài tool vào bản copy dùng để quay), và bỏ các dòng `PlayClip` đã chèn vào code. Thư mục `Generated/` bên trong chứa các material bản sao tạo ra khi đổi texture ở Edit mode.
+**Trước khi build playable gửi đi, xoá thư mục `Assets/CreativeRecorder/`** (cài bằng Package Manager thì Remove package) (hoặc chỉ cài tool vào bản copy dùng để quay), và bỏ các dòng `PlayClip` đã chèn vào code. Thư mục `Generated/` bên trong chứa các material bản sao tạo ra khi đổi texture ở Edit mode.

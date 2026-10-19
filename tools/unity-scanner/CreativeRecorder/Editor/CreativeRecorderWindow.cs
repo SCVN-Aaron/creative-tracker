@@ -16,13 +16,14 @@ namespace CreativeRecorder
 {
     /// <summary>
     /// Tools ▸ Creative Recorder — cửa sổ hỗ trợ quay creative trong project playable:
-    /// phím tắt, ẩn joystick/UI, đổi skin, đổi texture, gắn SFX, chỉnh tốc độ khi quay.
+    /// logic game, tuỳ chỉnh mọi option, phím tắt, ẩn joystick/UI, đổi skin, đổi texture, gắn SFX, chỉnh tốc độ khi quay.
+    /// Tab Logic game và Tuỳ chỉnh nằm ở CreativeRecorderWindow.Logic.cs / .Options.cs.
     /// </summary>
-    public class CreativeRecorderWindow : EditorWindow
+    public partial class CreativeRecorderWindow : EditorWindow
     {
         const string GeneratedFolder = "Assets/CreativeRecorder/Generated";
 
-        static readonly string[] TabNames = { "Phím tắt", "Joystick & UI", "Skin", "Texture", "SFX", "Quay" };
+        static readonly string[] TabNames = { "Logic game", "Tuỳ chỉnh", "Phím tắt", "Joystick & UI", "Skin", "Texture", "SFX", "Quay" };
         static readonly Regex JoyRx = new Regex(@"joystick|joy[_ ]?stick|onscreenstick|virtualstick|thumbstick|touchstick|analogstick|stickcontroller", RegexOptions.IgnoreCase);
         static readonly Regex HideRx = new Regex(@"\b(hand|tutorial|tut|finger|pointer|cursor|cta|download|install|logo|end ?card|packshot|banner|fps|debug|play ?now|store|watermark|hint|guide)\b", RegexOptions.IgnoreCase);
         static readonly Regex SkinRx = new Regex(@"\b(skins?|outfits?|costumes?|cosmetics?|hats?|helmet|clothe?s?|appearance|variants?|themes?|palette|avatars?|characters?|heroe?s?|weapons?|hair|suit|armou?r|cars?|vehicles?)\b", RegexOptions.IgnoreCase);
@@ -54,7 +55,7 @@ namespace CreativeRecorder
 
         void OnGUI()
         {
-            tab = GUILayout.Toolbar(tab, TabNames, GUILayout.Height(24));
+            tab = GUILayout.SelectionGrid(tab, TabNames, 4, GUILayout.Height(44));
             if (Application.isPlaying)
                 EditorGUILayout.HelpBox("Đang Play: mọi thay đổi sẽ tự mất khi dừng Play — an toàn để quay.", MessageType.None);
             else
@@ -62,12 +63,14 @@ namespace CreativeRecorder
             scroll = EditorGUILayout.BeginScrollView(scroll);
             switch (tab)
             {
-                case 0: DrawHotkeys(); break;
-                case 1: DrawUi(); break;
-                case 2: DrawSkin(); break;
-                case 3: DrawTexture(); break;
-                case 4: DrawSfx(); break;
-                case 5: DrawRecord(); break;
+                case 0: DrawLogic(); break;
+                case OptionsTab: DrawOptions(); break;
+                case 2: DrawHotkeys(); break;
+                case 3: DrawUi(); break;
+                case 4: DrawSkin(); break;
+                case 5: DrawTexture(); break;
+                case 6: DrawSfx(); break;
+                case 7: DrawRecord(); break;
             }
             EditorGUILayout.EndScrollView();
         }
