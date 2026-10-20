@@ -43,7 +43,7 @@ Cài một trong hai cách, rồi mở **Tools ▸ Creative Recorder**:
   `https://github.com/SCVN-Aaron/creative-tracker.git?path=/tools/unity-scanner/CreativeRecorder#main`
   (repo private thì máy cần đăng nhập Git có quyền đọc repo). Cách này không chép file vào `Assets/`, gỡ trong Package Manager là sạch.
 
-Cửa sổ mở ở **chế độ đơn giản** (cho người không biết code), gồm 5 màn hình:
+Cửa sổ mở ở **chế độ đơn giản** (cho người không biết code), gồm 6 màn hình:
 
 | Màn hình | Dùng để |
 |---|---|
@@ -51,9 +51,10 @@ Cửa sổ mở ở **chế độ đơn giản** (cho người không biết cod
 | Cheat | Mọi biến số / bật-tắt của script game, kể cả biến private. Phần **Thông số quan trọng** gom sẵn: Tiền, Điểm, Combo, Stack, Máu, Sát thương, Tốc độ, Thời gian, Số lượng, Level, Giá… Gõ số mới, nút **+100 / +1000** cho tiền / điểm, **Khoá** để giữ nguyên giá trị suốt lúc chơi (tiền không bao giờ hết, máu không giảm) |
 | Âm thanh | Tool **tự tìm hành động** trong game: nhận / tiêu tiền, stack thêm / bớt (theo biến đếm hoặc số vật trong chỗ chứa stack), ăn điểm, combo, va chạm (đọc `CompareTag`, `GetComponent<>` trong `OnTriggerEnter`…), nhặt / ăn đồ (coin biến mất), popup thắng / thua / perfect hiện ra, trúng đòn, hạ gục, lên level. Chọn âm thanh cho hành động (có danh sách **Gợi ý** theo tên file) là xong; **Cao dần khi liên tiếp** cho combo / stack tiền nghe “đã” hơn. Có thêm hành động thủ công, và **thay / tắt tiếng** âm thanh có sẵn của game |
 | Unlock | Tìm các **ô mở khoá** (trả tiền → xây dựng, nâng cấp, mở rộng): giá (sửa được), object mà ô đó bật lên (đọc từ biến và UnityEvent của script). Bấm **Di chuyển** rồi kéo tay cầm trong Scene view: node và mọi object đi kèm đi cùng nhau. Có nút nhích ←→ theo bước, xoay 90°, đưa tới giữa Scene view, bỏ tick object không muốn kéo theo, và nút **Mở khoá ngay** khi Play |
-| Quay | Ẩn joystick (vẫn điều khiển được), ẩn tay hướng dẫn / tutorial / CTA, ẩn toàn bộ UI, tốc độ game 0.25×–2×, tạm dừng, tiến 1 frame, chụp ảnh ×1/×2/×4 |
+| Camera | Chỉnh camera tự do mà không sửa camera gốc: **Theo game** (cộng thêm chỉnh), **Góc cố định** (xoay Scene view tới góc đẹp rồi bấm *Lấy góc Scene view*), **Bám theo object** (giữ khoảng cách với nhân vật, có độ mượt). Zoom 0.5×/1×/1.5×/2×/3×/4× hoặc kéo tự do, gần / xa, xoay quanh điểm đang nhìn, cao / thấp, nghiêng, **Đảo ngược 180°**, **Lộn ngược**, dịch khung, góc có sẵn (từ trên xuống, góc thấp, cận cảnh, toàn cảnh, nghiêng điện ảnh). Chạy sau script camera của game và Cinemachine nên không bị game kéo ngược lại |
+| Quay | **Quay nhiều khung cùng lúc**: Game view vẫn để dọc, tool ghi đồng thời nhiều video (mặc định Dọc 1080×1920, Ngang 1920×1080, Vuông 1080×1080; thêm 4:5 hoặc tự nhập kích thước), mỗi video camera tự mở rộng đúng tỉ lệ, chọn fps, có / không UI, âm thanh. Dùng package Unity Recorder (miễn phí, tool có nút cài), video lưu ở `Recordings/<ngày giờ>/`. Ngoài ra: ẩn joystick (vẫn điều khiển được), ẩn tay hướng dẫn / tutorial / CTA, ẩn toàn bộ UI, tốc độ game 0.25×–2×, tạm dừng, tiến 1 frame, chụp ảnh ×1/×2/×4 |
 
-**Skin, Cheat, Âm thanh không sửa game gốc.** Lựa chọn được lưu vào *Bộ chỉnh* (`ProjectSettings/CreativeRecorderPreset.json`, nằm ngoài `Assets` nên không vào bản build) và tự áp dụng mỗi lần bấm Play; dừng Play là game như cũ. Thanh trên cùng cho bật / tắt cả Bộ chỉnh, **Khác ▾** để lưu ra file (gửi cho người khác dùng chung), mở file, hoặc xoá hết. Riêng **Unlock** là sửa level nên vị trí mới được lưu vào scene (Ctrl+Z hoàn tác, Ctrl+S lưu).
+**Skin, Cheat, Âm thanh, Camera không sửa game gốc.** Lựa chọn được lưu vào *Bộ chỉnh* (`ProjectSettings/CreativeRecorderPreset.json`, nằm ngoài `Assets` nên không vào bản build) và tự áp dụng mỗi lần bấm Play; dừng Play là game như cũ. Thanh trên cùng cho bật / tắt cả Bộ chỉnh, **Khác ▾** để lưu ra file (gửi cho người khác dùng chung), mở file, hoặc xoá hết. Riêng **Unlock** là sửa level nên vị trí mới được lưu vào scene (Ctrl+Z hoàn tác, Ctrl+S lưu).
 
 Bấm **Chế độ nâng cao →** ở góc dưới để về các tab chi tiết:
 

@@ -18,7 +18,7 @@ namespace CreativeRecorder
     /// </summary>
     public partial class CreativeRecorderWindow
     {
-        enum Page { Home, Skin, Cheat, Sound, Unlock, Record }
+        enum Page { Home, Skin, Cheat, Sound, Camera, Unlock, Record }
 
         const string PrefAdvanced = "CreativeRecorder.advanced";
         Page page = Page.Home;
@@ -53,6 +53,7 @@ namespace CreativeRecorder
 
         void OnPlayModeChanged(PlayModeStateChange s)
         {
+            if (s == PlayModeStateChange.ExitingPlayMode) CreativeMultiRecorder.Stop();
             // Object trong scene đổi khi vào / ra Play → quét lại
             skinItems = null;
             cheatRows = null;
@@ -138,6 +139,9 @@ namespace CreativeRecorder
             NavButton(Page.Skin, "Skin", Icon("Material Icon", "d_Material Icon"));
             NavButton(Page.Cheat, "Cheat", Icon("d_Settings", "Settings", "SettingsIcon"));
             NavButton(Page.Sound, "Âm thanh", Icon("AudioSource Icon", "d_AudioSource Icon"));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            NavButton(Page.Camera, "Camera", Icon("Camera Icon", "d_Camera Icon"));
             NavButton(Page.Unlock, "Unlock", Icon("d_MoveTool", "MoveTool"));
             NavButton(Page.Record, "Quay", Icon("Animation.Record", "d_Animation.Record"));
             EditorGUILayout.EndHorizontal();
@@ -151,6 +155,7 @@ namespace CreativeRecorder
                 case Page.Skin: DrawSkinPage(); break;
                 case Page.Cheat: DrawCheatPage(); break;
                 case Page.Sound: DrawSoundPage(); break;
+                case Page.Camera: DrawCameraPage(); break;
                 case Page.Unlock: DrawUnlockPage(); break;
                 case Page.Record: DrawRecordPage(); break;
             }
@@ -214,8 +219,9 @@ namespace CreativeRecorder
             HomeCard(Page.Skin, "Đổi skin", "Đổi material, texture, sprite, mesh của nhân vật, môi trường, đồ vật, UI — kéo thả là xong. Có sẵn bộ skin của game thì bấm chọn.");
             HomeCard(Page.Cheat, "Cheat thông số", "Chỉnh tiền, điểm, tốc độ, máu, thời gian, số lượng… như menu cheat. Bấm Khoá để giữ nguyên giá trị (tiền không bao giờ hết).");
             HomeCard(Page.Sound, "Âm thanh & SFX", "Tool tự tìm hành động trong game: nhận tiền, stack, ăn điểm, combo, va chạm, nhặt đồ, popup thắng/thua. Chọn âm thanh cho từng hành động là xong.");
+            HomeCard(Page.Camera, "Camera", "Zoom ×2 ×3 ×4, xoay quanh, đảo ngược 180°, góc thấp / từ trên xuống, góc cố định lấy từ Scene view, bám theo nhân vật.");
             HomeCard(Page.Unlock, "Unlock Node", "Ô mở khoá trả tiền để xây dựng / nâng cấp / mở rộng: xem giá, object đi kèm, kéo node và mọi thứ đi kèm sang chỗ khác bằng một tay cầm.");
-            HomeCard(Page.Record, "Quay", "Ẩn joystick (vẫn điều khiển được), ẩn tay hướng dẫn, ẩn UI, slow-mo, chụp ảnh thumbnail.");
+            HomeCard(Page.Record, "Quay", "Quay cùng lúc nhiều khung (dọc, ngang, vuông — tự chỉnh kích thước), ẩn joystick (vẫn điều khiển được), ẩn tay hướng dẫn, slow-mo, chụp ảnh.");
             GUILayout.Space(6);
             GUILayout.Label("Cách dùng: chọn mục → chỉnh → bấm ▶ Play rồi quay. Lần sau mở lại project, Bộ chỉnh vẫn còn.", stMuted);
         }
@@ -1326,6 +1332,8 @@ namespace CreativeRecorder
         void DrawRecordPage()
         {
             bool playing = Application.isPlaying;
+            DrawMultiRecord();
+            GUILayout.Space(10);
             GUILayout.Label("Màn hình sạch", stH2);
             if (!playing) GUILayout.Label("Bấm ▶ Play trước rồi dùng các nút dưới đây. Dừng Play là mọi thứ hiện lại như cũ.", stMuted);
             GUI.enabled = playing;

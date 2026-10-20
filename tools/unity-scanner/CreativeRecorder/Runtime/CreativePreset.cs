@@ -50,6 +50,39 @@ namespace CreativeRecorder
         [NonSerialized] public AudioClip clipObj;
     }
 
+    /// <summary>Chỉnh camera: theo game / góc cố định / bám theo object, cộng zoom, xoay, đẩy gần xa, dịch.</summary>
+    [Serializable]
+    public class CameraRig
+    {
+        public const int Game = 0, Fixed = 1, Follow = 2;
+        public int mode;
+        public float zoom = 1f, distance = 1f, yaw, pitch, roll, smooth = 0.15f, fixedFov;
+        public Vector3 offset, fixedPos, fixedEuler, followOffset;
+        public string followPath = "";
+
+        public bool IsDefault
+        {
+            get { return mode == Game && zoom == 1f && distance == 1f && yaw == 0f && pitch == 0f && roll == 0f && offset == Vector3.zero; }
+        }
+
+        public void ResetView()
+        {
+            zoom = 1f;
+            distance = 1f;
+            yaw = pitch = roll = 0f;
+            offset = Vector3.zero;
+        }
+    }
+
+    /// <summary>Một khung hình quay cùng lúc (dọc, ngang, vuông…).</summary>
+    [Serializable]
+    public class RecordSize
+    {
+        public string name;
+        public int width, height;
+        public bool enabled = true;
+    }
+
     /// <summary>Bộ chỉnh: mọi thay đổi người quay đã chọn. Lưu ở ProjectSettings/CreativeRecorderPreset.json, áp dụng khi Play.</summary>
     [Serializable]
     public class CreativePreset
@@ -59,6 +92,10 @@ namespace CreativeRecorder
         public List<CheatValue> cheats = new List<CheatValue>();
         public List<ClipSwap> clipSwaps = new List<ClipSwap>();
         public List<SfxRule> sfx = new List<SfxRule>();
+        public CameraRig cam = new CameraRig();
+        public List<RecordSize> sizes = new List<RecordSize>();
+        public int recordFps = 30;
+        public bool recordUI = true, recordAudio = true;
 
         public int ActiveSfx
         {
@@ -70,7 +107,7 @@ namespace CreativeRecorder
             }
         }
 
-        public bool HasAny { get { return skins.Count > 0 || cheats.Count > 0 || clipSwaps.Count > 0 || ActiveSfx > 0; } }
+        public bool HasAny { get { return skins.Count > 0 || cheats.Count > 0 || clipSwaps.Count > 0 || ActiveSfx > 0 || (cam != null && !cam.IsDefault); } }
     }
 
     /// <summary>Đọc / ghi biến của script game bằng reflection, tìm object theo đường dẫn.</summary>

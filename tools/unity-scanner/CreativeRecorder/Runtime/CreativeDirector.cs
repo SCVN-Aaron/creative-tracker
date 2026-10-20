@@ -55,6 +55,9 @@ namespace CreativeRecorder
             go.hideFlags = HideFlags.HideInHierarchy;
             DontDestroyOnLoad(go);
             var d = go.AddComponent<CreativeDirector>();
+            var late = go.AddComponent<CreativeCameraLate>();
+            late.director = d;
+            go.AddComponent<CreativeCameraEarly>().late = late;
             d.SetPreset(p);
             return d;
         }
@@ -115,6 +118,16 @@ namespace CreativeRecorder
             ApplyCheats();
             ApplyClipSwaps();
             BindSfx();
+        }
+
+        /// <summary>Object đầu tiên có đường dẫn này (dùng cho camera bám theo).</summary>
+        public Transform FindTransform(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return null;
+            if (all.Count == 0) Scan();
+            foreach (var t in Matching(path)) if (t.gameObject.activeInHierarchy) return t;
+            foreach (var t in Matching(path)) return t;
+            return null;
         }
 
         IEnumerable<Transform> Matching(string path)
