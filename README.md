@@ -23,7 +23,6 @@ Khi được phép nối lại: bật routine, đổi `NOTION_AI` thành `true`.
 | `data/notion-export.csv` | Bản chụp dữ liệu thô của lần cập nhật gần nhất. Dùng để đối chiếu khi số liệu trông sai. |
 | `data/latest.csv` | Dữ liệu từng task mà dashboard đọc trực tiếp khi mở trang. Routine "Update Tracking" ghi đè file này hằng tuần. |
 | `tools/creative-planner.html` | Mã nguồn Creative Planner — tool cho PM lên kế hoạch và ghi task vào Notion. Chạy trên claude.ai, không chạy trên GitHub Pages. |
-| `tools/unity-scanner/` | Tool cho người quay creative từ project Unity: quét phím tắt, joystick, skin, texture, âm thanh ra báo cáo, kèm cửa sổ Creative Recorder trong Unity để ẩn joystick, đổi skin/texture, gắn SFX. Xem [hướng dẫn](tools/unity-scanner/README.md). |
 
 Script chỉ thay phần giữa hai dòng `// <<< DATA_START` và `// <<< DATA_END >>>` trong file HTML. Mọi thứ khác — biểu đồ, cách tính, giao diện — bạn sửa thoải mái, chạy lại script không mất.
 
