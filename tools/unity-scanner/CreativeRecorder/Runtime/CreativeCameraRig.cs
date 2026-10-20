@@ -30,8 +30,40 @@ namespace CreativeRecorder
         Vector3 basePos, appliedPos, followPos, followVel;
         Quaternion baseRot, appliedRot;
         float baseFov, appliedFov, baseOrtho, appliedOrtho;
+        bool mapValid;
+        Quaternion mapBase, mapApplied;
 
         public Camera Target { get { return cam; } }
+
+        /// <summary>
+        /// Đổi hướng joystick theo góc camera mới: game vẫn tính hướng chạy theo góc camera gốc (hoặc trục thế giới),
+        /// nên đẩy “lên” trên màn hình phải đổi thành hướng tương ứng trong góc gốc.
+        /// </summary>
+        public Vector2 MapInput(Vector2 v)
+        {
+            if (!mapValid || v.sqrMagnitude < 1e-8f) return v;
+            Vector2 ua, ra, ub, rb;
+            Basis(mapApplied, out ua, out ra);
+            Basis(mapBase, out ub, out rb);
+            var d = v.x * ra + v.y * ua;                       // hướng người chơi muốn, trên mặt đất
+            float det = rb.x * ub.y - rb.y * ub.x;
+            if (Mathf.Abs(det) < 1e-4f) return v;
+            var r = new Vector2((d.x * ub.y - d.y * ub.x) / det, (rb.x * d.y - rb.y * d.x) / det);
+            float m = r.magnitude;
+            return m > 1e-6f ? r * (v.magnitude / m) : v;
+        }
+
+        /// <summary>Hướng “lên” và “phải” của màn hình chiếu xuống mặt đất.</summary>
+        static void Basis(Quaternion rot, out Vector2 up, out Vector2 right)
+        {
+            var u = rot * Vector3.up;
+            u.y = 0f;
+            if (u.sqrMagnitude < 0.04f) { u = rot * Vector3.forward; u.y = 0f; }   // camera nhìn ngang
+            var rt = rot * Vector3.right;
+            rt.y = 0f;
+            up = new Vector2(u.x, u.z).normalized;
+            right = new Vector2(rt.x, rt.z).normalized;
+        }
 
         public void Restore()
         {
@@ -58,7 +90,7 @@ namespace CreativeRecorder
             Restore();
             var p = director != null ? director.preset : null;
             var rig = p != null && p.enabled ? p.cam : null;
-            if (rig == null || rig.IsDefault || cam == null) { followInit = false; return; }
+            if (rig == null || rig.IsDefault || cam == null) { followInit = false; mapValid = false; return; }
 
             var t = cam.transform;
             basePos = t.position;
@@ -111,6 +143,9 @@ namespace CreativeRecorder
             appliedFov = cam.fieldOfView;
             appliedOrtho = cam.orthographicSize;
             applied = true;
+            mapBase = baseRot;
+            mapApplied = rot;
+            mapValid = rig.fixJoystick;
         }
 
         void OnDisable() { Restore(); }

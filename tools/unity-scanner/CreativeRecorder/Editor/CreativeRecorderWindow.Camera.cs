@@ -83,6 +83,15 @@ namespace CreativeRecorder
             rig.yaw = EditorGUILayout.Slider(new GUIContent("Xoay quanh", "Đi vòng quanh điểm camera đang nhìn"), rig.yaw, -180f, 180f);
             rig.pitch = EditorGUILayout.Slider(new GUIContent("Cao / thấp", "Dương = nhìn từ trên cao xuống, âm = góc thấp"), rig.pitch, -80f, 80f);
             rig.roll = EditorGUILayout.Slider(new GUIContent("Nghiêng", "Nghiêng khung hình kiểu điện ảnh"), rig.roll, -180f, 180f);
+            rig.fixJoystick = EditorGUILayout.ToggleLeft(new GUIContent("Joystick đi theo góc camera mới",
+                "Khi camera bị xoay (đảo 180°, xoay quanh, góc cố định, bám theo object), đẩy joystick lên là nhân vật chạy lên trên màn hình. Tắt nếu muốn giữ hướng điều khiển gốc của game."), rig.fixJoystick);
+            if (playing && rig.fixJoystick)
+            {
+                var remap = CreativeDirector.Instance != null ? CreativeDirector.Instance.GetComponent<CreativeInputRemap>() : null;
+                int found = remap != null ? remap.Count : 0;
+                GUILayout.Label(found > 0 ? "Đã nhận joystick của game — hướng điều khiển tự xoay theo camera."
+                                          : "Chưa thấy joystick dạng script (FloatingJoystick, DynamicJoystick…). Game điều khiển bằng vuốt màn hình / phím thì hướng chưa được xoay — báo lại để thêm.", stMuted);
+            }
 
             // ---- dịch
             GUILayout.Space(6);

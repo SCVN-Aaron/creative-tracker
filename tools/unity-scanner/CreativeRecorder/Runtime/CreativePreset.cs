@@ -59,6 +59,8 @@ namespace CreativeRecorder
         public float zoom = 1f, distance = 1f, yaw, pitch, roll, smooth = 0.15f, fixedFov;
         public Vector3 offset, fixedPos, fixedEuler, followOffset;
         public string followPath = "";
+        [Tooltip("Xoay hướng joystick theo góc camera mới để đẩy lên là nhân vật chạy lên màn hình")]
+        public bool fixJoystick = true;
 
         public bool IsDefault
         {

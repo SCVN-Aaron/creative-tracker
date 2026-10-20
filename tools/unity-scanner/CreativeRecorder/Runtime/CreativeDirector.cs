@@ -58,6 +58,10 @@ namespace CreativeRecorder
             var late = go.AddComponent<CreativeCameraLate>();
             late.director = d;
             go.AddComponent<CreativeCameraEarly>().late = late;
+            var remap = go.AddComponent<CreativeInputRemap>();
+            remap.director = d;
+            remap.cam = late;
+            go.AddComponent<CreativeInputRestore>().remap = remap;
             d.SetPreset(p);
             return d;
         }
@@ -129,6 +133,9 @@ namespace CreativeRecorder
             foreach (var t in Matching(path)) return t;
             return null;
         }
+
+        /// <summary>Mọi object trong scene ở lần quét gần nhất.</summary>
+        public List<Transform> Objects { get { return all; } }
 
         IEnumerable<Transform> Matching(string path)
         {
