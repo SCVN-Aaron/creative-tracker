@@ -43,6 +43,20 @@ Cài một trong hai cách, rồi mở **Tools ▸ Creative Recorder**:
   `https://github.com/SCVN-Aaron/creative-tracker.git?path=/tools/unity-scanner/CreativeRecorder#main`
   (repo private thì máy cần đăng nhập Git có quyền đọc repo). Cách này không chép file vào `Assets/`, gỡ trong Package Manager là sạch.
 
+Cửa sổ mở ở **chế độ đơn giản** (cho người không biết code), gồm 5 màn hình:
+
+| Màn hình | Dùng để |
+|---|---|
+| Skin | Mọi object có hình trong scene, chia nhóm Nhân vật / Môi trường & map / Đồ vật & item / UI, có ảnh xem trước. Bấm **Đổi** rồi kéo material, texture, sprite hoặc mesh mới vào ô; đổi một lần là áp dụng cho mọi object cùng tên (vd. tất cả Coin). Game có sẵn bộ skin (mảng skin trong script) thì hiện thành ô ảnh, bấm là dùng; có hàm `SetSkin(int)` thì có nút 1, 2, 3… khi Play |
+| Cheat | Mọi biến số / bật-tắt của script game, kể cả biến private. Phần **Thông số quan trọng** gom sẵn: Tiền, Điểm, Combo, Stack, Máu, Sát thương, Tốc độ, Thời gian, Số lượng, Level, Giá… Gõ số mới, nút **+100 / +1000** cho tiền / điểm, **Khoá** để giữ nguyên giá trị suốt lúc chơi (tiền không bao giờ hết, máu không giảm) |
+| Âm thanh | Tool **tự tìm hành động** trong game: nhận / tiêu tiền, stack thêm / bớt (theo biến đếm hoặc số vật trong chỗ chứa stack), ăn điểm, combo, va chạm (đọc `CompareTag`, `GetComponent<>` trong `OnTriggerEnter`…), nhặt / ăn đồ (coin biến mất), popup thắng / thua / perfect hiện ra, trúng đòn, hạ gục, lên level. Chọn âm thanh cho hành động (có danh sách **Gợi ý** theo tên file) là xong; **Cao dần khi liên tiếp** cho combo / stack tiền nghe “đã” hơn. Có thêm hành động thủ công, và **thay / tắt tiếng** âm thanh có sẵn của game |
+| Unlock | Tìm các **ô mở khoá** (trả tiền → xây dựng, nâng cấp, mở rộng): giá (sửa được), object mà ô đó bật lên (đọc từ biến và UnityEvent của script). Bấm **Di chuyển** rồi kéo tay cầm trong Scene view: node và mọi object đi kèm đi cùng nhau. Có nút nhích ←→ theo bước, xoay 90°, đưa tới giữa Scene view, bỏ tick object không muốn kéo theo, và nút **Mở khoá ngay** khi Play |
+| Quay | Ẩn joystick (vẫn điều khiển được), ẩn tay hướng dẫn / tutorial / CTA, ẩn toàn bộ UI, tốc độ game 0.25×–2×, tạm dừng, tiến 1 frame, chụp ảnh ×1/×2/×4 |
+
+**Skin, Cheat, Âm thanh không sửa game gốc.** Lựa chọn được lưu vào *Bộ chỉnh* (`ProjectSettings/CreativeRecorderPreset.json`, nằm ngoài `Assets` nên không vào bản build) và tự áp dụng mỗi lần bấm Play; dừng Play là game như cũ. Thanh trên cùng cho bật / tắt cả Bộ chỉnh, **Khác ▾** để lưu ra file (gửi cho người khác dùng chung), mở file, hoặc xoá hết. Riêng **Unlock** là sửa level nên vị trí mới được lưu vào scene (Ctrl+Z hoàn tác, Ctrl+S lưu).
+
+Bấm **Chế độ nâng cao →** ở góc dưới để về các tab chi tiết:
+
 | Tab | Dùng để |
 |---|---|
 | Logic game | Quét mọi script của game, xếp vào nhóm: điều khiển nhân vật, camera, kẻ địch/AI, spawner, luồng thắng/thua, tiền & phần thưởng, tutorial, end card/SDK, UI, âm thanh, VFX, va chạm, animation, map, skin, input, dữ liệu, tiện ích. Mỗi script có giải thích: nhóm đó làm gì, code đọc phím nào / tạo object / phát âm thanh…, tuỳ chọn trong Inspector, hàm gọi được, đang gắn ở bao nhiêu object (bấm để chọn). **Copy giải thích cho AI** xuất toàn bộ ra Markdown |

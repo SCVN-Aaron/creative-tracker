@@ -44,7 +44,7 @@ namespace CreativeRecorder
         public static void Open()
         {
             var w = GetWindow<CreativeRecorderWindow>("Creative Recorder");
-            w.minSize = new Vector2(380, 300);
+            w.minSize = new Vector2(430, 320);
         }
 
         int tab;
@@ -53,8 +53,15 @@ namespace CreativeRecorder
         void OnSelectionChange() { Repaint(); }
         void OnHierarchyChange() { Repaint(); }
 
+
         void OnGUI()
         {
+            if (!advanced)
+            {
+                DrawStudio();
+                return;
+            }
+            if (GUILayout.Button("← Chế độ đơn giản", EditorStyles.miniButton)) { SetAdvanced(false); return; }
             tab = GUILayout.SelectionGrid(tab, TabNames, 4, GUILayout.Height(44));
             if (Application.isPlaying)
                 EditorGUILayout.HelpBox("Đang Play: mọi thay đổi sẽ tự mất khi dừng Play — an toàn để quay.", MessageType.None);
