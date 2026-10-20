@@ -1,0 +1,6 @@
+{
+    "name": "CreativeRecorder.Editor",
+    "references": [ "CreativeRecorder.Runtime" ],
+    "includePlatforms": [ "Editor" ],
+    "autoReferenced": false
+}
