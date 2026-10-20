@@ -1,0 +1,5 @@
+{
+    "name": "CreativeRecorder.Runtime",
+    "references": [ "Unity.InputSystem" ],
+    "autoReferenced": true
+}
