@@ -640,6 +640,7 @@ const I18N={
   gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b> thôi làm <b>${escH(g)}</b>, quay lại chỉ tiêu thường nên số lượng giảm: ${v0} → ${v1} video (${d})`,
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> vẫn làm <b>${escH(g)}</b> (chỉ tiêu ${q} video/tuần): ${v} video`,
   leaveNote:ls=>`${ls.length} creator nghỉ phép ${ls.map(l=>l.days).join("/")} ngày nên số lượng giảm (${ls.map(l=>`${l.name}: ${(l.note.vi||"").toLowerCase()}, còn ${l.quota} video`).join("; ")})`,
+  adjBack:(n,b)=>`Tuần trước ${n?n+" ":"nghỉ "}nên chỉ tiêu giảm ${b} video mỗi người; tuần này chỉ tiêu trở lại bình thường nên số lượng tăng`,
   adjNote:(n,b,e)=>`${n} nên chỉ tiêu ${b<0?"giảm":"tăng"} ${Math.abs(b)} video mỗi người${e?" (kể cả vai trò ETC)":""}`,
   mergedNote:(b,e)=>b>0
     ?`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người${e?"":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`
@@ -724,6 +725,7 @@ const I18N={
   gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b> came off <b>${escH(g)}</b> and is back on the normal target, so the count drops: ${v0} → ${v1} videos (${d})`,
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> is still on <b>${escH(g)}</b> (target ${q} videos/week): ${v} videos`,
   leaveNote:ls=>`${ls.length} creator${ls.length>1?"s":""} on leave for ${ls.map(l=>l.days).join("/")} day${ls.length>1||ls[0].days>1?"s":""}, so the count is lower (${ls.map(l=>`${l.name}: ${l.note.en}, ${l.quota} videos`).join("; ")})`,
+  adjBack:(n,b)=>`Last week ${n?n+" ":"had time off "}lowered the target by ${b} videos per person; this week the target is back to normal, so the count is higher`,
   adjNote:(n,b,e)=>`${n}, so the target is ${b<0?"lowered":"raised"} by ${Math.abs(b)} videos per person${e?" (including the ETC role)":""}`,
   mergedNote:(b,e)=>b>0
     ?`Merged period covering a public holiday — target raised by ${b} videos per person${e?"":", except the ETC role which keeps its own standard"}`
@@ -807,6 +809,7 @@ const I18N={
   gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b>이(가) <b>${escH(g)}</b>에서 빠져 기본 목표로 복귀 → 수량 감소: ${v0} → ${v1}개 (${d})`,
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> <b>${escH(g)}</b> 계속 담당 (주 ${q}개 목표): ${v}개`,
   leaveNote:ls=>`크리에이터 ${ls.length}명 ${ls.map(l=>l.days).join("/")}일 휴가로 수량 감소 (${ls.map(l=>`${l.name}: ${l.note.ko}, ${l.quota}개`).join("; ")})`,
+  adjBack:(n,b)=>`지난주 ${n?n+" ":"휴무"}로 1인당 목표 ${b}개 감소 → 이번 주 목표 정상화로 수량 증가`,
   adjNote:(n,b,e)=>`${n} → 1인당 목표 ${Math.abs(b)}개 ${b<0?"감소":"증가"}${e?" (ETC 포함)":""}`,
   mergedNote:(b,e)=>b>0
     ?`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향${e?"":", 단 ETC 담당자는 자체 기준 유지"}`
@@ -1651,6 +1654,7 @@ function renderReading(i){
       else if(g0&&!g1) reasons.push(T().gameWhyOff(name,g0.game,arr[prev]??0,arr[i]??0,signed((arr[i]??0)-(arr[prev]??0))));
       else if(g1&&g0) reasons.push(T().gameWhyStay(name,g1.game,g1.q,arr[i]??0));
     });
+    if(bonusAt(prev)<0&&bonusAt(i)>=0) reasons.push(T().adjBack(weekAdjNote(prev)?`<b>${escH(weekAdjNote(prev))}</b>`:"",-bonusAt(prev)));
     if(bonusAt(i)<0) reasons.push(weekAdj(i)?T().adjNote(`<b>${escH(weekAdjNote(i))}</b>`,bonusAt(i),bonusEtcAt(i)!==0):T().mergedNote(bonusAt(i),bonusEtcAt(i)!==0));
     if(leavesAt(i).length) reasons.push(T().leaveNote(leavesAt(i)));
     const reasonLine=reasons.length?`<ul class="why-reasons">${reasons.map(r=>`<li>${r}</li>`).join("")}</ul>`:"";
