@@ -183,7 +183,7 @@ Các quy tắc nằm ở `config.json`, không nằm trong script:
 
 ## Ngôn ngữ
 
-Ô chọn ngôn ngữ nằm cạnh ô chọn tuần, có Tiếng Việt, English và 한국어. Toàn bộ chữ trên dashboard đổi theo, kể cả nhãn trục, tooltip và phần diễn giải.
+Ô chọn ngôn ngữ nằm cạnh ô chọn tuần, có Tiếng Việt, English và 한국어. Toàn bộ chữ trên dashboard đổi theo, kể cả nhãn trục, tooltip và phần diễn giải. Dashboard luôn mở bằng **tiếng Anh** (`let LANG="en"` trong `index.html`); trang giới thiệu `creative-tracker-intro.html` cũng mở bằng tiếng Anh, thêm `?lang=vi` hoặc `?lang=ko` để mở sẵn ngôn ngữ khác.
 
 Chuỗi dịch nằm trong `const I18N` ngay dưới khối dữ liệu trong file HTML. Thêm ngôn ngữ mới bằng cách chép nguyên một khối, dịch từng dòng, rồi thêm một `<option>` vào ô `#lang` ở phần đầu trang.
 

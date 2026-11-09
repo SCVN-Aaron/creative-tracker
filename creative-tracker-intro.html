@@ -1067,15 +1067,12 @@ var TR = {
     if(desc) desc.content = i ? DESC[l] : desc0;
     document.documentElement.lang = l;
     document.querySelectorAll('#lang button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.lang === l); });
-    try{ localStorage.setItem('ct-intro-lang', l); }catch(e){}
   }
   document.getElementById('lang').addEventListener('click', function(e){
     var b = e.target.closest('button[data-lang]'); if(b) setLang(b.dataset.lang);
   });
-  var q = (location.search.match(/[?&]lang=(vi|en|ko)/) || [])[1], saved = null;
-  try{ saved = localStorage.getItem('ct-intro-lang'); }catch(e){}
-  var start = q || saved;
-  if(start && start !== 'vi') setLang(start);
+  var q = (location.search.match(/[?&]lang=(vi|en|ko)/) || [])[1];
+  setLang(q || 'en');   /* luôn mở bằng tiếng Anh; ?lang=vi|ko để mở sẵn ngôn ngữ khác */
 })();
 </script>
 </body>

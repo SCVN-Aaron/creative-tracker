@@ -778,7 +778,7 @@ const I18N={
   gameWhyOn:(n,g,q,b,v0,v1,d)=>`<b>${escH(n)}</b> làm <b>${escH(g)}</b> (chỉ tiêu ${q} video/tuần thay vì ${b}) nên số lượng tăng mạnh: ${v0} → ${v1} video (${d})`,
   gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b> thôi làm <b>${escH(g)}</b>, quay lại chỉ tiêu thường nên số lượng giảm: ${v0} → ${v1} video (${d})`,
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> vẫn làm <b>${escH(g)}</b> (chỉ tiêu ${q} video/tuần): ${v} video`,
-  leaveNote:ls=>`${ls.length} creator nghỉ phép ${ls.map(l=>l.days).join("/")} ngày nên số lượng giảm (${ls.map(l=>`${l.name}: ${(l.note.vi||"").toLowerCase()}, còn ${l.quota} video`).join("; ")})`,
+  leaveNote:ls=>`${ls.length} creator nghỉ phép ${ls.map(l=>l.days).join("/")} ngày nên số lượng giảm (${ls.map(l=>`${l.name}: ${(l.note.vi||"").toLowerCase()}, còn ${l.support||l.quota} video`).join("; ")})`,
   adjBack:(n,b)=>`Tuần trước ${n?n+" ":"nghỉ "}nên chỉ tiêu giảm ${b} video mỗi người; tuần này chỉ tiêu trở lại bình thường nên số lượng tăng`,
   adjNote:(n,b,e)=>`${n} nên chỉ tiêu ${b<0?"giảm":"tăng"} ${Math.abs(b)} video mỗi người${e?" (kể cả vai trò ETC)":""}`,
   mergedNote:(b,e)=>b>0
@@ -868,7 +868,7 @@ const I18N={
   gameWhyOn:(n,g,q,b,v0,v1,d)=>`<b>${escH(n)}</b> is on <b>${escH(g)}</b> (target ${q} videos/week instead of ${b}), so the count jumps: ${v0} → ${v1} videos (${d})`,
   gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b> came off <b>${escH(g)}</b> and is back on the normal target, so the count drops: ${v0} → ${v1} videos (${d})`,
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> is still on <b>${escH(g)}</b> (target ${q} videos/week): ${v} videos`,
-  leaveNote:ls=>`${ls.length} creator${ls.length>1?"s":""} on leave for ${ls.map(l=>l.days).join("/")} day${ls.length>1||ls[0].days>1?"s":""}, so the count is lower (${ls.map(l=>`${l.name}: ${l.note.en}, ${l.quota} videos`).join("; ")})`,
+  leaveNote:ls=>`${ls.length} creator${ls.length>1?"s":""} on leave for ${ls.map(l=>l.days).join("/")} day${ls.length>1||ls[0].days>1?"s":""}, so the count is lower (${ls.map(l=>`${l.name}: ${l.note.en}, ${l.support||l.quota} videos`).join("; ")})`,
   adjBack:(n,b)=>`Last week ${n?n+" ":"had time off "}lowered the target by ${b} videos per person; this week the target is back to normal, so the count is higher`,
   adjNote:(n,b,e)=>`${n}, so the target is ${b<0?"lowered":"raised"} by ${Math.abs(b)} videos per person${e?" (including the ETC role)":""}`,
   mergedNote:(b,e)=>b>0
@@ -957,7 +957,7 @@ const I18N={
   gameWhyOn:(n,g,q,b,v0,v1,d)=>`<b>${escH(n)}</b>이(가) <b>${escH(g)}</b> 담당 (주 ${q}개 목표, 기본 ${b}개) → 수량 급증: ${v0} → ${v1}개 (${d})`,
   gameWhyOff:(n,g,v0,v1,d)=>`<b>${escH(n)}</b>이(가) <b>${escH(g)}</b>에서 빠져 기본 목표로 복귀 → 수량 감소: ${v0} → ${v1}개 (${d})`,
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> <b>${escH(g)}</b> 계속 담당 (주 ${q}개 목표): ${v}개`,
-  leaveNote:ls=>`크리에이터 ${ls.length}명 ${ls.map(l=>l.days).join("/")}일 휴가로 수량 감소 (${ls.map(l=>`${l.name}: ${l.note.ko}, ${l.quota}개`).join("; ")})`,
+  leaveNote:ls=>`크리에이터 ${ls.length}명 ${ls.map(l=>l.days).join("/")}일 휴가로 수량 감소 (${ls.map(l=>`${l.name}: ${l.note.ko}, ${l.support||l.quota}개`).join("; ")})`,
   adjBack:(n,b)=>`지난주 ${n?n+" ":"휴무"}로 1인당 목표 ${b}개 감소 → 이번 주 목표 정상화로 수량 증가`,
   adjNote:(n,b,e)=>`${n} → 1인당 목표 ${Math.abs(b)}개 ${b<0?"감소":"증가"}${e?" (ETC 포함)":""}`,
   mergedNote:(b,e)=>b>0
@@ -994,7 +994,7 @@ const I18N={
    Video Ads에서 dev/art 기준 숫자와 정확히 같으면 dev/art 참여, 그 외 기준보다 많으면 목표 초과로 읽습니다. PM 컬럼에 이름이 있으면 PM 협업, 비어 있으면 단독입니다. Miko는 ETC로 분류합니다.`
  }
 };
-let LANG="vi";
+let LANG="en";   // luôn mở bằng tiếng Anh; đổi ngôn ngữ ở ô chọn trên đầu trang
 const T=()=>I18N[LANG];
 function wkLabel(i){return T().wk(WEEKS[i].label.replace(/^Tuần\s*/,""))}
 function moLabel(m){const n=parseInt(String(m.label).replace(/\D+/g,""),10)||0;return T().mo(n,m.label)}
@@ -1826,12 +1826,14 @@ function weekAdjNote(i){const a=weekAdj(i);return a&&a.note?(a.note[LANG]||a.not
 function bonusEtcAt(i){return WEEKS[i].bonusEtc??(weekAdj(i)?weekAdj(i).bonusEtc:0)??0}
 function quotaAt(team,i){return team.quota+bonusAt(i)}
 // Nghỉ phép riêng từng người: chỉ tiêu tuần đó của người đó đổi thành "quota", kèm ghi chú.
+// Tuần đó có dev/art làm cùng thì thêm "support" = số video có dev/art sau khi trừ ngày nghỉ (vd 12 → 9):
+// làm đúng số đó được tính là "có dev/art", không phải vượt mức.
 // Khoá là tên Period gốc trên Notion. Thêm dòng mới mỗi khi có người nghỉ.
 const LEAVE={
   "[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}},
   "[W2] Nov W2 (11/09~)":{
     "Anthony":{quota:7, days:1, note:{vi:"Nghỉ thứ 2",en:"Off Monday",ko:"월요일 휴무"}},
-    "Ruelle":{quota:7, days:1, note:{vi:"Nghỉ thứ 5",en:"Off Thursday",ko:"목요일 휴무"}}
+    "Ruelle":{quota:7, support:9, days:1, note:{vi:"Nghỉ thứ 5 (có dev/art: 12 → 9)",en:"Off Thursday (dev/art support: 12 → 9)",ko:"목요일 휴무 (dev/art 지원: 12 → 9)"}}
   }
 };
 function leavesAt(i){const w=WEEKS[i];return w&&LEAVE[w.full]?Object.entries(LEAVE[w.full]).map(([name,v])=>({name,...v})):[]}
@@ -1888,7 +1890,7 @@ function pmOf(team,name,i){
 //  2. Theo PM: có PM = làm chung; không có PM nào = tự làm (solo).
 // Một người có thể vừa vượt mức vừa có PM.
 function kindOf(team,name,v,i){
-  const q=quotaFor(team,name,i), sup=supportAt(team,i);
+  const q=quotaFor(team,name,i), lv=leaveOf(name,i), sup=(lv&&lv.support)||supportAt(team,i);
   if(gameQuotaOf(name,i)!==null) return v<q?"under":v>q?"over":"solo";   // game chỉ tiêu riêng: so với chỉ tiêu đó
   if(name===team.etc) return "etc";
   if(sup&&v===sup) return "assisted";
