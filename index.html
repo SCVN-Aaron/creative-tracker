@@ -3,7 +3,7 @@
 <title>Creative Weekly Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 <style>
@@ -561,13 +561,65 @@
   #mo-card{margin:16px 0 0}
   #mo-table th.proj,#mo-table td.proj{font-style:italic;color:var(--ink-2);border-left:1px dashed var(--line)}
   #mo-table tr.grand td.proj{color:var(--ink)}
+
+  /* =================== giao diện vui (playful) — lớp phủ lên giao diện gốc =================== */
+  :root{--pop1:#7C5CFF;--pop2:#FF6FB5;--pop3:#2EC4B6;--pop4:#FFB020;--r-lg:18px}
+  body{font-family:"Nunito","IBM Plex Sans",system-ui,sans-serif;font-size:15.5px;
+    background:
+      radial-gradient(520px 320px at 8% -4%,color-mix(in srgb,var(--pop1) 14%,transparent),transparent 70%),
+      radial-gradient(460px 300px at 96% 4%,color-mix(in srgb,var(--pop2) 12%,transparent),transparent 70%),
+      radial-gradient(560px 360px at 50% 110%,color-mix(in srgb,var(--pop3) 10%,transparent),transparent 70%),
+      var(--paper);background-attachment:fixed}
+  .masthead{border-bottom:0;padding-bottom:8px}
+  .masthead h1{font-size:30px;font-weight:900;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+  .masthead h1 .ttl{background:linear-gradient(90deg,var(--pop1),var(--pop2) 55%,var(--pop4));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .mascot{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:14px;font-size:24px;
+    background:linear-gradient(135deg,color-mix(in srgb,var(--pop4) 35%,var(--panel)),color-mix(in srgb,var(--pop2) 30%,var(--panel)));
+    box-shadow:0 6px 16px color-mix(in srgb,var(--pop2) 25%,transparent);transform:rotate(-6deg);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+  .masthead h1:hover .mascot{transform:rotate(8deg) scale(1.12)}
+  /* tab dạng viên kẹo, có biểu tượng */
+  .tabs{border-bottom:0;gap:8px;padding:6px;margin-top:16px;background:color-mix(in srgb,var(--panel) 75%,transparent);
+    border:1.5px solid var(--line);border-radius:999px;width:max-content;max-width:100%}
+  .tabs button,.tabs a{border:0!important;border-radius:999px;padding:8px 16px;font-weight:700;display:inline-flex;align-items:center;gap:7px;
+    transition:background .2s,color .2s,transform .15s}
+  .tabs button::before{content:attr(data-ico);font-size:16px;transition:transform .3s cubic-bezier(.3,1.8,.5,1)}
+  .tabs button:hover::before{transform:scale(1.25) rotate(-8deg)}
+  .tabs button[aria-selected="true"]{color:#fff;background:linear-gradient(135deg,var(--pop1),var(--pop2));box-shadow:0 6px 16px color-mix(in srgb,var(--pop1) 35%,transparent)}
+  .tabs button:active{transform:scale(.95)}
+  /* thẻ bo tròn, nổi nhẹ khi rê chuột */
+  .tcard,.chartbox,.reading,.fun-card,.headline{border-radius:var(--r-lg)!important;border-width:1.5px!important;
+    box-shadow:0 2px 0 color-mix(in srgb,var(--line) 70%,transparent),0 10px 28px rgba(40,30,90,.07)!important}
+  .chartbox,.reading,.fun-card,.tcard{transition:transform .25s ease,box-shadow .25s ease}
+  .fun-card:hover,.reading:hover{transform:translateY(-2px)}
+  /* ô số lượng: mỗi ô một màu kẹo */
+  .headline{background:transparent!important;border:0!important;gap:12px!important;box-shadow:none!important}
+  .headline .cell{border-radius:var(--r-lg);border:1.5px solid var(--line);box-shadow:0 10px 28px rgba(40,30,90,.07)}
+  .headline .cell:nth-child(1){background:linear-gradient(160deg,color-mix(in srgb,var(--pop1) 13%,var(--panel)),var(--panel) 70%)}
+  .headline .cell:nth-child(2){background:linear-gradient(160deg,color-mix(in srgb,var(--pop3) 14%,var(--panel)),var(--panel) 70%)}
+  .headline .cell:nth-child(3){background:linear-gradient(160deg,color-mix(in srgb,var(--pop4) 15%,var(--panel)),var(--panel) 70%)}
+  .big{background:linear-gradient(90deg,var(--pop1),var(--pop2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  /* nút bấm tròn trịa, nảy khi bấm */
+  .num-btn,.exc-open,.toggle button,.theme-sw button,#lang,#week,select{border-radius:999px!important}
+  .num-btn,.exc-open,.toggle button{transition:transform .12s ease,background .2s,box-shadow .2s}
+  .num-btn:active,.exc-open:active,.toggle button:active{transform:scale(.94)}
+  .exc-open:hover{transform:translateY(-1px);box-shadow:0 6px 14px color-mix(in srgb,var(--pop1) 20%,transparent)}
+  .toggle{border-radius:999px!important;padding:4px!important}
+  .toggle button[aria-pressed="true"]{background:linear-gradient(135deg,color-mix(in srgb,var(--pop1) 22%,var(--panel)),color-mix(in srgb,var(--pop2) 18%,var(--panel)))!important;color:var(--ink)!important}
+  .num-btn.primary{background:linear-gradient(135deg,var(--pop1),var(--pop2))!important;border-color:transparent!important;color:#fff!important}
+  .game{border-radius:999px;font-weight:700}
+  h2,.ov-h{font-weight:800}
+  /* ô bảng nhiệt bo góc mềm */
+  #dn-table td{border-radius:6px}
+  @media (prefers-reduced-motion:reduce){.mascot,.tabs button::before,.fun-card,.reading{transition:none!important}}
+  @media (max-width:640px){.tabs{width:100%;border-radius:18px;flex-wrap:wrap;overflow:visible;gap:4px}.tabs button{padding:7px 12px;font-size:14px}
+    .masthead h1{font-size:24px}.mascot{width:38px;height:38px;font-size:20px}}
 </style>
 
 <div class="wrap">
 
   <div class="masthead">
     <div>
-      <h1>Creative Weekly Tracker</h1>
+      <h1><span class="mascot" aria-hidden="true">🎬</span><span class="ttl">Creative Weekly Tracker</span></h1>
       <p id="subtitle"></p>
       <p id="stamp" class="stamp"></p>
     </div>
@@ -589,10 +641,10 @@
   </div>
 
   <nav class="tabs" role="tablist" aria-label="View">
-    <button role="tab" id="tab-creator" aria-controls="view-creator" aria-selected="true" type="button"></button>
-    <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1"></button>
-    <button role="tab" id="tab-num" aria-controls="view-num" aria-selected="false" type="button" tabindex="-1"></button>
-    <button role="tab" id="tab-done" aria-controls="view-done" aria-selected="false" type="button" tabindex="-1"></button>
+    <button role="tab" id="tab-creator" aria-controls="view-creator" aria-selected="true" type="button" data-ico="🎨"></button>
+    <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1" data-ico="🧭"></button>
+    <button role="tab" id="tab-num" aria-controls="view-num" aria-selected="false" type="button" tabindex="-1" data-ico="🔢"></button>
+    <button role="tab" id="tab-done" aria-controls="view-done" aria-selected="false" type="button" tabindex="-1" data-ico="📦"></button>
     <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
   </nav>
 
