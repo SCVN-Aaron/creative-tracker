@@ -1991,7 +1991,7 @@ const LEAVE={};
 //    cũng nhận dd/mm/yyyy, dd/mm hoặc tên Period trên Notion.
 // Không đọc được Sheet thì dùng bản lưu data/exceptions.csv.
 // Link Web App của Apps Script tools/exceptions_api.gs (gắn vào Sheet, Sheet vẫn riêng tư). Trống = chỉ dùng bản lưu.
-const EXC_API="";
+const EXC_API="https://script.google.com/macros/s/AKfycbzcXUfHrcWfEsAsavZGCKDbV9fWgS1u80w2apSEiY4B8qhvjougNbstwbqBy4q_YWpN4A/exec";
 const EXC_SRC=[...(EXC_API?[[EXC_API+"?format=csv", true]]:[]), ["data/exceptions.csv", false]];
 let EXC_ROWS=[], EXC_LIVE=null, EXC_RAW=null;
 const EXC_ALL=/^(all|\*|team|cả team|ca team|cả đội|전체|팀)$/i;
