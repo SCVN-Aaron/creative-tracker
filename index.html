@@ -14,7 +14,7 @@
     --ink:#171A23;
     --ink-2:#454D5E;
     --line:#CBD2DC;
-    --video:#5B4BE0;
+    --video:#E8340C;
     --up:#12874B;
     --down:#C42B62;
     --warn:#B4690E;
@@ -24,7 +24,7 @@
     --grid:#DFE4EB;
     --dash:#D5DBE4;
     --muted:#B8BFCC;
-    --accent:#2A7394;
+    --accent:#C24400;
     --heat:#2E9A63; --heat-now:#E2F3E9; --heat-now-ink:#1C7447;
     --accent-bg:#E3F1F7;
     --now-bg:#DDEFF8;
@@ -33,7 +33,7 @@
     --now-line:#2A7394;
     --up-bg:#E4F5EA;
     --down-bg:#FBE9F0;
-    --as-bg:#EAE7FC;
+    --as-bg:#FFE7DB;
     --etc-bg:#FDF0DC;
     --prog:#3B5BDB;
     --prog-bg:#E7ECFD;
@@ -54,7 +54,7 @@
     --ink:#E7EAF0;
     --ink-2:#9BA3B4;
     --line:#2D323D;
-    --video:#7B6CF0;
+    --video:#FF5A2A;
     --up:#5FD08F;
     --down:#F07AA2;
     --warn:#F2B866;
@@ -64,7 +64,7 @@
     --grid:#262B35;
     --dash:#2D323D;
     --muted:#4A5160;
-    --accent:#5DB3D6;
+    --accent:#FF9A4D;
     --heat:#4FAF7C; --heat-now:#183323; --heat-now-ink:#7FD3A3;
     --accent-bg:#17303B;
     --now-bg:#15252E;
@@ -73,7 +73,7 @@
     --now-line:#356F88;
     --up-bg:#163223;
     --down-bg:#3A1A27;
-    --as-bg:#28234A;
+    --as-bg:#3A1F14;
     --etc-bg:#3A2A12;
     --prog:#93A8FF;
     --prog-bg:#1E2747;
@@ -94,7 +94,7 @@
     --ink:#E7EAF0;
     --ink-2:#9BA3B4;
     --line:#2D323D;
-    --video:#7B6CF0;
+    --video:#FF5A2A;
     --up:#5FD08F;
     --down:#F07AA2;
     --warn:#F2B866;
@@ -104,7 +104,7 @@
     --grid:#262B35;
     --dash:#2D323D;
     --muted:#4A5160;
-    --accent:#5DB3D6;
+    --accent:#FF9A4D;
     --heat:#4FAF7C; --heat-now:#183323; --heat-now-ink:#7FD3A3;
     --accent-bg:#17303B;
     --now-bg:#15252E;
@@ -113,7 +113,7 @@
     --now-line:#356F88;
     --up-bg:#163223;
     --down-bg:#3A1A27;
-    --as-bg:#28234A;
+    --as-bg:#3A1F14;
     --etc-bg:#3A2A12;
     --prog:#93A8FF;
     --prog-bg:#1E2747;
@@ -192,35 +192,17 @@
   .fun-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
   .fun-card h2{font-size:15px;margin:0 0 10px;font-weight:600}
   .fun-wide{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
-  .ring-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-  .ring{width:132px;height:132px;flex:none}
-  .ring circle{fill:none;stroke-width:12}
-  .ring .bg{stroke:var(--soft)}
-  .ring .fg{stroke:var(--up);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)}
-  .ring .fg.go{stroke:var(--video)}
-  .ring text{font-family:"IBM Plex Mono",monospace;font-weight:700;fill:var(--ink)}
-  .ring-txt .big2{font-family:"IBM Plex Mono",monospace;font-weight:700;font-size:22px}
-  .ring-txt .msg{margin-top:4px;font-size:14px;font-weight:600}
-  .ring-txt .sub,.fun .sub{margin-top:2px;font-size:12.5px;color:var(--ink-2)}
-  .bubbles{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;min-height:132px}
-  .bub{--h:210;border-radius:50%;display:grid;place-items:center;text-align:center;padding:6px;line-height:1.15;
-    background:radial-gradient(circle at 30% 28%,hsl(var(--h) 90% 92%),hsl(var(--h) 70% 74%));color:hsl(var(--h) 60% 22%);
-    box-shadow:inset 0 -6px 12px hsl(var(--h) 60% 40% / .18),0 4px 12px hsl(var(--h) 50% 40% / .18);animation:float 5s ease-in-out infinite}
-  .bub b{display:block;font-family:"IBM Plex Mono",monospace;font-size:1.25em}
-  .bub span{font-size:.78em;font-weight:600}
-  .bub:nth-child(2n){animation-delay:-1.3s;animation-duration:6s}.bub:nth-child(3n){animation-delay:-2.6s;animation-duration:5.5s}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   .mile{flex:1 1 320px;min-width:0}
   .mile .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
   .mile .num{font-family:"IBM Plex Mono",monospace;font-weight:700;font-size:26px}
   .mile .lab{color:var(--ink-2);font-size:13px}
   .bar{height:10px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:8px;border:1px solid var(--line)}
-  .bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--video),var(--up));transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+  .bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#FF1E00,#FF7A00,#FFC800);transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
   .hello{display:flex;flex-wrap:wrap;gap:8px}
   .hi{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font-size:13px}
   .hi b{font-weight:700}
   #confetti{position:fixed;inset:0;pointer-events:none;z-index:200}
-  @media (prefers-reduced-motion:reduce){.bub{animation:none}.ring .fg,.bar i{transition:none}}
+  @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 
   /* ---------- reading ---------- */
   .reading{
@@ -563,20 +545,19 @@
   #mo-table tr.grand td.proj{color:var(--ink)}
 
   /* =================== giao diện vui (playful) — lớp phủ lên giao diện gốc =================== */
-  :root{--pop1:#7C5CFF;--pop2:#FF6FB5;--pop3:#2EC4B6;--pop4:#FFB020;--r-lg:18px}
+  :root{--pop1:#FF1E00;--pop2:#FF7A00;--pop3:#FFA200;--pop4:#FFC800;--pop0:#D90800;--r-lg:18px}   /* màu logo Supercent */
   body{font-family:"Nunito","IBM Plex Sans",system-ui,sans-serif;font-size:15.5px;
     background:
       radial-gradient(520px 320px at 8% -4%,color-mix(in srgb,var(--pop1) 14%,transparent),transparent 70%),
       radial-gradient(460px 300px at 96% 4%,color-mix(in srgb,var(--pop2) 12%,transparent),transparent 70%),
-      radial-gradient(560px 360px at 50% 110%,color-mix(in srgb,var(--pop3) 10%,transparent),transparent 70%),
+      radial-gradient(560px 360px at 50% 110%,color-mix(in srgb,var(--pop4) 12%,transparent),transparent 70%),
       var(--paper);background-attachment:fixed}
   .masthead{border-bottom:0;padding-bottom:8px}
   .masthead h1{font-size:30px;font-weight:900;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
-  .masthead h1 .ttl{background:linear-gradient(90deg,var(--pop1),var(--pop2) 55%,var(--pop4));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .mascot{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:14px;font-size:24px;
-    background:linear-gradient(135deg,color-mix(in srgb,var(--pop4) 35%,var(--panel)),color-mix(in srgb,var(--pop2) 30%,var(--panel)));
-    box-shadow:0 6px 16px color-mix(in srgb,var(--pop2) 25%,transparent);transform:rotate(-6deg);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
-  .masthead h1:hover .mascot{transform:rotate(8deg) scale(1.12)}
+  .masthead h1 .ttl{background:linear-gradient(90deg,var(--pop0),var(--pop1) 35%,var(--pop2) 70%,var(--pop3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .mascot{display:inline-block;width:44px;height:44px;border-radius:50%;
+    box-shadow:0 6px 16px color-mix(in srgb,var(--pop1) 30%,transparent);transform:rotate(-8deg);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+  .masthead h1:hover .mascot{transform:rotate(352deg) scale(1.08)}
   /* tab dạng viên kẹo, có biểu tượng */
   .tabs{border-bottom:0;gap:8px;padding:6px;margin-top:16px;background:color-mix(in srgb,var(--panel) 75%,transparent);
     border:1.5px solid var(--line);border-radius:999px;width:max-content;max-width:100%}
@@ -595,9 +576,9 @@
   .headline{background:transparent!important;border:0!important;gap:12px!important;box-shadow:none!important}
   .headline .cell{border-radius:var(--r-lg);border:1.5px solid var(--line);box-shadow:0 10px 28px rgba(40,30,90,.07)}
   .headline .cell:nth-child(1){background:linear-gradient(160deg,color-mix(in srgb,var(--pop1) 13%,var(--panel)),var(--panel) 70%)}
-  .headline .cell:nth-child(2){background:linear-gradient(160deg,color-mix(in srgb,var(--pop3) 14%,var(--panel)),var(--panel) 70%)}
+  .headline .cell:nth-child(2){background:linear-gradient(160deg,color-mix(in srgb,var(--pop4) 16%,var(--panel)),var(--panel) 70%)}
   .headline .cell:nth-child(3){background:linear-gradient(160deg,color-mix(in srgb,var(--pop4) 15%,var(--panel)),var(--panel) 70%)}
-  .big{background:linear-gradient(90deg,var(--pop1),var(--pop2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .big{background:linear-gradient(90deg,var(--pop0),var(--pop2));-webkit-background-clip:text;background-clip:text;color:transparent}
   /* nút bấm tròn trịa, nảy khi bấm */
   .num-btn,.exc-open,.toggle button,.theme-sw button,#lang,#week,select{border-radius:999px!important}
   .num-btn,.exc-open,.toggle button{transition:transform .12s ease,background .2s,box-shadow .2s}
@@ -619,7 +600,7 @@
 
   <div class="masthead">
     <div>
-      <h1><span class="mascot" aria-hidden="true">🎬</span><span class="ttl">Creative Weekly Tracker</span></h1>
+      <h1><img class="mascot" src="assets/supercent-logo.png" alt="" width="44" height="44"><span class="ttl">Creative Weekly Tracker</span></h1>
       <p id="subtitle"></p>
       <p id="stamp" class="stamp"></p>
     </div>
@@ -2513,7 +2494,7 @@ function renderMembers(i){
 // ---------------------------------------------------------------- biểu đồ
 let mode="total";
 const charts={};
-const SHADE={pm:"#3E8FB0",solo:null,over:"#8F82EA",assisted:"#B7ADF3",etc:"#D89B3C"};
+const SHADE={pm:"#3E8FB0",solo:null,over:"#FF8A1F",assisted:"#FFB547",etc:"#FFD23F"};   // tông màu Supercent: đỏ → cam → vàng
 
 function stackData(t){
   // 4 lớp theo số lượng: trong chuẩn / vượt mức / có dev/art / ETC. PM xem ở bảng và phần đầu.
@@ -2983,37 +2964,26 @@ function update(){
 // ---------------------------------------------------------------- góc vui
 const REDUCED=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 let FUN_CONF="", FUN_TALLY=0;
-// Góc cả đội: không xếp hạng ai — chỉ mục tiêu chung, game cả đội đang làm, cột mốc chung và lời chào.
+// Góc cả đội: không xếp hạng ai — cột mốc chung của cả đội trên Drive và lời chào; pháo giấy khi cả đội đạt chỉ tiêu.
 function renderFun(i){
   const box=document.getElementById("fun"), L=T().fun, t=TEAMS[0];
   const ppl=roster(t,i).filter(p=>p.v!==null&&p.v!==undefined);
   if(!ppl.length){ box.innerHTML=""; return; }
-  // 1. mục tiêu chung của cả đội (vòng tròn)
+  // cả đội đạt chỉ tiêu tuần đang xem → pháo giấy
   const need=ppl.reduce((s,p)=>s+(quotaFor(t,p.name,i)||0),0), got=ppl.reduce((s,p)=>s+p.v,0);
-  const pct=need?Math.round(got/need*100):0, R=52, C=2*Math.PI*R, done=pct>=100;
-  const ring=`<svg class="ring" viewBox="0 0 132 132" role="img" aria-label="${pct}%"><circle class="bg" cx="66" cy="66" r="${R}"/>`+
-    `<circle class="fg${done?"":" go"}" id="fun-ring" cx="66" cy="66" r="${R}" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${C.toFixed(1)}" data-off="${(C*(1-Math.min(1,pct/100))).toFixed(1)}"/>`+
-    `<text x="66" y="74" text-anchor="middle" font-size="26">${pct}%</text></svg>`;
-  // 2. game cả đội đang làm tuần này (bong bóng, to nhỏ theo số video)
-  const w=WEEKS[i], cnt={};
-  (ALL_TASKS||[]).filter(x=>x.period===w.full).forEach(x=>{ const g=toNotionGame(x.game||x.iteration.replace(YT_RE,"").trim()); if(g) cnt[g]=(cnt[g]||0)+(x.count||0); });
-  const gs=Object.entries(cnt).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]), mx=gs.length?gs[0][1]:1;
-  const bubbles=gs.map(([g,n])=>{ const d=Math.round(64+56*Math.sqrt(n/mx));
-    return `<div class="bub" style="--h:${gameHue(g)};width:${d}px;height:${d}px;font-size:${Math.max(11,Math.round(d/7.5))}px"><div><b>${n}</b><span>${escH(g)}</span></div></div>`; }).join("");
-  // 3. cột mốc chung trên Drive + lời chào người mới / người quay lại
+  const pct=need?Math.round(got/need*100):0, done=pct>=100, w=WEEKS[i];
+  // cột mốc chung trên Drive + lời chào người mới / người quay lại
   const total=DONE?DONE.length:0, step=total>=1000?500:100, nextM=Math.ceil((total+1)/step)*step, prevM=nextM-step;
   const hi=[];
   ppl.forEach(p=>{ const rq=rampQuota(t,p.name,i); if(rq!==null) hi.push(`<span class="hi">${L.hi(escH(p.name),RAMP.indexOf(rq)+1)}</span>`); });
   if(i>0) ppl.forEach(p=>{ if(leaveOf(p.name,i-1)&&!leaveOf(p.name,i)) hi.push(`<span class="hi">${L.back(escH(p.name))}</span>`); });
-  box.innerHTML=`<div class="fun-card"><h2>🎯 ${escH(L.goal)}</h2><div class="ring-wrap">${ring}<div class="ring-txt"><div class="big2">${got} / ${need}</div>`+
-      `<div class="msg">${done?escH(L.done):escH(L.go(need-got))}</div><div class="sub">${escH(L.sub(ppl.length))}</div></div></div></div>`+
-    `<div class="fun-card"><h2>🎮 ${escH(L.games)}</h2><div class="bubbles">${bubbles||`<span class="sub">${escH(L.noGames)}</span>`}</div></div>`+
+  box.innerHTML=
     ((total||hi.length)?`<div class="fun-card fun-wide">`+
       (total?`<div class="mile"><div class="row"><span class="num" id="fun-num">${total.toLocaleString()}</span><span class="lab">🎬 ${escH(L.total)} · ${escH(L.next((nextM-total).toLocaleString(),nextM.toLocaleString()))}</span></div>`+
         `<div class="bar"><i id="fun-bar" data-w="${((total-prevM)/step*100).toFixed(1)}"></i></div></div>`:"")+
       (hi.length?`<div class="hello">${hi.join("")}</div>`:"")+`</div>`:"");
-  const ringEl=document.getElementById("fun-ring"), barEl=document.getElementById("fun-bar");
-  const go=()=>{ if(ringEl) ringEl.style.strokeDashoffset=ringEl.dataset.off; if(barEl) barEl.style.width=barEl.dataset.w+"%"; };
+  const barEl=document.getElementById("fun-bar");
+  const go=()=>{ if(barEl) barEl.style.width=barEl.dataset.w+"%"; };
   if(REDUCED) go(); else requestAnimationFrame(()=>requestAnimationFrame(go));
   if(total&&!REDUCED&&FUN_TALLY!==total){ countUp(document.getElementById("fun-num"),total); FUN_TALLY=total; }
   if(done&&FUN_CONF!==w.full&&!REDUCED){ FUN_CONF=w.full; confetti(); }
@@ -3026,7 +2996,7 @@ function countUp(el,to){
 function confetti(){
   let c=document.getElementById("confetti");
   if(!c){ c=document.createElement("canvas"); c.id="confetti"; c.setAttribute("aria-hidden","true"); document.body.appendChild(c); }
-  const x=c.getContext("2d"), W=c.width=innerWidth, H=c.height=innerHeight, cols=["#F5B700","#E4572E","#2E86AB","#16A34A","#7C5CFF","#DB2777"];
+  const x=c.getContext("2d"), W=c.width=innerWidth, H=c.height=innerHeight, cols=["#FF1E00","#D90800","#FF7A00","#FFA200","#FFC800","#FFFFFF"];
   const ps=Array.from({length:150},()=>({x:W/2+(Math.random()-.5)*W*.3, y:H*.25, vx:(Math.random()-.5)*12, vy:-Math.random()*11-4, s:5+Math.random()*6, r:Math.random()*6, vr:(Math.random()-.5)*.3, c:cols[Math.floor(Math.random()*cols.length)]}));
   const t0=performance.now();
   const frame=now=>{ x.clearRect(0,0,W,H); const age=now-t0;
