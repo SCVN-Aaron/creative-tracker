@@ -357,6 +357,31 @@
   .ov-h{font-size:15px;font-weight:600;margin:0;padding:14px 18px;border-bottom:1px solid var(--line)}
 
   .pm-note{margin-top:22px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
+  .num-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+  @media (max-width:900px){.num-grid{grid-template-columns:minmax(0,1fr)}}
+  .num-ctl{display:flex;align-items:center;gap:8px;margin-left:auto;padding:8px 0;flex-wrap:wrap}
+  .num-ctl label{font-size:13px;color:var(--ink-2)}
+  .num-ctl select{min-width:150px;font-size:13.5px;padding:6px 10px}
+  .num-btn{font-family:inherit;font-size:13px;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    padding:6px 12px;border-radius:7px;cursor:pointer}
+  .num-btn:hover{border-color:var(--accent)}
+  .num-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--panel);font-weight:600}
+  .num-btn.del{border:0;background:transparent;color:var(--ink-2);padding:4px 8px;font-size:15px}
+  .num-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 18px;border-top:1px solid var(--line)}
+  .num-sp{flex:1}
+  .num-msg{font-size:12.5px;color:var(--up);font-weight:600}
+  #num-table,#num-last{width:100%;border-collapse:collapse}
+  #num-table th,#num-table td,#num-last th,#num-last td{padding:7px 10px;border-bottom:1px solid var(--grid);text-align:left;font-size:13.5px;white-space:nowrap}
+  #num-table th,#num-last th{font-size:12px;color:var(--ink-2);font-weight:600;text-transform:uppercase;letter-spacing:.03em;background:var(--th)}
+  #num-table input[type=text],#num-table input[type=number],#num-last input{font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--panel);
+    border:1px solid var(--line);border-radius:6px;padding:5px 8px;width:100%;min-width:0;box-sizing:border-box}
+  #num-table input[type=number]{width:64px}
+  #num-last input{width:90px;font-family:"IBM Plex Mono",monospace}
+  #num-table td.cn{font-family:"IBM Plex Mono",monospace;font-weight:600}
+  .cn-copy{cursor:pointer;border-bottom:1px dashed var(--muted)}
+  .cn-copy:hover{color:var(--accent)}
+  .num-last{max-height:560px;overflow:auto}
+  #num-last td.from{color:var(--ink-2);font-size:12px;white-space:normal}
   .pm-note a{color:var(--accent)}
 
   footer{margin-top:26px;color:var(--ink-2);font-size:12.5px;line-height:1.7}
@@ -444,6 +469,7 @@
     <button role="tab" id="tab-creator" aria-controls="view-creator" aria-selected="true" type="button"></button>
     <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1"></button>
     <button role="tab" id="tab-ov" aria-controls="view-ov" aria-selected="false" type="button" tabindex="-1"></button>
+    <button role="tab" id="tab-num" aria-controls="view-num" aria-selected="false" type="button" tabindex="-1"></button>
     <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
   </nav>
 
@@ -522,6 +548,30 @@
     <div class="tcard pm-card"><h2 class="ov-h" id="ov-title"></h2><div class="ov-scroll" id="ov-scroll"><table id="ov-table"></table></div></div>
     <p class="pm-note" id="ov-note"></p>
   </div>
+
+  <div id="view-num" role="tabpanel" aria-labelledby="tab-num" hidden>
+    <div class="num-grid">
+      <div class="tcard pm-card">
+        <div class="pmg-head"><h2 class="ov-h" id="num-title"></h2>
+          <div class="num-ctl"><label for="num-week" id="lbl-num-week"></label><select id="num-week"></select>
+            <button type="button" class="num-btn" id="num-fill"></button></div>
+        </div>
+        <div class="pm-scroll"><table id="num-table"></table></div>
+        <div class="num-actions">
+          <button type="button" class="num-btn" id="num-add"></button>
+          <span class="num-sp"></span>
+          <button type="button" class="num-btn primary" id="num-copy-cn"></button>
+          <button type="button" class="num-btn primary" id="num-copy-both"></button>
+          <span class="num-msg" id="num-msg" role="status"></span>
+        </div>
+      </div>
+      <div class="tcard pm-card">
+        <div class="pmg-head"><h2 class="ov-h" id="num-last-title"></h2></div>
+        <div class="pm-scroll num-last"><table id="num-last"></table></div>
+      </div>
+    </div>
+    <p class="pm-note" id="num-note"></p>
+  </div>
 </div>
 
 <script>
@@ -592,7 +642,8 @@ const MONTH_EN=["","January","February","March","April","May","June",
 const I18N={
  vi:{
   name:"Tiếng Việt",
-  tab:{creator:"Creator",pm:"PM",ov:"Overview",plan:"Lên kế hoạch ↗"},
+  tab:{creator:"Creator",pm:"PM",ov:"Overview",num:"Đánh số",plan:"Lên kế hoạch ↗"},
+  num:{title:"Đánh số Creative cho task mới", week:"Tuần", fill:"Điền theo lịch", add:"+ Thêm dòng", copyCn:"Copy cột Creative number", copyBoth:"Copy Creative number + Video Count", creator:"Creator", game:"Game", social:"Social/YT", count:"Số video", cn:"Creative number", gamePh:"Tên game", del:"Xoá dòng", clickCopy:"Bấm để copy", copied:"Đã copy — dán vào Notion", lastTitle:"Số cuối hiện tại theo game", lastN:"Số cuối", seed:"Theo file export (09/11)", manual:"Sửa tay", note:"Mỗi game có dãy số Creative riêng, dùng chung cho team UA và team AI (UA điền trước, AI điền sau): task mới lấy tiếp từ số cuối của game đó trên cả hai team, các dòng cùng game trong bảng nối tiếp nhau theo thứ tự. Social/YT có dãy riêng. Số video điền sẵn theo chỉ tiêu (8, ETC 12, Hypereels 24, người mới 2 → 6 → 8), sửa được. Bấm vào một số để copy ô đó, hoặc copy cả cột rồi chọn ô đầu trong cột Creative number trên Notion và dán. Nếu trên Notion đã có task mới hơn mà dashboard chưa cập nhật, sửa số cuối ở bảng bên phải (lưu trên trình duyệt này)."},
     cs:{title:"Lịch theo tuần — 4-Week Loop + PM×Creator (🇻🇳 UA)", byCreator:"Theo creator", byGame:"Theo game", creator:"Creator", game:"Game", weeks:"Số tuần", pmReal:"PM theo task trên Notion", pmPlan:"PM theo lịch PM×Creator (Notion chưa gắn PM)", solo:"Solo", soloTip:"Notion chưa gắn PM cho creator này tuần đó (làm solo)",
       note:"Game và (YT) theo 4-Week Loop Schedule, tới hết file (ô Loop trống thì theo lịch PM×Creator). ✓: tuần đó Notion đã có task đúng game. ⚠: Notion ghi game khác. “PM Zoe” = PM của task trên Notion, Notion chưa gắn thì theo lịch PM×Creator (khi cùng game); “Solo” = không có PM. Cột tô màu là tuần này."},
   theme:{label:"Giao diện",light:"Giao diện sáng",dark:"Giao diện tối"},
@@ -677,7 +728,8 @@ const I18N={
  },
  en:{
   name:"English",
-  tab:{creator:"Creators",pm:"PMs",ov:"Overview",plan:"Plan ahead ↗"},
+  tab:{creator:"Creators",pm:"PMs",ov:"Overview",num:"Numbering",plan:"Plan ahead ↗"},
+  num:{title:"Creative numbers for new tasks", week:"Week", fill:"Fill from schedule", add:"+ Add row", copyCn:"Copy Creative number column", copyBoth:"Copy Creative number + Video Count", creator:"Creator", game:"Game", social:"Social/YT", count:"Videos", cn:"Creative number", gamePh:"Game name", del:"Remove row", clickCopy:"Click to copy", copied:"Copied — paste into Notion", lastTitle:"Current last number per game", lastN:"Last no.", seed:"From export (11/09)", manual:"Edited", note:"Each game has its own Creative number sequence, shared by the UA and AI teams (UA numbers first, AI after): a new task continues from that game\u2019s last number, and rows of the same game here follow on in order. Social/YT has its own sequence. Video counts are pre-filled from targets (8, ETC 12, Hypereels 24, new members 2 → 6 → 8) and can be edited. Click a number to copy it, or copy the whole column, select the first cell of the Creative number column in Notion and paste. If Notion already has newer tasks the dashboard hasn\u2019t picked up, edit the last number on the right (saved in this browser)."},
     cs:{title:"Weekly schedule — 4-Week Loop + PM×Creator (🇻🇳 UA)", byCreator:"By creator", byGame:"By game", creator:"Creator", game:"Game", weeks:"Weeks", pmReal:"PM from the Notion task", pmPlan:"PM from the PM×Creator schedule (no PM tagged in Notion)", solo:"Solo", soloTip:"No PM tagged on Notion for this creator that week (solo)",
       note:"Games and (YT) come from the 4-Week Loop Schedule, through the end of the file (from the PM×Creator schedule where Loop is empty). ✓: Notion has a task for that game that week. ⚠: Notion shows a different game. “PM Zoe” = PM on the Notion task, or from the PM×Creator schedule when Notion has none; “Solo” = no PM. The tinted column is this week."},
   theme:{label:"Theme",light:"Light theme",dark:"Dark theme"},
@@ -762,7 +814,8 @@ const I18N={
  },
  ko:{
   name:"한국어",
-  tab:{creator:"크리에이터",pm:"PM",ov:"전체 보기",plan:"계획 세우기 ↗"},
+  tab:{creator:"크리에이터",pm:"PM",ov:"전체 보기",num:"번호 매기기",plan:"계획 세우기 ↗"},
+  num:{title:"신규 작업 Creative 번호", week:"주차", fill:"스케줄로 채우기", add:"+ 행 추가", copyCn:"Creative number 열 복사", copyBoth:"Creative number + Video Count 복사", creator:"크리에이터", game:"게임", social:"Social/YT", count:"영상 수", cn:"Creative number", gamePh:"게임 이름", del:"행 삭제", clickCopy:"클릭하여 복사", copied:"복사됨 — Notion에 붙여넣기", lastTitle:"게임별 현재 마지막 번호", lastN:"마지막 번호", seed:"내보내기 파일 기준 (11/09)", manual:"수동 수정", note:"게임마다 Creative 번호가 따로 이어지며 UA 팀과 AI 팀이 함께 사용합니다(UA 먼저, AI 다음). 새 작업은 해당 게임의 마지막 번호 다음부터 시작하고, 표에서 같은 게임 행은 순서대로 이어집니다. Social/YT는 별도 번호입니다. 영상 수는 목표(8, ETC 12, Hypereels 24, 신규 2 → 6 → 8)로 채워지며 수정할 수 있습니다. 번호를 클릭해 복사하거나 열 전체를 복사해 Notion의 Creative number 첫 칸을 선택하고 붙여넣으세요. Notion에 대시보드에 아직 없는 새 작업이 있으면 오른쪽 표에서 마지막 번호를 수정하세요(이 브라우저에 저장)."},
     cs:{title:"주간 스케줄 — 4-Week Loop + PM×Creator (🇻🇳 UA)", byCreator:"크리에이터별", byGame:"게임별", creator:"크리에이터", game:"게임", weeks:"주 수", pmReal:"Notion 작업의 PM", pmPlan:"PM×Creator 스케줄의 PM (Notion PM 태그 없음)", solo:"단독", soloTip:"해당 주 Notion에 PM 태그 없음 (단독)",
       note:"게임과 (YT)는 4-Week Loop Schedule을 파일 끝까지 사용합니다 (Loop가 비어 있으면 PM×Creator 스케줄). ✓: 그 주 Notion에 같은 게임 작업이 있음. ⚠: Notion은 다른 게임. “PM Zoe” = Notion 작업의 PM, 없으면 PM×Creator 스케줄의 PM, “단독” = PM 없음. 색칠된 열이 이번 주입니다."},
   theme:{label:"화면",light:"밝은 화면",dark:"어두운 화면"},
@@ -1394,10 +1447,148 @@ function renderOV(){
   const stickyW=table.querySelector("th.sticky").offsetWidth;
   if(cur) box.scrollLeft=Math.max(0,cur.offsetLeft-stickyW-(cur.previousElementSibling?cur.previousElementSibling.offsetWidth:0));
 }
+
+// ---------------------------------------------------------------- Đánh số Creative
+// Mỗi game có một dãy số Creative riêng (900xx). Task mới lấy tiếp từ số cuối cùng đã dùng của game đó;
+// video (YT)/(Social) có dãy riêng theo game. Team UA và team AI dùng chung dãy (UA điền trước, AI điền sau),
+// nên số cuối = lớn nhất trong data UA (cột Creative number), data AI (data/ai_numbers.csv) và bảng
+// CN_SEED (số cuối tính tới 09/11 lấy từ file export Video Ads, cho các task cũ chưa có cột này).
+const CN_SEED={arrowfever:90284,snakeclash:90612,superbigslime:90043,downhill:90038,pizzaready:90331,dinouniverse:90197,
+  burgerplease:90063,mosquito:90040,suzysrestaurant:90085,bulldozermaster:90336,xphero:90506,crablife:90037,outletsrush:90020,
+  paperdeliveryboy:90015,lumberchopper:90077,themeparkmanager:90062,whackstack:90023,myfishshop:90040,smashdown:90024,
+  rushattack:90038,frozia:90012,targetsmash:90024,idleoilempire:90024,spinminer:90008,mysupermarket:90010,gangsteruniverse:90012,
+  dragonburst:90036,sharkuniverse:90035,captainofspace:90037,matchflight:90009,hypereels:90024,forgefortune:90012,
+  themiasmaidlesurvival:90012,fantasyxhunters:90008,"snakeclash#s":90002,"xphero#s":90004};
+const CN_BASE=90000;
+let NUM_ROWS=null, NUM_OVR={}, AI_NUMS=[];
+// Số Creative của team AI (AI Content Creator) — cùng dãy số với team UA theo game (UA điền trước, AI điền sau)
+fetch("data/ai_numbers.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
+  if(!t) return;
+  AI_NUMS=parseCSV(t).map(r=>({period:r.Period||"", creator:r.Creator||"", game:r["Game Title"]||"", iteration:r.Iteration||"", creative:r["Creative number"]||""}));
+  if(VIEW==="num") renderNum();
+}).catch(()=>{});
+try{ NUM_OVR=JSON.parse(localStorage.getItem("ct-num-ovr")||"{}")||{}; }catch(e){ NUM_OVR={}; }
+const cnKey=(game,social)=>gameKey(toNotionGame(game))+(social?"#s":"");
+const cnMax=s=>{ const ns=(String(s||"").match(/\d{4,}/g)||[]).map(Number); return ns.length?Math.max(...ns):null; };
+// Số cuối của từng dãy: {key: {n, game, from}}
+function cnLast(){
+  const out={};
+  Object.entries(CN_SEED).forEach(([k,n])=>out[k]={n,game:k,from:T().num.seed});
+  (ALL_TASKS||[]).forEach(t=>{
+    const n=cnMax(t.creative); if(!n) return;
+    const k=cnKey(t.game||t.iteration.replace(YT_RE,"").trim(),isYT(t));
+    if(!out[k]||n>=out[k].n) out[k]={n,game:t.game,from:`${t.creators.join(", ")} · ${weekShort(t.period)}`};
+    else if(out[k].game===k) out[k].game=t.game;
+  });
+  AI_NUMS.forEach(t=>{
+    const n=cnMax(t.creative); if(!n||!t.game) return;
+    const k=cnKey(t.game,false);
+    if(!out[k]||n>out[k].n) out[k]={n,game:t.game,from:`AI · ${t.creator} · ${periodDate(t.period)?weekShort(t.period):t.period}`};
+  });
+  Object.entries(NUM_OVR).forEach(([k,n])=>{ if(n>0) out[k]={...(out[k]||{game:k}),n:+n,from:T().num.manual}; });
+  return out;
+}
+// Chỉ tiêu dự kiến của một creator làm một game ở tuần bắt đầu ngày `date` (Hypereels 24, ETC 12, người mới 2 → 6 → 8)
+function planQuota(name,game,date){
+  const t=TEAMS[0], gq=GAME_QUOTA[gameKey(game)]; if(gq) return gq;
+  if(name===t.etc) return t.etcQuota||t.quota;
+  const arr=t.people[name]||[], first=arr.findIndex(v=>v!==null&&v!==undefined);
+  if(first<0) return RAMP[0];
+  const li=WEEKS.length-1, lst=periodStart(WEEKS[li].full);
+  const idx=lst?li+Math.round((date-lst)/(7*864e5)):li+1;
+  if(first>0){ const r=idx-first; if(r>=0&&r<RAMP.length) return RAMP[r]; }
+  return t.quota;
+}
+function numWeeks(){
+  if(!SCHEDULE) return [];
+  const wk0=new Date(); wk0.setHours(0,0,0,0); wk0.setDate(wk0.getDate()-((wk0.getDay()+6)%7));
+  return SCHEDULE.cols.filter(c=>c.start>=wk0);
+}
+// Điền sẵn từ lịch tuần đã chọn: mỗi creator 1 dòng game chính (+ dòng Social/YT nếu lịch có)
+function numFill(){
+  const key=document.getElementById("num-week").value, col=SCHEDULE&&SCHEDULE.cols.find(c=>c.key===key);
+  NUM_ROWS=[];
+  if(col) SCHEDULE.people.forEach(p=>{
+    const v=p.byDate[col.key]||""; if(isBlank(v)) return;
+    const etc=/^etc$/i.test(v), g=etc?"":toNotionGame(v);
+    NUM_ROWS.push({creator:p.name, game:g, count:planQuota(p.name,g,col.start), social:false});
+    ytOf(p,col.key).forEach(y=>NUM_ROWS.push({creator:p.name, game:toNotionGame(y.g), count:1, social:true}));
+  });
+  renderNum();
+}
+function numCompute(){
+  const last=cnLast(), cur={}; Object.entries(last).forEach(([k,v])=>cur[k]=v.n);
+  return NUM_ROWS.map(r=>{
+    const n=Math.max(0,parseInt(r.count,10)||0); if(!r.game||!n) return {...r,cn:""};
+    const k=cnKey(r.game,r.social), a=(cur[k]||CN_BASE)+1, b=a+n-1; cur[k]=b;
+    return {...r,cn:n===1?String(a):`${a}~${b}`};
+  });
+}
+function renderNum(){
+  const L=T().num;
+  document.getElementById("num-title").textContent=L.title;
+  document.getElementById("lbl-num-week").textContent=L.week;
+  document.getElementById("num-fill").textContent=L.fill;
+  document.getElementById("num-add").textContent=L.add;
+  document.getElementById("num-copy-cn").textContent=L.copyCn;
+  document.getElementById("num-copy-both").textContent=L.copyBoth;
+  document.getElementById("num-last-title").textContent=L.lastTitle;
+  document.getElementById("num-note").textContent=L.note;
+  const sel=document.getElementById("num-week"), ws=numWeeks(), keep=sel.value;
+  sel.innerHTML=ws.map(c=>`<option value="${c.key}">${escH(T().wk(String(c.start.getDate()).padStart(2,"0")+"/"+String(c.start.getMonth()+1).padStart(2,"0")))}</option>`).join("");
+  if(ws.some(c=>c.key===keep)) sel.value=keep; else if(ws[1]) sel.value=ws[1].key;
+  if(NUM_ROWS===null){ if(ws.length){ numFill(); return; } }   // lịch chưa tải xong: chờ lần vẽ sau
+  const games=[...new Set([...GAME_ORDER,...(ALL_TASKS||[]).map(t=>t.game).filter(Boolean)])].sort((a,b)=>a.localeCompare(b));
+  const people=[...new Set([...(SCHEDULE?SCHEDULE.people.map(p=>p.name):[]),...Object.keys(TEAMS[0].people)])];
+  const rows=NUM_ROWS?numCompute():[];
+  document.getElementById("num-table").innerHTML=`<thead><tr><th>${L.creator}</th><th>${L.game}</th><th>${L.social}</th><th>${L.count}</th><th>${L.cn}</th><th></th></tr></thead><tbody>`+
+    rows.map((r,i)=>`<tr data-i="${i}"><td><input type="text" list="num-people" data-f="creator" value="${escH(r.creator)}"></td>`+
+      `<td><input type="text" list="num-games" data-f="game" value="${escH(r.game)}" placeholder="${escH(L.gamePh)}"></td>`+
+      `<td><input type="checkbox" data-f="social"${r.social?" checked":""} aria-label="${escH(L.social)}"></td>`+
+      `<td><input type="number" min="0" max="99" data-f="count" value="${escH(String(r.count))}"></td>`+
+      `<td class="cn">${r.cn?`<span class="cn-copy" title="${escH(L.clickCopy)}" data-copy="${r.cn}">${r.cn}</span>`:"—"}</td>`+
+      `<td><button type="button" class="num-btn del" data-del="${i}" aria-label="${escH(L.del)}">✕</button></td></tr>`).join("")+
+    `</tbody><datalist id="num-games">${games.map(g=>`<option value="${escH(g)}">`).join("")}</datalist>`+
+    `<datalist id="num-people">${people.map(g=>`<option value="${escH(g)}">`).join("")}</datalist>`;
+  const last=cnLast();
+  document.getElementById("num-last").innerHTML=`<thead><tr><th>${L.game}</th><th>${L.lastN}</th></tr></thead><tbody>`+
+    Object.entries(last).sort((a,b)=>String(a[1].game).localeCompare(String(b[1].game))).map(([k,v])=>
+      `<tr><td>${k.endsWith("#s")?`<span class="yt-mark social">Social</span> `:""}${gameTag(toNotionGame(v.game===k?k.replace("#s",""):v.game))}<div class="from">${escH(v.from)}</div></td>`+
+      `<td><input type="number" data-k="${escH(k)}" value="${v.n}" aria-label="${escH(L.lastN)}"></td></tr>`).join("")+`</tbody>`;
+}
+function numMsg(t){ const m=document.getElementById("num-msg"); m.textContent=t; clearTimeout(numMsg.t); numMsg.t=setTimeout(()=>m.textContent="",2500); }
+async function numCopy(text){
+  try{ await navigator.clipboard.writeText(text); }
+  catch(e){ const a=document.createElement("textarea"); a.value=text; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove(); }
+  numMsg(T().num.copied);
+}
+document.getElementById("num-table").addEventListener("input",e=>{
+  const tr=e.target.closest("tr[data-i]"), f=e.target.dataset.f; if(!tr||!f) return;
+  const r=NUM_ROWS[+tr.dataset.i]; r[f]=e.target.type==="checkbox"?e.target.checked:e.target.value;
+  // chỉ cập nhật cột số, giữ con trỏ trong ô đang gõ
+  numCompute().forEach((x,i)=>{ const td=document.querySelector(`#num-table tr[data-i="${i}"] td.cn`);
+    if(td) td.innerHTML=x.cn?`<span class="cn-copy" title="${escH(T().num.clickCopy)}" data-copy="${x.cn}">${x.cn}</span>`:"—"; });
+});
+document.getElementById("num-table").addEventListener("click",e=>{
+  const d=e.target.closest("[data-del]"); if(d){ NUM_ROWS.splice(+d.dataset.del,1); renderNum(); return; }
+  const c=e.target.closest("[data-copy]"); if(c) numCopy(c.dataset.copy);
+});
+document.getElementById("num-last").addEventListener("change",e=>{
+  const k=e.target.dataset.k; if(!k) return;
+  const n=parseInt(e.target.value,10); if(n>0) NUM_OVR[k]=n; else delete NUM_OVR[k];
+  try{ localStorage.setItem("ct-num-ovr",JSON.stringify(NUM_OVR)); }catch(err){}
+  renderNum();
+});
+document.getElementById("num-fill").addEventListener("click",numFill);
+document.getElementById("num-week").addEventListener("change",numFill);
+document.getElementById("num-add").addEventListener("click",()=>{ (NUM_ROWS=NUM_ROWS||[]).push({creator:"",game:"",count:8,social:false}); renderNum(); });
+document.getElementById("num-copy-cn").addEventListener("click",()=>NUM_ROWS&&numCopy(numCompute().map(r=>r.cn).join("\n")));
+document.getElementById("num-copy-both").addEventListener("click",()=>NUM_ROWS&&numCopy(numCompute().map(r=>`${r.cn}\t${parseInt(r.count,10)||""}`).join("\n")));
+
 let VIEW="creator";
 function showView(v){
   VIEW=v;
-  ["creator","pm","ov"].forEach(k=>{
+  ["creator","pm","ov","num"].forEach(k=>{
     const on=k===v, tab=document.getElementById("tab-"+k);
     tab.setAttribute("aria-selected",on); tab.tabIndex=on?0:-1;
     document.getElementById("view-"+k).hidden=!on;
@@ -1407,6 +1598,7 @@ function showView(v){
   document.getElementById("lbl-week").hidden=v!=="creator";
   if(v==="pm") renderPM();
   else if(v==="ov") renderOV();
+  else if(v==="num") renderNum();
   else if(charts.video) charts.video.resize();
   try{ localStorage.setItem("ct-view",v); }catch(e){}
 }
@@ -2124,7 +2316,7 @@ function importCSV(text){
     period:r.Period, pm:cleanPM(r.PM), game:r["Game Title"]||"", iteration:r.Iteration||"",
     creators:(r.Creator||"").split(",").map(x=>x.trim()).filter(Boolean),
     count:/^\d+$/.test(r["Video Count"]||"")?+r["Video Count"]:null,
-    status:r.Status||"", pageId:r["Page ID"]||""})):null;
+    status:r.Status||"", pageId:r["Page ID"]||"", creative:r["Creative number"]||""})):null;
   return {weeks:newWeeks,months:newMonths,people:sorted,pm:pmOut,hasPMcol,warn,noCount,
           tasks:tasks&&tasks.filter(t=>!HIDDEN_PM.includes(t.pm)), allTasks:tasks,
           fresh:fresh.filter(f=>order.indexOf(f)<last)};
@@ -2187,6 +2379,7 @@ function applyLang(){
   document.getElementById("tab-creator").textContent=T().tab.creator;
   document.getElementById("tab-pm").textContent=T().tab.pm;
   document.getElementById("tab-ov").textContent=T().tab.ov;
+  document.getElementById("tab-num").textContent=T().tab.num;
   const plan=document.getElementById("tab-plan");
   plan.textContent=T().tab.plan; plan.href=PLANNER_URL; plan.hidden=!NOTION_AI;
   if(VIEW==="pm") renderPM();
@@ -2242,7 +2435,7 @@ function applyTheme(v){
   const cur=(v==="light"||v==="dark")?v:(sysDark()?"dark":"light");
   document.querySelectorAll("#theme button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===cur));
 }
-function repaint(){ if(Object.keys(charts).length) refreshCharts(); update(); renderCreatorSchedule(); if(VIEW==="pm") renderPM(); if(VIEW==="ov") renderOV(); }
+function repaint(){ if(Object.keys(charts).length) refreshCharts(); update(); renderCreatorSchedule(); if(VIEW==="pm") renderPM(); if(VIEW==="ov") renderOV(); if(VIEW==="num") renderNum(); }
 (()=>{ let v=null; try{ v=localStorage.getItem(THEME_KEY); }catch(e){} applyTheme(v); })();
 document.getElementById("theme").addEventListener("click",e=>{
   const b=e.target.closest("button[data-v]"); if(!b) return;
@@ -2256,18 +2449,19 @@ if(window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListene
 document.getElementById("tab-creator").addEventListener("click",()=>showView("creator"));
 document.getElementById("tab-pm").addEventListener("click",()=>showView("pm"));
 document.getElementById("tab-ov").addEventListener("click",()=>showView("ov"));
+document.getElementById("tab-num").addEventListener("click",()=>showView("num"));
 document.querySelector(".tabs").addEventListener("keydown",e=>{
   if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight") return;
-  const order=["creator","pm","ov"], i=order.indexOf(VIEW);
+  const order=["creator","pm","ov","num"], i=order.indexOf(VIEW);
   const next=order[(i+(e.key==="ArrowRight"?1:order.length-1))%order.length];
   showView(next); document.getElementById("tab-"+next).focus();
 });
 document.getElementById("pm-week").addEventListener("change",e=>{pmWeek=e.target.value;renderPM();});
 function boot(){
   applyLang(); buildCharts(); update(); renderCreatorSchedule();
-  let v=location.hash==="#pm"?"pm":location.hash==="#overview"?"ov":null;
+  let v=location.hash==="#pm"?"pm":location.hash==="#overview"?"ov":location.hash==="#number"?"num":null;
   if(!v){ try{ v=localStorage.getItem("ct-view"); }catch(e){} }
-  showView(["pm","ov"].includes(v)?v:"creator");
+  showView(["pm","ov","num"].includes(v)?v:"creator");
 }
 
 loadLiveCSV().then(r=>{
