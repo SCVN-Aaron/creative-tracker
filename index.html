@@ -331,6 +331,33 @@
   .cs-head .ov-h{border-bottom:0;flex:1;min-width:0}
   #cs-table,  #ps-table{border-collapse:separate;border-spacing:0}
   #dn-table{border-collapse:separate;border-spacing:0;width:100%}
+  .sv-ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0;padding-left:18px}
+  .sv-ctl label{font-size:13px;color:var(--ink-2)}
+  .sv-ctl select,.sv-ctl input{font-family:inherit;font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+  .sv-ctl input{width:210px;font-family:"IBM Plex Mono",monospace}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  #sv-table{width:100%;border-collapse:collapse}
+  #sv-table th,#sv-table td{padding:7px 10px;border-bottom:1px solid var(--grid);text-align:left;font-size:13.5px;white-space:nowrap;vertical-align:top}
+  #sv-table th{font-size:12px;color:var(--ink-2);font-weight:600;text-transform:uppercase;letter-spacing:.03em;background:var(--th)}
+  #sv-table td.n{font-family:"IBM Plex Mono",monospace;font-weight:600}
+  #sv-table td.task{white-space:normal;min-width:220px}
+  #sv-table td.task small{display:block;color:var(--ink-2);font-size:12px}
+  #sv-table a.sz{display:inline-block;margin-right:6px;padding:1px 7px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--accent);text-decoration:none;font-family:"IBM Plex Mono",monospace}
+  #sv-table a.sz:hover{background:var(--accent-bg)}
+  #sv-table .miss{color:var(--warn);font-size:12.5px}
+  #sv-table:empty{display:none}
+  #sv-table button.sz{display:inline-block;margin-right:6px;padding:1px 9px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--accent);background:none;cursor:pointer;font-family:"IBM Plex Mono",monospace}
+  #sv-table button.sz:hover,#sv-table button.sz:focus-visible{background:var(--accent-bg)}
+  #sv-table button.sz::before{content:"▶ ";font-size:9px}
+  #sv-dlg{border:1px solid var(--line);border-radius:12px;padding:0;background:var(--panel);color:var(--ink);max-width:96vw;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+  #sv-dlg::backdrop{background:rgba(0,0,0,.6)}
+  .sv-dlg-head{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .sv-dlg-head a{font-size:13px;color:var(--accent)}
+  .sv-dlg-sz button{margin-right:4px;padding:2px 9px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--ink-2);font:12px "IBM Plex Mono",monospace;cursor:pointer}
+  .sv-dlg-sz button[aria-pressed="true"]{background:var(--accent);color:var(--panel);border-color:var(--accent)}
+  .sv-frame{background:#000;display:flex;justify-content:center}
+  .sv-frame iframe{border:0;display:block;background:#000}
+  #sv-dlg-note{margin:0;padding:6px 12px 10px;font-size:12px}
   #dn-table th,#dn-table td{border-bottom:1px solid var(--grid);border-right:1px solid var(--grid-v);padding:7px 10px;white-space:nowrap;font-size:13.5px}
   #dn-table th{font-size:12.5px;font-weight:500;color:var(--ink-2);background:var(--th);text-align:right}
   #dn-table td{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
@@ -585,6 +612,25 @@
   </div>
 
   <div id="view-done" role="tabpanel" aria-labelledby="tab-done" hidden>
+    <div class="tcard pm-card" id="sv-card">
+      <div class="cs-head"><h2 class="ov-h" id="sv-title"></h2>
+        <form class="sv-ctl" id="sv-form" role="search" autocomplete="off">
+          <label for="sv-game" id="lbl-sv-game"></label><select id="sv-game"></select>
+          <label for="sv-num" id="lbl-sv-num" class="sr"></label><input type="search" id="sv-num" inputmode="numeric">
+          <button type="submit" class="num-btn primary" id="sv-go"></button>
+        </form>
+      </div>
+      <div class="pm-scroll"><table id="sv-table"></table></div>
+      <p class="pm-note src-line" id="sv-msg" role="status"></p>
+    </div>
+    <dialog id="sv-dlg" aria-labelledby="sv-dlg-title">
+      <div class="sv-dlg-head"><strong id="sv-dlg-title"></strong>
+        <span class="sv-dlg-sz" id="sv-dlg-sz"></span><span class="num-sp"></span>
+        <a id="sv-dlg-open" target="_blank" rel="noopener"></a>
+        <button type="button" class="num-btn" id="sv-dlg-x" aria-label="Close">✕</button></div>
+      <div class="sv-frame" id="sv-frame"><iframe id="sv-ifr" allow="autoplay; fullscreen" allowfullscreen title="video"></iframe></div>
+      <p class="pm-note" id="sv-dlg-note"></p>
+    </dialog>
     <div class="tcard pm-card">
       <div class="cs-head"><h2 class="ov-h" id="dn-title"></h2>
         <div class="toggle" role="group" id="dn-mode">
@@ -674,6 +720,8 @@ const I18N={
  vi:{
   name:"Tiếng Việt",
   tab:{creator:"Creator",pm:"PM",ov:"Overview",num:"Đánh số",done:"Đã làm",plan:"Lên kế hoạch ↗"},
+  sv:{title:"Tìm video Creative", game:"Game", all:"Tất cả game", num:"Số Creative", ph:"vd 90582 · 90573~90580 · 582", go:"Tìm", n:"Số", creator:"Creator", date:"Ngày", concept:"Concept", dur:"Thời lượng", video:"Video trên Drive", task:"Task Notion", notOnDrive:"Chưa có trên Drive", noTask:"—", ai:"AI",
+    found:n=>`${n} video`, more:(n,m)=>`Hiện ${n}/${m} video — gõ số cụ thể hơn để lọc`, none:"Không tìm thấy video nào", latest:(n,g)=>`${n} video mới nhất của ${g}`, hint:"Chọn game và/hoặc gõ số Creative (số đầy đủ, khoảng 90573~90580, hoặc vài số cuối).", play:"Xem video", open:"Mở trên Drive ↗", dlgNote:"Video phát từ Google Drive — cần đăng nhập tài khoản có quyền xem thư mục game. Không xem được thì bấm “Mở trên Drive”."},
   done:{title:"Số video đã làm (theo Google Drive)", week:"Theo tuần", month:"Theo tháng", game:"Theo game", ua:"Team UA", ai:"Team AI", all:"Tất cả", creator:"Creator", total:"Tổng", grand:"Cả team", wk:d=>"Tuần "+d, src:d=>"Quét Drive ngày "+d, none:"Chưa có dữ liệu Drive (data/drive_videos.csv).",
     note:"Đếm theo file video trên Google Drive (thư mục VN 제작 / 2.9x16 · 3.1x1 · 1.16x9 · Social Media của từng game): mỗi số Creative tính 1 video dù có nhiều kích thước. Creator và ngày lấy từ tên file (…_creator_ddmmyy.mp4); ngày gõ sai thì lấy ngày upload. Team theo data Notion. Số này là video đã upload — task đang làm mà chưa upload thì chưa tính. Dữ liệu cập nhật khi Claude quét lại Drive."},
   num:{title:"Đánh số Creative cho task mới", week:"Tuần", fill:"Điền theo lịch", add:"+ Thêm dòng", copyCn:"Copy cột Creative number", copyBoth:"Copy Creative number + Video Count", creator:"Creator", game:"Game", social:"Social/YT", count:"Số video", cn:"Creative number", gamePh:"Tên game", del:"Xoá dòng", clickCopy:"Bấm để copy", copied:"Đã copy — dán vào Notion", lastTitle:"Số cuối hiện tại theo game", lastN:"Số cuối", seed:"Theo file export (09/11)", manual:"Sửa tay", drive:"Drive", driveAhead:"Drive lớn hơn Notion", driveSrc:"Số trên Drive quét ngày", note:"Số cuối lấy lớn nhất giữa Notion (team UA + AI) và video đã có trên Google Drive (VN 제작). Mỗi game có dãy số Creative riêng, dùng chung cho team UA và team AI (UA điền trước, AI điền sau): task mới lấy tiếp từ số cuối của game đó trên cả hai team, các dòng cùng game trong bảng nối tiếp nhau theo thứ tự. Social/YT có dãy riêng. Số video điền sẵn theo chỉ tiêu (8, ETC 12, Hypereels 24, người mới 2 → 6 → 8), sửa được. Bấm vào một số để copy ô đó, hoặc copy cả cột rồi chọn ô đầu trong cột Creative number trên Notion và dán. Nếu trên Notion đã có task mới hơn mà dashboard chưa cập nhật, sửa số cuối ở bảng bên phải (lưu trên trình duyệt này)."},
@@ -762,6 +810,8 @@ const I18N={
  en:{
   name:"English",
   tab:{creator:"Creators",pm:"PMs",ov:"Overview",num:"Numbering",done:"Produced",plan:"Plan ahead ↗"},
+  sv:{title:"Find a Creative video", game:"Game", all:"All games", num:"Creative number", ph:"e.g. 90582 · 90573~90580 · 582", go:"Search", n:"No.", creator:"Creator", date:"Date", concept:"Concept", dur:"Length", video:"Video on Drive", task:"Notion task", notOnDrive:"Not on Drive yet", noTask:"—", ai:"AI",
+    found:n=>`${n} videos`, more:(n,m)=>`Showing ${n} of ${m} — type a more specific number`, none:"No videos found", latest:(n,g)=>`Latest ${n} videos of ${g}`, hint:"Pick a game and/or type a Creative number (full number, a range like 90573~90580, or the last few digits).", play:"Play video", open:"Open in Drive ↗", dlgNote:"Plays from Google Drive — you need to be signed in with an account that can view the game folder. If it won’t play, use “Open in Drive”."},
   done:{title:"Videos produced (from Google Drive)", week:"By week", month:"By month", game:"By game", ua:"UA team", ai:"AI team", all:"All", creator:"Creator", total:"Total", grand:"Whole team", wk:d=>"Week "+d, src:d=>"Drive scanned on "+d, none:"No Drive data yet (data/drive_videos.csv).",
     note:"Counted from the video files on Google Drive (each game’s VN 제작 / 2.9x16 · 3.1x1 · 1.16x9 · Social Media folders): one Creative number counts as one video whatever the sizes. Creator and date come from the file name (…_creator_ddmmyy.mp4); a mistyped date falls back to the upload date. Team follows the Notion data. These are uploaded videos — work in progress isn’t counted until it’s uploaded. Updated whenever Claude rescans Drive."},
   num:{title:"Creative numbers for new tasks", week:"Week", fill:"Fill from schedule", add:"+ Add row", copyCn:"Copy Creative number column", copyBoth:"Copy Creative number + Video Count", creator:"Creator", game:"Game", social:"Social/YT", count:"Videos", cn:"Creative number", gamePh:"Game name", del:"Remove row", clickCopy:"Click to copy", copied:"Copied — paste into Notion", lastTitle:"Current last number per game", lastN:"Last no.", seed:"From export (11/09)", manual:"Edited", drive:"Drive", driveAhead:"Drive ahead of Notion", driveSrc:"Drive numbers scanned on", note:"The last number is the highest of Notion (UA + AI teams) and the videos already on Google Drive (VN 제작). Each game has its own Creative number sequence, shared by the UA and AI teams (UA numbers first, AI after): a new task continues from that game\u2019s last number, and rows of the same game here follow on in order. Social/YT has its own sequence. Video counts are pre-filled from targets (8, ETC 12, Hypereels 24, new members 2 → 6 → 8) and can be edited. Click a number to copy it, or copy the whole column, select the first cell of the Creative number column in Notion and paste. If Notion already has newer tasks the dashboard hasn\u2019t picked up, edit the last number on the right (saved in this browser)."},
@@ -850,6 +900,8 @@ const I18N={
  ko:{
   name:"한국어",
   tab:{creator:"크리에이터",pm:"PM",ov:"전체 보기",num:"번호 매기기",done:"제작 실적",plan:"계획 세우기 ↗"},
+  sv:{title:"Creative 영상 찾기", game:"게임", all:"전체 게임", num:"Creative 번호", ph:"예: 90582 · 90573~90580 · 582", go:"검색", n:"번호", creator:"크리에이터", date:"날짜", concept:"콘셉트", dur:"길이", video:"Drive 영상", task:"Notion 작업", notOnDrive:"Drive에 아직 없음", noTask:"—", ai:"AI",
+    found:n=>`영상 ${n}개`, more:(n,m)=>`${m}개 중 ${n}개 표시 — 번호를 더 구체적으로 입력하세요`, none:"찾은 영상이 없습니다", latest:(n,g)=>`${g} 최신 영상 ${n}개`, hint:"게임을 고르거나 Creative 번호를 입력하세요(전체 번호, 90573~90580 같은 범위, 또는 끝자리).", play:"영상 보기", open:"Drive에서 열기 ↗", dlgNote:"Google Drive에서 재생됩니다 — 게임 폴더를 볼 수 있는 계정으로 로그인해야 합니다. 재생되지 않으면 “Drive에서 열기”를 누르세요."},
   done:{title:"제작한 영상 수 (Google Drive 기준)", week:"주별", month:"월별", game:"게임별", ua:"UA 팀", ai:"AI 팀", all:"전체", creator:"크리에이터", total:"합계", grand:"팀 전체", wk:d=>d+" 주", src:d=>"Drive 확인일 "+d, none:"Drive 데이터가 없습니다 (data/drive_videos.csv).",
     note:"Google Drive의 영상 파일(각 게임의 VN 제작 / 2.9x16 · 3.1x1 · 1.16x9 · Social Media 폴더) 기준입니다. Creative 번호 하나를 사이즈와 관계없이 영상 1개로 셉니다. 크리에이터와 날짜는 파일 이름(…_creator_ddmmyy.mp4)에서 가져오며, 날짜가 잘못된 경우 업로드 날짜를 씁니다. 팀은 Notion 데이터 기준입니다. 업로드된 영상만 집계되며 Claude가 Drive를 다시 확인할 때 갱신됩니다."},
   num:{title:"신규 작업 Creative 번호", week:"주차", fill:"스케줄로 채우기", add:"+ 행 추가", copyCn:"Creative number 열 복사", copyBoth:"Creative number + Video Count 복사", creator:"크리에이터", game:"게임", social:"Social/YT", count:"영상 수", cn:"Creative number", gamePh:"게임 이름", del:"행 삭제", clickCopy:"클릭하여 복사", copied:"복사됨 — Notion에 붙여넣기", lastTitle:"게임별 현재 마지막 번호", lastN:"마지막 번호", seed:"내보내기 파일 기준 (11/09)", manual:"수동 수정", drive:"Drive", driveAhead:"Drive가 Notion보다 큼", driveSrc:"Drive 번호 확인일", note:"마지막 번호는 Notion(UA + AI 팀)과 Google Drive(VN 제작)에 올라간 영상 중 가장 큰 번호입니다. 게임마다 Creative 번호가 따로 이어지며 UA 팀과 AI 팀이 함께 사용합니다(UA 먼저, AI 다음). 새 작업은 해당 게임의 마지막 번호 다음부터 시작하고, 표에서 같은 게임 행은 순서대로 이어집니다. Social/YT는 별도 번호입니다. 영상 수는 목표(8, ETC 12, Hypereels 24, 신규 2 → 6 → 8)로 채워지며 수정할 수 있습니다. 번호를 클릭해 복사하거나 열 전체를 복사해 Notion의 Creative number 첫 칸을 선택하고 붙여넣으세요. Notion에 대시보드에 아직 없는 새 작업이 있으면 오른쪽 표에서 마지막 번호를 수정하세요(이 브라우저에 저장)."},
@@ -1572,7 +1624,9 @@ document.getElementById("num-copy-both").addEventListener("click",()=>NUM_ROWS&&
 // data/drive_videos.csv: mỗi dòng 1 video (Game, Type, Creative number, Creator, Date, …), do tools/drive_summary.py ghi.
 let DONE=null, DONE_SCAN="", DN_MODE="month", DN_TEAM="UA";
 fetch("data/drive_videos.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
-  DONE=parseCSV(t||"").filter(r=>r.Creator&&r.Date).map(r=>({game:r.Game, creator:r.Creator, date:new Date(r.Date+"T00:00:00")}));
+  DONE=parseCSV(t||"").filter(r=>r.Creator&&r.Date).map(r=>({game:r.Game, type:r.Type||"UA", n:+r["Creative number"], creator:r.Creator,
+    date:new Date(r.Date+"T00:00:00"), concept:r.Concept||"", dur:r.Duration||"",
+    links:Object.fromEntries((r.Links||"").split(/\s+/).filter(Boolean).map(x=>x.split("=")))}));
   if(VIEW==="done") renderDone();
 }).catch(()=>{ DONE=[]; });
 fetch("data/drive_numbers.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
@@ -1586,7 +1640,88 @@ function creatorTeam(c){
   if(AI_NUMS.some(t=>t.creator.split(",").some(x=>x.trim().toLowerCase()===k))) return "AI";
   return "?";
 }
+// ---- Tìm video theo số Creative (+ game): video trên Drive + task Notion có số đó (team UA lẫn AI)
+const cnRanges=s=>String(s||"").split(/[,;\n]/).map(x=>{ const m=x.match(/(\d{4,})\s*(?:~|-|–)\s*(\d{2,})/);
+  if(m){ let a=+m[1], b=+m[2]; if(m[2].length<m[1].length) b=+(m[1].slice(0,m[1].length-m[2].length)+m[2]); return [a,b]; }
+  const n=x.match(/\d{4,}/); return n?[+n[0],+n[0]]:null; }).filter(Boolean);
+function svQuery(q){
+  q=String(q||"").trim(); if(!q) return null;
+  if(/^\d{1,3}$/.test(q)) return n=>String(n).endsWith(q);
+  const r=cnRanges(q);
+  if(r.length) return n=>r.some(([a,b])=>n>=a&&n<=b);
+  if(/^\d+$/.test(q)) return n=>String(n).includes(q);
+  return ()=>false;
+}
+function notionFor(gk,n){
+  const out=[];
+  (ALL_TASKS||[]).forEach(t=>{ if(cnKey(t.game||t.iteration.replace(YT_RE,"").trim(),false)!==gk) return;
+    if(cnRanges(t.creative).some(([a,b])=>n>=a&&n<=b)) out.push({who:t.creators.join(", "), it:t.iteration, wk:weekShort(t.period), href:pageLink(t.pageId), ai:false, st:t.status}); });
+  AI_NUMS.forEach(t=>{ if(!t.game||cnKey(t.game,false)!==gk) return;
+    if(cnRanges(t.creative).some(([a,b])=>n>=a&&n<=b)) out.push({who:t.creator, it:t.iteration, wk:periodDate(t.period)?weekShort(t.period):t.period, href:null, ai:true}); });
+  return out;
+}
+let SV_GAME="", SV_Q="", SV_ROWS=[];
+function svPlay(v,k){
+  const L=T().sv, dlg=document.getElementById("sv-dlg"), id=v.links[k];
+  document.getElementById("sv-dlg-title").textContent=`${v.n} · ${toNotionGame(v.game)} · ${v.creator}`;
+  document.getElementById("sv-dlg-sz").innerHTML=Object.keys(v.links).map(x=>`<button type="button" data-k="${x}" aria-pressed="${x===k}">${x}</button>`).join("");
+  document.getElementById("sv-dlg-sz").onclick=e=>{ const b=e.target.closest("button[data-k]"); if(b) svPlay(v,b.dataset.k); };
+  const a=document.getElementById("sv-dlg-open"); a.textContent=L.open; a.href=`https://drive.google.com/file/d/${encodeURIComponent(id)}/view`;
+  document.getElementById("sv-dlg-note").textContent=L.dlgNote;
+  const vh=Math.min(window.innerHeight*0.78,760), vw=window.innerWidth*0.94;
+  const r=k==="16x9"?16/9:k==="1x1"?1:9/16; let h=vh, w=h*r; if(w>vw){ w=vw; h=w/r; }
+  const f=document.getElementById("sv-ifr"); f.style.width=Math.round(w)+"px"; f.style.height=Math.round(h)+"px";
+  f.src=`https://drive.google.com/file/d/${encodeURIComponent(id)}/preview`;
+  if(!dlg.open) dlg.showModal();
+}
+document.getElementById("sv-table").addEventListener("click",e=>{ const b=e.target.closest("button.sz"); if(b) svPlay(SV_ROWS[+b.dataset.i],b.dataset.k); });
+document.getElementById("sv-dlg-x").addEventListener("click",()=>document.getElementById("sv-dlg").close());
+document.getElementById("sv-dlg").addEventListener("click",e=>{ if(e.target.id==="sv-dlg") e.target.close(); });
+document.getElementById("sv-dlg").addEventListener("close",()=>{ document.getElementById("sv-ifr").src="about:blank"; });
+function renderSearch(){
+  const L=T().sv;
+  document.getElementById("sv-title").textContent=L.title;
+  document.getElementById("lbl-sv-game").textContent=L.game;
+  document.getElementById("lbl-sv-num").textContent=L.num;
+  document.getElementById("sv-go").textContent=L.go;
+  const inp=document.getElementById("sv-num"); inp.placeholder=L.ph;
+  const sel=document.getElementById("sv-game");
+  const gname=g=>{ const k=DRIVE_ALIAS[gameKey(g)]; return toNotionGame(k?GAME_ORDER.find(x=>gameKey(x)===k)||g:g); };
+  const games=[...new Set((DONE||[]).map(v=>v.game))].sort((a,b)=>gname(a).localeCompare(gname(b)));
+  sel.innerHTML=`<option value="">${escH(L.all)}</option>`+games.map(g=>`<option value="${escH(g)}">${escH(gname(g))}</option>`).join("");
+  sel.value=SV_GAME;
+  const tbl=document.getElementById("sv-table"), msg=document.getElementById("sv-msg");
+  if(!DONE||(!SV_GAME&&!SV_Q)){ tbl.innerHTML=""; msg.textContent=L.hint; return; }
+  const match=svQuery(SV_Q);
+  let rows=DONE.filter(v=>(!SV_GAME||v.game===SV_GAME)&&(!match||match(v.n))).map(v=>({...v, gk:driveKey(v.game,false)}));
+  // số có trên Notion nhưng chưa có video trên Drive (chỉ khi gõ số / khoảng cụ thể)
+  const r=cnRanges(SV_Q);
+  if(r.length&&r.every(([a,b])=>b-a<200)){
+    const have=new Set(rows.map(v=>v.gk+"|"+v.n));
+    const gks=SV_GAME?[driveKey(SV_GAME,false)]:[...new Set([...(ALL_TASKS||[]).map(t=>cnKey(t.game||"",false)),...AI_NUMS.filter(t=>t.game).map(t=>cnKey(t.game,false))])];
+    gks.forEach(gk=>r.forEach(([a,b])=>{ for(let n=a;n<=b;n++){ if(have.has(gk+"|"+n)) continue;
+      const nt=notionFor(gk,n); if(nt.length) rows.push({gk, n, game:toNotionGame(nt[0].game||gk), missing:true, notion:nt, creator:nt[0].who}); } }));
+    rows.forEach(v=>{ if(v.missing){ const t=(ALL_TASKS||[]).find(t=>cnKey(t.game||"",false)===v.gk)||AI_NUMS.find(t=>t.game&&cnKey(t.game,false)===v.gk); if(t) v.game=t.game; } });
+  }
+  rows.sort((a,b)=>b.n-a.n||String(a.game).localeCompare(String(b.game)));
+  const total=rows.length, LIM=SV_Q?200:30; rows=rows.slice(0,LIM);
+  const dfmt=d=>d?String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+d.getFullYear():"";
+  SV_ROWS=rows;
+  const link=(k,id,i)=>`<button type="button" class="sz" data-i="${i}" data-k="${k}" title="${escH(L.play)}">${k}</button>`;
+  tbl.innerHTML=total?`<thead><tr><th>${L.n}</th><th>${L.game}</th><th>${L.creator}</th><th>${L.date}</th><th>${L.concept}</th><th>${L.dur}</th><th>${L.video}</th><th>${L.task}</th></tr></thead><tbody>`+
+    rows.map((v,i)=>{ const nt=v.notion||notionFor(v.gk,v.n);
+      return `<tr><td class="n">${v.n}${v.type==="Social"?` <span class="yt-mark social">Social</span>`:""}</td><td>${gameTag(v.missing?toNotionGame(v.game):gname(v.game))}</td><td>${escH(v.creator||"")}</td>`+
+      `<td>${dfmt(v.date)}</td><td>${escH(v.concept||"")}</td><td>${escH(v.dur||"")}</td>`+
+      `<td>${v.missing?`<span class="miss">${escH(L.notOnDrive)}</span>`:Object.entries(v.links||{}).map(([k,id])=>link(k,id,i)).join("")}</td>`+
+      `<td class="task">${nt.length?nt.map(x=>`${x.href?`<a href="${x.href}" target="_blank" rel="noopener">${escH(x.it)}</a>`:escH(x.it)}<small>${x.ai?escH(L.ai)+" · ":""}${escH(x.who)} · ${escH(x.wk||"")}</small>`).join(""):escH(L.noTask)}</td></tr>`; }).join("")+`</tbody>`:"";
+  msg.textContent=!total?L.none:total>LIM?(SV_Q?L.more(LIM,total):L.latest(LIM,gname(SV_GAME))):(SV_Q?L.found(total):L.latest(total,gname(SV_GAME)));
+}
+document.getElementById("sv-form").addEventListener("submit",e=>{ e.preventDefault(); SV_Q=document.getElementById("sv-num").value; renderSearch(); });
+document.getElementById("sv-num").addEventListener("input",e=>{ SV_Q=e.target.value; clearTimeout(renderSearch.t); renderSearch.t=setTimeout(renderSearch,250); });
+document.getElementById("sv-game").addEventListener("change",e=>{ SV_GAME=e.target.value; renderSearch(); });
+
 function renderDone(){
+  renderSearch();
   const L=T().done;
   document.getElementById("dn-title").textContent=L.title;
   document.getElementById("dn-note").textContent=L.note;
