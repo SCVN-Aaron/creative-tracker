@@ -751,7 +751,7 @@ const I18N={
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
       noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (file CSV export từ Notion có sẵn các cột này).",
       note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước.${u?` Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`:""}`},
-  src:{live:"Google Sheet trực tiếp", cached:"bản lưu trong repo (không đọc được Google Sheet)", none:"không đọc được", at:t=>`đọc lúc ${t} · tự đọc lại mỗi 2 phút`},
+  src:{exc:"Nghỉ phép / ngoại lệ", live:"Google Sheet trực tiếp", cached:"bản lưu trong repo (không đọc được Google Sheet)", none:"không đọc được", at:t=>`đọc lúc ${t} · tự đọc lại mỗi 2 phút`},
   ytTip:"(YT) / (Social) — video YouTube / social làm kèm, tiêu đề phụ của tuần đó",
   soloTag:"tự làm", rampTag:n=>`Mới · tuần ${n}`, rampTip:q=>`Thành viên mới — chỉ tiêu tuần này ${q} video (tuần 1: 2, tuần 2: 6, từ tuần 3: 8)`, leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
@@ -841,7 +841,7 @@ const I18N={
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
       noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the CSV exported from Notion has them).",
       note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time.${u?` Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`:""}`},
-  src:{live:"live Google Sheet", cached:"saved copy in the repo (could not read the Google Sheet)", none:"could not read", at:t=>`read at ${t} · re-reads every 2 minutes`},
+  src:{exc:"Leave / exceptions", live:"live Google Sheet", cached:"saved copy in the repo (could not read the Google Sheet)", none:"could not read", at:t=>`read at ${t} · re-reads every 2 minutes`},
   ytTip:"(YT) / (Social) — extra YouTube / social video, a side title for that week",
   soloTag:"solo", rampTag:n=>`New · week ${n}`, rampTip:q=>`New member — target this week is ${q} videos (week 1: 2, week 2: 6, from week 3: 8)`, leaveTip:q=>`On leave — target this week is ${q} videos`,
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
@@ -931,7 +931,7 @@ const I18N={
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
       noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(Notion에서 내보낸 CSV에 포함).",
       note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다.${u?` 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`:""}`},
-  src:{live:"구글 시트 실시간", cached:"저장소 사본 (구글 시트를 읽지 못함)", none:"읽지 못함", at:t=>`${t}에 읽음 · 2분마다 다시 읽음`},
+  src:{exc:"휴가 / 예외", live:"구글 시트 실시간", cached:"저장소 사본 (구글 시트를 읽지 못함)", none:"읽지 못함", at:t=>`${t}에 읽음 · 2분마다 다시 읽음`},
   ytTip:"(YT) / (Social) — 추가 YouTube / 소셜 영상, 해당 주의 보조 타이틀",
   soloTag:"단독", rampTag:n=>`신규 · ${n}주차`, rampTip:q=>`신규 인원 — 이번 주 목표 ${q}개 (1주차 2개, 2주차 6개, 3주차부터 8개)`, leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
@@ -1329,7 +1329,7 @@ async function loadSchedule(){
 function renderSchedSrc(){
   const L=T().src, t=SCHED_AT?String(SCHED_AT.getHours()).padStart(2,"0")+":"+String(SCHED_AT.getMinutes()).padStart(2,"0"):"—";
   const one=(name,v)=>`${name}: <b class="${v?"src-ok":"src-bad"}">${v===null?L.none:v?L.live:L.cached}</b>`;
-  const html=`${one("4-Week Loop",SCHED_LOOP_LIVE)} · ${one("PM×Creator",SCHED_PM_LIVE)} · ${escH(L.at(t))}`;
+  const html=`${one("4-Week Loop",SCHED_LOOP_LIVE)} · ${one("PM×Creator",SCHED_PM_LIVE)} · ${one(L.exc,EXC_LIVE)} · ${escH(L.at(t))}`;
   ["cs-src","ps-src"].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=html; });
 }
 // PM được phân công trên lịch PM × Creator: tên, "" = không PM, undefined = lịch không ghi
@@ -1529,6 +1529,13 @@ function cnLast(){
 }
 // Chỉ tiêu dự kiến của một creator làm một game ở tuần bắt đầu ngày `date` (Hypereels 24, ETC 12, người mới 2 → 6 → 8)
 function planQuota(name,game,date){
+  const base=planBase(name,game,date);
+  if(!date) return base;
+  const ex=excIn(date,new Date(date.getTime()+7*864e5)), lv=ex.leave[String(name).toLowerCase()];
+  if(lv) return lv.support!=null?lv.support:lv.quota!=null?lv.quota:Math.max(0,base-(lv.days||0));
+  return ex.adj&&!GAME_QUOTA[gameKey(game)]?Math.max(0,base+(ex.adj.bonus||0)):base;
+}
+function planBase(name,game,date){
   const t=TEAMS[0], gq=GAME_QUOTA[gameKey(game)]; if(gq) return gq;
   if(name===t.etc) return t.etcQuota||t.quota;
   const arr=t.people[name]||[], first=arr.findIndex(v=>v!==null&&v!==undefined);
@@ -1814,10 +1821,9 @@ function avgOf(team,i){const t=totalOf(team,i),h=headOf(team,i);return h?t/h:nul
 // Một số kỳ gộp nhiều tuần nên chỉ tiêu và ngưỡng dev/art đều dịch lên cùng một mức.
 // Điều chỉnh chỉ tiêu cả đội cho một kỳ (nghỉ lễ, team building…), khoá là tên Period gốc trên Notion.
 // Dùng khi kỳ đó chưa có trong khối dữ liệu WEEKS (do update_dashboard.py ghi). bonus âm = giảm chỉ tiêu mỗi người.
-const WEEK_ADJ={
-  "[W3] Oct W4 (10/19~)":{bonus:-2, bonusEtc:-2, note:{vi:"Team building — nghỉ thứ 5, thứ 6",en:"Team building — off Thu–Fri",ko:"팀 빌딩 — 목·금 휴무"}}
-};
-const weekAdj=i=>(WEEKS[i]&&WEEK_ADJ[WEEKS[i].full])||null;
+// Các điều chỉnh giờ nhập ở Google Sheet "Quota exceptions" (xem EXC_SRC bên dưới); để trống ở đây.
+const WEEK_ADJ={};
+const weekAdj=i=>(WEEKS[i]&&WEEK_ADJ[WEEKS[i].full])||excAt(i).adj||null;
 function bonusAt(i){return WEEKS[i].bonus??(weekAdj(i)?weekAdj(i).bonus:0)??0}
 // Lý do điều chỉnh của kỳ (nếu có), theo ngôn ngữ đang chọn
 function weekAdjNote(i){const a=weekAdj(i);return a&&a.note?(a.note[LANG]||a.note.vi):(WEEKS[i]&&WEEKS[i].note)||""}
@@ -1828,16 +1834,79 @@ function quotaAt(team,i){return team.quota+bonusAt(i)}
 // Nghỉ phép riêng từng người: chỉ tiêu tuần đó của người đó đổi thành "quota", kèm ghi chú.
 // Tuần đó có dev/art làm cùng thì thêm "support" = số video có dev/art sau khi trừ ngày nghỉ (vd 12 → 9):
 // làm đúng số đó được tính là "có dev/art", không phải vượt mức.
-// Khoá là tên Period gốc trên Notion. Thêm dòng mới mỗi khi có người nghỉ.
-const LEAVE={
-  "[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}},
-  "[W2] Nov W2 (11/09~)":{
-    "Anthony":{quota:7, days:1, note:{vi:"Nghỉ thứ 2",en:"Off Monday",ko:"월요일 휴무"}},
-    "Ruelle":{quota:7, support:9, days:1, note:{vi:"Nghỉ thứ 5 (có dev/art: 12 → 9)",en:"Off Thursday (dev/art support: 12 → 9)",ko:"목요일 휴무 (dev/art 지원: 12 → 9)"}}
-  }
-};
-function leavesAt(i){const w=WEEKS[i];return w&&LEAVE[w.full]?Object.entries(LEAVE[w.full]).map(([name,v])=>({name,...v})):[]}
-function leaveOf(name,i){const w=WEEKS[i];return (w&&LEAVE[w.full]&&LEAVE[w.full][name])||null}
+// Khoá là tên Period gốc trên Notion. Giờ nhập ở Google Sheet "Quota exceptions"; LEAVE ở đây chỉ để dự phòng.
+const LEAVE={};
+
+// ---- Ngoại lệ chỉ tiêu từ Google Sheet "Quota exceptions" (Publish to web → CSV)
+// Cột: Week | Creator | Days off | Target | Dev/Art | Team change | Note | Note EN | Note KO
+//  - Nghỉ phép: Week + Creator + Days off (Target để trống = chỉ tiêu thường − số ngày nghỉ; điền Target để ghi đè).
+//  - Có dev/art tuần đó: Dev/Art = số video có dev/art (vd 12, nghỉ 1 ngày thì 9) → làm đúng số đó tính là "có dev/art".
+//  - Cả đội (nghỉ lễ, team building): Creator = ALL, Team change = số video cộng/trừ mỗi người (vd −2).
+//  - Week: ngày bất kỳ trong tuần, nên gõ dạng yyyy-mm-dd (vd 2026-11-16) để không lẫn ngày/tháng;
+//    cũng nhận dd/mm/yyyy, dd/mm hoặc tên Period trên Notion.
+// Không đọc được Sheet thì dùng bản lưu data/exceptions.csv.
+const EXC_SRC=[
+  // ["https://docs.google.com/spreadsheets/d/e/…/pub?gid=0&single=true&output=csv", true],
+  ["data/exceptions.csv", false]
+];
+let EXC_ROWS=[], EXC_LIVE=null, EXC_RAW=null;
+const EXC_ALL=/^(all|\*|team|cả team|ca team|cả đội|전체|팀)$/i;
+function excDate(v){
+  v=String(v||"").trim(); if(!v) return null;
+  if(/\(\d{1,2}\/\d{1,2}/.test(v)) return periodStart(v);
+  let m=v.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/); if(m) return new Date(+m[1],m[2]-1,+m[3]);
+  m=v.match(/^(\d{1,2})[\/.](\d{1,2})(?:[\/.](\d{2,4}))?$/); if(!m) return null;
+  let dd=+m[1], mm=+m[2]; if(mm>12&&dd<=12){ const x=dd; dd=mm; mm=x; }   // Sheet để định dạng Mỹ (11/16/2026)
+  if(m[3]) return new Date(m[3].length===2?2000+ +m[3]:+m[3], mm-1, dd);
+  return periodStart(`(${mm}/${dd}~)`);
+}
+const excNum=v=>{ const n=parseFloat(String(v||"").replace(/[−–]/g,"-").replace(",",".")); return isFinite(n)?n:null; };
+function parseExc(t){
+  return parseCSV(t).map(r=>{
+    const g=k=>r[k]??r[k.toLowerCase()]??"";
+    const d=excDate(g("Week")), who=g("Creator").trim(); if(!d||!who) return null;
+    const note=g("Note"), note3={vi:note, en:g("Note EN")||note, ko:g("Note KO")||note};
+    return {date:d, all:EXC_ALL.test(who), name:who, days:excNum(g("Days off")), target:excNum(g("Target")),
+      support:excNum(g("Dev/Art")), change:excNum(g("Team change")), note:note3, hasNote:!!(note||g("Note EN")||g("Note KO"))};
+  }).filter(Boolean);
+}
+// Các dòng ngoại lệ rơi vào kỳ i (từ ngày bắt đầu kỳ i tới trước kỳ sau; kỳ cuối = 7 ngày)
+function excAt(i){
+  const w=WEEKS[i], st=w&&periodStart(w.full); if(!st||!EXC_ROWS.length) return {leave:{},adj:null};
+  const nx=WEEKS[i+1]&&periodStart(WEEKS[i+1].full), en=nx&&nx>st?nx:new Date(st.getTime()+7*864e5);
+  return excIn(st,en);
+}
+function excIn(st,en){
+  const out={leave:{},adj:null};
+  EXC_ROWS.filter(r=>r.date>=st&&r.date<en).forEach(r=>{
+    if(r.all){ const c=r.change||0;
+      out.adj={bonus:c, bonusEtc:c, note:r.hasNote?r.note:{vi:"Điều chỉnh chỉ tiêu",en:"Target adjustment",ko:"목표 조정"}}; }
+    else { const n=r.days;
+      out.leave[r.name.toLowerCase()]={name:r.name, days:n||0, quota:r.target, support:r.support,
+        note:r.hasNote?r.note:{vi:n?`Nghỉ ${n} ngày`:"Chỉ tiêu riêng",en:n?`Off ${n} day${n>1?"s":""}`:"Own target",ko:n?`${n}일 휴무`:"개별 목표"}}; }
+  });
+  return out;
+}
+function leavesAt(i){
+  const w=WEEKS[i], t=TEAMS[0], m={};
+  if(w&&LEAVE[w.full]) Object.entries(LEAVE[w.full]).forEach(([name,v])=>m[name.toLowerCase()]={name,...v});
+  Object.values(excAt(i).leave).forEach(v=>{ const k=v.name.toLowerCase(); if(!m[k]) m[k]=v; });
+  return Object.values(m).map(v=>{ const real=Object.keys(t.people).find(n=>n.toLowerCase()===v.name.toLowerCase())||v.name;
+    return {...v, name:real, quota:quotaFor(t,real,i)}; });
+}
+function leaveOf(name,i){
+  const w=WEEKS[i];
+  if(w&&LEAVE[w.full]&&LEAVE[w.full][name]) return LEAVE[w.full][name];
+  return excAt(i).leave[String(name).toLowerCase()]||null;
+}
+async function loadExc(){
+  const raw=[];
+  const d=await fetchFirst(EXC_SRC,(t,live)=>({rows:parseExc(t),live}),raw);
+  const r=raw.join(""), changed=EXC_RAW===null||r!==EXC_RAW;
+  EXC_RAW=r; EXC_LIVE=d?d.live:null;
+  if(changed) EXC_ROWS=d?d.rows:[];
+  return changed;
+}
 // Vai trò ETC có chuẩn riêng (12) và không nhận phần cộng thêm của kỳ gộp.
 // Người mới vào đội: kỳ đầu tiên chỉ tiêu 2 video, kỳ thứ hai 6, từ kỳ thứ ba mới theo chuẩn.
 // "Mới" = kỳ đầu tiên có số của người đó nằm sau kỳ đầu của bảng (người có số từ kỳ đầu là người cũ).
@@ -1869,7 +1938,11 @@ function gameQuotaInfo(name,i,date){
 function gameQuotaOf(name,i,date){ const r=gameQuotaInfo(name,i,date); return r?r.q:null; }
 function quotaFor(team,name,i){
   const lv=leaveOf(name,i);
-  if(lv) return lv.quota;
+  if(lv) return lv.quota!=null?lv.quota:Math.max(0,baseQuota(team,name,i)-(lv.days||0));
+  return baseQuota(team,name,i);
+}
+// Chỉ tiêu khi không tính nghỉ phép: game chỉ tiêu riêng → người mới → ETC → chuẩn (+ điều chỉnh cả đội)
+function baseQuota(team,name,i){
   const gq=gameQuotaOf(name,i);
   if(gq!==null) return gq;
   const rq=rampQuota(team,name,i);
@@ -2107,7 +2180,7 @@ function renderMembers(i){
             const kk=kindOf(t,r.name,r.v,i);const k=KIND[kk];
       const tag=k.tag?`<span class="tag ${k.tag}">${T().kind[kk]}</span>`:"";
       const lv=leaveOf(r.name,i);
-      const leave=lv?`<span class="tag tag-leave" title="${escH(T().leaveTip(lv.quota))}">${escH(lv.note[LANG]||lv.note.vi)}</span>`:"";
+      const leave=lv?`<span class="tag tag-leave" title="${escH(T().leaveTip(quotaFor(t,r.name,i)))}">${escH(lv.note[LANG]||lv.note.vi)}</span>`:"";
       const rq=lv?null:rampQuota(t,r.name,i);
       const ramp=rq!==null?`<span class="tag tag-new" title="${escH(T().rampTip(rq))}">${escH(T().rampTag(RAMP.indexOf(rq)+1))}</span>`:"";
       return `<tr>
@@ -2672,10 +2745,11 @@ loadLiveCSV().then(r=>{
 // Lịch ảnh hưởng cả chỉ tiêu (game chỉ tiêu riêng như Hypereels) nên vẽ lại toàn bộ
 const reSched=()=>repaint();
 loadSchedule().then(reSched);
+loadExc().then(()=>{ renderSchedSrc(); repaint(); });
 // Tự đọc lại Sheet mỗi 2 phút khi tab đang mở, và ngay khi quay lại tab; chỉ vẽ lại khi Sheet có thay đổi
 let schedBusy=false;
 const pollSched=async()=>{ if(schedBusy||document.hidden) return; schedBusy=true;
-  try{ if(await loadSchedule()) reSched(); }finally{ schedBusy=false; } };
+  try{ const a=await loadSchedule(), b=await loadExc(); renderSchedSrc(); if(a||b) reSched(); }finally{ schedBusy=false; } };
 setInterval(pollSched,120000);
 document.addEventListener("visibilitychange",()=>{ if(!document.hidden&&SCHED_AT&&Date.now()-SCHED_AT>30000) pollSched(); });
 

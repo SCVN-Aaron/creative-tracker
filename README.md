@@ -55,7 +55,19 @@ PM đã rời team (hằng `HIDDEN_PM` trong `index.html`, hiện là Avril) kh�
 
 Thành viên mới (kỳ đầu tiên có số nằm sau kỳ đầu của bảng): kỳ đầu tiên chỉ tiêu **2 video**, kỳ thứ hai **6**, từ kỳ thứ ba mới là 8 (hằng `RAMP` trong `index.html`). Tab Creator hiện nhãn "Mới · tuần 1/2" cạnh tên; chỉ tiêu đội, cột chênh so chuẩn và dự kiến tháng đều tính theo lộ trình này.
 
-Creator nghỉ phép vài ngày: thêm một dòng vào hằng `LEAVE` trong `index.html`, khoá là tên Period gốc trên Notion, ví dụ `"[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}}`. Tuần đó chỉ tiêu của người đó tính theo `quota` và tab Creator hiện ghi chú cạnh tên. Đầu trang (ô "Số lượng video tuần này") cũng hiện ghi chú "1 creator nghỉ phép 2 ngày nên số lượng giảm".
+**Nghỉ phép và ngoại lệ chỉ tiêu — nhập ở Google Sheet** [Creative Tracker — Quota exceptions](https://docs.google.com/spreadsheets/d/1nAg1pIdvE0I-RwGsnOVPFEsQz4kxMhOg1DQKCngTEG8/edit) (Publish to web dạng CSV, dán link vào `EXC_SRC` trong `index.html`; không đọc được thì dùng bản lưu `data/exceptions.csv`). Mỗi dòng một ngoại lệ:
+
+| Cột | Ý nghĩa |
+|---|---|
+| Week | Ngày bất kỳ trong tuần, nên gõ `2026-11-16` (cũng nhận `16/11/2026`, `16/11` hoặc tên Period trên Notion) |
+| Creator | Tên creator; `ALL` = cả đội |
+| Days off | Số ngày nghỉ → chỉ tiêu = chỉ tiêu thường − số ngày (8 → 7, ETC 12 → 11) |
+| Target | Tuỳ chọn: ghi đè chỉ tiêu tuần đó của người đó |
+| Dev/Art | Tuần đó có dev/art: số video có dev/art (vd 12, nghỉ 1 ngày thì 9) → làm đúng số đó tính là "có dev/art" |
+| Team change | Chỉ dòng `ALL`: cộng/trừ mỗi người (vd `-2` khi team building), áp dụng cả ETC |
+| Note / Note EN / Note KO | Lý do hiện trên dashboard theo ngôn ngữ (bỏ trống EN/KO thì dùng Note) |
+
+Dashboard đọc lại Sheet mỗi 2 phút; dòng nguồn dưới lịch ghi "Nghỉ phép / ngoại lệ: Google Sheet trực tiếp / bản lưu". Tab Đánh số cũng dùng bảng này khi "Điền theo lịch" (nghỉ phép trừ số video, Dev/Art dùng số có dev/art, `ALL` cộng/trừ cả đội). Hằng `LEAVE` / `WEEK_ADJ` trong code vẫn dùng được nhưng để trống.
 
 Các bảng rộng (lịch tab Creator, tab PM, tab Đã làm) kéo được bằng chuột: nhấn giữ trong bảng rồi kéo để xem, khỏi kéo thanh cuộn bên dưới.
 
