@@ -1828,7 +1828,11 @@ function quotaAt(team,i){return team.quota+bonusAt(i)}
 // Nghỉ phép riêng từng người: chỉ tiêu tuần đó của người đó đổi thành "quota", kèm ghi chú.
 // Khoá là tên Period gốc trên Notion. Thêm dòng mới mỗi khi có người nghỉ.
 const LEAVE={
-  "[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}}
+  "[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}},
+  "[W2] Nov W2 (11/09~)":{
+    "Anthony":{quota:7, days:1, note:{vi:"Nghỉ thứ 2",en:"Off Monday",ko:"월요일 휴무"}},
+    "Ruelle":{quota:7, days:1, note:{vi:"Nghỉ thứ 5",en:"Off Thursday",ko:"목요일 휴무"}}
+  }
 };
 function leavesAt(i){const w=WEEKS[i];return w&&LEAVE[w.full]?Object.entries(LEAVE[w.full]).map(([name,v])=>({name,...v})):[]}
 function leaveOf(name,i){const w=WEEKS[i];return (w&&LEAVE[w.full]&&LEAVE[w.full][name])||null}
