@@ -354,7 +354,8 @@
   #sv-table button.sz::before{content:"▶ ";font-size:9px}
   .exc-open{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 12px;border:1px solid var(--line);border-radius:9px;background:var(--soft);color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
   .exc-open svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .exc-open:hover{border-color:var(--ink-2)}
+  .exc-open:hover{border-color:var(--ink-2);text-decoration:none}
+  a.exc-open{text-decoration:none}
   #exc-dlg{border:1px solid var(--line);border-radius:12px;padding:0;background:var(--panel);color:var(--ink);width:min(760px,96vw);max-height:92vh;box-shadow:0 10px 40px rgba(0,0,0,.35)}
   #exc-dlg [hidden]{display:none!important}
   #exc-dlg::backdrop{background:rgba(0,0,0,.55)}
@@ -527,6 +528,7 @@
     <div class="picker">
       <label for="week" id="lbl-week">Tuần</label>
       <select id="week"></select>
+      <a class="exc-open" id="about-link" href="creative-tracker-intro.html?lang=en" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span id="about-l"></span></a>
       <button type="button" class="exc-open" id="exc-open"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15h6"/></svg><span id="exc-open-l"></span></button>
       <div class="theme-sw" id="theme" role="group" aria-label="Theme">
         <button type="button" data-v="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
@@ -781,6 +783,7 @@ const I18N={
  vi:{
   name:"Tiếng Việt",
   tab:{creator:"Creator",pm:"PM",ov:"Overview",num:"Đánh số",done:"Đã làm",plan:"Lên kế hoạch ↗"},
+  about:"Giới thiệu", aboutTip:"Trang giới thiệu Creative Tracker (mở tab mới)",
   exc:{open:"Nghỉ phép", title:"Nghỉ phép / ngoại lệ chỉ tiêu", intro:"Chỉ admin có mật khẩu mới thêm hoặc xoá được. Dashboard cập nhật ngay sau khi lưu.", pw:"Mật khẩu admin", unlock:"Mở khoá", addH:"Thêm ngoại lệ", listH:"Đã nhập (8 tuần gần đây và sắp tới)", week:"Tuần (ngày bất kỳ trong tuần)", who:"Creator", all:"ALL — cả đội", days:"Số ngày nghỉ", target:"Chỉ tiêu riêng (tuỳ chọn)", dev:"Có dev/art: số video", team:"Cả đội: cộng/trừ mỗi người", note:"Ghi chú (lý do)", save:"Lưu", del:"Xoá", delQ:"Xoá dòng này?", hintInd:"Bỏ trống chỉ tiêu riêng = chỉ tiêu thường − số ngày nghỉ.", hintAll:"Vd −2 khi team building / nghỉ lễ (áp dụng cả ETC).",
     th:["Tuần","Creator","Nghỉ","Chỉ tiêu","Dev/art","Cả đội","Ghi chú",""], saved:"Đã lưu — dashboard đã cập nhật.", deleted:"Đã xoá.", checking:"Đang kiểm tra…", saving:"Đang lưu…",
     err:{wrong_password:"Sai mật khẩu.", locked:"Sai mật khẩu quá nhiều lần — thử lại sau 10 phút.", no_password_set:"Chưa đặt ADMIN_PASSWORD trong Apps Script.", changed:"Sheet vừa thay đổi — đã tải lại, thử lại.", bad_row:"Thiếu tuần hoặc creator.", net:"Không kết nối được Apps Script.", noapi:"Chưa kết nối Apps Script: làm theo hướng dẫn trong tools/exceptions_api.gs rồi gửi link Web App cho Claude.", need:"Điền số ngày nghỉ, chỉ tiêu riêng, số có dev/art hoặc mức cộng/trừ cả đội."}},
@@ -874,6 +877,7 @@ const I18N={
  en:{
   name:"English",
   tab:{creator:"Creators",pm:"PMs",ov:"Overview",num:"Numbering",done:"Produced",plan:"Plan ahead ↗"},
+  about:"About", aboutTip:"Creative Tracker introduction page (opens a new tab)",
   exc:{open:"Leave", title:"Leave / target exceptions", intro:"Only an admin with the password can add or remove entries. The dashboard updates as soon as you save.", pw:"Admin password", unlock:"Unlock", addH:"Add an exception", listH:"Entered (last 8 weeks and upcoming)", week:"Week (any day in it)", who:"Creator", all:"ALL — whole team", days:"Days off", target:"Own target (optional)", dev:"Dev/art support: videos", team:"Whole team: ± per person", note:"Note (reason)", save:"Save", del:"Delete", delQ:"Delete this entry?", hintInd:"Leave the own target blank to use the normal target minus days off.", hintAll:"E.g. −2 for team building / a holiday (ETC included).",
     th:["Week","Creator","Off","Target","Dev/art","Team","Note",""], saved:"Saved — the dashboard is updated.", deleted:"Deleted.", checking:"Checking…", saving:"Saving…",
     err:{wrong_password:"Wrong password.", locked:"Too many wrong passwords — try again in 10 minutes.", no_password_set:"ADMIN_PASSWORD isn’t set in Apps Script yet.", changed:"The sheet just changed — reloaded, please try again.", bad_row:"Week or creator is missing.", net:"Couldn’t reach Apps Script.", noapi:"Apps Script isn’t connected yet: follow tools/exceptions_api.gs and send Claude the Web App link.", need:"Fill in days off, an own target, a dev/art count or a whole-team change."}},
@@ -967,6 +971,7 @@ const I18N={
  ko:{
   name:"한국어",
   tab:{creator:"크리에이터",pm:"PM",ov:"전체 보기",num:"번호 매기기",done:"제작 실적",plan:"계획 세우기 ↗"},
+  about:"소개", aboutTip:"Creative Tracker 소개 페이지 (새 탭)",
   exc:{open:"휴가", title:"휴가 / 목표 예외", intro:"비밀번호가 있는 관리자만 추가·삭제할 수 있습니다. 저장하면 대시보드가 바로 갱신됩니다.", pw:"관리자 비밀번호", unlock:"잠금 해제", addH:"예외 추가", listH:"입력된 항목 (최근 8주 및 예정)", week:"주 (해당 주의 아무 날짜)", who:"크리에이터", all:"ALL — 팀 전체", days:"휴무일 수", target:"개별 목표 (선택)", dev:"dev/art 지원: 영상 수", team:"팀 전체: 1인당 ±", note:"메모 (사유)", save:"저장", del:"삭제", delQ:"이 항목을 삭제할까요?", hintInd:"개별 목표를 비우면 기본 목표에서 휴무일 수만큼 뺍니다.", hintAll:"예: 팀 빌딩 / 공휴일은 −2 (ETC 포함).",
     th:["주","크리에이터","휴무","목표","Dev/art","팀","메모",""], saved:"저장됨 — 대시보드가 갱신되었습니다.", deleted:"삭제됨.", checking:"확인 중…", saving:"저장 중…",
     err:{wrong_password:"비밀번호가 틀렸습니다.", locked:"비밀번호 오류가 너무 많습니다 — 10분 후 다시 시도하세요.", no_password_set:"Apps Script에 ADMIN_PASSWORD가 설정되지 않았습니다.", changed:"시트가 방금 변경되어 다시 불러왔습니다. 다시 시도하세요.", bad_row:"주 또는 크리에이터가 없습니다.", net:"Apps Script에 연결할 수 없습니다.", noapi:"Apps Script가 아직 연결되지 않았습니다: tools/exceptions_api.gs 안내에 따라 Web App 링크를 Claude에게 보내 주세요.", need:"휴무일 수, 개별 목표, dev/art 수 또는 팀 전체 변경값을 입력하세요."}},
@@ -1855,7 +1860,8 @@ let EXC_PW="", EXC_LIST=[];
 const excDlg=document.getElementById("exc-dlg");
 function excMsg(t,cls){ const m=document.getElementById("exc-msg"); m.textContent=t||""; m.className="exc-msg"+(cls?" "+cls:""); }
 function excLabels(){
-  const L=T().exc;
+  const L=T().exc, ab=document.getElementById("about-link");
+  document.getElementById("about-l").textContent=T().about; ab.title=T().aboutTip; ab.href="creative-tracker-intro.html?lang="+LANG;
   document.getElementById("exc-open-l").textContent=L.open;
   document.getElementById("exc-open").title=L.title;
   [["exc-title",L.title],["exc-intro",L.intro],["exc-pw-l",L.pw],["exc-unlock",L.unlock],["exc-add-h",L.addH],["exc-list-h",L.listH],
