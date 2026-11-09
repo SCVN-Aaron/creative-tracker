@@ -483,7 +483,6 @@
   <nav class="tabs" role="tablist" aria-label="View">
     <button role="tab" id="tab-creator" aria-controls="view-creator" aria-selected="true" type="button"></button>
     <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1"></button>
-    <button role="tab" id="tab-ov" aria-controls="view-ov" aria-selected="false" type="button" tabindex="-1"></button>
     <button role="tab" id="tab-num" aria-controls="view-num" aria-selected="false" type="button" tabindex="-1"></button>
     <button role="tab" id="tab-done" aria-controls="view-done" aria-selected="false" type="button" tabindex="-1"></button>
     <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
@@ -558,11 +557,6 @@
       <p class="pm-note src-line" id="ps-src"></p>
     </div>
     <p class="pm-note" id="pm-note"></p>
-  </div>
-
-  <div id="view-ov" role="tabpanel" aria-labelledby="tab-ov" hidden>
-    <div class="tcard pm-card"><h2 class="ov-h" id="ov-title"></h2><div class="ov-scroll" id="ov-scroll"><table id="ov-table"></table></div></div>
-    <p class="pm-note" id="ov-note"></p>
   </div>
 
   <div id="view-num" role="tabpanel" aria-labelledby="tab-num" hidden>
@@ -1412,85 +1406,6 @@ document.getElementById("cs-mode").addEventListener("click",e=>{
   CS_MODE=b.dataset.mode; renderCreatorSchedule();
 });
 
-function renderOV(){
-  document.getElementById("ov-note").innerHTML=T().ov.note;
-  document.getElementById("ov-title").textContent=T().ov.gTitle;
-  const table=document.getElementById("ov-table");
-  if(!TASKS){ table.innerHTML=`<tr><td class="empty">${T().pm.noData}</td></tr>`; return; }
-  // các tuần từ lúc đội bắt đầu điền PM (quá nửa số task có PM) trở đi, cũ → mới, gồm cả tuần sắp tới
-  const all=pmWeeks();
-  const first=all.findIndex(p=>{const ts=TASKS.filter(t=>t.period===p);return ts.length&&ts.filter(t=>t.pm).length*2>ts.length;});
-  const weeks=first<0?all:all.slice(first);
-  if(!weeks.length){ table.innerHTML=`<tr><td class="empty">${T().pm.empty}</td></tr>`; return; }
-  const NOPM="\u0000";
-  const inRange=new Set(weeks);
-  const rows=TASKS.filter(t=>inRange.has(t.period));
-  const pms=[...new Set(rows.map(t=>t.pm||NOPM))];
-  const tot=k=>rows.filter(t=>(t.pm||NOPM)===k).reduce((s,t)=>s+(t.count||0),0);
-  pms.sort((a,b)=>a===NOPM?1:b===NOPM?-1:tot(b)-tot(a)||a.localeCompare(b));
-  // Cột = các kỳ trên Notion + các tuần của 4-Week Loop Schedule tới hết file. Creator nào trong lịch mà
-  // tuần đó chưa có task trên Notion thì hiện theo lịch (mờ, PM dự đoán) — Sheet sửa gì thì bảng đổi theo.
-  const now=new Date();
-  const cols=weeks.map(p=>({period:p,start:periodStart(p),label:weekShort(p),now:isNowWeek(p),sch:[]}));
-  if(SCHEDULE&&cols.length){
-    SCHEDULE.cols.forEach(sc=>{
-      const p=periodForCol(sc), c=p&&cols.find(x=>x.period===p);
-      if(c) c.sch.push(sc);
-      else if(!p&&sc.start>cols[0].start){
-        const end=new Date(sc.start.getTime()+7*864e5);
-        cols.push({period:null,start:sc.start,label:T().wk(String(sc.start.getDate()).padStart(2,"0")+"/"+String(sc.start.getMonth()+1).padStart(2,"0")),now:now>=sc.start&&now<end,sch:[sc]});
-      }
-    });
-    cols.sort((a,b)=>a.start-b.start);
-  }
-  const plan=[];   // {col, pm, game, creator}
-  if(SCHEDULE) cols.forEach(c=>{
-    const seen=new Set();
-    SCHEDULE.people.forEach(per=>c.sch.forEach(sc=>{
-      const v=per.byDate[sc.key]||"";
-      if(isBlank(v)) return;
-      if(c.period&&ALL_TASKS.some(t=>t.period===c.period&&t.creators.includes(per.name))) return;
-      const etc=/^etc$/i.test(v.trim()), g=etc?"ETC":toNotionGame(v), key=per.name+"|"+gameKey(g);
-      if(seen.has(key)) return; seen.add(key);
-      // ETC = game mới chưa có tên; game chưa ai làm trên Notion cũng không đoán được PM → để vào hàng Creator solo
-      const pp=pmPlanned(per,sc.key), pm=pp!==undefined?(pp?{pm:pp}:null):etc?null:pmForCell(per.name,sc,v);
-      plan.push({col:c,pm:pm?pm.pm:NOPM,game:g,etc,creator:per.name,planned:pp!==undefined});
-      ytOf(per,sc.key).forEach(y=>plan.push({col:c,pm:y.pm||NOPM,game:toNotionGame(y.g),etc:false,yt:true,ytTag:y.tag,creator:per.name,planned:pp!==undefined}));
-    }));
-  });
-  // PM mới chỉ có trong lịch chèn trước hàng Creator solo; hàng Creator solo luôn ở cuối
-  plan.forEach(x=>{ if(!pms.includes(x.pm)){ const i=pms.indexOf(NOPM); pms.splice(x.pm===NOPM||i<0?pms.length:i,0,x.pm); } });
-  const nowCls=c=>c.now?" now":"";
-  const ofCol=c=>c.period?rows.filter(t=>t.period===c.period):[];
-  let h=`<thead><tr><th class="sticky">${T().ov.pm}</th>`+cols.map(c=>{
-      return `<th class="${nowCls(c).trim()}"${c.period?` title="${escH(c.period)}"`:""}>${escH(c.label)}${c.now?`<span class="now-badge">${escH(T().ov.nowBadge)}</span>`:""}</th>`;
-    }).join("")+`</tr></thead><tbody>`;
-  pms.forEach(k=>{
-    h+=`<tr><td class="sticky">${k===NOPM?T().pm.noPM:escH(k)}</td>`;
-    cols.forEach(c=>{
-      const list=ofCol(c).filter(t=>(t.pm||NOPM)===k).sort((a,b)=>(a.game||"").localeCompare(b.game||""));
-      const sch=plan.filter(x=>x.col===c&&x.pm===k).sort((a,b)=>a.game.localeCompare(b.game)).map(x=>
-        `<div class="ov-item ov-sch" title="${escH(x.etc?T().ov.etcTip:x.planned?T().ov.schTipPM:T().ov.schTip)}">${x.etc?`<span class="game etc-tag">${escH(T().ov.etc)}</span>`:x.yt?ytTag(x.game,x.ytTag):gameTag(x.game)}<span class="ov-cr">${escH(x.creator)}</span><span class="ov-n">—</span></div>`).join("");
-      const items=list.map(t=>{
-        const href=pageLink(t.pageId), cls=`ov-item${t.status&&t.status!=="Done"?" ov-plan":""}`;
-        const inner=`${isYT(t)?ytTag(t.game||t.iteration.replace(YT_RE,"").trim(),ytPrefix(t)):gameTag(t.game)}<span class="ov-cr">${t.creators.length?t.creators.map(escH).join(", "):"—"}</span><span class="ov-n">${t.count??"—"}</span>`;
-        const tip=escH([t.game,t.creators.join(", "),t.iteration,t.status].filter(Boolean).join(" · "));
-        return href?`<a class="${cls}" href="${href}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`:`<div class="${cls}" title="${tip}">${inner}</div>`;
-      }).join("");
-      h+=`<td class="cell${nowCls(c)}">${items+sch||'<span class="ov-empty">–</span>'}</td>`;
-    });
-    h+=`</tr>`;
-  });
-  h+=`<tr class="grand"><td class="sticky">${T().ov.total}</td>`+cols.map(c=>
-    `<td class="${nowCls(c).trim()}">${c.period?ofCol(c).reduce((s,t)=>s+(t.count||0),0):""}</td>`).join("")+`</tr></tbody>`;
-  table.innerHTML=h;
-  // cuộn tới tuần này (để lại một tuần trước đó trong tầm nhìn)
-  const box=document.getElementById("ov-scroll");
-  const cur=table.querySelector("th.now")||table.querySelector("thead th:last-child");
-  const stickyW=table.querySelector("th.sticky").offsetWidth;
-  if(cur) box.scrollLeft=Math.max(0,cur.offsetLeft-stickyW-(cur.previousElementSibling?cur.previousElementSibling.offsetWidth:0));
-}
-
 // ---------------------------------------------------------------- Đánh số Creative
 // Mỗi game có một dãy số Creative riêng (900xx). Task mới lấy tiếp từ số cuối cùng đã dùng của game đó;
 // video (YT)/(Social) có dãy riêng theo game. Team UA và team AI dùng chung dãy (UA điền trước, AI điền sau),
@@ -1720,7 +1635,7 @@ document.getElementById("dn-team").addEventListener("click",e=>{ const b=e.targe
 let VIEW="creator";
 function showView(v){
   VIEW=v;
-  ["creator","pm","ov","num","done"].forEach(k=>{
+  ["creator","pm","num","done"].forEach(k=>{
     const on=k===v, tab=document.getElementById("tab-"+k);
     tab.setAttribute("aria-selected",on); tab.tabIndex=on?0:-1;
     document.getElementById("view-"+k).hidden=!on;
@@ -1729,7 +1644,6 @@ function showView(v){
   document.getElementById("week").hidden=v!=="creator";
   document.getElementById("lbl-week").hidden=v!=="creator";
   if(v==="pm") renderPM();
-  else if(v==="ov") renderOV();
   else if(v==="num") renderNum();
   else if(v==="done") renderDone();
   else if(charts.video) charts.video.resize();
@@ -2511,13 +2425,11 @@ function applyLang(){
   document.getElementById("footer").innerHTML=T().footer;
   document.getElementById("tab-creator").textContent=T().tab.creator;
   document.getElementById("tab-pm").textContent=T().tab.pm;
-  document.getElementById("tab-ov").textContent=T().tab.ov;
   document.getElementById("tab-num").textContent=T().tab.num;
   document.getElementById("tab-done").textContent=T().tab.done;
   const plan=document.getElementById("tab-plan");
   plan.textContent=T().tab.plan; plan.href=PLANNER_URL; plan.hidden=!NOTION_AI;
   if(VIEW==="pm") renderPM();
-  if(VIEW==="ov") renderOV();
   if(VIEW==="num") renderNum();
   if(VIEW==="done") renderDone();
   Object.entries(MODE_BTN).forEach(([k,id])=>
@@ -2571,7 +2483,7 @@ function applyTheme(v){
   const cur=(v==="light"||v==="dark")?v:(sysDark()?"dark":"light");
   document.querySelectorAll("#theme button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===cur));
 }
-function repaint(){ if(Object.keys(charts).length) refreshCharts(); update(); renderCreatorSchedule(); if(VIEW==="pm") renderPM(); if(VIEW==="ov") renderOV(); if(VIEW==="num") renderNum(); }
+function repaint(){ if(Object.keys(charts).length) refreshCharts(); update(); renderCreatorSchedule(); if(VIEW==="pm") renderPM(); if(VIEW==="num") renderNum(); }
 (()=>{ let v=null; try{ v=localStorage.getItem(THEME_KEY); }catch(e){} applyTheme(v); })();
 document.getElementById("theme").addEventListener("click",e=>{
   const b=e.target.closest("button[data-v]"); if(!b) return;
@@ -2584,21 +2496,20 @@ if(window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListene
 });
 document.getElementById("tab-creator").addEventListener("click",()=>showView("creator"));
 document.getElementById("tab-pm").addEventListener("click",()=>showView("pm"));
-document.getElementById("tab-ov").addEventListener("click",()=>showView("ov"));
 document.getElementById("tab-num").addEventListener("click",()=>showView("num"));
 document.getElementById("tab-done").addEventListener("click",()=>showView("done"));
 document.querySelector(".tabs").addEventListener("keydown",e=>{
   if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight") return;
-  const order=["creator","pm","ov","num","done"], i=order.indexOf(VIEW);
+  const order=["creator","pm","num","done"], i=order.indexOf(VIEW);
   const next=order[(i+(e.key==="ArrowRight"?1:order.length-1))%order.length];
   showView(next); document.getElementById("tab-"+next).focus();
 });
 document.getElementById("pm-week").addEventListener("change",e=>{pmWeek=e.target.value;renderPM();});
 function boot(){
   applyLang(); buildCharts(); update(); renderCreatorSchedule();
-  let v=location.hash==="#pm"?"pm":location.hash==="#overview"?"ov":location.hash==="#number"?"num":location.hash==="#done"?"done":null;
+  let v=location.hash==="#pm"?"pm":location.hash==="#number"?"num":location.hash==="#done"?"done":null;
   if(!v){ try{ v=localStorage.getItem("ct-view"); }catch(e){} }
-  showView(["pm","ov","num","done"].includes(v)?v:"creator");
+  showView(["pm","num","done"].includes(v)?v:"creator");
 }
 
 loadLiveCSV().then(r=>{
