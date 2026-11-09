@@ -612,6 +612,23 @@
   </div>
 
   <div id="view-done" role="tabpanel" aria-labelledby="tab-done" hidden>
+    <div class="tcard pm-card">
+      <div class="cs-head"><h2 class="ov-h" id="dn-title"></h2>
+        <div class="toggle" role="group" id="dn-mode">
+          <button type="button" data-mode="week" aria-pressed="false"></button>
+          <button type="button" data-mode="month" aria-pressed="true"></button>
+          <button type="button" data-mode="game" aria-pressed="false"></button>
+        </div>
+        <div class="toggle" role="group" id="dn-team">
+          <button type="button" data-team="UA" aria-pressed="true"></button>
+          <button type="button" data-team="AI" aria-pressed="false"></button>
+          <button type="button" data-team="all" aria-pressed="false"></button>
+        </div>
+      </div>
+      <div class="ov-scroll" id="dn-scroll"><table id="dn-table"></table></div>
+      <p class="pm-note src-line" id="dn-src"></p>
+    </div>
+    <p class="pm-note" id="dn-note"></p>
     <div class="tcard pm-card" id="sv-card">
       <div class="cs-head"><h2 class="ov-h" id="sv-title"></h2>
         <form class="sv-ctl" id="sv-form" role="search" autocomplete="off">
@@ -631,23 +648,6 @@
       <div class="sv-frame" id="sv-frame"><iframe id="sv-ifr" allow="autoplay; fullscreen" allowfullscreen title="video"></iframe></div>
       <p class="pm-note" id="sv-dlg-note"></p>
     </dialog>
-    <div class="tcard pm-card">
-      <div class="cs-head"><h2 class="ov-h" id="dn-title"></h2>
-        <div class="toggle" role="group" id="dn-mode">
-          <button type="button" data-mode="week" aria-pressed="false"></button>
-          <button type="button" data-mode="month" aria-pressed="true"></button>
-          <button type="button" data-mode="game" aria-pressed="false"></button>
-        </div>
-        <div class="toggle" role="group" id="dn-team">
-          <button type="button" data-team="UA" aria-pressed="true"></button>
-          <button type="button" data-team="AI" aria-pressed="false"></button>
-          <button type="button" data-team="all" aria-pressed="false"></button>
-        </div>
-      </div>
-      <div class="ov-scroll" id="dn-scroll"><table id="dn-table"></table></div>
-      <p class="pm-note src-line" id="dn-src"></p>
-    </div>
-    <p class="pm-note" id="dn-note"></p>
   </div>
 </div>
 
