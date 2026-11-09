@@ -22,6 +22,17 @@ DATE_RE = re.compile(r"^\d{6}$")
 DUR_RE = re.compile(r"^\d+s$", re.I)
 
 
+RATIO = {"1080x1920": "9x16", "1080x1080": "1x1", "1920x1080": "16x9"}
+
+
+def ratio_of(folder):
+    f = folder.replace(":", "x").replace(".", " ")
+    for k in ("9x16", "16x9", "1x1"):
+        if k in f:
+            return k
+    return "other"
+
+
 def parse(name):
     # "99999_video…" = video bị loại/đánh dấu xoá → không đếm
     name = re.sub(r"[.\-]+(mp4|mov|webm)(\.(mp4|mov|webm))*$", r".\1", name.strip(), flags=re.I)  # "..mp4", "-mp4.mp4", ".mp4.mp4"
@@ -70,10 +81,13 @@ def main(src, outdir):
         social = "social" in (r.get("Path") or r.get("Subfolder") or "").lower()
         k = (r["Game"], "Social" if social else "UA", p["n"])
         v = vids.setdefault(k, {"game": r["Game"], "type": k[1], "n": p["n"], "creator": "", "date": None,
-                                "concept": "", "lang": "", "dur": "", "sizes": set(), "files": 0})
+                                "concept": "", "lang": "", "dur": "", "sizes": set(), "files": 0, "links": {}})
         v["files"] += 1
         if p["size"]:
             v["sizes"].add(p["size"])
+        lab = RATIO.get(p["size"]) or ratio_of(r.get("Subfolder") or "")
+        if lab and r.get("FileId") and lab not in v["links"]:
+            v["links"][lab] = r["FileId"]
         for f in ("creator", "concept", "lang", "dur"):
             if p[f] and not v[f]:
                 v[f] = p[f]
@@ -85,10 +99,11 @@ def main(src, outdir):
             v["date"] = d
     vs = sorted(vids.values(), key=lambda v: (v["game"], v["type"], v["n"]))
     w = csv.writer(open(os.path.join(outdir, "drive_videos.csv"), "w", encoding="utf-8", newline=""), lineterminator="\n")
-    w.writerow(["Game", "Type", "Creative number", "Creator", "Date", "Concept", "Lang", "Duration", "Sizes", "Files"])
+    w.writerow(["Game", "Type", "Creative number", "Creator", "Date", "Concept", "Lang", "Duration", "Sizes", "Files", "Links"])
     for v in vs:
         w.writerow([v["game"], v["type"], v["n"], v["creator"].title(), v["date"].isoformat() if v["date"] else "",
-                    v["concept"], v["lang"], v["dur"], " ".join(sorted(v["sizes"])), v["files"]])
+                    v["concept"], v["lang"], v["dur"], " ".join(sorted(v["sizes"])), v["files"],
+                    " ".join(f"{k}={v['links'][k]}" for k in ("9x16", "1x1", "16x9", "other") if k in v["links"])])
     mx = defaultdict(lambda: None)
     for v in vs:
         if v["type"] != "UA":                # dãy Social trên Drive không khớp dãy Social trên Notion → bỏ
