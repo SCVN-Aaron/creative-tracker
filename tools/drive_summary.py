@@ -9,24 +9,29 @@ Một video xuất nhiều kích thước (9x16, 1x1, 16x9) → đếm 1 lần t
 
 Ghi ra:
   data/drive_videos.csv   — mỗi dòng 1 video: Game, Type, Creative number, Creator, Date, Concept, Lang, Duration, Sizes, Files
-  data/drive_numbers.csv  — số Creative lớn nhất theo game (tab Đánh số dùng)
+  data/drive_numbers.csv  — số Creative lớn nhất theo game, dãy UA (tab Đánh số dùng)
+  data/drive_creator_month.csv — số video mỗi Creator theo tháng (Team lấy theo data Notion: UA / AI)
+  data/drive_creator_game.csv  — số video mỗi Creator theo game
 """
 import csv, datetime, os, re, sys
 from collections import defaultdict
 
-NAME_RE = re.compile(r"^video(\d{4,})_(.+)\.(mp4|mov|webm)$", re.I)
+NAME_RE = re.compile(r"^(?:copy of )?video(\d{4,})_(.+?)(?:\.(?:mp4|mov|webm))*$", re.I)
 SIZE_RE = re.compile(r"^\d{3,4}x\d{3,4}$")
 DATE_RE = re.compile(r"^\d{6}$")
 DUR_RE = re.compile(r"^\d+s$", re.I)
 
 
 def parse(name):
+    # "99999_video…" = video bị loại/đánh dấu xoá → không đếm
     m = NAME_RE.match(name.strip())
     if not m:
         return None
     parts = m.group(2).split("_")
     out = {"n": int(m.group(1)), "concept": "", "lang": "", "dur": "", "size": "", "creator": "", "date": None}
     # tìm từ phải sang: ddmmyy, creator, kích thước, thời lượng, ngôn ngữ, phần còn lại là concept
+    if parts and re.fullmatch(r"\d{7}", parts[-1]):      # 5112026 → 051126
+        parts[-1] = parts[-1].zfill(8)[:4] + parts[-1][-2:]
     if parts and DATE_RE.match(parts[-1]):
         d = parts.pop()
         try:
@@ -53,6 +58,8 @@ def main(src, outdir):
     vids, bad = {}, []
     for r in rows:
         p = parse(r["File"])
+        if p and p["n"] >= 99000:          # 99999 = số tạm / video bị loại
+            p = None
         if not p:
             if re.search(r"\.(mp4|mov|webm)$", r["File"], re.I):
                 bad.append(r)
@@ -67,10 +74,12 @@ def main(src, outdir):
         for f in ("creator", "concept", "lang", "dur"):
             if p[f] and not v[f]:
                 v[f] = p[f]
-        if p["date"] and (not v["date"] or p["date"] < v["date"]):
-            v["date"] = p["date"]
-        if not v["date"]:
-            v["date"] = datetime.date.fromisoformat(r["CreatedTime"][:10])
+        created = datetime.date.fromisoformat(r["CreatedTime"][:10])
+        d = p["date"]
+        if not d or abs((d - created).days) > 45:   # ngày trong tên file gõ sai → lấy ngày upload
+            d = created
+        if not v["date"] or d < v["date"]:
+            v["date"] = d
     vs = sorted(vids.values(), key=lambda v: (v["game"], v["type"], v["n"]))
     w = csv.writer(open(os.path.join(outdir, "drive_videos.csv"), "w", encoding="utf-8", newline=""), lineterminator="\n")
     w.writerow(["Game", "Type", "Creative number", "Creator", "Date", "Concept", "Lang", "Duration", "Sizes", "Files"])
@@ -79,6 +88,8 @@ def main(src, outdir):
                     v["concept"], v["lang"], v["dur"], " ".join(sorted(v["sizes"])), v["files"]])
     mx = defaultdict(lambda: None)
     for v in vs:
+        if v["type"] != "UA":                # dãy Social trên Drive không khớp dãy Social trên Notion → bỏ
+            continue
         k = (v["game"], v["type"])
         if not mx[k] or v["n"] > mx[k]["n"]:
             mx[k] = v
@@ -88,6 +99,33 @@ def main(src, outdir):
     for (g, t), v in sorted(mx.items()):
         cnt = sum(1 for x in vs if x["game"] == g and x["type"] == t)
         w.writerow([g, t, v["n"], cnt, f"video{v['n']}_{v['concept']}_{v['creator']}", today])
+    # Team: theo tên Creator trong data Notion (latest.csv = UA, ai_numbers.csv = AI)
+    team = {}
+    for fn, t in (("latest.csv", "UA"), ("ai_numbers.csv", "AI")):
+        fp = os.path.join(outdir, fn)
+        if os.path.exists(fp):
+            for r in csv.DictReader(open(fp, encoding="utf-8")):
+                for c in (r.get("Creator") or "").split(","):
+                    if c.strip():
+                        team.setdefault(c.strip().lower(), t)
+    months = sorted({v["date"].strftime("%Y-%m") for v in vs})
+    by_cm, by_cg = defaultdict(int), defaultdict(int)
+    for v in vs:
+        c = v["creator"] or "?"
+        by_cm[(c, v["date"].strftime("%Y-%m"))] += 1
+        by_cg[(c, v["game"])] += 1
+    creators = sorted({c for c, _ in by_cm}, key=lambda c: (team.get(c, "?"), -sum(by_cm[(c, m)] for m in months)))
+    w = csv.writer(open(os.path.join(outdir, "drive_creator_month.csv"), "w", encoding="utf-8", newline=""), lineterminator="\n")
+    w.writerow(["Creator", "Team"] + months + ["Total"])
+    for c in creators:
+        ns = [by_cm[(c, m)] for m in months]
+        w.writerow([c.title(), team.get(c, "?")] + [n or "" for n in ns] + [sum(ns)])
+    games = sorted({g for _, g in by_cg})
+    w = csv.writer(open(os.path.join(outdir, "drive_creator_game.csv"), "w", encoding="utf-8", newline=""), lineterminator="\n")
+    w.writerow(["Creator", "Team"] + games + ["Total"])
+    for c in creators:
+        ns = [by_cg[(c, g)] for g in games]
+        w.writerow([c.title(), team.get(c, "?")] + [n or "" for n in ns] + [sum(ns)])
     print(f"{len(rows)} file → {len(vs)} video (đếm 1 lần mỗi số Creative), {len(mx)} dãy số")
     if bad:
         print(f"{len(bad)} file video không đúng mẫu tên, ví dụ:")
