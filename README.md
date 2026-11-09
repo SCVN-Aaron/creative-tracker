@@ -41,7 +41,7 @@ Dashboard có ba tab và một link:
 - **Đã làm** (tab mới, link `#done`) — số video mỗi Creator đã làm theo file trên Google Drive: theo tuần (12 tuần gần nhất) / tháng / game, lọc Team UA / AI / tất cả. Mỗi số Creative tính 1 video dù có nhiều kích thước; chỉ tính video đã upload. Cập nhật: Claude quét Drive (các thư mục VN 제작 / VN제작 / VN영상 / UA Creative_VN / 1_영상 của từng game) ra danh sách file, rồi `python3 -I tools/drive_summary.py <drive_files.csv>` ghi `data/drive_videos.csv`, `data/drive_numbers.csv`, `data/drive_creator_month.csv`, `data/drive_creator_game.csv`; `python3 -I tools/drive_excel.py data <file.xlsx>` xuất Excel (Theo tháng / Theo tuần / Theo game / Danh sách video).
 - **Tìm video Creative** (tab Đã làm, dưới bảng số lượng) — chọn game và/hoặc gõ số Creative: số đầy đủ (`90582`), khoảng (`90573~90580` hoặc `90573~80`), hoặc vài số cuối (`582`). Kết quả: creator, ngày, concept, thời lượng, nút ▶ 9x16 / 1x1 / 16x9 phát video ngay trên dashboard (khung xem trước của Google Drive — cần đăng nhập tài khoản có quyền xem thư mục game; có link "Mở trên Drive") và task Notion có số đó (team UA lẫn AI). Số đã giữ trên Notion mà chưa upload hiện "Chưa có trên Drive". Chỉ chọn game = 30 video mới nhất của game đó. Link file lấy từ cột `Links` trong `data/drive_videos.csv`.
 - **Gộp file Notion** — `python3 tools/notion_merge.py <Creative Production DB …_all.csv>`: ghi `data/latest.csv` (Video Ads, có Creative number) và `data/ai_numbers.csv` (số Creative của team AI), in ra task mới / đổi tên / trùng / đã xoá để kiểm tra.
-- **Điều chỉnh chỉ tiêu cả đội** — kỳ nghỉ lễ / team building ghi trong hằng `WEEK_ADJ` của `index.html` (khoá = tên Period trên Notion, `bonus` âm = giảm mỗi người, `bonusEtc` cho ETC, `note` = lý do). Lý do hiện ở ô "Số lượng video tuần này" và khung "Vì sao…". Ví dụ tuần 19/10: team building nghỉ thứ 5, thứ 6 → giảm 2 video mỗi người.
+- **Điều chỉnh chỉ tiêu cả đội** — kỳ nghỉ lễ / team building: thêm dòng `Creator = ALL`, `Team change = -2` (và lý do ở cột Note) vào Google Sheet Quota exceptions (xem mục "Nghỉ phép và ngoại lệ chỉ tiêu" bên dưới). Lý do hiện ở ô "Số lượng video tuần này" và khung "Vì sao…". Ví dụ tuần 19/10: team building nghỉ thứ 5, thứ 6 → giảm 2 video mỗi người.
 - **Chỉ tiêu theo game** — tuần nào creator làm **Hypereels** thì chỉ tiêu tuần đó là **24 video** (thay cho 8; ETC 12). Xét task trên Notion trước, chưa có task thì theo lịch. Áp dụng cho chỉ tiêu tuần, cột "Chênh so chuẩn" và dự kiến tháng. Thêm game khác vào hằng `GAME_QUOTA` trong `index.html`. Nghỉ phép vẫn được ưu tiên hơn.
 - **Tự cập nhật lịch** — trang tự đọc lại cả 2 Google Sheet mỗi 2 phút (và khi quay lại tab), link có tham số chống cache; chỉ vẽ lại khi Sheet thay đổi. Dưới lịch ở tab Creator và tab PM có dòng nguồn: "Google Sheet trực tiếp" hoặc "bản lưu trong repo" (khi không đọc được Sheet). Google cần tới ~5 phút để đẩy thay đổi ra link publish, và phải bật *Automatically republish when changes are made* trong Publish to web.
 - **Tiêu đề phụ (YT) / (Social)** — nhận cả `(YT) Game` lẫn `(Social) Game` (nhãn đỏ YT, tím Social). Ô lịch (PM×Creator hoặc Loop) có thêm dòng `(YT) Game` (vd. `Snake Clash` + `(YT) XP Hero`) thì game chính giữ nguyên, game YT hiện kèm nhãn đỏ **YT** ở tab Creator và Lịch PM theo tuần. Task Notion có Iteration bắt đầu bằng `(YT)` cũng được gắn nhãn YT.
@@ -55,7 +55,23 @@ PM đã rời team (hằng `HIDDEN_PM` trong `index.html`, hiện là Avril) kh�
 
 Thành viên mới (kỳ đầu tiên có số nằm sau kỳ đầu của bảng): kỳ đầu tiên chỉ tiêu **2 video**, kỳ thứ hai **6**, từ kỳ thứ ba mới là 8 (hằng `RAMP` trong `index.html`). Tab Creator hiện nhãn "Mới · tuần 1/2" cạnh tên; chỉ tiêu đội, cột chênh so chuẩn và dự kiến tháng đều tính theo lộ trình này.
 
-Creator nghỉ phép vài ngày: thêm một dòng vào hằng `LEAVE` trong `index.html`, khoá là tên Period gốc trên Notion, ví dụ `"[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}}`. Tuần đó chỉ tiêu của người đó tính theo `quota` và tab Creator hiện ghi chú cạnh tên. Đầu trang (ô "Số lượng video tuần này") cũng hiện ghi chú "1 creator nghỉ phép 2 ngày nên số lượng giảm".
+**Nghỉ phép và ngoại lệ chỉ tiêu — nhập ở Google Sheet** [Creative Tracker — Quota exceptions](https://docs.google.com/spreadsheets/d/1nAg1pIdvE0I-RwGsnOVPFEsQz4kxMhOg1DQKCngTEG8/edit) — Sheet **riêng tư, chỉ admin mở được** (không Publish to web).
+
+**Form nhập trên dashboard (nút "Leave / Nghỉ phép" trên đầu trang):** nhập mật khẩu admin → thêm hoặc xoá ngoại lệ, dashboard cập nhật ngay. Form ghi vào Sheet qua Apps Script `tools/exceptions_api.gs` gắn vào Sheet: mật khẩu kiểm tra phía Google (lưu trong Script properties `ADMIN_PASSWORD`, không nằm trong dashboard), sai 8 lần trong 10 phút thì khoá tạm. Cài 1 lần theo hướng dẫn đầu file `.gs`, rồi dán link Web App (`…/exec`) vào hằng `EXC_API` trong `index.html`. Dashboard đọc ngoại lệ qua link đó (mỗi 2 phút); chưa có link hoặc không đọc được thì dùng bản lưu `data/exceptions.csv`. Đổi mật khẩu: sửa `ADMIN_PASSWORD` trong Script properties.
+
+Mỗi dòng một ngoại lệ:
+
+| Cột | Ý nghĩa |
+|---|---|
+| Week | Ngày bất kỳ trong tuần, nên gõ `2026-11-16` (cũng nhận `16/11/2026`, `16/11` hoặc tên Period trên Notion) |
+| Creator | Tên creator; `ALL` = cả đội |
+| Days off | Số ngày nghỉ → chỉ tiêu = chỉ tiêu thường − số ngày (8 → 7, ETC 12 → 11) |
+| Target | Tuỳ chọn: ghi đè chỉ tiêu tuần đó của người đó |
+| Dev/Art | Tuần đó có dev/art: số video có dev/art (vd 12, nghỉ 1 ngày thì 9) → làm đúng số đó tính là "có dev/art" |
+| Team change | Chỉ dòng `ALL`: cộng/trừ mỗi người (vd `-2` khi team building), áp dụng cả ETC |
+| Note / Note EN / Note KO | Lý do hiện trên dashboard theo ngôn ngữ (bỏ trống EN/KO thì dùng Note) |
+
+Dòng nguồn dưới lịch ghi "Nghỉ phép / ngoại lệ: Google Sheet trực tiếp" (đọc qua Apps Script) hoặc "bản lưu". Tab Đánh số cũng dùng bảng này khi "Điền theo lịch" (nghỉ phép trừ số video, Dev/Art dùng số có dev/art, `ALL` cộng/trừ cả đội). Hằng `LEAVE` / `WEEK_ADJ` trong code vẫn dùng được nhưng để trống.
 
 Các bảng rộng (lịch tab Creator, tab PM, tab Đã làm) kéo được bằng chuột: nhấn giữ trong bảng rồi kéo để xem, khỏi kéo thanh cuộn bên dưới.
 

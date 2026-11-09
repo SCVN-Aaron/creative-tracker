@@ -352,6 +352,31 @@
   #sv-table button.sz{display:inline-block;margin-right:6px;padding:1px 9px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--accent);background:none;cursor:pointer;font-family:"IBM Plex Mono",monospace}
   #sv-table button.sz:hover,#sv-table button.sz:focus-visible{background:var(--accent-bg)}
   #sv-table button.sz::before{content:"▶ ";font-size:9px}
+  .exc-open{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 12px;border:1px solid var(--line);border-radius:9px;background:var(--soft);color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+  .exc-open svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .exc-open:hover{border-color:var(--ink-2)}
+  #exc-dlg{border:1px solid var(--line);border-radius:12px;padding:0;background:var(--panel);color:var(--ink);width:min(760px,96vw);max-height:92vh;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+  #exc-dlg [hidden]{display:none!important}
+  #exc-dlg::backdrop{background:rgba(0,0,0,.55)}
+  .exc-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:15px}
+  .exc-body{padding:12px 16px 16px;display:grid;gap:12px}
+  .exc-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .exc-row label{font-size:13px;color:var(--ink-2)}
+  #exc-dlg input,#exc-dlg select{font:inherit;font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-width:0}
+  .exc-h{margin:4px 0 0;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2)}
+  .exc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .exc-grid label{display:grid;gap:4px;font-size:12.5px;color:var(--ink-2)}
+  .exc-grid .wide{grid-column:1/-1}
+  .exc-grid label.off{opacity:.4}
+  .exc-act{display:flex;align-items:center;gap:8px}
+  @media (max-width:560px){.exc-grid{grid-template-columns:1fr 1fr}}
+  #exc-list{width:100%;border-collapse:collapse;font-size:13px}
+  #exc-list th,#exc-list td{padding:6px 8px;border-bottom:1px solid var(--grid);text-align:left;white-space:nowrap}
+  #exc-list th{font-size:11.5px;color:var(--ink-2);background:var(--th);text-transform:uppercase}
+  #exc-list td.note{white-space:normal;min-width:160px}
+  #exc-list tr.past td{opacity:.6}
+  .exc-msg{margin:0;font-size:13px;min-height:1em}
+  .exc-msg.err{color:var(--down)}.exc-msg.ok{color:var(--up)}
   #sv-dlg{border:1px solid var(--line);border-radius:12px;padding:0;background:var(--panel);color:var(--ink);max-width:96vw;box-shadow:0 10px 40px rgba(0,0,0,.35)}
   #sv-dlg::backdrop{background:rgba(0,0,0,.6)}
   .sv-dlg-head{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
@@ -502,6 +527,7 @@
     <div class="picker">
       <label for="week" id="lbl-week">Tuần</label>
       <select id="week"></select>
+      <button type="button" class="exc-open" id="exc-open"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15h6"/></svg><span id="exc-open-l"></span></button>
       <div class="theme-sw" id="theme" role="group" aria-label="Theme">
         <button type="button" data-v="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
         <button type="button" data-v="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
@@ -658,6 +684,34 @@
   </div>
 </div>
 
+    <dialog id="exc-dlg" aria-labelledby="exc-title">
+      <div class="exc-head"><strong id="exc-title"></strong><span class="num-sp"></span><button type="button" class="num-btn" id="exc-x" aria-label="Close">✕</button></div>
+      <div class="exc-body">
+        <p class="pm-note" id="exc-intro"></p>
+        <form id="exc-login" class="exc-row" autocomplete="off">
+          <label for="exc-pw" id="exc-pw-l"></label><input type="password" id="exc-pw" autocomplete="current-password">
+          <button type="submit" class="num-btn primary" id="exc-unlock"></button>
+        </form>
+        <div id="exc-editor" hidden>
+          <h3 class="exc-h" id="exc-add-h"></h3>
+          <form id="exc-add" class="exc-grid" autocomplete="off">
+            <label><span id="exc-f-week"></span><input type="date" name="Week" required></label>
+            <label><span id="exc-f-who"></span><select name="Creator" required></select></label>
+            <label class="ind"><span id="exc-f-days"></span><input type="number" name="Days off" min="0" max="7" step="0.5"></label>
+            <label class="ind"><span id="exc-f-target"></span><input type="number" name="Target" min="0" max="99"></label>
+            <label class="ind"><span id="exc-f-dev"></span><input type="number" name="Dev/Art" min="0" max="99"></label>
+            <label class="all"><span id="exc-f-team"></span><input type="number" name="Team change" min="-20" max="20"></label>
+            <label class="wide"><span id="exc-f-note"></span><input type="text" name="Note" maxlength="200"></label>
+            <label class="wide"><span>Note EN</span><input type="text" name="Note EN" maxlength="200"></label>
+            <label class="wide"><span>Note KO</span><input type="text" name="Note KO" maxlength="200"></label>
+            <div class="wide exc-act"><span class="pm-note" id="exc-hint"></span><span class="num-sp"></span><button type="submit" class="num-btn primary" id="exc-save"></button></div>
+          </form>
+          <h3 class="exc-h" id="exc-list-h"></h3>
+          <div class="pm-scroll"><table id="exc-list"></table></div>
+        </div>
+        <p class="exc-msg" id="exc-msg" role="status"></p>
+      </div>
+    </dialog>
 <script>
 // ---------------------------------------------------------------- data
 // <<< DATA_START — khối này do update_dashboard.py ghi đè, đừng sửa tay >>>
@@ -727,6 +781,9 @@ const I18N={
  vi:{
   name:"Tiếng Việt",
   tab:{creator:"Creator",pm:"PM",ov:"Overview",num:"Đánh số",done:"Đã làm",plan:"Lên kế hoạch ↗"},
+  exc:{open:"Nghỉ phép", title:"Nghỉ phép / ngoại lệ chỉ tiêu", intro:"Chỉ admin có mật khẩu mới thêm hoặc xoá được. Dashboard cập nhật ngay sau khi lưu.", pw:"Mật khẩu admin", unlock:"Mở khoá", addH:"Thêm ngoại lệ", listH:"Đã nhập (8 tuần gần đây và sắp tới)", week:"Tuần (ngày bất kỳ trong tuần)", who:"Creator", all:"ALL — cả đội", days:"Số ngày nghỉ", target:"Chỉ tiêu riêng (tuỳ chọn)", dev:"Có dev/art: số video", team:"Cả đội: cộng/trừ mỗi người", note:"Ghi chú (lý do)", save:"Lưu", del:"Xoá", delQ:"Xoá dòng này?", hintInd:"Bỏ trống chỉ tiêu riêng = chỉ tiêu thường − số ngày nghỉ.", hintAll:"Vd −2 khi team building / nghỉ lễ (áp dụng cả ETC).",
+    th:["Tuần","Creator","Nghỉ","Chỉ tiêu","Dev/art","Cả đội","Ghi chú",""], saved:"Đã lưu — dashboard đã cập nhật.", deleted:"Đã xoá.", checking:"Đang kiểm tra…", saving:"Đang lưu…",
+    err:{wrong_password:"Sai mật khẩu.", locked:"Sai mật khẩu quá nhiều lần — thử lại sau 10 phút.", no_password_set:"Chưa đặt ADMIN_PASSWORD trong Apps Script.", changed:"Sheet vừa thay đổi — đã tải lại, thử lại.", bad_row:"Thiếu tuần hoặc creator.", net:"Không kết nối được Apps Script.", noapi:"Chưa kết nối Apps Script: làm theo hướng dẫn trong tools/exceptions_api.gs rồi gửi link Web App cho Claude.", need:"Điền số ngày nghỉ, chỉ tiêu riêng, số có dev/art hoặc mức cộng/trừ cả đội."}},
   sv:{title:"Tìm video Creative", game:"Game", all:"Tất cả game", num:"Số Creative", ph:"vd 90582 · 90573~90580 · 582", go:"Tìm", n:"Số", creator:"Creator", date:"Ngày", concept:"Concept", dur:"Thời lượng", video:"Video trên Drive", task:"Task Notion", notOnDrive:"Chưa có trên Drive", noTask:"—", ai:"AI",
     found:n=>`${n} video`, more:(n,m)=>`Hiện ${n}/${m} video — gõ số cụ thể hơn để lọc`, none:"Không tìm thấy video nào", latest:(n,g)=>`${n} video mới nhất của ${g}`, hint:"Chọn game và/hoặc gõ số Creative (số đầy đủ, khoảng 90573~90580, hoặc vài số cuối).", play:"Xem video", open:"Mở trên Drive ↗", dlgNote:"Video phát từ Google Drive — cần đăng nhập tài khoản có quyền xem thư mục game. Không xem được thì bấm “Mở trên Drive”."},
   done:{title:"Số video đã làm (theo Google Drive)", week:"Theo tuần", month:"Theo tháng", game:"Theo game", ua:"Team UA", ai:"Team AI", all:"Tất cả", creator:"Creator", total:"Tổng", grand:"Cả team", wk:d=>"Tuần "+d, thisMonth:"Tháng này", mon:m=>"Tháng "+m, src:d=>"Quét Drive ngày "+d, none:"Chưa có dữ liệu Drive (data/drive_videos.csv).",
@@ -751,7 +808,7 @@ const I18N={
       open:"Mở trên Notion", empty:"Tuần này chưa có task nào trên Notion.",
       noData:"Chưa có dữ liệu chi tiết từng task. File data/latest.csv cần thêm các cột Game Title, Iteration, Status và Page ID (file CSV export từ Notion có sẵn các cột này).",
       note:u=>`Mỗi dòng là một task trong Creative Production DB của Video Ads Team. Bấm tên Iteration để mở task trên Notion. Tuần sắp tới là kế hoạch đã nhập trước.${u?` Thêm kế hoạch mới bằng <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (mở trên claude.ai, cần connector Notion).`:""}`},
-  src:{live:"Google Sheet trực tiếp", cached:"bản lưu trong repo (không đọc được Google Sheet)", none:"không đọc được", at:t=>`đọc lúc ${t} · tự đọc lại mỗi 2 phút`},
+  src:{exc:"Nghỉ phép / ngoại lệ", live:"Google Sheet trực tiếp", cached:"bản lưu trong repo (không đọc được Google Sheet)", none:"không đọc được", at:t=>`đọc lúc ${t} · tự đọc lại mỗi 2 phút`},
   ytTip:"(YT) / (Social) — video YouTube / social làm kèm, tiêu đề phụ của tuần đó",
   soloTag:"tự làm", rampTag:n=>`Mới · tuần ${n}`, rampTip:q=>`Thành viên mới — chỉ tiêu tuần này ${q} video (tuần 1: 2, tuần 2: 6, từ tuần 3: 8)`, leaveTip:q=>`Nghỉ phép — chỉ tiêu tuần này tính ${q} video`,
   pmLine:(n,h)=>`${n}/${h} người làm chung với PM`,
@@ -817,6 +874,9 @@ const I18N={
  en:{
   name:"English",
   tab:{creator:"Creators",pm:"PMs",ov:"Overview",num:"Numbering",done:"Produced",plan:"Plan ahead ↗"},
+  exc:{open:"Leave", title:"Leave / target exceptions", intro:"Only an admin with the password can add or remove entries. The dashboard updates as soon as you save.", pw:"Admin password", unlock:"Unlock", addH:"Add an exception", listH:"Entered (last 8 weeks and upcoming)", week:"Week (any day in it)", who:"Creator", all:"ALL — whole team", days:"Days off", target:"Own target (optional)", dev:"Dev/art support: videos", team:"Whole team: ± per person", note:"Note (reason)", save:"Save", del:"Delete", delQ:"Delete this entry?", hintInd:"Leave the own target blank to use the normal target minus days off.", hintAll:"E.g. −2 for team building / a holiday (ETC included).",
+    th:["Week","Creator","Off","Target","Dev/art","Team","Note",""], saved:"Saved — the dashboard is updated.", deleted:"Deleted.", checking:"Checking…", saving:"Saving…",
+    err:{wrong_password:"Wrong password.", locked:"Too many wrong passwords — try again in 10 minutes.", no_password_set:"ADMIN_PASSWORD isn’t set in Apps Script yet.", changed:"The sheet just changed — reloaded, please try again.", bad_row:"Week or creator is missing.", net:"Couldn’t reach Apps Script.", noapi:"Apps Script isn’t connected yet: follow tools/exceptions_api.gs and send Claude the Web App link.", need:"Fill in days off, an own target, a dev/art count or a whole-team change."}},
   sv:{title:"Find a Creative video", game:"Game", all:"All games", num:"Creative number", ph:"e.g. 90582 · 90573~90580 · 582", go:"Search", n:"No.", creator:"Creator", date:"Date", concept:"Concept", dur:"Length", video:"Video on Drive", task:"Notion task", notOnDrive:"Not on Drive yet", noTask:"—", ai:"AI",
     found:n=>`${n} videos`, more:(n,m)=>`Showing ${n} of ${m} — type a more specific number`, none:"No videos found", latest:(n,g)=>`Latest ${n} videos of ${g}`, hint:"Pick a game and/or type a Creative number (full number, a range like 90573~90580, or the last few digits).", play:"Play video", open:"Open in Drive ↗", dlgNote:"Plays from Google Drive — you need to be signed in with an account that can view the game folder. If it won’t play, use “Open in Drive”."},
   done:{title:"Videos produced (from Google Drive)", week:"By week", month:"By month", game:"By game", ua:"UA team", ai:"AI team", all:"All", creator:"Creator", total:"Total", grand:"Whole team", wk:d=>"Week "+d, thisMonth:"This month", mon:m=>["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1], src:d=>"Drive scanned on "+d, none:"No Drive data yet (data/drive_videos.csv).",
@@ -841,7 +901,7 @@ const I18N={
       open:"Open in Notion", empty:"No task in Notion for this week yet.",
       noData:"No per-task data yet. data/latest.csv needs the Game Title, Iteration, Status and Page ID columns (the CSV exported from Notion has them).",
       note:u=>`Each row is one Video Ads Team task in the Creative Production DB. Click an Iteration to open it in Notion. Upcoming weeks show plans entered ahead of time.${u?` Add new plans with <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a> (opens on claude.ai, needs the Notion connector).`:""}`},
-  src:{live:"live Google Sheet", cached:"saved copy in the repo (could not read the Google Sheet)", none:"could not read", at:t=>`read at ${t} · re-reads every 2 minutes`},
+  src:{exc:"Leave / exceptions", live:"live Google Sheet", cached:"saved copy in the repo (could not read the Google Sheet)", none:"could not read", at:t=>`read at ${t} · re-reads every 2 minutes`},
   ytTip:"(YT) / (Social) — extra YouTube / social video, a side title for that week",
   soloTag:"solo", rampTag:n=>`New · week ${n}`, rampTip:q=>`New member — target this week is ${q} videos (week 1: 2, week 2: 6, from week 3: 8)`, leaveTip:q=>`On leave — target this week is ${q} videos`,
   pmLine:(n,h)=>`${n} of ${h} worked with a PM`,
@@ -907,6 +967,9 @@ const I18N={
  ko:{
   name:"한국어",
   tab:{creator:"크리에이터",pm:"PM",ov:"전체 보기",num:"번호 매기기",done:"제작 실적",plan:"계획 세우기 ↗"},
+  exc:{open:"휴가", title:"휴가 / 목표 예외", intro:"비밀번호가 있는 관리자만 추가·삭제할 수 있습니다. 저장하면 대시보드가 바로 갱신됩니다.", pw:"관리자 비밀번호", unlock:"잠금 해제", addH:"예외 추가", listH:"입력된 항목 (최근 8주 및 예정)", week:"주 (해당 주의 아무 날짜)", who:"크리에이터", all:"ALL — 팀 전체", days:"휴무일 수", target:"개별 목표 (선택)", dev:"dev/art 지원: 영상 수", team:"팀 전체: 1인당 ±", note:"메모 (사유)", save:"저장", del:"삭제", delQ:"이 항목을 삭제할까요?", hintInd:"개별 목표를 비우면 기본 목표에서 휴무일 수만큼 뺍니다.", hintAll:"예: 팀 빌딩 / 공휴일은 −2 (ETC 포함).",
+    th:["주","크리에이터","휴무","목표","Dev/art","팀","메모",""], saved:"저장됨 — 대시보드가 갱신되었습니다.", deleted:"삭제됨.", checking:"확인 중…", saving:"저장 중…",
+    err:{wrong_password:"비밀번호가 틀렸습니다.", locked:"비밀번호 오류가 너무 많습니다 — 10분 후 다시 시도하세요.", no_password_set:"Apps Script에 ADMIN_PASSWORD가 설정되지 않았습니다.", changed:"시트가 방금 변경되어 다시 불러왔습니다. 다시 시도하세요.", bad_row:"주 또는 크리에이터가 없습니다.", net:"Apps Script에 연결할 수 없습니다.", noapi:"Apps Script가 아직 연결되지 않았습니다: tools/exceptions_api.gs 안내에 따라 Web App 링크를 Claude에게 보내 주세요.", need:"휴무일 수, 개별 목표, dev/art 수 또는 팀 전체 변경값을 입력하세요."}},
   sv:{title:"Creative 영상 찾기", game:"게임", all:"전체 게임", num:"Creative 번호", ph:"예: 90582 · 90573~90580 · 582", go:"검색", n:"번호", creator:"크리에이터", date:"날짜", concept:"콘셉트", dur:"길이", video:"Drive 영상", task:"Notion 작업", notOnDrive:"Drive에 아직 없음", noTask:"—", ai:"AI",
     found:n=>`영상 ${n}개`, more:(n,m)=>`${m}개 중 ${n}개 표시 — 번호를 더 구체적으로 입력하세요`, none:"찾은 영상이 없습니다", latest:(n,g)=>`${g} 최신 영상 ${n}개`, hint:"게임을 고르거나 Creative 번호를 입력하세요(전체 번호, 90573~90580 같은 범위, 또는 끝자리).", play:"영상 보기", open:"Drive에서 열기 ↗", dlgNote:"Google Drive에서 재생됩니다 — 게임 폴더를 볼 수 있는 계정으로 로그인해야 합니다. 재생되지 않으면 “Drive에서 열기”를 누르세요."},
   done:{title:"제작한 영상 수 (Google Drive 기준)", week:"주별", month:"월별", game:"게임별", ua:"UA 팀", ai:"AI 팀", all:"전체", creator:"크리에이터", total:"합계", grand:"팀 전체", wk:d=>d+" 주", thisMonth:"이번 달", mon:m=>m+"월", src:d=>"Drive 확인일 "+d, none:"Drive 데이터가 없습니다 (data/drive_videos.csv).",
@@ -931,7 +994,7 @@ const I18N={
       open:"Notion에서 열기", empty:"이번 주 Notion에 등록된 작업이 없습니다.",
       noData:"작업별 데이터가 아직 없습니다. data/latest.csv에 Game Title, Iteration, Status, Page ID 컬럼이 필요합니다(Notion에서 내보낸 CSV에 포함).",
       note:u=>`각 행은 Creative Production DB의 Video Ads Team 작업 하나입니다. Iteration을 누르면 Notion에서 열립니다. 예정 주차는 미리 입력한 계획입니다.${u?` 새 계획은 <a href="${u}" target="_blank" rel="noopener noreferrer">Creative Planner</a>에서 추가합니다(claude.ai에서 열림, Notion 커넥터 필요).`:""}`},
-  src:{live:"구글 시트 실시간", cached:"저장소 사본 (구글 시트를 읽지 못함)", none:"읽지 못함", at:t=>`${t}에 읽음 · 2분마다 다시 읽음`},
+  src:{exc:"휴가 / 예외", live:"구글 시트 실시간", cached:"저장소 사본 (구글 시트를 읽지 못함)", none:"읽지 못함", at:t=>`${t}에 읽음 · 2분마다 다시 읽음`},
   ytTip:"(YT) / (Social) — 추가 YouTube / 소셜 영상, 해당 주의 보조 타이틀",
   soloTag:"단독", rampTag:n=>`신규 · ${n}주차`, rampTip:q=>`신규 인원 — 이번 주 목표 ${q}개 (1주차 2개, 2주차 6개, 3주차부터 8개)`, leaveTip:q=>`휴가 — 이번 주 목표 ${q}개`,
   pmLine:(n,h)=>`${h}명 중 ${n}명 PM 협업`,
@@ -1329,7 +1392,7 @@ async function loadSchedule(){
 function renderSchedSrc(){
   const L=T().src, t=SCHED_AT?String(SCHED_AT.getHours()).padStart(2,"0")+":"+String(SCHED_AT.getMinutes()).padStart(2,"0"):"—";
   const one=(name,v)=>`${name}: <b class="${v?"src-ok":"src-bad"}">${v===null?L.none:v?L.live:L.cached}</b>`;
-  const html=`${one("4-Week Loop",SCHED_LOOP_LIVE)} · ${one("PM×Creator",SCHED_PM_LIVE)} · ${escH(L.at(t))}`;
+  const html=`${one("4-Week Loop",SCHED_LOOP_LIVE)} · ${one("PM×Creator",SCHED_PM_LIVE)} · ${one(L.exc,EXC_LIVE)} · ${escH(L.at(t))}`;
   ["cs-src","ps-src"].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=html; });
 }
 // PM được phân công trên lịch PM × Creator: tên, "" = không PM, undefined = lịch không ghi
@@ -1529,6 +1592,13 @@ function cnLast(){
 }
 // Chỉ tiêu dự kiến của một creator làm một game ở tuần bắt đầu ngày `date` (Hypereels 24, ETC 12, người mới 2 → 6 → 8)
 function planQuota(name,game,date){
+  const base=planBase(name,game,date);
+  if(!date) return base;
+  const ex=excIn(date,new Date(date.getTime()+7*864e5)), lv=ex.leave[String(name).toLowerCase()];
+  if(lv) return lv.support!=null?lv.support:lv.quota!=null?lv.quota:Math.max(0,base-(lv.days||0));
+  return ex.adj&&!GAME_QUOTA[gameKey(game)]?Math.max(0,base+(ex.adj.bonus||0)):base;
+}
+function planBase(name,game,date){
   const t=TEAMS[0], gq=GAME_QUOTA[gameKey(game)]; if(gq) return gq;
   if(name===t.etc) return t.etcQuota||t.quota;
   const arr=t.people[name]||[], first=arr.findIndex(v=>v!==null&&v!==undefined);
@@ -1779,6 +1849,88 @@ function renderDone(){
 document.getElementById("dn-mode").addEventListener("click",e=>{ const b=e.target.closest("button[data-mode]"); if(b){ DN_MODE=b.dataset.mode; renderDone(); } });
 document.getElementById("dn-team").addEventListener("click",e=>{ const b=e.target.closest("button[data-team]"); if(b){ DN_TEAM=b.dataset.team; renderDone(); } });
 
+// ---------------------------------------------------------------- Form nghỉ phép / ngoại lệ (admin)
+// Ghi qua Apps Script (EXC_API): mật khẩu kiểm tra phía Google, đúng mới ghi vào Sheet riêng tư.
+let EXC_PW="", EXC_LIST=[];
+const excDlg=document.getElementById("exc-dlg");
+function excMsg(t,cls){ const m=document.getElementById("exc-msg"); m.textContent=t||""; m.className="exc-msg"+(cls?" "+cls:""); }
+function excLabels(){
+  const L=T().exc;
+  document.getElementById("exc-open-l").textContent=L.open;
+  document.getElementById("exc-open").title=L.title;
+  [["exc-title",L.title],["exc-intro",L.intro],["exc-pw-l",L.pw],["exc-unlock",L.unlock],["exc-add-h",L.addH],["exc-list-h",L.listH],
+   ["exc-f-week",L.week],["exc-f-who",L.who],["exc-f-days",L.days],["exc-f-target",L.target],["exc-f-dev",L.dev],["exc-f-team",L.team],["exc-f-note",L.note],["exc-save",L.save]]
+    .forEach(([id,t])=>document.getElementById(id).textContent=t);
+  const sel=document.querySelector('#exc-add [name="Creator"]'), keep=sel.value;
+  const names=[...new Set([...Object.keys(TEAMS[0].people),...(SCHEDULE?SCHEDULE.people.map(p=>p.name):[])])].sort((a,b)=>a.localeCompare(b));
+  sel.innerHTML=`<option value="ALL">${escH(L.all)}</option>`+names.map(n=>`<option>${escH(n)}</option>`).join("");
+  if(keep) sel.value=keep;
+  excForm(); excList();
+}
+function excForm(){
+  const f=document.getElementById("exc-add"), all=f.Creator.value==="ALL", L=T().exc;
+  f.querySelectorAll("label.ind").forEach(l=>{ l.classList.toggle("off",all); l.querySelector("input").disabled=all; });
+  f.querySelectorAll("label.all").forEach(l=>{ l.classList.toggle("off",!all); l.querySelector("input").disabled=!all; });
+  document.getElementById("exc-hint").textContent=all?L.hintAll:L.hintInd;
+}
+function excList(){
+  const L=T().exc, t=document.getElementById("exc-list");
+  const from=new Date(); from.setHours(0,0,0,0); from.setDate(from.getDate()-56);
+  const rows=EXC_LIST.map(r=>({r, d:excDate(r.Week)})).filter(x=>x.d&&x.d>=from).sort((a,b)=>b.d-a.d);
+  const ds=d=>`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`;
+  t.innerHTML=`<thead><tr>${L.th.map(h=>`<th>${escH(h)}</th>`).join("")}</tr></thead><tbody>`+
+    rows.map(({r,d})=>`<tr class="${d<new Date(Date.now()-7*864e5)?"past":""}"><td>${ds(d)}</td><td>${escH(r.Creator)}</td><td>${escH(r["Days off"])}</td><td>${escH(r.Target)}</td><td>${escH(r["Dev/Art"])}</td><td>${escH(r["Team change"])}</td>`+
+      `<td class="note">${escH(r[LANG==="en"?"Note EN":LANG==="ko"?"Note KO":"Note"]||r.Note)}</td><td><button type="button" class="num-btn" data-row="${r.row}">${escH(L.del)}</button></td></tr>`).join("")+`</tbody>`;
+}
+async function excCall(body){
+  const res=await fetch(EXC_API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({password:EXC_PW,...body})});
+  return res.json();
+}
+function excApply(rows){
+  EXC_LIST=rows||[]; EXC_ROWS=excRows(EXC_LIST); EXC_LIVE=true; EXC_RAW=JSON.stringify(EXC_LIST);
+  renderSchedSrc(); repaint(); excList();
+}
+function excErr(r){ const E=T().exc.err; excMsg(E[r&&r.error]||E.net,"err"); }
+document.getElementById("exc-open").addEventListener("click",()=>{
+  excLabels(); excMsg(EXC_API?"":T().exc.err.noapi, EXC_API?"":"err");
+  document.getElementById("exc-login").hidden=!!EXC_PW||!EXC_API;
+  document.getElementById("exc-editor").hidden=!EXC_PW;
+  const f=document.getElementById("exc-add");
+  if(!f.Week.value){ const m=new Date(); m.setDate(m.getDate()-((m.getDay()+6)%7)); f.Week.value=`${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,"0")}-${String(m.getDate()).padStart(2,"0")}`; }
+  excDlg.showModal();
+  if(!EXC_PW) setTimeout(()=>document.getElementById("exc-pw").focus(),50);
+});
+document.getElementById("exc-x").addEventListener("click",()=>excDlg.close());
+excDlg.addEventListener("click",e=>{ if(e.target===excDlg) excDlg.close(); });
+document.getElementById("exc-login").addEventListener("submit",async e=>{
+  e.preventDefault(); EXC_PW=document.getElementById("exc-pw").value; excMsg(T().exc.checking);
+  try{ const r=await excCall({action:"check"});
+    if(!r.ok){ EXC_PW=""; return excErr(r); }
+    document.getElementById("exc-pw").value=""; document.getElementById("exc-login").hidden=true; document.getElementById("exc-editor").hidden=false;
+    excMsg(""); excApply(r.rows);
+  }catch(err){ EXC_PW=""; excErr(); }
+});
+document.getElementById("exc-add").addEventListener("change",e=>{ if(e.target.name==="Creator") excForm(); });
+document.getElementById("exc-add").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, row={};
+  ["Week","Creator","Days off","Target","Dev/Art","Team change","Note","Note EN","Note KO"].forEach(k=>row[k]=f[k].disabled?"":String(f[k].value||"").trim());
+  if(!row["Days off"]&&!row.Target&&!row["Dev/Art"]&&!row["Team change"]) return excMsg(T().exc.err.need,"err");
+  excMsg(T().exc.saving);
+  try{ const r=await excCall({action:"add",row}); if(!r.ok) return excErr(r);
+    ["Days off","Target","Dev/Art","Team change","Note","Note EN","Note KO"].forEach(k=>f[k].value="");
+    excApply(r.rows); excMsg(T().exc.saved,"ok");
+  }catch(err){ excErr(); }
+});
+document.getElementById("exc-list").addEventListener("click",async e=>{
+  const b=e.target.closest("button[data-row]"); if(!b||!confirm(T().exc.delQ)) return;
+  const r0=EXC_LIST.find(r=>String(r.row)===b.dataset.row); if(!r0) return;
+  excMsg(T().exc.saving);
+  try{ const r=await excCall({action:"delete",target:{row:r0.row,Week:r0.Week,Creator:r0.Creator}});
+    if(!r.ok){ if(r.error==="changed"){ const g=await (await fetch(EXC_API)).json(); if(g.ok) excApply(g.rows); } return excErr(r); }
+    excApply(r.rows); excMsg(T().exc.deleted,"ok");
+  }catch(err){ excErr(); }
+});
+
 let VIEW="creator";
 function showView(v){
   VIEW=v;
@@ -1814,10 +1966,9 @@ function avgOf(team,i){const t=totalOf(team,i),h=headOf(team,i);return h?t/h:nul
 // Một số kỳ gộp nhiều tuần nên chỉ tiêu và ngưỡng dev/art đều dịch lên cùng một mức.
 // Điều chỉnh chỉ tiêu cả đội cho một kỳ (nghỉ lễ, team building…), khoá là tên Period gốc trên Notion.
 // Dùng khi kỳ đó chưa có trong khối dữ liệu WEEKS (do update_dashboard.py ghi). bonus âm = giảm chỉ tiêu mỗi người.
-const WEEK_ADJ={
-  "[W3] Oct W4 (10/19~)":{bonus:-2, bonusEtc:-2, note:{vi:"Team building — nghỉ thứ 5, thứ 6",en:"Team building — off Thu–Fri",ko:"팀 빌딩 — 목·금 휴무"}}
-};
-const weekAdj=i=>(WEEKS[i]&&WEEK_ADJ[WEEKS[i].full])||null;
+// Các điều chỉnh giờ nhập ở Google Sheet "Quota exceptions" (xem EXC_SRC bên dưới); để trống ở đây.
+const WEEK_ADJ={};
+const weekAdj=i=>(WEEKS[i]&&WEEK_ADJ[WEEKS[i].full])||excAt(i).adj||null;
 function bonusAt(i){return WEEKS[i].bonus??(weekAdj(i)?weekAdj(i).bonus:0)??0}
 // Lý do điều chỉnh của kỳ (nếu có), theo ngôn ngữ đang chọn
 function weekAdjNote(i){const a=weekAdj(i);return a&&a.note?(a.note[LANG]||a.note.vi):(WEEKS[i]&&WEEKS[i].note)||""}
@@ -1828,16 +1979,79 @@ function quotaAt(team,i){return team.quota+bonusAt(i)}
 // Nghỉ phép riêng từng người: chỉ tiêu tuần đó của người đó đổi thành "quota", kèm ghi chú.
 // Tuần đó có dev/art làm cùng thì thêm "support" = số video có dev/art sau khi trừ ngày nghỉ (vd 12 → 9):
 // làm đúng số đó được tính là "có dev/art", không phải vượt mức.
-// Khoá là tên Period gốc trên Notion. Thêm dòng mới mỗi khi có người nghỉ.
-const LEAVE={
-  "[W1] Oct W2 (10/5~)":{"Tilda":{quota:6, days:2, note:{vi:"Nghỉ thứ 4, thứ 5",en:"Off Wed–Thu",ko:"수·목 휴무"}}},
-  "[W2] Nov W2 (11/09~)":{
-    "Anthony":{quota:7, days:1, note:{vi:"Nghỉ thứ 2",en:"Off Monday",ko:"월요일 휴무"}},
-    "Ruelle":{quota:7, support:9, days:1, note:{vi:"Nghỉ thứ 5 (có dev/art: 12 → 9)",en:"Off Thursday (dev/art support: 12 → 9)",ko:"목요일 휴무 (dev/art 지원: 12 → 9)"}}
-  }
-};
-function leavesAt(i){const w=WEEKS[i];return w&&LEAVE[w.full]?Object.entries(LEAVE[w.full]).map(([name,v])=>({name,...v})):[]}
-function leaveOf(name,i){const w=WEEKS[i];return (w&&LEAVE[w.full]&&LEAVE[w.full][name])||null}
+// Khoá là tên Period gốc trên Notion. Giờ nhập ở Google Sheet "Quota exceptions"; LEAVE ở đây chỉ để dự phòng.
+const LEAVE={};
+
+// ---- Ngoại lệ chỉ tiêu từ Google Sheet "Quota exceptions" (Publish to web → CSV)
+// Cột: Week | Creator | Days off | Target | Dev/Art | Team change | Note | Note EN | Note KO
+//  - Nghỉ phép: Week + Creator + Days off (Target để trống = chỉ tiêu thường − số ngày nghỉ; điền Target để ghi đè).
+//  - Có dev/art tuần đó: Dev/Art = số video có dev/art (vd 12, nghỉ 1 ngày thì 9) → làm đúng số đó tính là "có dev/art".
+//  - Cả đội (nghỉ lễ, team building): Creator = ALL, Team change = số video cộng/trừ mỗi người (vd −2).
+//  - Week: ngày bất kỳ trong tuần, nên gõ dạng yyyy-mm-dd (vd 2026-11-16) để không lẫn ngày/tháng;
+//    cũng nhận dd/mm/yyyy, dd/mm hoặc tên Period trên Notion.
+// Không đọc được Sheet thì dùng bản lưu data/exceptions.csv.
+// Link Web App của Apps Script tools/exceptions_api.gs (gắn vào Sheet, Sheet vẫn riêng tư). Trống = chỉ dùng bản lưu.
+const EXC_API="https://script.google.com/macros/s/AKfycbzcXUfHrcWfEsAsavZGCKDbV9fWgS1u80w2apSEiY4B8qhvjougNbstwbqBy4q_YWpN4A/exec";
+const EXC_SRC=[...(EXC_API?[[EXC_API+"?format=csv", true]]:[]), ["data/exceptions.csv", false]];
+let EXC_ROWS=[], EXC_LIVE=null, EXC_RAW=null;
+const EXC_ALL=/^(all|\*|team|cả team|ca team|cả đội|전체|팀)$/i;
+function excDate(v){
+  v=String(v||"").trim(); if(!v) return null;
+  if(/\(\d{1,2}\/\d{1,2}/.test(v)) return periodStart(v);
+  let m=v.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/); if(m) return new Date(+m[1],m[2]-1,+m[3]);
+  m=v.match(/^(\d{1,2})[\/.](\d{1,2})(?:[\/.](\d{2,4}))?$/); if(!m) return null;
+  let dd=+m[1], mm=+m[2]; if(mm>12&&dd<=12){ const x=dd; dd=mm; mm=x; }   // Sheet để định dạng Mỹ (11/16/2026)
+  if(m[3]) return new Date(m[3].length===2?2000+ +m[3]:+m[3], mm-1, dd);
+  return periodStart(`(${mm}/${dd}~)`);
+}
+const excNum=v=>{ const n=parseFloat(String(v||"").replace(/[−–]/g,"-").replace(",",".")); return isFinite(n)?n:null; };
+function parseExc(t){ return excRows(parseCSV(t)); }
+function excRows(list){
+  return list.map(r=>{
+    const g=k=>r[k]??r[k.toLowerCase()]??"";
+    const d=excDate(g("Week")), who=g("Creator").trim(); if(!d||!who) return null;
+    const note=g("Note"), note3={vi:note, en:g("Note EN")||note, ko:g("Note KO")||note};
+    return {date:d, all:EXC_ALL.test(who), name:who, days:excNum(g("Days off")), target:excNum(g("Target")),
+      support:excNum(g("Dev/Art")), change:excNum(g("Team change")), note:note3, hasNote:!!(note||g("Note EN")||g("Note KO"))};
+  }).filter(Boolean);
+}
+// Các dòng ngoại lệ rơi vào kỳ i (từ ngày bắt đầu kỳ i tới trước kỳ sau; kỳ cuối = 7 ngày)
+function excAt(i){
+  const w=WEEKS[i], st=w&&periodStart(w.full); if(!st||!EXC_ROWS.length) return {leave:{},adj:null};
+  const nx=WEEKS[i+1]&&periodStart(WEEKS[i+1].full), en=nx&&nx>st?nx:new Date(st.getTime()+7*864e5);
+  return excIn(st,en);
+}
+function excIn(st,en){
+  const out={leave:{},adj:null};
+  EXC_ROWS.filter(r=>r.date>=st&&r.date<en).forEach(r=>{
+    if(r.all){ const c=r.change||0;
+      out.adj={bonus:c, bonusEtc:c, note:r.hasNote?r.note:{vi:"Điều chỉnh chỉ tiêu",en:"Target adjustment",ko:"목표 조정"}}; }
+    else { const n=r.days;
+      out.leave[r.name.toLowerCase()]={name:r.name, days:n||0, quota:r.target, support:r.support,
+        note:r.hasNote?r.note:{vi:n?`Nghỉ ${n} ngày`:"Chỉ tiêu riêng",en:n?`Off ${n} day${n>1?"s":""}`:"Own target",ko:n?`${n}일 휴무`:"개별 목표"}}; }
+  });
+  return out;
+}
+function leavesAt(i){
+  const w=WEEKS[i], t=TEAMS[0], m={};
+  if(w&&LEAVE[w.full]) Object.entries(LEAVE[w.full]).forEach(([name,v])=>m[name.toLowerCase()]={name,...v});
+  Object.values(excAt(i).leave).forEach(v=>{ const k=v.name.toLowerCase(); if(!m[k]) m[k]=v; });
+  return Object.values(m).map(v=>{ const real=Object.keys(t.people).find(n=>n.toLowerCase()===v.name.toLowerCase())||v.name;
+    return {...v, name:real, quota:quotaFor(t,real,i)}; });
+}
+function leaveOf(name,i){
+  const w=WEEKS[i];
+  if(w&&LEAVE[w.full]&&LEAVE[w.full][name]) return LEAVE[w.full][name];
+  return excAt(i).leave[String(name).toLowerCase()]||null;
+}
+async function loadExc(){
+  const raw=[];
+  const d=await fetchFirst(EXC_SRC,(t,live)=>({rows:parseExc(t),live}),raw);
+  const r=raw.join(""), changed=EXC_RAW===null||r!==EXC_RAW;
+  EXC_RAW=r; EXC_LIVE=d?d.live:null;
+  if(changed) EXC_ROWS=d?d.rows:[];
+  return changed;
+}
 // Vai trò ETC có chuẩn riêng (12) và không nhận phần cộng thêm của kỳ gộp.
 // Người mới vào đội: kỳ đầu tiên chỉ tiêu 2 video, kỳ thứ hai 6, từ kỳ thứ ba mới theo chuẩn.
 // "Mới" = kỳ đầu tiên có số của người đó nằm sau kỳ đầu của bảng (người có số từ kỳ đầu là người cũ).
@@ -1869,7 +2083,11 @@ function gameQuotaInfo(name,i,date){
 function gameQuotaOf(name,i,date){ const r=gameQuotaInfo(name,i,date); return r?r.q:null; }
 function quotaFor(team,name,i){
   const lv=leaveOf(name,i);
-  if(lv) return lv.quota;
+  if(lv) return lv.quota!=null?lv.quota:Math.max(0,baseQuota(team,name,i)-(lv.days||0));
+  return baseQuota(team,name,i);
+}
+// Chỉ tiêu khi không tính nghỉ phép: game chỉ tiêu riêng → người mới → ETC → chuẩn (+ điều chỉnh cả đội)
+function baseQuota(team,name,i){
   const gq=gameQuotaOf(name,i);
   if(gq!==null) return gq;
   const rq=rampQuota(team,name,i);
@@ -2107,7 +2325,7 @@ function renderMembers(i){
             const kk=kindOf(t,r.name,r.v,i);const k=KIND[kk];
       const tag=k.tag?`<span class="tag ${k.tag}">${T().kind[kk]}</span>`:"";
       const lv=leaveOf(r.name,i);
-      const leave=lv?`<span class="tag tag-leave" title="${escH(T().leaveTip(lv.quota))}">${escH(lv.note[LANG]||lv.note.vi)}</span>`:"";
+      const leave=lv?`<span class="tag tag-leave" title="${escH(T().leaveTip(quotaFor(t,r.name,i)))}">${escH(lv.note[LANG]||lv.note.vi)}</span>`:"";
       const rq=lv?null:rampQuota(t,r.name,i);
       const ramp=rq!==null?`<span class="tag tag-new" title="${escH(T().rampTip(rq))}">${escH(T().rampTag(RAMP.indexOf(rq)+1))}</span>`:"";
       return `<tr>
@@ -2585,6 +2803,7 @@ function applyLang(){
   if(VIEW==="pm") renderPM();
   if(VIEW==="num") renderNum();
   if(VIEW==="done") renderDone();
+  excLabels();
   Object.entries(MODE_BTN).forEach(([k,id])=>
     document.getElementById(id).textContent=T().btn[k]);
   [...sel.options].forEach((o,i)=>{if(WEEKS[i])o.textContent=`${wkLabel(i)}${weekTag(WEEKS[i].full)} — ${WEEKS[i].full}`;});
@@ -2672,10 +2891,11 @@ loadLiveCSV().then(r=>{
 // Lịch ảnh hưởng cả chỉ tiêu (game chỉ tiêu riêng như Hypereels) nên vẽ lại toàn bộ
 const reSched=()=>repaint();
 loadSchedule().then(reSched);
+loadExc().then(()=>{ renderSchedSrc(); repaint(); });
 // Tự đọc lại Sheet mỗi 2 phút khi tab đang mở, và ngay khi quay lại tab; chỉ vẽ lại khi Sheet có thay đổi
 let schedBusy=false;
 const pollSched=async()=>{ if(schedBusy||document.hidden) return; schedBusy=true;
-  try{ if(await loadSchedule()) reSched(); }finally{ schedBusy=false; } };
+  try{ const a=await loadSchedule(), b=await loadExc(); renderSchedSrc(); if(a||b) reSched(); }finally{ schedBusy=false; } };
 setInterval(pollSched,120000);
 document.addEventListener("visibilitychange",()=>{ if(!document.hidden&&SCHED_AT&&Date.now()-SCHED_AT>30000) pollSched(); });
 
