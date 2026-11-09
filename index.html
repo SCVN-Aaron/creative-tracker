@@ -349,6 +349,15 @@
   #sv-table a.sz:hover{background:var(--accent-bg)}
   #sv-table .miss{color:var(--warn);font-size:12.5px}
   #sv-table:empty{display:none}
+  #dg-table{width:100%;border-collapse:collapse}
+  #dg-table th,#dg-table td{padding:7px 10px;border-bottom:1px solid var(--grid);text-align:left;font-size:13.5px;white-space:nowrap}
+  #dg-table th{font-size:12px;color:var(--ink-2);font-weight:600;text-transform:uppercase;letter-spacing:.03em;background:var(--th)}
+  #dg-table td.n{font-family:"IBM Plex Mono",monospace;text-align:right}
+  #dg-table a.fl{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-weight:600}
+  #dg-table .cp{margin-left:6px;padding:1px 7px;border:1px solid var(--line);border-radius:6px;background:none;color:var(--ink-2);font:inherit;font-size:11.5px;cursor:pointer}
+  #dg-table .cp:hover{color:var(--ink);border-color:var(--ink-2)}
+  #dg-table .dim{color:var(--ink-2)}
+  #dg-q{width:200px}
   #sv-table button.sz{display:inline-block;margin-right:6px;padding:1px 9px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--accent);background:none;cursor:pointer;font-family:"IBM Plex Mono",monospace}
   #sv-table button.sz:hover,#sv-table button.sz:focus-visible{background:var(--accent-bg)}
   #sv-table button.sz::before{content:"▶ ";font-size:9px}
@@ -675,6 +684,14 @@
       <div class="pm-scroll"><table id="sv-table"></table></div>
       <p class="pm-note src-line" id="sv-msg" role="status"></p>
     </div>
+    <div class="tcard pm-card" id="dg-card">
+      <div class="cs-head"><h2 class="ov-h" id="dg-title"></h2>
+        <div class="sv-ctl"><label for="dg-q" id="dg-q-l" class="sr"></label><input type="search" id="dg-q" autocomplete="off">
+          <div class="toggle" role="group" id="dg-mode"><button type="button" data-m="video" aria-pressed="true"></button><button type="button" data-m="all" aria-pressed="false"></button></div></div>
+      </div>
+      <div class="pm-scroll"><table id="dg-table"></table></div>
+      <p class="pm-note src-line" id="dg-msg" role="status"></p>
+    </div>
     <dialog id="sv-dlg" aria-labelledby="sv-dlg-title">
       <div class="sv-dlg-head"><strong id="sv-dlg-title"></strong>
         <span class="sv-dlg-sz" id="sv-dlg-sz"></span><span class="num-sp"></span>
@@ -787,6 +804,7 @@ const I18N={
   exc:{open:"Nghỉ phép", title:"Nghỉ phép / ngoại lệ chỉ tiêu", intro:"Chỉ admin có mật khẩu mới thêm hoặc xoá được. Dashboard cập nhật ngay sau khi lưu.", pw:"Mật khẩu admin", unlock:"Mở khoá", addH:"Thêm ngoại lệ", listH:"Đã nhập (8 tuần gần đây và sắp tới)", week:"Tuần (ngày bất kỳ trong tuần)", who:"Creator", all:"ALL — cả đội", days:"Số ngày nghỉ", target:"Chỉ tiêu riêng (tuỳ chọn)", dev:"Có dev/art: số video", team:"Cả đội: cộng/trừ mỗi người", note:"Ghi chú (lý do)", save:"Lưu", del:"Xoá", delQ:"Xoá dòng này?", hintInd:"Bỏ trống chỉ tiêu riêng = chỉ tiêu thường − số ngày nghỉ.", hintAll:"Vd −2 khi team building / nghỉ lễ (áp dụng cả ETC).",
     th:["Tuần","Creator","Nghỉ","Chỉ tiêu","Dev/art","Cả đội","Ghi chú",""], saved:"Đã lưu — dashboard đã cập nhật.", deleted:"Đã xoá.", checking:"Đang kiểm tra…", saving:"Đang lưu…",
     err:{wrong_password:"Sai mật khẩu.", locked:"Sai mật khẩu quá nhiều lần — thử lại sau 10 phút.", no_password_set:"Chưa đặt ADMIN_PASSWORD trong Apps Script.", changed:"Sheet vừa thay đổi — đã tải lại, thử lại.", bad_row:"Thiếu tuần hoặc creator.", net:"Không kết nối được Apps Script.", noapi:"Chưa kết nối Apps Script: làm theo hướng dẫn trong tools/exceptions_api.gs rồi gửi link Web App cho Claude.", need:"Điền số ngày nghỉ, chỉ tiêu riêng, số có dev/art hoặc mức cộng/trừ cả đội."}},
+  dg:{title:"Link Google Drive của các game", ph:"Tìm game…", video:"Game có video", all:"Tất cả thư mục", game:"Game", folder:"Thư mục game", vids:"Thư mục video", n:"Số video", last:"Số cuối", up:"Upload gần nhất", open:"Mở", copy:"Copy link", copied:"Đã copy link", count:(n,m)=>`${n} / ${m} thư mục`, note:"Thư mục game trong Drive dùng chung (quét ngày", none:"Không có game nào khớp."},
   sv:{title:"Tìm video Creative", game:"Game", all:"Tất cả game", num:"Số Creative", ph:"vd 90582 · 90573~90580 · 582", go:"Tìm", n:"Số", creator:"Creator", date:"Ngày", concept:"Concept", dur:"Thời lượng", video:"Video trên Drive", task:"Task Notion", notOnDrive:"Chưa có trên Drive", noTask:"—", ai:"AI",
     found:n=>`${n} video`, more:(n,m)=>`Hiện ${n}/${m} video — gõ số cụ thể hơn để lọc`, none:"Không tìm thấy video nào", latest:(n,g)=>`${n} video mới nhất của ${g}`, hint:"Chọn game và/hoặc gõ số Creative (số đầy đủ, khoảng 90573~90580, hoặc vài số cuối).", play:"Xem video", open:"Mở trên Drive ↗", dlgNote:"Video phát từ Google Drive — cần đăng nhập tài khoản có quyền xem thư mục game. Không xem được thì bấm “Mở trên Drive”."},
   done:{title:"Số video đã làm (theo Google Drive)", week:"Theo tuần", month:"Theo tháng", game:"Theo game", ua:"Team UA", ai:"Team AI", all:"Tất cả", creator:"Creator", total:"Tổng", grand:"Cả team", wk:d=>"Tuần "+d, thisMonth:"Tháng này", mon:m=>"Tháng "+m, src:d=>"Quét Drive ngày "+d, none:"Chưa có dữ liệu Drive (data/drive_videos.csv).",
@@ -881,6 +899,7 @@ const I18N={
   exc:{open:"Leave", title:"Leave / target exceptions", intro:"Only an admin with the password can add or remove entries. The dashboard updates as soon as you save.", pw:"Admin password", unlock:"Unlock", addH:"Add an exception", listH:"Entered (last 8 weeks and upcoming)", week:"Week (any day in it)", who:"Creator", all:"ALL — whole team", days:"Days off", target:"Own target (optional)", dev:"Dev/art support: videos", team:"Whole team: ± per person", note:"Note (reason)", save:"Save", del:"Delete", delQ:"Delete this entry?", hintInd:"Leave the own target blank to use the normal target minus days off.", hintAll:"E.g. −2 for team building / a holiday (ETC included).",
     th:["Week","Creator","Off","Target","Dev/art","Team","Note",""], saved:"Saved — the dashboard is updated.", deleted:"Deleted.", checking:"Checking…", saving:"Saving…",
     err:{wrong_password:"Wrong password.", locked:"Too many wrong passwords — try again in 10 minutes.", no_password_set:"ADMIN_PASSWORD isn’t set in Apps Script yet.", changed:"The sheet just changed — reloaded, please try again.", bad_row:"Week or creator is missing.", net:"Couldn’t reach Apps Script.", noapi:"Apps Script isn’t connected yet: follow tools/exceptions_api.gs and send Claude the Web App link.", need:"Fill in days off, an own target, a dev/art count or a whole-team change."}},
+  dg:{title:"Google Drive links for every game", ph:"Find a game…", video:"Games with videos", all:"All folders", game:"Game", folder:"Game folder", vids:"Video folder", n:"Videos", last:"Last no.", up:"Last upload", open:"Open", copy:"Copy link", copied:"Link copied", count:(n,m)=>`${n} / ${m} folders`, note:"Game folders in the shared Drive (scanned on", none:"No game matches."},
   sv:{title:"Find a Creative video", game:"Game", all:"All games", num:"Creative number", ph:"e.g. 90582 · 90573~90580 · 582", go:"Search", n:"No.", creator:"Creator", date:"Date", concept:"Concept", dur:"Length", video:"Video on Drive", task:"Notion task", notOnDrive:"Not on Drive yet", noTask:"—", ai:"AI",
     found:n=>`${n} videos`, more:(n,m)=>`Showing ${n} of ${m} — type a more specific number`, none:"No videos found", latest:(n,g)=>`Latest ${n} videos of ${g}`, hint:"Pick a game and/or type a Creative number (full number, a range like 90573~90580, or the last few digits).", play:"Play video", open:"Open in Drive ↗", dlgNote:"Plays from Google Drive — you need to be signed in with an account that can view the game folder. If it won’t play, use “Open in Drive”."},
   done:{title:"Videos produced (from Google Drive)", week:"By week", month:"By month", game:"By game", ua:"UA team", ai:"AI team", all:"All", creator:"Creator", total:"Total", grand:"Whole team", wk:d=>"Week "+d, thisMonth:"This month", mon:m=>["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1], src:d=>"Drive scanned on "+d, none:"No Drive data yet (data/drive_videos.csv).",
@@ -975,6 +994,7 @@ const I18N={
   exc:{open:"휴가", title:"휴가 / 목표 예외", intro:"비밀번호가 있는 관리자만 추가·삭제할 수 있습니다. 저장하면 대시보드가 바로 갱신됩니다.", pw:"관리자 비밀번호", unlock:"잠금 해제", addH:"예외 추가", listH:"입력된 항목 (최근 8주 및 예정)", week:"주 (해당 주의 아무 날짜)", who:"크리에이터", all:"ALL — 팀 전체", days:"휴무일 수", target:"개별 목표 (선택)", dev:"dev/art 지원: 영상 수", team:"팀 전체: 1인당 ±", note:"메모 (사유)", save:"저장", del:"삭제", delQ:"이 항목을 삭제할까요?", hintInd:"개별 목표를 비우면 기본 목표에서 휴무일 수만큼 뺍니다.", hintAll:"예: 팀 빌딩 / 공휴일은 −2 (ETC 포함).",
     th:["주","크리에이터","휴무","목표","Dev/art","팀","메모",""], saved:"저장됨 — 대시보드가 갱신되었습니다.", deleted:"삭제됨.", checking:"확인 중…", saving:"저장 중…",
     err:{wrong_password:"비밀번호가 틀렸습니다.", locked:"비밀번호 오류가 너무 많습니다 — 10분 후 다시 시도하세요.", no_password_set:"Apps Script에 ADMIN_PASSWORD가 설정되지 않았습니다.", changed:"시트가 방금 변경되어 다시 불러왔습니다. 다시 시도하세요.", bad_row:"주 또는 크리에이터가 없습니다.", net:"Apps Script에 연결할 수 없습니다.", noapi:"Apps Script가 아직 연결되지 않았습니다: tools/exceptions_api.gs 안내에 따라 Web App 링크를 Claude에게 보내 주세요.", need:"휴무일 수, 개별 목표, dev/art 수 또는 팀 전체 변경값을 입력하세요."}},
+  dg:{title:"게임별 Google 드라이브 링크", ph:"게임 검색…", video:"영상 있는 게임", all:"전체 폴더", game:"게임", folder:"게임 폴더", vids:"영상 폴더", n:"영상 수", last:"마지막 번호", up:"최근 업로드", open:"열기", copy:"링크 복사", copied:"링크 복사됨", count:(n,m)=>`${n} / ${m}개 폴더`, note:"공유 드라이브의 게임 폴더 (확인일", none:"일치하는 게임이 없습니다."},
   sv:{title:"Creative 영상 찾기", game:"게임", all:"전체 게임", num:"Creative 번호", ph:"예: 90582 · 90573~90580 · 582", go:"검색", n:"번호", creator:"크리에이터", date:"날짜", concept:"콘셉트", dur:"길이", video:"Drive 영상", task:"Notion 작업", notOnDrive:"Drive에 아직 없음", noTask:"—", ai:"AI",
     found:n=>`영상 ${n}개`, more:(n,m)=>`${m}개 중 ${n}개 표시 — 번호를 더 구체적으로 입력하세요`, none:"찾은 영상이 없습니다", latest:(n,g)=>`${g} 최신 영상 ${n}개`, hint:"게임을 고르거나 Creative 번호를 입력하세요(전체 번호, 90573~90580 같은 범위, 또는 끝자리).", play:"영상 보기", open:"Drive에서 열기 ↗", dlgNote:"Google Drive에서 재생됩니다 — 게임 폴더를 볼 수 있는 계정으로 로그인해야 합니다. 재생되지 않으면 “Drive에서 열기”를 누르세요."},
   done:{title:"제작한 영상 수 (Google Drive 기준)", week:"주별", month:"월별", game:"게임별", ua:"UA 팀", ai:"AI 팀", all:"전체", creator:"크리에이터", total:"합계", grand:"팀 전체", wk:d=>d+" 주", thisMonth:"이번 달", mon:m=>m+"월", src:d=>"Drive 확인일 "+d, none:"Drive 데이터가 없습니다 (data/drive_videos.csv).",
@@ -1802,8 +1822,45 @@ document.getElementById("sv-form").addEventListener("submit",e=>{ e.preventDefau
 document.getElementById("sv-num").addEventListener("input",e=>{ SV_Q=e.target.value; clearTimeout(renderSearch.t); renderSearch.t=setTimeout(renderSearch,250); });
 document.getElementById("sv-game").addEventListener("change",e=>{ SV_GAME=e.target.value; renderSearch(); });
 
+// ---- Link Drive của từng game (data/drive_games.csv: Game, Folder, Videos folder, Videos, Last number, Last upload)
+let DGAMES=null, DG_MODE="video", DG_Q="";
+fetch("data/drive_games.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
+  DGAMES=parseCSV(t||"").filter(r=>r.Game&&r.Folder);
+  if(VIEW==="done") renderDriveGames();
+}).catch(()=>{ DGAMES=[]; });
+const driveFolderUrl=id=>`https://drive.google.com/drive/folders/${encodeURIComponent(id)}`;
+function renderDriveGames(){
+  const L=T().dg, tbl=document.getElementById("dg-table");
+  document.getElementById("dg-title").textContent=L.title;
+  const q=document.getElementById("dg-q"); q.placeholder=L.ph; document.getElementById("dg-q-l").textContent=L.ph;
+  const mb=document.querySelectorAll("#dg-mode button");
+  [L.video,L.all].forEach((x,i)=>{ mb[i].textContent=x; mb[i].setAttribute("aria-pressed",mb[i].dataset.m===DG_MODE); });
+  if(!DGAMES){ tbl.innerHTML=""; return; }
+  const known=[...new Set([...GAME_ORDER,...(ALL_TASKS||[]).map(t=>t.game).filter(Boolean)])];
+  const gname=g=>{ const k=DRIVE_ALIAS[gameKey(g)]||gameKey(g); return known.find(x=>gameKey(x)===k)||g; };
+  const norm=x=>String(x||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9가-힣]/g,"");
+  const qq=norm(DG_Q);
+  let rows=DGAMES.filter(r=>DG_MODE==="all"||r["Videos folder"]||+r.Videos>0)
+    .filter(r=>!qq||norm(r.Game).includes(qq)||norm(gname(r.Game)).includes(qq));
+  rows.sort((a,b)=>(a.Game.startsWith("#")-b.Game.startsWith("#"))||(+b.Videos||0)-(+a.Videos||0)||a.Game.localeCompare(b.Game));
+  const df=d=>d?d.split("-").reverse().join("/"):"";
+  const link=(id,lab)=>id?`<a class="fl" href="${driveFolderUrl(id)}" target="_blank" rel="noopener">${escH(lab)} ↗</a><button type="button" class="cp" data-copy="${escH(driveFolderUrl(id))}">${escH(L.copy)}</button>`:`<span class="dim">—</span>`;
+  tbl.innerHTML=rows.length?`<thead><tr><th>${L.game}</th><th>${L.folder}</th><th>${L.vids}</th><th>${L.n}</th><th>${L.last}</th><th>${L.up}</th></tr></thead><tbody>`+
+    rows.map(r=>{ const ng=gname(r.Game), isK=ng!==r.Game||known.includes(ng);
+      return `<tr><td>${isK?gameTag(ng):escH(r.Game)}${isK&&gameKey(ng)!==gameKey(r.Game)?` <span class="dim">(${escH(r.Game)})</span>`:""}</td>`+
+        `<td>${link(r.Folder,L.open)}</td><td>${link(r["Videos folder"],L.open)}</td><td class="n">${escH(r.Videos)}</td><td class="n">${escH(r["Last number"])}</td><td>${df(r["Last upload"])}</td></tr>`; }).join("")+`</tbody>`:"";
+  document.getElementById("dg-msg").textContent=rows.length?`${L.count(rows.length,DGAMES.length)} · ${L.note} ${df(DONE_SCAN)})`:L.none;
+}
+document.getElementById("dg-q").addEventListener("input",e=>{ DG_Q=e.target.value; renderDriveGames(); });
+document.getElementById("dg-mode").addEventListener("click",e=>{ const b=e.target.closest("button[data-m]"); if(b){ DG_MODE=b.dataset.m; renderDriveGames(); } });
+document.getElementById("dg-table").addEventListener("click",async e=>{
+  const b=e.target.closest("button[data-copy]"); if(!b) return;
+  try{ await navigator.clipboard.writeText(b.dataset.copy); }catch(err){ const a=document.createElement("textarea"); a.value=b.dataset.copy; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove(); }
+  document.getElementById("dg-msg").textContent=T().dg.copied;
+});
+
 function renderDone(){
-  renderSearch();
+  renderSearch(); renderDriveGames();
   const L=T().done;
   document.getElementById("dn-title").textContent=L.title;
   document.getElementById("dn-note").textContent=L.note;

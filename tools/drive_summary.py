@@ -12,6 +12,7 @@ Ghi ra:
   data/drive_numbers.csv  — số Creative lớn nhất theo game, dãy UA (tab Đánh số dùng)
   data/drive_creator_month.csv — số video mỗi Creator theo tháng (Team lấy theo data Notion: UA / AI)
   data/drive_creator_game.csv  — số video mỗi Creator theo game
+  data/drive_games.csv         — link thư mục Drive của từng game (nếu có drive_folders.csv cạnh drive_files.csv)
 """
 import csv, datetime, os, re, sys
 from collections import defaultdict
@@ -144,6 +145,24 @@ def main(src, outdir):
     for c in creators:
         ns = [by_cg[(c, g)] for g in games]
         w.writerow([c.title(), team.get(c, "?")] + [n or "" for n in ns] + [sum(ns)])
+    # Link thư mục của từng game (drive_folders.csv cùng chỗ với drive_files.csv: Game,GameFolderId,VNFolderId)
+    fp = os.path.join(os.path.dirname(src) or ".", "drive_folders.csv")
+    if os.path.exists(fp):
+        last = {}
+        for v in vs:
+            g = last.setdefault(v["game"], {"n": 0, "d": None, "c": 0})
+            g["c"] += 1
+            if v["type"] == "UA" and v["n"] > g["n"]:
+                g["n"] = v["n"]
+            if not g["d"] or v["date"] > g["d"]:
+                g["d"] = v["date"]
+        w = csv.writer(open(os.path.join(outdir, "drive_games.csv"), "w", encoding="utf-8", newline=""), lineterminator="\n")
+        w.writerow(["Game", "Folder", "Videos folder", "Videos", "Last number", "Last upload"])
+        for r in sorted(csv.DictReader(open(fp, encoding="utf-8")), key=lambda r: r["Game"].lower()):
+            g = last.get(r["Game"], {})
+            w.writerow([r["Game"], r["GameFolderId"], r.get("VNFolderId", ""), g.get("c", 0) or "",
+                        g.get("n") or "", g["d"].isoformat() if g.get("d") else ""])
+        print(f"Đã ghi link thư mục của {sum(1 for _ in open(fp)) - 1} game vào drive_games.csv")
     print(f"{len(rows)} file → {len(vs)} video (đếm 1 lần mỗi số Creative), {len(mx)} dãy số")
     if bad:
         print(f"{len(bad)} file video không đúng mẫu tên, ví dụ:")
