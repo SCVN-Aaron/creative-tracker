@@ -326,8 +326,7 @@ table.mt td:first-child,table.mt th:first-child{text-align:left;font-weight:700;
 .bcard p{color:var(--ink-2);font-size:14.5px}
 
 /* limits */
-.lim{display:grid;grid-template-columns:1.2fr 1fr;gap:22px}
-@media (max-width:900px){.lim{grid-template-columns:1fr}}
+.lim{display:grid;grid-template-columns:minmax(0,760px);gap:22px}
 .lbox{border:1px solid var(--line);border-radius:var(--r);padding:26px;display:grid;gap:14px;align-content:start}
 .lbox ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
 .lbox li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:15px;color:var(--ink-2)}
@@ -380,7 +379,7 @@ footer{padding:40px 0 60px;color:var(--ink-3);font-size:13.5px}
       Creative Tracker
     </a>
     <nav aria-label="Mục lục">
-      <a href="#problem">Vấn đề</a><a href="#solution">Giải pháp</a><a href="#features">Tính năng</a><a href="#naming">Tên file</a><a href="#benefits">Lợi ích</a><a href="#limits">Giới hạn</a>
+      <a href="#problem">Vấn đề</a><a href="#solution">Giải pháp</a><a href="#features">Tính năng</a><a href="#naming">Tên file</a><a href="#benefits">Lợi ích</a><a href="#limits">Nguồn lực</a>
     </nav>
     <div class="lang" role="group" aria-label="Ngôn ngữ" id="lang">
       <button type="button" data-lang="vi" aria-pressed="true" lang="vi">VI</button><button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button><button type="button" data-lang="ko" aria-pressed="false" lang="ko">한국어</button>
@@ -722,19 +721,11 @@ footer{padding:40px 0 60px;color:var(--ink-3);font-size:13.5px}
 <section id="limits">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow rv">Giới hạn và nguồn lực cần có</span>
+      <span class="eyebrow rv">Nguồn lực cần có</span>
       <h2 class="rv d1">Những điều cần biết khi dùng</h2>
     </div>
     <div class="lim">
-      <div class="lbox rv"><h3>Giới hạn hiện tại</h3>
-        <ul>
-          <li><svg width="20" height="20"><use href="#i-x"/></svg><span><b>Notion cập nhật bằng file.</b> Không nối trực tiếp (theo chính sách), nên số trên Notion mới nhất khi có file export hoặc ảnh chụp mới. Creative Planner (ghi task vào Notion) đang tắt.</span></li>
-          <li><svg width="20" height="20"><use href="#i-x"/></svg><span><b>Drive chỉ tính video đã upload</b> và cần quét lại để có số mới; video đặt tên sai quy ước sẽ không được đếm.</span></li>
-          <li><svg width="20" height="20"><use href="#i-x"/></svg><span><b>Xem video cần quyền Drive.</b> Người xem phải đăng nhập tài khoản có quyền vào thư mục game.</span></li>
-          <li><svg width="20" height="20"><use href="#i-x"/></svg><span><b>Google Sheet có độ trễ.</b> Bản “Publish to web” có thể mất vài phút mới phản ánh thay đổi.</span></li>
-          <li><svg width="20" height="20"><use href="#i-x"/></svg><span><b>Ngoại lệ chỉ tiêu khai báo trong cấu hình.</b> Nghỉ phép, tuần nghỉ lễ, chỉ tiêu theo game được ghi trong mã trang, chưa có màn hình nhập.</span></li>
-        </ul></div>
-      <div class="lbox rv d1"><h3>Nguồn lực cần có</h3>
+      <div class="lbox rv">
         <div class="res-grid">
           <div class="rrow"><span class="ic" style="background:#F4F4F5"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2a8 8 0 00-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.2-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.6 7.6 0 014 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.2 0 3.1-1.9 3.8-3.6 4 .3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0010 2z" fill="#18181B"/></svg></span><span>GitHub repo + GitHub Pages<small>Lưu mã và dữ liệu, xuất bản dashboard</small></span></div>
           <div class="rrow"><span class="ic" style="background:#F4F4F5"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="2.5" width="14" height="15" rx="2.5" fill="#fff" stroke="#18181B" stroke-width="1.6"/><path d="M7 6.5v7M7 6.5l6 7M13 6.5v7" stroke="#18181B" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></span><span>File export từ Notion<small>Creative Production DB, mỗi tuần</small></span></div>
@@ -818,7 +809,7 @@ var TR = {
 "Tính năng":["Features","기능"],
 "Tên file":["File names","파일 이름"],
 "Lợi ích":["Benefits","기대 효과"],
-"Giới hạn":["Limitations","한계"],
+"Nguồn lực":["Resources","리소스"],
 "Mở dashboard":["Open dashboard","대시보드 열기"],
 "Một trang duy nhất để theo dõi sản lượng creative của cả đội — gom task trên Notion, lịch trên Google Sheet và video trên Google Drive, so với chỉ tiêu từng tuần, đánh số Creative cho task mới và tìm lại bất kỳ video nào theo số.":["One page to track the whole team’s creative output — it brings together tasks in Notion, schedules in Google Sheets and videos in Google Drive, compares them with each week’s target, numbers new tasks and finds any video by its Creative number.","팀 전체의 크리에이티브 제작량을 한 페이지에서 확인합니다. Notion의 작업, Google 시트의 스케줄, Google 드라이브의 영상을 모아 주간 목표와 비교하고, 새 작업에 Creative 번호를 매기며, 번호로 어떤 영상이든 다시 찾을 수 있습니다."],
 "Mở Creative Tracker":["Open Creative Tracker","Creative Tracker 열기"],
@@ -999,19 +990,7 @@ var TR = {
 "Khoảng số tiếp theo tính từ cả hai team và đối chiếu với Drive, giảm nhầm khi gõ tay.":["The next range is worked out from both teams and checked against Drive, reducing typing mistakes.","다음 번호 범위를 두 팀 데이터로 계산하고 드라이브와 대조해 입력 실수를 줄입니다."],
 "Tìm và xem nhanh":["Find and watch quickly","빠른 검색과 재생"],
 "Từ một con số tới video và task Notion của nó, ngay trên một trang.":["From a number to its video and Notion task, on one page.","번호 하나로 영상과 Notion 작업까지 한 페이지에서 확인합니다."],
-"Giới hạn và nguồn lực cần có":["Limitations and required resources","한계와 필요한 리소스"],
 "Những điều cần biết khi dùng":["What to know before using it","사용 전에 알아둘 점"],
-"Giới hạn hiện tại":["Current limitations","현재 한계"],
-"Notion cập nhật bằng file.":["Notion is updated through files.","Notion은 파일로 업데이트됩니다."],
-"Không nối trực tiếp (theo chính sách), nên số trên Notion mới nhất khi có file export hoặc ảnh chụp mới. Creative Planner (ghi task vào Notion) đang tắt.":["There’s no direct connection (by policy), so Notion numbers are only as fresh as the latest export or screenshot. Creative Planner (writing tasks into Notion) is switched off.","정책상 직접 연결이 없으므로 Notion 수치는 마지막 내보내기나 스크린샷 시점 기준입니다. Creative Planner(Notion에 작업 기록)는 꺼져 있습니다."],
-"Drive chỉ tính video đã upload":["Drive only counts uploaded videos","드라이브는 업로드된 영상만 집계"],
-"và cần quét lại để có số mới; video đặt tên sai quy ước sẽ không được đếm.":["and needs a rescan for new numbers; videos named outside the convention aren’t counted.","하며 새 수치를 보려면 다시 확인해야 합니다. 규칙에 맞지 않는 이름의 영상은 집계되지 않습니다."],
-"Xem video cần quyền Drive.":["Watching needs Drive access.","영상 보기에는 드라이브 권한이 필요합니다."],
-"Người xem phải đăng nhập tài khoản có quyền vào thư mục game.":["Viewers must be signed in with an account that can open the game folder.","게임 폴더에 접근할 수 있는 계정으로 로그인해야 합니다."],
-"Google Sheet có độ trễ.":["Google Sheets lag a little.","Google 시트에는 지연이 있습니다."],
-"Bản “Publish to web” có thể mất vài phút mới phản ánh thay đổi.":["The “Publish to web” copy can take a few minutes to reflect changes.","‘웹에 게시’ 버전은 변경 사항 반영에 몇 분이 걸릴 수 있습니다."],
-"Ngoại lệ chỉ tiêu khai báo trong cấu hình.":["Target exceptions live in the configuration.","목표 예외는 설정에 기록됩니다."],
-"Nghỉ phép, tuần nghỉ lễ, chỉ tiêu theo game được ghi trong mã trang, chưa có màn hình nhập.":["Leave, holiday weeks and per-game targets are written in the page code; there’s no input screen yet.","휴가, 공휴일 주간, 게임별 목표는 페이지 코드에 기록되며 아직 입력 화면은 없습니다."],
 "Nguồn lực cần có":["Required resources","필요한 리소스"],
 "Lưu mã và dữ liệu, xuất bản dashboard":["Stores code and data, publishes the dashboard","코드와 데이터 저장, 대시보드 게시"],
 "File export từ Notion":["Notion export files","Notion 내보내기 파일"],
