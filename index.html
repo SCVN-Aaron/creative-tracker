@@ -994,7 +994,7 @@ const I18N={
    Video Ads에서 dev/art 기준 숫자와 정확히 같으면 dev/art 참여, 그 외 기준보다 많으면 목표 초과로 읽습니다. PM 컬럼에 이름이 있으면 PM 협업, 비어 있으면 단독입니다. Miko는 ETC로 분류합니다.`
  }
 };
-let LANG="vi";
+let LANG="en";   // luôn mở bằng tiếng Anh; đổi ngôn ngữ ở ô chọn trên đầu trang
 const T=()=>I18N[LANG];
 function wkLabel(i){return T().wk(WEEKS[i].label.replace(/^Tuần\s*/,""))}
 function moLabel(m){const n=parseInt(String(m.label).replace(/\D+/g,""),10)||0;return T().mo(n,m.label)}
