@@ -24,12 +24,15 @@ DUR_RE = re.compile(r"^\d+s$", re.I)
 
 def parse(name):
     # "99999_video…" = video bị loại/đánh dấu xoá → không đếm
-    m = NAME_RE.match(name.strip())
+    name = re.sub(r"[.\-]+(mp4|mov|webm)(\.(mp4|mov|webm))*$", r".\1", name.strip(), flags=re.I)  # "..mp4", "-mp4.mp4", ".mp4.mp4"
+    m = NAME_RE.match(name)
     if not m:
         return None
     parts = m.group(2).split("_")
     out = {"n": int(m.group(1)), "concept": "", "lang": "", "dur": "", "size": "", "creator": "", "date": None}
     # tìm từ phải sang: ddmmyy, creator, kích thước, thời lượng, ngôn ngữ, phần còn lại là concept
+    if len(parts) > 1 and re.fullmatch(r"\d{1,2}", parts[-1]) and DATE_RE.match(parts[-2]):   # "_301026_1"
+        parts.pop()
     if parts and re.fullmatch(r"\d{7}", parts[-1]):      # 5112026 → 051126
         parts[-1] = parts[-1].zfill(8)[:4] + parts[-1][-2:]
     if parts and DATE_RE.match(parts[-1]):
