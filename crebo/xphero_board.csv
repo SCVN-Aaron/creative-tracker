@@ -1,28 +1,57 @@
-No,Iteration,Concept,Lang,Duration,Size,Date,Creator,AOS CVR (WW),Status,File
-90001,1st,xphero,en,37s,1080x1920,2026-01-16,Ellie Trinh,1.94,OK,video90001_xphero_en_37s_1080x1920_ellie_160126.mp4
-90002,1st,xphero,en,31s,1080x1920,2026-01-16,Hozler Ho,1.92,OK,video90002_xphero_en_31s_1080x1920_hozler_160126.mp4
-90003,1st,xphero,en,21s,1080x1920,2026-01-15,Ellie Trinh,2.01,OK,video90003_xphero_en_21s_1080x1920_ellie_150126.mp4
-90004,1st,xphero,en,32s,1080x1920,2026-01-19,Hozler Ho,1.97,OK,video90004_xphero_en_32s_1080x1920_hozler_190126.mp4
-90005,1st,xphero,en,39s,1080x1920,2026-01-19,Ellie Trinh,1.93,OK,video90005_xphero_en_39s_1080x1920_ellie_190126.mp4
-90006,1st,xphero,en,26s,1080x1920,2026-01-20,Hozler Ho,1.89,OK,video90006_xphero_en_26s_1080x1920_hozler_200126.mp4
-90007,1st,xphero,en,58s,1080x1920,2026-01-20,Ellie Trinh,2.44,OK,video90007_xphero_en_58s_1080x1920_ellie_200126.mp4
-90008,1st,xphero,en,31s,1080x1920,2026-01-20,Hozler Ho,2.01,OK,video90008_xphero_en_31s_1080x1920_hozler_200126.mp4
-90009,1st,xphero,en,19s,1080x1920,2026-01-21,Ellie Trinh,2.30,OK,video90009_xphero_en_19s_1080x1920_ellie_210126.mp4
-90010,1st,xphero,en,32s,1080x1920,2026-01-21,Hozler Ho,1.88,OK,video90010_xphero_en_32s_1080x1920_hozler_210126.mp4
-90011,1st,xphero,en,31s,1080x1920,2026-01-21,Ellie Trinh,2.29,OK,video90011_xphero_en_31s_1080x1920_ellie_210126.mp4
-90012,1st,xphero,en,36s,1080x1920,2026-01-22,Hozler Ho,,Rejected,video90012_xphero_en_36s_1080x1920_hozler_220126.mp4
-90013,1st,xphero,en,30s,1080x1920,2026-01-22,Ellie Trinh,1.99,OK,video90013_xphero_en_30s_1080x1920_ellie_220126.mp4
-90014,1st,xphero,en,31s,1080x1920,2026-01-23,Hozler Ho,,Rejected,video90014_xphero_en_31s_1080x1920_hozler_230126.mp4
-90015,1st,xphero,en,42s,1080x1920,2026-01-23,Ellie Trinh,2.12,OK,video90015_xphero_en_42s_1080x1920_ellie_230126.mp4
-90016,1st,xphero,en,29s,1080x1920,2026-01-23,Hozler Ho,1.89,OK,video90016_xphero_en_29s_1080x1920_hozler_230126.mp4
-90017,2nd,weaponrpg,en,28s,1080x1920,2026-02-04,Hozler Ho,2.14,OK,video90017_weaponrpg_en_28s_1080x1920_hozler_040226.mp4
-90018,2nd,weaponrpg,en,26s,1080x1920,2026-02-04,Hozler Ho,1.95,OK,video90018_weaponrpg_en_26s_1080x1920_hozler_040226.mp4
-90019,2nd,weaponrpg,en,14s,1080x1920,2026-02-04,Hozler Ho,2.11,OK,video90019_weaponrpg_en_14s_1080x1920_hozler_040226.mp4
-90020,2nd,weaponrpg,en,20s,1080x1920,2026-02-05,Hozler Ho,2.20,OK,video90020_weaponrpg_en_20s_1080x1920_hozler_050226.mp4
-90021,2nd,weaponrpg,en,36s,1080x1920,2026-02-05,Hozler Ho,2.31,OK,video90021_weaponrpg_en_36s_1080x1920_hozler_050226.mp4
-90022,2nd,weaponrpg,en,36s,1080x1920,2026-02-06,Hozler Ho,2.41,OK,video90022_weaponrpg_en_36s_1080x1920_hozler_060226.mp4
-90023,2nd,weaponrpg,en,56s,1080x1920,2026-02-04,Ellie Trinh,2.05,OK,video90023_weaponrpg_en_56s_1080x1920_ellie_040226.mp4
-90024,2nd,weaponrpg,en,56s,1080x1920,2026-02-04,Ellie Trinh,2.22,OK,video90024_weaponrpg_en_56s_1080x1920_ellie_040226.mp4
-90025,2nd,weaponrpg,en,24s,1080x1920,2026-02-04,Ellie Trinh,1.98,OK,video90025_weaponrpg_en_24s_1080x1920_ellie_040226.mp4
-90026,2nd,weaponrpg,en,15s,1080x1920,2026-02-05,Ellie Trinh,2.24,OK,video90026_weaponrpg_en_15s_1080x1920_ellie_050226.mp4
-90027,2nd,weaponrpg,en,21s,1080x1920,2026-02-05,Ellie Trinh,2.29,OK,video90027_weaponrpg_en_21s_1080x1920_ellie_050226.mp4
+No,Iteration,Asset,Versions,AOS CVR (WW),Status,Creator,Concept,Description,PM,Code,Lang,Duration,Size,Date,Note
+90001,1st,video90001_xphero_en_37s_1080x1920_ellie_160126.mp4,,1.94,Tested,Ellie Trinh,,,,xphero,en,37s,1080x1920,2026-01-16,
+90002,1st,video90002_xphero_en_31s_1080x1920_hozler_160126.mp4,,1.92,Tested,Hozler Ho,,,,xphero,en,31s,1080x1920,2026-01-16,
+90003,1st,video90003_xphero_en_21s_1080x1920_ellie_150126.mp4,,2.01,Tested,Ellie Trinh,,,,xphero,en,21s,1080x1920,2026-01-15,
+90004,1st,video90004_xphero_en_32s_1080x1920_hozler_190126.mp4,,1.97,Tested,Hozler Ho,,,,xphero,en,32s,1080x1920,2026-01-19,
+90005,1st,video90005_xphero_en_39s_1080x1920_ellie_190126.mp4,,1.93,Tested,Ellie Trinh,,,,xphero,en,39s,1080x1920,2026-01-19,
+90006,1st,video90006_xphero_en_26s_1080x1920_hozler_200126.mp4,,1.89,Tested,Hozler Ho,,,,xphero,en,26s,1080x1920,2026-01-20,
+90007,1st,video90007_xphero_en_58s_1080x1920_ellie_200126.mp4,,2.44,Tested,Ellie Trinh,,,,xphero,en,58s,1080x1920,2026-01-20,
+90008,1st,video90008_xphero_en_31s_1080x1920_hozler_200126.mp4,,2.01,Tested,Hozler Ho,,,,xphero,en,31s,1080x1920,2026-01-20,
+90009,1st,video90009_xphero_en_19s_1080x1920_ellie_210126.mp4,,2.30,Tested,Ellie Trinh,,,,xphero,en,19s,1080x1920,2026-01-21,
+90010,1st,video90010_xphero_en_32s_1080x1920_hozler_210126.mp4,,1.88,Tested,Hozler Ho,,,,xphero,en,32s,1080x1920,2026-01-21,
+90011,1st,video90011_xphero_en_31s_1080x1920_ellie_210126.mp4,,2.29,Tested,Ellie Trinh,,,,xphero,en,31s,1080x1920,2026-01-21,
+90012,1st,video90012_xphero_en_36s_1080x1920_hozler_220126.mp4,,,Rejected,Hozler Ho,,,,xphero,en,36s,1080x1920,2026-01-22,
+90013,1st,video90013_xphero_en_30s_1080x1920_ellie_220126.mp4,,1.99,Tested,Ellie Trinh,,,,xphero,en,30s,1080x1920,2026-01-22,
+90014,1st,video90014_xphero_en_31s_1080x1920_hozler_230126.mp4,,,Rejected,Hozler Ho,,,,xphero,en,31s,1080x1920,2026-01-23,
+90015,1st,video90015_xphero_en_42s_1080x1920_ellie_230126.mp4,,2.12,Tested,Ellie Trinh,,,,xphero,en,42s,1080x1920,2026-01-23,
+90016,1st,video90016_xphero_en_29s_1080x1920_hozler_230126.mp4,,1.89,Tested,Hozler Ho,,,,xphero,en,29s,1080x1920,2026-01-23,
+90017,2nd,video90017_weaponrpg_en_28s_1080x1920_hozler_040226.mp4,,2.14,Tested,Hozler Ho,,,,weaponrpg,en,28s,1080x1920,2026-02-04,
+90018,2nd,video90018_weaponrpg_en_26s_1080x1920_hozler_040226.mp4,,1.95,Tested,Hozler Ho,,,,weaponrpg,en,26s,1080x1920,2026-02-04,
+90019,2nd,video90019_weaponrpg_en_14s_1080x1920_hozler_040226.mp4,,2.11,Tested,Hozler Ho,,,,weaponrpg,en,14s,1080x1920,2026-02-04,
+90020,2nd,video90020_weaponrpg_en_20s_1080x1920_hozler_050226.mp4,,2.20,Tested,Hozler Ho,,,,weaponrpg,en,20s,1080x1920,2026-02-05,
+90021,2nd,video90021_weaponrpg_en_36s_1080x1920_hozler_050226.mp4,,2.31,Tested,Hozler Ho,,,,weaponrpg,en,36s,1080x1920,2026-02-05,
+90022,2nd,video90022_weaponrpg_en_36s_1080x1920_hozler_060226.mp4,,2.41,Tested,Hozler Ho,,,,weaponrpg,en,36s,1080x1920,2026-02-06,
+90023,2nd,video90023_weaponrpg_en_56s_1080x1920_ellie_040226.mp4,,2.05,Tested,Ellie Trinh,,,,weaponrpg,en,56s,1080x1920,2026-02-04,
+90024,2nd,video90024_weaponrpg_en_56s_1080x1920_ellie_040226.mp4,,2.22,Tested,Ellie Trinh,,,,weaponrpg,en,56s,1080x1920,2026-02-04,
+90025,2nd,video90025_weaponrpg_en_24s_1080x1920_ellie_040226.mp4,,1.98,Tested,Ellie Trinh,,,,weaponrpg,en,24s,1080x1920,2026-02-04,
+90026,2nd,video90026_weaponrpg_en_15s_1080x1920_ellie_050226.mp4,,2.24,Tested,Ellie Trinh,,,,weaponrpg,en,15s,1080x1920,2026-02-05,
+90027,2nd,video90027_weaponrpg_en_21s_1080x1920_ellie_050226.mp4,,2.29,Tested,Ellie Trinh,,,,weaponrpg,en,21s,1080x1920,2026-02-05,
+90468,34th,video90468_weaponrpg_en_59s_1080x1920_quinne_291026.mp4,,3.01,Tested,Quinne Nguyen,Gameplay,AI Intro - Video 90466,Mee Tran,weaponrpg,en,59s,1080x1920,2026-10-29,
+90469,34th,video90469_weaponrpg_en_59s_1080x1920_quinne_291026.mp4,,,Rejected,Quinne Nguyen,Multi Level,AI Intro Romantic Drama - Isometric Game Camera - Upgrade First,Mee Tran,weaponrpg,en,59s,1080x1920,2026-10-29,
+90470,34th,video90470_weaponrpg_en_38s_1080x1920_quinne_291026.mp4,,3.43,Tested,Quinne Nguyen,Multi Level,Base Building Progress - Desert,Mee Tran,weaponrpg,en,38s,1080x1920,2026-10-29,
+90471,34th,video90471_weaponrpg_en_58s_1080x1920_min_291026.mp4,2,,Not tested,Min Ho,Hook: Machine assembles into what,fight enemies → earn coins → build and upgrade the castle.,Dustin Nguyen,weaponrpg,en,58s,1080x1920,2026-10-29,Not yet tested — carried over to Iteration 35.
+90472,34th,video90472_weaponrpg_en_59s_1080x1920_min_291026.mp4,2,,Not tested,Min Ho,Hook: What inside the wooden box,fight enemies → earn coins → build and upgrade the castle.,Dustin Nguyen,weaponrpg,en,59s,1080x1920,2026-10-29,Not yet tested — carried over to Iteration 35.
+90473,34th,video90473_weaponrpg_en_54s_1080x1920_min_291026.mp4,2,,Not tested,Min Ho,Hook: Break egg to see what inside,"Under the sea battles, hero evolution, boss fight, XP outro",Dustin Nguyen,weaponrpg,en,54s,1080x1920,2026-10-29,Not yet tested — carried over to Iteration 35.
+90474,34th,video90474_weaponrpg_en_53s_1080x1920_min_291026.mp4,2,,Not tested,Min Ho,Hook: Boyfriend escape his girlfriend,"Under the sea battles, hero evolution, boss fight, XP outro",Dustin Nguyen,weaponrpg,en,53s,1080x1920,2026-10-29,Not yet tested — carried over to Iteration 35.
+90475,34th,video90475_weaponrpg_en_46s_1080x1920_pax_281026.mp4,,3.26,Tested,Pax Pham,,,Dustin Nguyen,weaponrpg,en,46s,1080x1920,2026-10-28,
+90476,34th,video90476_weaponrpg_en_59s_1080x1920_pax_281026.mp4,,,Pending,Pax Pham,,,Dustin Nguyen,weaponrpg,en,59s,1080x1920,2026-10-28,
+90477,34th,video90477_weaponrpg_en_44s_1080x1920_pax_281026.mp4,,3.75,Tested,Pax Pham,,,Dustin Nguyen,weaponrpg,en,44s,1080x1920,2026-10-28,
+90478,34th,video90478_weaponrpg_en_49s_1080x1920_pax_281026.mp4,,3.11,Tested,Pax Pham,,,Dustin Nguyen,weaponrpg,en,49s,1080x1920,2026-10-28,
+90479,35th,video90479_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,2,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Satisfying ASMR,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90480,35th,video90480_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Fear & Urgency,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90481,35th,video90481_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Satisfaction & Tension,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90482,35th,video90482_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Frustration & Failure + AI Hook,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90483,35th,video90483_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Customer Overload & Failure,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90484,35th,video90484_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Achievement & Progression,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90485,35th,video90485_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,AI ASMR Hook,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90486,35th,video90486_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Full AI Cinematic,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90487,35th,video90487_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Winter ASMR,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90488,35th,video90488_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Winter Fear & Urgency,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90489,35th,video90489_weaponrpg_en_59s_1080x1920_ruelle_051126.mp4,,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Winter Satisfaction & Tension,Zoe Tran,weaponrpg,en,59s,1080x1920,2026-11-05,
+90490,35th,video90490_weaponrpg_en_55s_1080x1920_ruelle_051126.mp4,2,,Pending,Ruelle Nguyen,ASMR Fish vs Crocodile,Winter Failure + AI Hook,Zoe Tran,weaponrpg,en,55s,1080x1920,2026-11-05,
+90491,35th,1_test.mp4,,,Pending,,,,,,,,,,
+90492,35th,2_test.mp4,,,Pending,,,,,,,,,,
+90493,35th,GateRush_Ad_31s_1.mp4,,,Pending,,,,,,,,,,
+90494,35th,,,,Empty,,,,,,,,,,
+90495,35th,,,,Empty,,,,,,,,,,
+90496,35th,,,,Empty,,,,,,,,,,
