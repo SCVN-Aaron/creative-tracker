@@ -49,6 +49,15 @@ header.top.scrolled{border-bottom-color:var(--line)}
 .nav .btn{height:36px;font-size:14px;padding:0 14px}
 @media (max-width:860px){.nav nav{display:none}.nav .btn{margin-left:auto}}
 
+:lang(ko) body{word-break:keep-all}
+/* language switch */
+.lang{display:flex;gap:2px;background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:2px}
+.lang button{border:0;background:none;font:inherit;font-size:12.5px;font-weight:600;color:var(--ink-2);padding:5px 9px;border-radius:7px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(24,24,27,.08)}
+.lang button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:860px){.nav .lang{margin-left:auto}.nav .btn{margin-left:0}}
+@media (max-width:420px){.nav .btn{display:none}}
+
 /* logo */
 .logo{width:34px;height:34px;flex:none;display:block}
 .logo .bar{transform-box:fill-box;transform-origin:50% 100%}
@@ -190,7 +199,7 @@ table.mt td:first-child,table.mt th:first-child{text-align:left;font-weight:700;
 /* creator chart mock */
 .chart{height:150px;display:flex;align-items:flex-end;gap:7px;position:relative;padding:6px 4px 0}
 .chart .ql{position:absolute;left:0;right:0;bottom:64%;border-top:1.5px dashed rgba(91,147,255,.75)}
-.chart .ql::after{content:"Chỉ tiêu";position:absolute;right:0;top:-15px;font-size:10px;color:#8fb3ff}
+.chart .ql::after{content:attr(data-l);position:absolute;right:0;top:-15px;font-size:10px;color:#8fb3ff}
 .chart span{flex:1;height:var(--h);background:linear-gradient(#5B93FF,#2E6BEA);border-radius:4px 4px 0 0;transform:scaleY(.02);transform-origin:bottom;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
 .chart span.cur{background:linear-gradient(#9ab9ff,#5b8cf0);opacity:.85}
 .in .chart span{transform:scaleY(1)}
@@ -373,6 +382,9 @@ footer{padding:40px 0 60px;color:var(--ink-3);font-size:13.5px}
     <nav aria-label="Mục lục">
       <a href="#problem">Vấn đề</a><a href="#solution">Giải pháp</a><a href="#features">Tính năng</a><a href="#naming">Tên file</a><a href="#benefits">Lợi ích</a><a href="#limits">Giới hạn</a>
     </nav>
+    <div class="lang" role="group" aria-label="Ngôn ngữ" id="lang">
+      <button type="button" data-lang="vi" aria-pressed="true" lang="vi">VI</button><button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button><button type="button" data-lang="ko" aria-pressed="false" lang="ko">한국어</button>
+    </div>
     <a class="btn primary" href="https://scvn-aaron.github.io/creative-tracker/" target="_blank" rel="noopener">Mở dashboard</a>
   </div>
 </header>
@@ -495,7 +507,7 @@ footer{padding:40px 0 60px;color:var(--ink-3);font-size:13.5px}
         <div class="app-body">
           <div class="panel"><div class="panel-h">Số video mỗi tuần<div class="seg"><span class="on">Tổng đội</span><span>TB / người</span><span>Tổng tháng</span></div></div>
             <div class="panel-b">
-              <div class="chart"><div class="ql"></div>
+              <div class="chart"><div class="ql" data-l="Chỉ tiêu"></div>
                 <span style="--h:60%"></span><span style="--h:66%"></span><span style="--h:58%"></span><span style="--h:72%"></span><span style="--h:68%"></span><span style="--h:54%"></span><span style="--h:70%"></span><span style="--h:66%"></span><span style="--h:57%"></span><span style="--h:74%"></span><span style="--h:69%"></span><span class="cur" style="--h:38%"></span>
               </div>
               <div class="xl"><span>24/8</span><span>31/8</span><span>7/9</span><span>14/9</span><span>21/9</span><span>28/9</span><span>5/10</span><span>12/10</span><span>19/10</span><span>26/10</span><span>2/11</span><span>9/11</span></div>
@@ -796,6 +808,274 @@ footer{padding:40px 0 60px;color:var(--ink-3);font-size:13.5px}
     ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
   }, {threshold:.18, rootMargin:'0px 0px -40px 0px'});
   els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+<script>
+/* ---------- Ngôn ngữ: Tiếng Việt (gốc) / English / 한국어 ---------- */
+var TR = {
+"Vấn đề":["Problem","문제"],
+"Giải pháp":["Solution","해결책"],
+"Tính năng":["Features","기능"],
+"Tên file":["File names","파일 이름"],
+"Lợi ích":["Benefits","기대 효과"],
+"Giới hạn":["Limitations","한계"],
+"Mở dashboard":["Open dashboard","대시보드 열기"],
+"Một trang duy nhất để theo dõi sản lượng creative của cả đội — gom task trên Notion, lịch trên Google Sheet và video trên Google Drive, so với chỉ tiêu từng tuần, đánh số Creative cho task mới và tìm lại bất kỳ video nào theo số.":["One page to track the whole team’s creative output — it brings together tasks in Notion, schedules in Google Sheets and videos in Google Drive, compares them with each week’s target, numbers new tasks and finds any video by its Creative number.","팀 전체의 크리에이티브 제작량을 한 페이지에서 확인합니다. Notion의 작업, Google 시트의 스케줄, Google 드라이브의 영상을 모아 주간 목표와 비교하고, 새 작업에 Creative 번호를 매기며, 번호로 어떤 영상이든 다시 찾을 수 있습니다."],
+"Mở Creative Tracker":["Open Creative Tracker","Creative Tracker 열기"],
+"Xem tính năng":["See features","기능 보기"],
+"Google Drive · thư mục VN 제작":["Google Drive · VN 제작 folders","Google 드라이브 · VN 제작 폴더"],
+"Task Notion":["Notion tasks","Notion 작업"],
+"Lịch Google Sheet":["Google Sheet schedules","Google 시트 스케줄"],
+"Video trên Drive":["Videos on Drive","Drive 영상"],
+"Creator":["Creators","크리에이터"],
+"Đánh số":["Numbering","번호 매기기"],
+"Đã làm":["Produced","제작 실적"],
+"Số video mỗi tuần":["Videos per week","주간 영상 수"],
+"Đã làm · theo tuần":["Produced · by week","제작 실적 · 주별"],
+"Creative tiếp theo · Snake Clash":["Next Creative · Snake Clash","다음 Creative · Snake Clash"],
+"Cả đội trên một trang":["The whole team on one page","팀 전체를 한 페이지에"],
+"tuần · tháng · game · creator":["week · month · game · creator","주 · 월 · 게임 · 크리에이터"],
+"Số liệu nằm rải rác, việc đếm và đánh số làm bằng tay":["Scattered data, counting and numbering by hand","흩어진 데이터, 손으로 하는 집계와 번호 매기기"],
+"Mỗi tuần, quản lý đội phải trả lời cùng một loạt câu hỏi — ai đã làm bao nhiêu video, có đạt chỉ tiêu không, vì sao tuần này ít hơn — trong khi câu trả lời nằm ở ba nơi khác nhau.":["Every week the team lead answers the same questions — who made how many videos, did we hit the target, why was this week lower — while the answers live in three different places.","매주 팀 리드는 같은 질문에 답해야 합니다. 누가 영상을 몇 개 만들었는지, 목표를 달성했는지, 이번 주는 왜 적었는지. 그런데 답은 세 곳에 흩어져 있습니다."],
+"Dữ liệu ở ba nơi":["Data in three places","세 곳에 흩어진 데이터"],
+"Task và số lượng trên Notion, lịch game theo tuần trên Google Sheet, còn video thật thì nằm trong từng thư mục game trên Google Drive.":["Tasks and counts are in Notion, the weekly game schedule is in Google Sheets, and the actual videos sit in each game’s folder on Google Drive.","작업과 수량은 Notion에, 주간 게임 스케줄은 Google 시트에, 실제 영상은 Google 드라이브의 게임별 폴더에 있습니다."],
+"Đếm và so chỉ tiêu bằng tay":["Counting against targets by hand","목표 대비 수작업 집계"],
+"Chỉ tiêu không cố định: 8 video/tuần, vai trò ETC 12, người mới 2 → 6 → 8, tuần làm Hypereels 24, cộng thêm nghỉ phép, nghỉ lễ, team building.":["Targets aren’t fixed: 8 videos a week, 12 for the ETC role, 2 → 6 → 8 for new members, 24 in a Hypereels week — plus leave, holidays and team building.","목표는 고정되어 있지 않습니다. 주 8개, ETC 역할 12개, 신규 인원 2 → 6 → 8개, Hypereels 주간 24개에 휴가, 공휴일, 팀 빌딩까지 반영해야 합니다."],
+"Khó giải thích chênh lệch":["Hard to explain the gap","차이를 설명하기 어려움"],
+"Tuần này ít hơn vì ít người, vì ai đó nghỉ, hay vì năng suất giảm? Không có chỗ nào tách bạch các lý do đó.":["Was this week lower because fewer people worked, someone was on leave, or output per person dropped? Nothing separated those reasons.","이번 주가 적은 이유가 인원이 적어서인지, 누군가 휴가여서인지, 1인당 생산량이 줄어서인지 구분해 주는 곳이 없었습니다."],
+"Đánh số Creative bằng tay":["Creative numbers typed by hand","Creative 번호 수동 입력"],
+"Mỗi game có một dãy số 900xx dùng chung cho team UA và team AI. Gõ tay từng khoảng số vào Notion dễ trùng hoặc nhảy số.":["Each game has one 900xx sequence shared by the UA and AI teams. Typing each range into Notion by hand risks duplicates and gaps.","게임마다 UA 팀과 AI 팀이 함께 쓰는 900xx 번호가 있습니다. Notion에 번호 범위를 손으로 입력하면 중복되거나 건너뛰기 쉽습니다."],
+"Tìm lại một video mất công":["Finding a video takes effort","영상을 다시 찾기 번거로움"],
+"Muốn xem video số 90582 phải đoán game, mở đúng thư mục, đúng kích thước rồi lướt tìm trong hàng trăm file.":["To watch video 90582 you had to guess the game, open the right folder and size, then scroll through hundreds of files.","90582번 영상을 보려면 게임을 추측하고, 맞는 폴더와 사이즈를 연 뒤 수백 개 파일을 훑어야 했습니다."],
+"Không được nối AI vào Notion":["No AI connection to Notion","AI의 Notion 연결 불가"],
+"Theo chính sách công ty, công cụ AI không được liên kết tài khoản vào Notion của team — nên không thể tự động hoá theo cách nối thẳng.":["Company policy doesn’t allow AI tools to be linked to the team’s Notion, so automating through a direct connection isn’t an option.","회사 정책상 AI 도구를 팀 Notion 계정에 연결할 수 없어 직접 연결 방식의 자동화는 불가능합니다."],
+"Từ vấn đề tới lợi ích, trong một luồng":["From problem to benefit, in one flow","문제에서 효과까지, 하나의 흐름으로"],
+"Creative Tracker là một trang web tĩnh (GitHub Pages). Nó đọc dữ liệu đã có sẵn của đội và tự tính phần còn lại.":["Creative Tracker is a static web page (GitHub Pages). It reads the data the team already has and works out the rest.","Creative Tracker는 정적 웹 페이지(GitHub Pages)입니다. 팀이 이미 가진 데이터를 읽고 나머지는 자동으로 계산합니다."],
+"Dữ liệu tách ở Notion, Sheet, Drive":["Data split across Notion, Sheets, Drive","Notion, 시트, 드라이브에 나뉜 데이터"],
+"Chỉ tiêu nhiều ngoại lệ, tính tay":["Targets with many exceptions, worked out by hand","예외가 많은 목표를 손으로 계산"],
+"Đánh số Creative gõ tay, dễ trùng":["Creative numbers typed by hand, easy to duplicate","손으로 입력하는 Creative 번호, 중복 위험"],
+"Tìm video theo số mất công":["Finding a video by number is slow","번호로 영상 찾기가 번거로움"],
+"Một dashboard 4 tab: Creator · PM · Đánh số · Đã làm":["One dashboard, 4 tabs: Creators · PMs · Numbering · Produced","탭 4개짜리 대시보드: 크리에이터 · PM · 번호 매기기 · 제작 실적"],
+"Đọc trực tiếp 2 Google Sheet, tự đọc lại mỗi 2 phút":["Reads 2 Google Sheets live, re-reading every 2 minutes","Google 시트 2개를 실시간으로 읽고 2분마다 다시 읽음"],
+"Task Notion gộp từ file CSV export hoặc ảnh chụp":["Notion tasks merged from a CSV export or a screenshot","Notion 작업은 CSV 내보내기나 스크린샷으로 병합"],
+"Video đếm theo tên file trên Drive":["Videos counted from file names on Drive","영상은 드라이브 파일 이름으로 집계"],
+"Bớt việc đếm và đối chiếu lặp lại":["Less repetitive counting and cross-checking","반복적인 집계와 대조 감소"],
+"Chỉ tiêu và lý do chênh lệch rõ ràng":["Clear targets and reasons for the gap","명확한 목표와 차이의 이유"],
+"Số Creative liền mạch, ít nhầm":["Continuous Creative numbers, fewer mistakes","끊김 없는 Creative 번호, 실수 감소"],
+"Thêm thời gian cho ý tưởng creative":["More time for creative ideas","크리에이티브 아이디어에 쓸 시간 확보"],
+"Bốn tab, mỗi tab trả lời một câu hỏi":["Four tabs, each answers one question","탭 4개, 각각 하나의 질문에 답합니다"],
+"Các màn hình dưới đây dựng lại giao diện thật của dashboard (chế độ tối), với dữ liệu minh hoạ.":["The screens below recreate the real dashboard (dark mode) with sample data.","아래 화면은 실제 대시보드(다크 모드)를 예시 데이터로 재현한 것입니다."],
+"Tab Creator":["Creators tab","크리에이터 탭"],
+"Sản lượng từng tuần, so với đúng chỉ tiêu":["Weekly output against the right target","정확한 목표 대비 주간 생산량"],
+"Biểu đồ số video mỗi tuần của cả đội kèm đường chỉ tiêu, bảng từng creator với cột “Chênh so chuẩn”, tổng tháng và dự kiến tháng theo KPI.":["A chart of the team’s videos per week with a target line, a per-creator table with a “vs target” column, monthly totals and a KPI-based monthly projection.","팀의 주간 영상 수 차트와 목표선, ‘기준 대비’ 열이 있는 크리에이터별 표, 월 합계와 KPI 기준 월 예상치를 보여 줍니다."],
+"Chỉ tiêu tự áp dụng ngoại lệ: ETC, người mới (2 → 6 → 8), Hypereels 24 video, nghỉ phép, tuần nghỉ lễ / team building.":["Targets apply exceptions automatically: ETC, new members (2 → 6 → 8), 24 videos for Hypereels, leave, holiday / team-building weeks.","목표에 예외가 자동 적용됩니다: ETC, 신규 인원(2 → 6 → 8), Hypereels 24개, 휴가, 공휴일 / 팀 빌딩 주간."],
+"Khung":["The",""],
+"“Vì sao tuần này nhiều / ít hơn”":["“Why this week ran high or low”","‘이번 주가 많거나 적었던 이유’"],
+"tách phần chênh do nhân sự và do sản lượng mỗi người, kèm lý do.":["box splits the gap into headcount and output per person, with the reason.","박스는 차이를 인원과 1인당 생산량으로 나누고 이유를 함께 보여 줍니다."],
+"Lịch 4-Week Loop theo creator hoặc theo game, đánh dấu ✓ / ⚠ khi Notion khớp hay lệch lịch.":["The 4-Week Loop schedule by creator or by game, marked ✓ / ⚠ when Notion matches or differs from the plan.","크리에이터별 또는 게임별 4-Week Loop 스케줄, Notion이 일치하면 ✓, 다르면 ⚠ 표시."],
+"Tổng đội":["Team total","팀 합계"],
+"TB / người":["Avg / person","1인 평균"],
+"Tổng tháng":["Monthly total","월 합계"],
+"Vì sao tuần này nhiều / ít hơn":["Why this week ran high or low","이번 주가 많거나 적었던 이유"],
+"Team building — nghỉ thứ 5, thứ 6 nên chỉ tiêu giảm 2 video mỗi người. Tách phần chênh: nhân sự":["Team building — off Thu–Fri, so the target drops by 2 videos per person. Gap split: headcount","팀 빌딩 — 목·금 휴무로 1인당 목표가 2개 줄었습니다. 차이 분해: 인원"],
+"video · năng suất":["videos · output","개 · 생산량"],
+"video.":["videos.","개."],
+"Thành viên":["Member","멤버"],
+"Video":["Videos","영상"],
+"Chỉ tiêu":["Target","목표"],
+"Chênh so chuẩn":["vs target","기준 대비"],
+"Mới · tuần 2":["New · week 2","신규 · 2주차"],
+"Nghỉ phép":["On leave","휴가"],
+"Tab PM":["PMs tab","PM 탭"],
+"PM nào đang làm game gì, với ai":["Which PM is on which game, with whom","어느 PM이 누구와 어떤 게임을 하는지"],
+"Tổng quan từng tuần — kể cả các tuần sắp tới: PM, game, iteration, creator, số lượng và trạng thái. Bấm tên iteration để mở đúng task trên Notion.":["A week-by-week overview — upcoming weeks included: PM, game, iteration, creator, count and status. Click an iteration to open its task in Notion.","주별 개요(다가오는 주 포함): PM, 게임, 이터레이션, 크리에이터, 수량, 상태. 이터레이션을 클릭하면 Notion 작업이 열립니다."],
+"Lịch PM theo tuần, xem":["The PM schedule by week, viewed","주간 PM 스케줄은"],
+"Theo PM":["By PM","PM별"],
+"hoặc":["or","또는"],
+"Theo game":["By game","게임별"],
+", cột tuần này được tô màu.":[", with this week’s column highlighted.","로 볼 수 있고 이번 주 열이 강조됩니다."],
+"Game lấy theo 4-Week Loop; PM lấy theo task Notion, chưa gắn thì theo lịch PM×Creator; không có PM thì vào hàng “Creator solo”.":["Games come from the 4-Week Loop; the PM comes from the Notion task, or the PM×Creator schedule if none is set; work without a PM goes in the “Creator solo” row.","게임은 4-Week Loop 기준, PM은 Notion 작업 기준이며 없으면 PM×Creator 스케줄을 따릅니다. PM이 없으면 ‘크리에이터 단독’ 행에 들어갑니다."],
+"Bảng “PM và các game đảm nhận”: game đang làm và game đã làm trước đây.":["A “PMs and their games” table: current games and games handled before.","‘PM과 담당 게임’ 표: 현재 담당 게임과 이전에 맡았던 게임."],
+"Lịch PM theo tuần (🇻🇳 UA)":["PM schedule by week (🇻🇳 UA)","주간 PM 스케줄 (🇻🇳 UA)"],
+"Tuần này":["This week","이번 주"],
+"Creator solo":["Creator solo","크리에이터 단독"],
+"Nguồn:":["Source:","출처:"],
+"Google Sheet trực tiếp":["live Google Sheet","구글 시트 실시간"],
+"· đọc lúc 10:24 · tự đọc lại mỗi 2 phút":["· read at 10:24 · re-reads every 2 minutes","· 10:24에 읽음 · 2분마다 다시 읽음"],
+"Tab Đánh số":["Numbering tab","번호 매기기 탭"],
+"Creative number và Video Count cho task mới, sẵn để dán vào Notion":["Creative numbers and Video Counts for new tasks, ready to paste into Notion","새 작업의 Creative number와 Video Count를 Notion에 바로 붙여넣기"],
+"Chọn tuần, bấm “Điền theo lịch”: dashboard lấy creator và game từ lịch, số video theo chỉ tiêu, rồi tính khoảng số tiếp theo của từng game.":["Pick a week and click “Fill from schedule”: the dashboard takes creators and games from the schedule, video counts from the targets, then works out each game’s next number range.","주차를 고르고 ‘스케줄로 채우기’를 누르면 스케줄에서 크리에이터와 게임을, 목표에서 영상 수를 가져와 게임별 다음 번호 범위를 계산합니다."],
+"Mỗi game một dãy số,":["Each game has one sequence,","게임마다 하나의 번호 체계를"],
+"dùng chung team UA và team AI":["shared by the UA and AI teams","UA 팀과 AI 팀이 함께 사용합니다"],
+"(UA điền trước, AI điền sau). Social / YT có dãy riêng.":["(UA numbers first, AI after). Social / YT have their own sequence.","(UA 먼저, AI 다음). Social / YT는 별도 번호입니다."],
+"Số cuối = lớn nhất giữa Notion và video trên Drive; Drive lớn hơn thì cảnh báo cam “Drive lớn hơn Notion”.":["The last number is the highest of Notion and the videos on Drive; if Drive is higher you get an orange “Drive ahead of Notion” warning.","마지막 번호는 Notion과 드라이브 영상 중 가장 큰 번호이며, 드라이브가 더 크면 주황색 ‘Drive가 Notion보다 큼’ 경고가 표시됩니다."],
+"Copy cả cột hoặc “Creative number + Video Count”, chọn ô đầu trên Notion rồi dán.":["Copy the whole column or “Creative number + Video Count”, select the first cell in Notion and paste.","열 전체 또는 ‘Creative number + Video Count’를 복사한 뒤 Notion의 첫 칸을 선택해 붙여넣습니다."],
+"Đánh số Creative cho task mới":["Creative numbers for new tasks","신규 작업 Creative 번호"],
+"Điền theo lịch":["Fill from schedule","스케줄로 채우기"],
+"Game":["Game","게임"],
+"Số video":["Videos","영상 수"],
+"+ Thêm dòng":["+ Add row","+ 행 추가"],
+"Copy Creative number + Video Count":["Copy Creative number + Video Count","Creative number + Video Count 복사"],
+"Số cuối theo game":["Last number per game","게임별 마지막 번호"],
+"Cyan · Tuần 09/11":["Cyan · Week 11/09","Cyan · 11/09 주"],
+"Ruelle · Tuần 09/11":["Ruelle · Week 11/09","Ruelle · 11/09 주"],
+"Cyan · Tuần 02/11":["Cyan · Week 11/02","Cyan · 11/02 주"],
+"Drive lớn hơn Notion: 90100":["Drive ahead of Notion: 90100","Drive가 Notion보다 큼: 90100"],
+"Đã copy — dán vào Notion":["Copied — paste into Notion","복사됨 — Notion에 붙여넣기"],
+"Tab Đã làm":["Produced tab","제작 실적 탭"],
+"Ai đã làm bao nhiêu video — đếm từ file thật trên Drive":["Who made how many videos — counted from the real files on Drive","누가 영상을 몇 개 만들었는지 — 드라이브의 실제 파일로 집계"],
+"Bảng màu xanh theo mức: mỗi dòng một creator, mỗi cột một tuần, tháng hoặc game. Ô càng đậm càng nhiều video; tuần / tháng hiện tại có nhãn riêng.":["A green heat table: one row per creator, one column per week, month or game. Darker cells mean more videos; the current week / month has its own label.","초록색 히트맵 표: 행은 크리에이터, 열은 주·월·게임입니다. 칸이 진할수록 영상이 많고, 이번 주 / 이번 달에는 별도 라벨이 붙습니다."],
+"Mỗi số Creative tính":["Each Creative number counts as","Creative 번호 하나는"],
+"một video":["one video","영상 1개로 집계"],
+"dù có 3 bản kích thước 9x16 · 1x1 · 16x9.":["even with 3 sizes: 9x16 · 1x1 · 16x9.","— 9x16 · 1x1 · 16x9 세 사이즈가 있어도 마찬가지입니다."],
+"Lọc Team UA / Team AI / Tất cả. Team lấy theo dữ liệu Notion.":["Filter by UA team / AI team / All. Teams follow the Notion data.","UA 팀 / AI 팀 / 전체로 필터링. 팀은 Notion 데이터 기준입니다."],
+"Xuất kèm file Excel: theo tháng, theo tuần, theo game và danh sách từng video.":["Also exported to Excel: by month, by week, by game and a list of every video.","엑셀로도 내보냅니다: 월별, 주별, 게임별, 영상 목록."],
+"Số video đã làm (theo Google Drive)":["Videos produced (from Google Drive)","제작한 영상 수 (Google Drive 기준)"],
+"Theo tuần":["By week","주별"],
+"Theo tháng":["By month","월별"],
+"Team UA":["UA team","UA 팀"],
+"Team AI":["AI team","AI 팀"],
+"Tất cả":["All","전체"],
+"Tổng":["Total","합계"],
+"Quét Drive ngày 09/11/2026 · chỉ tính video đã upload":["Drive scanned on 11/09/2026 · uploaded videos only","Drive 확인일 2026/11/09 · 업로드된 영상만 집계"],
+"Tìm video Creative":["Find a Creative video","Creative 영상 찾기"],
+"Gõ số, xem video ngay trên dashboard":["Type a number, watch the video right in the dashboard","번호를 입력하고 대시보드에서 바로 영상 보기"],
+"Chọn game và/hoặc gõ số Creative: số đầy đủ (":["Pick a game and/or type a Creative number: the full number (","게임을 고르거나 Creative 번호를 입력하세요: 전체 번호("],
+"), một khoảng (":["), a range (","), 범위("],
+") hoặc vài số cuối (":[") or the last few digits (","), 또는 끝자리("],
+"). Chỉ chọn game thì hiện 30 video mới nhất.":["). Picking only a game shows its 30 latest videos.","). 게임만 고르면 최신 영상 30개가 표시됩니다."],
+"Kết quả có creator, ngày, concept, thời lượng và task Notion mang số đó (cả team UA lẫn AI).":["Results show the creator, date, concept, length and the Notion task carrying that number (UA and AI teams).","결과에는 크리에이터, 날짜, 콘셉트, 길이, 해당 번호의 Notion 작업(UA·AI 팀 모두)이 표시됩니다."],
+"Bấm":["Click","영상 재생은"],
+"để phát video trong khung xem trước của Google Drive, có link “Mở trên Drive”.":["to play the video in Google Drive’s preview, with an “Open in Drive” link.","를 눌러 Google 드라이브 미리보기로 재생하며, ‘Drive에서 열기’ 링크도 있습니다."],
+"Số đã giữ trên Notion mà chưa upload hiện “Chưa có trên Drive”.":["Numbers reserved in Notion but not yet uploaded show “Not on Drive yet”.","Notion에 예약됐지만 아직 업로드되지 않은 번호는 ‘Drive에 아직 없음’으로 표시됩니다."],
+"Tìm":["Search","검색"],
+"Số":["No.","번호"],
+"Ngày":["Date","날짜"],
+"Chưa có trên Drive":["Not on Drive yet","Drive에 아직 없음"],
+"Cập nhật dữ liệu":["Updating data","데이터 업데이트"],
+"Không cần nối AI vào Notion":["No AI connection to Notion needed","AI를 Notion에 연결할 필요 없음"],
+"Lịch Google Sheet được đọc trực tiếp. Phần Notion và Drive được cập nhật qua file — phù hợp với chính sách không liên kết tài khoản AI vào Notion của team.":["Google Sheet schedules are read live. Notion and Drive are updated through files — in line with the policy of not linking AI accounts to the team’s Notion.","Google 시트 스케줄은 실시간으로 읽습니다. Notion과 드라이브는 파일로 업데이트하므로 팀 Notion에 AI 계정을 연결하지 않는 정책에 맞습니다."],
+"export CSV (hoặc chụp màn hình Table view) → gộp vào":["export a CSV (or screenshot the Table view) → merge into","CSV 내보내기(또는 Table view 스크린샷) → 병합 대상"],
+", giữ dữ liệu cũ, báo task mới / đổi tên / trùng.":[", keeping old data and reporting new / renamed / duplicate tasks.",", 기존 데이터는 유지하고 신규 / 이름 변경 / 중복 작업을 알려 줍니다."],
+"4-Week Loop và PM×Creator “Publish to web”, dashboard tự đọc lại mỗi 2 phút; không đọc được thì dùng bản lưu.":["4-Week Loop and PM×Creator are “Published to the web”; the dashboard re-reads them every 2 minutes and falls back to a saved copy.","4-Week Loop와 PM×Creator를 ‘웹에 게시’하면 대시보드가 2분마다 다시 읽고, 읽지 못하면 저장본을 씁니다."],
+"quét danh sách file trong thư mục video của từng game, tổng hợp ra số video và số Creative cuối.":["the file list in each game’s video folders is scanned to produce video counts and last Creative numbers.","게임별 영상 폴더의 파일 목록을 확인해 영상 수와 마지막 Creative 번호를 집계합니다."],
+"Cập nhật tuần này":["This week’s update","이번 주 업데이트"],
+"tự đọc mỗi 2 phút":["re-read every 2 min","2분마다 자동으로 읽음"],
+"MỚI: [W2] Nov W2 · Cyan · Snake Clash_42nd · 6":["NEW: [W2] Nov W2 · Cyan · Snake Clash_42nd · 6","신규: [W2] Nov W2 · Cyan · Snake Clash_42nd · 6"],
+"ĐỔI: Max · HypeReels_3rd → HypeReels_4th":["CHANGED: Max · HypeReels_3rd → HypeReels_4th","변경: Max · HypeReels_3rd → HypeReels_4th"],
+"Đã ghi 257 task vào data/latest.csv":["Wrote 257 tasks to data/latest.csv","data/latest.csv에 작업 257개 기록"],
+"Đã ghi 288 task AI vào data/ai_numbers.csv":["Wrote 288 AI tasks to data/ai_numbers.csv","data/ai_numbers.csv에 AI 작업 288개 기록"],
+"Lộ trình người mới":["New-member ramp","신규 인원 단계"],
+"Tuần đầu 2 video, tuần thứ hai 6, từ tuần thứ ba 8 — kèm nhãn “Mới · tuần 1/2” cạnh tên.":["2 videos in week one, 6 in week two, 8 from week three — with a “New · week 1/2” label next to the name.","첫 주 2개, 둘째 주 6개, 셋째 주부터 8개 — 이름 옆에 ‘신규 · 1/2주차’ 라벨이 붙습니다."],
+"làm":["on","—"],
+"(chỉ tiêu 24 thay vì 8)":["(target 24 instead of 8)","(목표 8개 대신 24개)"],
+"Chỉ tiêu theo game":["Per-game targets","게임별 목표"],
+"Tuần làm Hypereels chỉ tiêu 24 video, áp dụng cho chỉ tiêu tuần, chênh so chuẩn và dự kiến tháng.":["A Hypereels week has a 24-video target, used in the weekly target, the vs-target column and the monthly projection.","Hypereels 주간 목표는 24개이며 주간 목표, 기준 대비, 월 예상치에 반영됩니다."],
+"Tiêu đề phụ (YT) / (Social)":["(YT) / (Social) sub-titles","(YT) / (Social) 보조 제목"],
+"Video YouTube / social làm kèm được gắn nhãn riêng và đánh số trong dãy Social của game.":["Extra YouTube / social videos get their own label and are numbered in the game’s Social sequence.","함께 만드는 YouTube / 소셜 영상은 별도 라벨이 붙고 게임의 Social 번호로 매겨집니다."],
+"Lịch tự đồng bộ":["Self-syncing schedule","자동 동기화 스케줄"],
+"Sửa Google Sheet là dashboard thấy sau lần đọc kế tiếp; dòng nguồn ghi rõ “Google Sheet trực tiếp” hay “bản lưu”.":["Edit the Google Sheet and the dashboard picks it up on the next read; the source line says “live Google Sheet” or “saved copy”.","Google 시트를 수정하면 다음 읽기 때 대시보드에 반영되며, 출처 줄에 ‘실시간’인지 ‘저장본’인지 표시됩니다."],
+"Ba ngôn ngữ":["Three languages","3개 언어"],
+"Toàn bộ giao diện có tiếng Việt, tiếng Anh và tiếng Hàn.":["The whole interface is available in Vietnamese, English and Korean.","전체 화면을 베트남어, 영어, 한국어로 볼 수 있습니다."],
+"Sáng / tối":["Light / dark","라이트 / 다크"],
+"Giao diện sáng và tối, theo cài đặt máy hoặc chọn tay. Các bảng rộng kéo ngang được bằng chuột.":["Light and dark themes, following the system or chosen by hand. Wide tables can be dragged sideways with the mouse.","라이트·다크 테마를 시스템 설정에 맞추거나 직접 고를 수 있습니다. 넓은 표는 마우스로 끌어서 옆으로 볼 수 있습니다."],
+"Quy ước tên file":["File naming convention","파일 이름 규칙"],
+"Tên file là nguồn dữ liệu":["The file name is the data source","파일 이름이 곧 데이터"],
+"Tab Đã làm, tìm video và số cuối trên Drive đều đọc từ tên file video. Đặt đúng quy ước là video tự được tính.":["The Produced tab, video search and the last numbers on Drive all read the video file name. Follow the convention and the video is counted automatically.","제작 실적 탭, 영상 검색, 드라이브의 마지막 번호는 모두 영상 파일 이름을 읽습니다. 규칙대로 이름을 붙이면 자동으로 집계됩니다."],
+"Một số = một video":["One number = one video","번호 하나 = 영상 하나"],
+"Ba bản 1080x1920 · 1080x1080 · 1920x1080 cùng số 90582 được tính là một video.":["The 1080x1920 · 1080x1080 · 1920x1080 versions of 90582 count as one video.","90582번의 1080x1920 · 1080x1080 · 1920x1080 세 버전은 영상 1개로 집계됩니다."],
+"Creator và ngày":["Creator and date","크리에이터와 날짜"],
+"Lấy từ tên file. Ngày gõ sai quá xa ngày upload thì dùng ngày upload thay thế.":["Taken from the file name. If the date is mistyped far from the upload date, the upload date is used instead.","파일 이름에서 가져옵니다. 날짜가 업로드 날짜와 크게 다르게 잘못 입력되면 업로드 날짜를 씁니다."],
+"File bị bỏ qua":["Skipped files","제외되는 파일"],
+"File “please delete”, tiền tố":["“please delete” files, the","‘please delete’ 파일,"],
+", số tạm 99999 không được đếm.":[" prefix and the placeholder number 99999 aren’t counted."," 접두사, 임시 번호 99999는 집계하지 않습니다."],
+"Lợi ích kỳ vọng":["Expected benefits","기대 효과"],
+"Ít việc lặp lại, nhiều thời gian cho ý tưởng":["Less repetition, more time for ideas","반복은 줄이고, 아이디어에 더 많은 시간을"],
+"Bớt việc tay":["Less manual work","수작업 감소"],
+"Không phải tự cộng số video, tự so chỉ tiêu hay tự đối chiếu lịch với Notion mỗi tuần.":["No more adding up videos, checking targets or matching the schedule against Notion by hand every week.","매주 영상 수를 더하고, 목표와 비교하고, 스케줄과 Notion을 대조하는 일을 손으로 하지 않아도 됩니다."],
+"Nhìn rõ, giải thích được":["Clear and explainable","명확하고 설명 가능"],
+"Chỉ tiêu đã tính sẵn mọi ngoại lệ, kèm lý do vì sao một tuần nhiều hay ít hơn.":["Targets already include every exception, with the reason a week ran high or low.","목표에 모든 예외가 반영되어 있고, 한 주가 많거나 적었던 이유도 함께 나옵니다."],
+"Số Creative liền mạch":["Continuous Creative numbers","끊김 없는 Creative 번호"],
+"Khoảng số tiếp theo tính từ cả hai team và đối chiếu với Drive, giảm nhầm khi gõ tay.":["The next range is worked out from both teams and checked against Drive, reducing typing mistakes.","다음 번호 범위를 두 팀 데이터로 계산하고 드라이브와 대조해 입력 실수를 줄입니다."],
+"Tìm và xem nhanh":["Find and watch quickly","빠른 검색과 재생"],
+"Từ một con số tới video và task Notion của nó, ngay trên một trang.":["From a number to its video and Notion task, on one page.","번호 하나로 영상과 Notion 작업까지 한 페이지에서 확인합니다."],
+"Giới hạn và nguồn lực cần có":["Limitations and required resources","한계와 필요한 리소스"],
+"Những điều cần biết khi dùng":["What to know before using it","사용 전에 알아둘 점"],
+"Giới hạn hiện tại":["Current limitations","현재 한계"],
+"Notion cập nhật bằng file.":["Notion is updated through files.","Notion은 파일로 업데이트됩니다."],
+"Không nối trực tiếp (theo chính sách), nên số trên Notion mới nhất khi có file export hoặc ảnh chụp mới. Creative Planner (ghi task vào Notion) đang tắt.":["There’s no direct connection (by policy), so Notion numbers are only as fresh as the latest export or screenshot. Creative Planner (writing tasks into Notion) is switched off.","정책상 직접 연결이 없으므로 Notion 수치는 마지막 내보내기나 스크린샷 시점 기준입니다. Creative Planner(Notion에 작업 기록)는 꺼져 있습니다."],
+"Drive chỉ tính video đã upload":["Drive only counts uploaded videos","드라이브는 업로드된 영상만 집계"],
+"và cần quét lại để có số mới; video đặt tên sai quy ước sẽ không được đếm.":["and needs a rescan for new numbers; videos named outside the convention aren’t counted.","하며 새 수치를 보려면 다시 확인해야 합니다. 규칙에 맞지 않는 이름의 영상은 집계되지 않습니다."],
+"Xem video cần quyền Drive.":["Watching needs Drive access.","영상 보기에는 드라이브 권한이 필요합니다."],
+"Người xem phải đăng nhập tài khoản có quyền vào thư mục game.":["Viewers must be signed in with an account that can open the game folder.","게임 폴더에 접근할 수 있는 계정으로 로그인해야 합니다."],
+"Google Sheet có độ trễ.":["Google Sheets lag a little.","Google 시트에는 지연이 있습니다."],
+"Bản “Publish to web” có thể mất vài phút mới phản ánh thay đổi.":["The “Publish to web” copy can take a few minutes to reflect changes.","‘웹에 게시’ 버전은 변경 사항 반영에 몇 분이 걸릴 수 있습니다."],
+"Ngoại lệ chỉ tiêu khai báo trong cấu hình.":["Target exceptions live in the configuration.","목표 예외는 설정에 기록됩니다."],
+"Nghỉ phép, tuần nghỉ lễ, chỉ tiêu theo game được ghi trong mã trang, chưa có màn hình nhập.":["Leave, holiday weeks and per-game targets are written in the page code; there’s no input screen yet.","휴가, 공휴일 주간, 게임별 목표는 페이지 코드에 기록되며 아직 입력 화면은 없습니다."],
+"Nguồn lực cần có":["Required resources","필요한 리소스"],
+"Lưu mã và dữ liệu, xuất bản dashboard":["Stores code and data, publishes the dashboard","코드와 데이터 저장, 대시보드 게시"],
+"File export từ Notion":["Notion export files","Notion 내보내기 파일"],
+"Creative Production DB, mỗi tuần":["Creative Production DB, every week","Creative Production DB, 매주"],
+"2 Google Sheet “Publish to web”":["2 Google Sheets “Published to the web”","‘웹에 게시’된 Google 시트 2개"],
+"Quyền xem Google Drive":["Google Drive view access","Google 드라이브 보기 권한"],
+"Thư mục video của từng game":["Each game’s video folders","게임별 영상 폴더"],
+"Claude Code (tuỳ chọn)":["Claude Code (optional)","Claude Code (선택)"],
+"Gộp file Notion, quét Drive, cập nhật repo":["Merges Notion files, scans Drive, updates the repo","Notion 파일 병합, 드라이브 확인, 저장소 업데이트"],
+"Cả đội, trên một trang.":["The whole team, on one page.","팀 전체를, 한 페이지에."],
+"Mở dashboard để xem sản lượng tuần này, đánh số task mới hoặc tìm lại một video.":["Open the dashboard to see this week’s output, number new tasks or find a video.","대시보드를 열어 이번 주 생산량을 보고, 새 작업에 번호를 매기거나 영상을 찾아보세요."],
+"Creative Tracker · Video Ads Team · Dữ liệu trên trang này là minh hoạ.":["Creative Tracker · Video Ads Team · Data on this page is illustrative.","Creative Tracker · Video Ads Team · 이 페이지의 데이터는 예시입니다."],
+/* attributes */
+"Mục lục":["Contents","목차"],
+"Minh hoạ: dữ liệu từ Notion, Google Sheet và Google Drive gom về một dashboard":["Illustration: data from Notion, Google Sheets and Google Drive flowing into one dashboard","예시: Notion, Google 시트, Google 드라이브의 데이터가 하나의 대시보드로 모임"],
+"tiền tố":["prefix","접두사"],
+"số Creative":["Creative number","Creative 번호"],
+"concept / game":["concept / game","콘셉트 / 게임"],
+"ngôn ngữ":["language","언어"],
+"thời lượng":["length","길이"],
+"kích thước":["size","사이즈"],
+"creator":["creator","크리에이터"],
+"ngày (ddmmyy)":["date (ddmmyy)","날짜 (ddmmyy)"],
+"đuôi":["extension","확장자"],
+"Ngôn ngữ":["Language","언어"],
+"Tiếng Việt":["English","한국어"],
+/* meta */
+"Creative Tracker — giới thiệu":["Creative Tracker — introduction","Creative Tracker — 소개"]
+};
+
+(function(){
+  var L = {vi:0, en:1, ko:2};
+  var nodes = [], w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
+  while((n = w.nextNode())){
+    if(n.parentElement.closest('script,style,#lang,.a-lang')) continue;
+    var raw = n.textContent, key = raw.replace(/\s+/g,' ').trim();
+    if(!key || !TR[key]) continue;
+    var m = raw.match(/^(\s*)[\s\S]*?(\s*)$/);
+    nodes.push({n:n, key:key, pre:m[1], post:m[2]});
+  }
+  var attrs = [];
+  document.querySelectorAll('[data-l],[aria-label]').forEach(function(e){
+    ['data-l','aria-label'].forEach(function(a){ var v = e.getAttribute(a); if(v && TR[v]) attrs.push({e:e, a:a, key:v}); });
+  });
+  var title0 = document.title, desc = document.querySelector('meta[name=description]'), desc0 = desc && desc.content;
+  var DESC = {en:"Creative Tracker: one page to track the Video Ads Team’s creative output — Notion tasks, Google Sheet schedules and videos on Google Drive.", ko:"Creative Tracker: Video Ads Team의 크리에이티브 제작량을 한 페이지에서 — Notion 작업, Google 시트 스케줄, Google 드라이브 영상."};
+  function setLang(l){
+    if(!(l in L)) l = 'vi';
+    var i = L[l];
+    nodes.forEach(function(x){ x.n.textContent = i ? x.pre + TR[x.key][i-1] + x.post : x.pre + x.key + x.post; });
+    attrs.forEach(function(x){ x.e.setAttribute(x.a, i ? TR[x.key][i-1] : x.key); });
+    document.title = i && TR[title0] ? TR[title0][i-1] : title0;
+    if(desc) desc.content = i ? DESC[l] : desc0;
+    document.documentElement.lang = l;
+    document.querySelectorAll('#lang button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.lang === l); });
+    try{ localStorage.setItem('ct-intro-lang', l); }catch(e){}
+  }
+  document.getElementById('lang').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-lang]'); if(b) setLang(b.dataset.lang);
+  });
+  var q = (location.search.match(/[?&]lang=(vi|en|ko)/) || [])[1], saved = null;
+  try{ saved = localStorage.getItem('ct-intro-lang'); }catch(e){}
+  var start = q || saved;
+  if(start && start !== 'vi') setLang(start);
 })();
 </script>
 </body>
