@@ -14,7 +14,7 @@ Ghi ra:
   data/drive_creator_game.csv  — số video mỗi Creator theo game
   data/drive_games.csv         — link thư mục Drive của từng game (nếu có drive_folders.csv cạnh drive_files.csv)
 """
-import csv, datetime, os, re, sys
+import collections, csv, datetime, os, re, sys
 from collections import defaultdict
 
 NAME_RE = re.compile(r"^(?:copy of )?video(\d{4,})_(.+?)(?:\.(?:mp4|mov|webm))*$", re.I)
@@ -70,7 +70,7 @@ def parse(name):
 
 def main(src, outdir):
     rows = list(csv.DictReader(open(src, encoding="utf-8")))
-    vids, bad = {}, []
+    vids, bad, clusters = {}, [], {}
     for r in rows:
         p = parse(r["File"])
         if p and p["n"] >= 99000:          # 99999 = số tạm / video bị loại
@@ -80,9 +80,28 @@ def main(src, outdir):
                 bad.append(r)
             continue
         social = "social" in (r.get("Path") or r.get("Subfolder") or "").lower()
-        k = (r["Game"], "Social" if social else "UA", p["n"])
-        v = vids.setdefault(k, {"game": r["Game"], "type": k[1], "n": p["n"], "creator": "", "date": None,
-                                "concept": "", "lang": "", "dur": "", "sizes": set(), "files": 0, "links": {}})
+        base = (r["Game"], "Social" if social else "UA", p["n"])
+        # Cùng số nhưng khác cả creator lẫn ngày trong tên file = 2 video khác nhau bị trùng số → tách riêng.
+        # Khác creator nhưng cùng ngày (vd bản 1x1/16x9 ghi nhầm tên) = cùng 1 video.
+        tok = p["date"].isoformat() if p["date"] else ""
+        k = None
+        for kk in clusters.get(base, []):
+            v0 = vids[kk]
+            if p["creator"] in v0["creators"] or (tok and tok in v0["toks"]):
+                k = kk
+                break
+        if k is None:
+            k = base + (len(clusters.setdefault(base, [])),)
+            clusters[base].append(k)
+        v = vids.setdefault(k, {"game": r["Game"], "type": base[1], "n": p["n"], "creator": "", "date": None,
+                                "concept": "", "lang": "", "dur": "", "sizes": set(), "files": 0, "links": {},
+                                "creators": collections.Counter(), "main": "", "toks": set()})
+        if p["creator"]:
+            v["creators"][p["creator"]] += 1
+        if tok:
+            v["toks"].add(tok)
+        if (RATIO.get(p["size"]) or ratio_of(r.get("Subfolder") or "")) == "9x16" and p["creator"] and not v["main"]:
+            v["main"] = p["creator"]
         v["files"] += 1
         if p["size"]:
             v["sizes"].add(p["size"])
@@ -98,7 +117,28 @@ def main(src, outdir):
             d = created
         if not v["date"] or d < v["date"]:
             v["date"] = d
-    vs = sorted(vids.values(), key=lambda v: (v["game"], v["type"], v["n"]))
+    # Creator: theo bản 9x16 (bản chính); không có thì tên xuất hiện nhiều nhất
+    mixed = []
+    for v in vids.values():
+        if v["main"]:
+            v["creator"] = v["main"]
+        elif v["creators"]:
+            v["creator"] = v["creators"].most_common(1)[0][0]
+        if len(v["creators"]) > 1:
+            mixed.append(v)
+    vs = sorted(vids.values(), key=lambda v: (v["game"], v["type"], v["n"], v["date"] or datetime.date.min))
+    dup = collections.defaultdict(list)
+    for v in vs:
+        dup[(v["game"], v["type"], v["n"])].append(v)
+    dup = {k: x for k, x in dup.items() if len(x) > 1}
+    if mixed:
+        print(f"{len(mixed)} video có tên creator khác nhau giữa các kích thước (lấy theo bản 9x16):")
+        for v in mixed:
+            print("   ", v["game"], v["n"], dict(v["creators"]), "→", v["creator"])
+    if dup:
+        print(f"{len(dup)} số Creative bị dùng cho nhiều video khác nhau (trùng số):")
+        for (g, t, n), x in sorted(dup.items()):
+            print("   ", g, t, n, " / ".join(f"{v['creator']} {v['date']}" for v in x))
     w = csv.writer(open(os.path.join(outdir, "drive_videos.csv"), "w", encoding="utf-8", newline=""), lineterminator="\n")
     w.writerow(["Game", "Type", "Creative number", "Creator", "Date", "Concept", "Lang", "Duration", "Sizes", "Files", "Links"])
     for v in vs:
