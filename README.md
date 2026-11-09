@@ -55,7 +55,7 @@ PM đã rời team (hằng `HIDDEN_PM` trong `index.html`, hiện là Avril) kh�
 
 Thành viên mới (kỳ đầu tiên có số nằm sau kỳ đầu của bảng): kỳ đầu tiên chỉ tiêu **2 video**, kỳ thứ hai **6**, từ kỳ thứ ba mới là 8 (hằng `RAMP` trong `index.html`). Tab Creator hiện nhãn "Mới · tuần 1/2" cạnh tên; chỉ tiêu đội, cột chênh so chuẩn và dự kiến tháng đều tính theo lộ trình này.
 
-**Nghỉ phép và ngoại lệ chỉ tiêu — nhập ở Google Sheet** [Creative Tracker — Quota exceptions](https://docs.google.com/spreadsheets/d/1nAg1pIdvE0I-RwGsnOVPFEsQz4kxMhOg1DQKCngTEG8/edit) (Publish to web dạng CSV, dán link vào `EXC_SRC` trong `index.html`; không đọc được thì dùng bản lưu `data/exceptions.csv`). Mỗi dòng một ngoại lệ:
+**Nghỉ phép và ngoại lệ chỉ tiêu — nhập ở Google Sheet** [Creative Tracker — Quota exceptions](https://docs.google.com/spreadsheets/d/1nAg1pIdvE0I-RwGsnOVPFEsQz4kxMhOg1DQKCngTEG8/edit) — Sheet **riêng tư, chỉ admin xem và sửa** (không Publish to web). Dashboard đọc bản lưu `data/exceptions.csv`: sửa Sheet xong thì nhờ Claude "đồng bộ ngoại lệ" để đọc Sheet qua Google Drive và cập nhật file này. (Nếu sau này muốn dashboard tự đọc Sheet: Publish to web dạng CSV rồi dán link vào `EXC_SRC` trong `index.html` — lưu ý bản publish ai có link cũng xem được.) Mỗi dòng một ngoại lệ:
 
 | Cột | Ý nghĩa |
 |---|---|
@@ -67,7 +67,7 @@ Thành viên mới (kỳ đầu tiên có số nằm sau kỳ đầu của bản
 | Team change | Chỉ dòng `ALL`: cộng/trừ mỗi người (vd `-2` khi team building), áp dụng cả ETC |
 | Note / Note EN / Note KO | Lý do hiện trên dashboard theo ngôn ngữ (bỏ trống EN/KO thì dùng Note) |
 
-Dashboard đọc lại Sheet mỗi 2 phút; dòng nguồn dưới lịch ghi "Nghỉ phép / ngoại lệ: Google Sheet trực tiếp / bản lưu". Tab Đánh số cũng dùng bảng này khi "Điền theo lịch" (nghỉ phép trừ số video, Dev/Art dùng số có dev/art, `ALL` cộng/trừ cả đội). Hằng `LEAVE` / `WEEK_ADJ` trong code vẫn dùng được nhưng để trống.
+Dòng nguồn dưới lịch ghi "Nghỉ phép / ngoại lệ: bản lưu" (hoặc "Google Sheet trực tiếp" nếu đã gắn link publish). Tab Đánh số cũng dùng bảng này khi "Điền theo lịch" (nghỉ phép trừ số video, Dev/Art dùng số có dev/art, `ALL` cộng/trừ cả đội). Hằng `LEAVE` / `WEEK_ADJ` trong code vẫn dùng được nhưng để trống.
 
 Các bảng rộng (lịch tab Creator, tab PM, tab Đã làm) kéo được bằng chuột: nhấn giữ trong bảng rồi kéo để xem, khỏi kéo thanh cuộn bên dưới.
 
