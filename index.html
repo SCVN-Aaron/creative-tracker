@@ -288,12 +288,17 @@
   .pf-mx td.c small{display:block;font-family:inherit;font-size:10.5px;color:var(--ink-2)}
   .pf-mx td:first-child,.pf-mx th:first-child{position:sticky;left:0;background:var(--panel);z-index:1}
   .pf-mx th:first-child{background:var(--th)}
-  .pf-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--grid);border-bottom:1px solid var(--grid)}
-  .pf-stats div{background:var(--panel);padding:12px 18px;display:grid;gap:2px;min-width:0}
-  .pf-stats span{font-size:12px;color:var(--ink-2)}
+  .pf-stats{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--grid);border-bottom:1px solid var(--grid)}
+  @media (max-width:1100px){.pf-stats{grid-template-columns:repeat(4,minmax(0,1fr))}.pf-stats div:last-child{grid-column:span 2}}
+  @media (max-width:640px){.pf-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.pf-stats div:last-child{grid-column:1/-1}}
+  .pf-stats>div{background:var(--panel);padding:12px 18px;display:grid;gap:2px;min-width:0}
+  .pf-stats>div>span{font-size:12px;color:var(--ink-2)}
   .pf-stats b{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
   .pf-stats small{font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
-  .pf-chart{position:relative;height:260px;padding:14px 18px 6px}
+  .pf-chart{position:relative;height:260px;padding:6px 18px 6px}
+  .pf-h3{margin:0;padding:14px 18px 0;font-size:14px;font-weight:600}
+  .pf-src{padding-top:12px}
+  .pf-stats .up{color:var(--up)} .pf-stats .down{color:var(--down)}
   #view-perf button.pf-v{all:unset;cursor:pointer;color:var(--accent);border-bottom:1px dashed currentColor}
   #view-perf button.pf-v:hover{border-bottom-style:solid}
   #view-perf button.pf-v:focus-visible,.pf-table button.sz:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -699,18 +704,15 @@
 
   <div id="view-perf" role="tabpanel" aria-labelledby="tab-perf" hidden>
     <div class="tcard pm-card">
-      <div class="cs-head"><h2 class="ov-h" id="pf-ov-title"></h2></div>
-      <div class="pm-scroll"><table class="pf-table" id="pf-games"></table></div>
-      <p class="pm-note src-line" id="pf-src"></p>
-    </div>
-    <div class="tcard pm-card">
-      <div class="cs-head"><h2 class="ov-h" id="pf-it-title"></h2>
+      <div class="cs-head"><h2 class="ov-h" id="pf-ov-title"></h2>
         <div class="sv-ctl"><label for="pf-game" id="pf-game-l"></label><select id="pf-game"></select></div>
       </div>
       <div class="pf-stats" id="pf-stats"></div>
+      <h3 class="pf-h3" id="pf-it-title"></h3>
       <div class="pf-chart"><canvas id="pf-chart" role="img"></canvas></div>
       <p class="pm-note src-line" id="pf-chart-note"></p>
       <div class="pm-scroll"><table class="pf-table" id="pf-it"></table></div>
+      <p class="pm-note src-line pf-src" id="pf-src"></p>
     </div>
     <div class="tcard pm-card">
       <div class="cs-head"><h2 class="ov-h" id="pf-mx-title"></h2></div>
@@ -2138,8 +2140,7 @@ function renderPerf(){
   document.getElementById("pf-game-l").textContent=L.game;
   document.getElementById("pf-mx-title").textContent=L.mxTitle;
   document.getElementById("pf-mx-note").textContent=L.mxNote;
-  const gt=document.getElementById("pf-games");
-  if(!PF||!PF.length){ gt.innerHTML=`<tbody><tr><td>${escH(PF?L.none:"…")}</td></tr></tbody>`; return; }
+  if(!PF||!PF.length){ document.getElementById("pf-stats").innerHTML=`<div><span>${escH(PF?L.none:"…")}</span></div>`; return; }
   const games=[...pfGroup(PF,r=>r.game)].map(([g,rows])=>{
     const st=pfStats(rows), its=[...new Set(rows.filter(r=>r.cvr!==null&&r.it).map(r=>r.it))].sort((a,b)=>a-b);
     const last=its[its.length-1], prev=its[its.length-2];
@@ -2151,22 +2152,24 @@ function renderPerf(){
   if(!PF_GAME||!games.some(x=>x.g===PF_GAME)) PF_GAME=[...games].sort((a,b)=>b.recent.localeCompare(a.recent))[0].g;
   const nCrebo=PF.filter(r=>r.src==="Crebo"&&r.cvr!==null).length;
   document.getElementById("pf-src").textContent=L.src(PF_EXP.split("-").reverse().join("/"),PF.filter(r=>r.cvr!==null).length,nCrebo);
-  gt.innerHTML=`<thead><tr><th>${C.game}</th><th class="n">${C.its}</th><th class="n">${C.vids}</th><th class="n">${C.avg}</th><th class="n">${C.last}</th><th class="n">${C.lastAvg}</th><th class="n">${C.chg}</th></tr></thead><tbody>`+
-    games.map(x=>`<tr${x.g===PF_GAME?' class="sel"':""}><td><button type="button" class="pf-pick" data-g="${escH(x.g)}" title="${escH(L.pick)}">${gameTag(x.g)}</button></td>`+
-      `<td class="n">${x.its.length||"—"}</td><td class="n">${x.st.n}</td><td class="n b">${pfF(x.st.avg)}</td><td class="n">${pfOrd(x.last)}</td><td class="n">${pfF(x.la)}</td><td class="n">${pfD(x.chg)}</td></tr>`).join("")+`</tbody>`;
   // ---- game đang chọn
   const sel=document.getElementById("pf-game");
   sel.innerHTML=games.map(x=>`<option value="${escH(x.g)}">${escH(x.g)} (${x.st.n})</option>`).join(""); sel.value=PF_GAME;
   const G=games.find(x=>x.g===PF_GAME);
   document.getElementById("pf-it-title").textContent=L.itTitle(PF_GAME);
+  const tile=(lab,val,sub)=>`<div><span>${escH(lab)}</span><b>${val}</b><small>${sub||"&nbsp;"}</small></div>`;
   const byIt=[...pfGroup(G.rows,r=>r.it)].map(([it,rows])=>({it,rows,st:pfStats(rows),who:[...new Set(rows.map(r=>r.creator))].sort()})).sort((a,b)=>a.it-b.it);
   const tested=byIt.filter(x=>x.st.n&&x.it);
   const b=G.st.best;
+  // các chỉ số của game đang chọn
   document.getElementById("pf-stats").innerHTML=
-    `<div><span>${escH(L.st.vids)}</span><b>${G.st.n}</b><small>${G.its.length} ${escH(C.its.toLowerCase())}</small></div>`+
-    `<div><span>${escH(L.st.avg)}</span><b>${pfF(G.st.avg)}</b><small>${escH(C.med)} ${pfF(G.st.med)}</small></div>`+
-    `<div><span>${escH(L.st.last(pfOrd(G.last)))}</span><b>${pfF(G.la)}</b><small>${pfD(G.chg)} <span class="dim">${escH(C.chg)}</span></small></div>`+
-    `<div><span>${escH(L.st.best)}</span><b>${pfF(b&&b.cvr)}</b><small>${b?`${pfNum(b)} · ${escH(b.creator)} · ${escH(pfOrd(b.it))}`:""}</small></div>`;
+    tile(C.its,G.its.length||"—",`${escH(pfOrd(G.its[0]))} → ${escH(pfOrd(G.last))}`)+
+    tile(C.vids,G.st.n,G.st.rej?`${G.st.rej} ${escH(C.rej.toLowerCase())}`:"")+
+    tile(C.avg,pfF(G.st.avg),`${escH(C.med)} ${pfF(G.st.med)}`)+
+    tile(C.last,escH(pfOrd(G.last)),(()=>{ const x=byIt.find(y=>y.it===G.last); return x?`${x.st.n} ${({en:"videos",ko:"개 영상"})[LANG]||"video"}`:""; })())+
+    tile(C.lastAvg,pfF(G.la),"")+
+    tile(C.chg,pfD(G.chg),"")+
+    tile(L.st.best,pfF(b&&b.cvr),b?`${pfNum(b)} · ${escH(b.creator)} · ${escH(pfOrd(b.it))}`:"");
   // biểu đồ: cột = CVR TB từng iteration, đường = cao nhất
   const cv=document.getElementById("pf-chart");
   if(charts.perf){ charts.perf.destroy(); delete charts.perf; }
@@ -2174,7 +2177,7 @@ function renderPerf(){
     const ink=getCSS("--ink-2"), grid=getCSS("--grid");
     const selIt=PF_OPEN, base=getCSS("--heat"), hot=getCSS("--video");
     charts.perf=new Chart(cv,{type:"line",data:{labels:tested.map(x=>pfOrd(x.it)),datasets:[
-      {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:base,borderWidth:2.5,tension:.3,cubicInterpolationMode:"monotone",
+      {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:base,borderWidth:2.5,tension:0,
         fill:true,backgroundColor:`color-mix(in srgb, ${base} 14%, transparent)`,
         pointBackgroundColor:tested.map(x=>x.it===selIt?hot:base),pointBorderColor:getCSS("--panel"),pointBorderWidth:1.5,
         pointRadius:tested.map(x=>x.it===selIt?7:4),pointHoverRadius:7,pointHitRadius:12}]},
@@ -2214,7 +2217,6 @@ document.getElementById("view-perf").addEventListener("click",e=>{
   const dlg=document.getElementById("sv-dlg"); if(dlg.parentElement!==document.body) document.body.appendChild(dlg); // dialog nằm trong tab Đã làm đang ẩn
   svPlay(v,b.dataset.k||["9x16","1x1","16x9"].find(k=>v.links[k])||Object.keys(v.links)[0]);
 });
-document.getElementById("pf-games").addEventListener("click",e=>{ const b=e.target.closest("button[data-g]"); if(b){ PF_GAME=b.dataset.g; PF_OPEN=null; renderPerf(); document.getElementById("pf-it-title").scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"start"}); } });
 
 let VIEW="creator";
 function showView(v){
