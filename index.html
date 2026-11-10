@@ -2177,7 +2177,7 @@ function renderPerf(){
     const ink=getCSS("--ink-2"), grid=getCSS("--grid");
     const selIt=PF_OPEN, base=getCSS("--heat"), hot=getCSS("--video");
     charts.perf=new Chart(cv,{type:"line",data:{labels:tested.map(x=>pfOrd(x.it)),datasets:[
-      {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:base,borderWidth:2.5,tension:.3,cubicInterpolationMode:"monotone",
+      {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:base,borderWidth:2.5,tension:0,
         fill:true,backgroundColor:`color-mix(in srgb, ${base} 14%, transparent)`,
         pointBackgroundColor:tested.map(x=>x.it===selIt?hot:base),pointBorderColor:getCSS("--panel"),pointBorderWidth:1.5,
         pointRadius:tested.map(x=>x.it===selIt?7:4),pointHoverRadius:7,pointHitRadius:12}]},
