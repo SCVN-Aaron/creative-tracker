@@ -2081,7 +2081,7 @@ const PF_TXT={
     crNote:"Mỗi game có mức CVR khác nhau nên chỉ nên so trong cùng một game. Cột “So với TB game” là CVR TB của người đó trừ CVR TB cả game.",
     mxNote:"Mỗi ô: CVR TB (số video). Màu đậm nhạt so trong từng cột game. Bấm tên game ở bảng trên để xem chi tiết.",
     none:"Chưa có dữ liệu CVR (data/cvr.csv).", pick:"Bấm để xem",
-    clickIt:"Bấm cột để xem video của iteration", itVids:(n,g)=>"Video trong iteration "+n+" · "+g, peak:"Peak",
+    clickIt:"Bấm vào điểm trên biểu đồ để xem video của iteration đó", itVids:(n,g)=>"Video trong iteration "+n+" · "+g, peak:"Peak",
     topTitle:g=>"Video work nhất · "+g, scope:{all:"Tất cả iteration",last:"Iteration mới nhất"}, rank:"#", num:"Số Creative", date:"Ngày", concept:"Concept", watch:"Xem video", top:"Top creative",
     topNote:n=>`${n} video có Peak CVR cao nhất của game. Bấm 9x16 / 1x1 / 16x9 để xem video trên Drive; bấm số Creative ở các bảng khác cũng mở video.`, noVid:"Chưa có trên Drive"},
   en:{tab:"Performance", ovTitle:"CVR by game (Crebo)", itTitle:g=>"CVR by iteration · "+g, game:"Game",
@@ -2094,7 +2094,7 @@ const PF_TXT={
     crNote:"CVR levels differ between games, so compare people within the same game. “vs game avg” is the person’s average minus the game’s average.",
     mxNote:"Each cell: avg CVR (videos). Shading is relative within each game column. Click a game in the first table for details.",
     none:"No CVR data yet (data/cvr.csv).", pick:"Click for details",
-    clickIt:"Click a bar to see that iteration's videos", itVids:(n,g)=>"Videos in iteration "+n+" · "+g, peak:"Peak",
+    clickIt:"Click a point on the chart to see that iteration's videos", itVids:(n,g)=>"Videos in iteration "+n+" · "+g, peak:"Peak",
     topTitle:g=>"Top videos · "+g, scope:{all:"All iterations",last:"Latest iteration"}, rank:"#", num:"Creative no.", date:"Date", concept:"Concept", watch:"Watch", top:"Top creative",
     topNote:n=>`The ${n} videos with the highest Peak CVR in this game. Click 9x16 / 1x1 / 16x9 to watch on Drive; Creative numbers in the other tables open the video too.`, noVid:"Not on Drive"},
   ko:{tab:"성과", ovTitle:"게임별 CVR (Crebo)", itTitle:g=>"이터레이션별 CVR · "+g, game:"게임",
@@ -2107,7 +2107,7 @@ const PF_TXT={
     crNote:"게임마다 CVR 수준이 달라 같은 게임 안에서만 비교하세요. ‘게임 평균 대비’는 그 사람의 평균에서 게임 평균을 뺀 값입니다.",
     mxNote:"각 칸: 평균 CVR(영상 수). 색은 게임 열 안에서 상대적입니다. 첫 번째 표에서 게임을 누르면 자세히 볼 수 있습니다.",
     none:"CVR 데이터가 없습니다 (data/cvr.csv).", pick:"자세히 보기",
-    clickIt:"막대를 누르면 해당 이터레이션 영상을 볼 수 있습니다", itVids:(n,g)=>"이터레이션 영상 · "+n+" · "+g, peak:"Peak",
+    clickIt:"차트의 점을 누르면 해당 이터레이션 영상을 볼 수 있습니다", itVids:(n,g)=>"이터레이션 영상 · "+n+" · "+g, peak:"Peak",
     topTitle:g=>"성과 좋은 영상 · "+g, scope:{all:"전체 이터레이션",last:"최근 이터레이션"}, rank:"#", num:"Creative 번호", date:"날짜", concept:"콘셉트", watch:"영상 보기", top:"Top creative",
     topNote:n=>`이 게임에서 Peak CVR이 가장 높은 영상 ${n}개입니다. 9x16 / 1x1 / 16x9를 누르면 드라이브 영상을 볼 수 있고, 다른 표의 Creative 번호를 눌러도 영상이 열립니다.`, noVid:"드라이브에 없음"}
 };
@@ -2184,14 +2184,17 @@ function renderPerf(){
   if(window.Chart&&tested.length){
     const ink=getCSS("--ink-2"), grid=getCSS("--grid");
     const selIt=PF_SCOPE.startsWith("it:")?+PF_SCOPE.slice(3):null, base=getCSS("--heat"), hot=getCSS("--video");
-    charts.perf=new Chart(cv,{type:"bar",data:{labels:tested.map(x=>pfOrd(x.it)),datasets:[
-      {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),backgroundColor:tested.map(x=>x.it===selIt?hot:base),borderRadius:4,maxBarThickness:28}]},
+    charts.perf=new Chart(cv,{type:"line",data:{labels:tested.map(x=>pfOrd(x.it)),datasets:[
+      {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:base,borderWidth:2.5,tension:.3,cubicInterpolationMode:"monotone",
+        fill:true,backgroundColor:`color-mix(in srgb, ${base} 14%, transparent)`,
+        pointBackgroundColor:tested.map(x=>x.it===selIt?hot:base),pointBorderColor:getCSS("--panel"),pointBorderWidth:1.5,
+        pointRadius:tested.map(x=>x.it===selIt?7:4),pointHoverRadius:7,pointHitRadius:12}]},
       options:{responsive:true,maintainAspectRatio:false,animation:PF_RM?false:{duration:400},interaction:{mode:"index",intersect:false},
         onClick:(e,els)=>{ if(!els.length) return; PF_SCOPE="it:"+tested[els[0].index].it; setTimeout(()=>{ renderPerf(); pfToTop(); },0); }, // vẽ lại sau khi Chart.js xử lý xong cú bấm
         onHover:(e,els)=>{ e.native.target.style.cursor=els.length?"pointer":"default"; },
         plugins:{legend:{display:false},tooltip:{callbacks:{label:it=>`${L.chMax} ${pfF(it.raw)}`,
           afterBody:it=>{ const x=tested[it[0].dataIndex]; return [`${x.st.best.num} · ${x.st.best.creator}`,`${x.st.n} video · ${L.clickIt}`]; }}}},
-        scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:true,ticks:{color:ink},grid:{color:grid},title:{display:true,text:L.chMax,color:ink}}}}});
+        scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:false,grace:"8%",ticks:{color:ink},grid:{color:grid},title:{display:true,text:L.chMax,color:ink}}}}});
     cv.setAttribute("aria-label",`${L.chMax} · ${L.itTitle(PF_GAME)}: `+tested.map(x=>`${pfOrd(x.it)} ${pfF(x.st.best&&x.st.best.cvr)}`).join(", "));
   }
   const itRows=[...byIt].reverse();
