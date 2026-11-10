@@ -303,6 +303,7 @@
   .pf-chart{position:relative;height:260px;padding:6px 18px 6px}
   .pf-h3{margin:0;padding:14px 18px 0;font-size:14px;font-weight:600}
   .pf-src{padding-top:12px}
+  .pf-more-w{padding:10px 18px 0}
   .pf-stats .up{color:var(--up)} .pf-stats .down{color:var(--down)}
   #view-perf button.pf-v{all:unset;cursor:pointer;color:var(--accent);border-bottom:1px dashed currentColor}
   #view-perf button.pf-v:hover{border-bottom-style:solid}
@@ -717,6 +718,7 @@
       <div class="pf-chart"><canvas id="pf-chart" role="img"></canvas></div>
       <p class="pm-note src-line" id="pf-chart-note"></p>
       <div class="pm-scroll"><table class="pf-table" id="pf-it"></table></div>
+      <div class="pf-more-w"><button type="button" class="num-btn" id="pf-more" aria-controls="pf-it"></button></div>
       <p class="pm-note src-line pf-src" id="pf-src"></p>
     </div>
     <div class="tcard pm-card">
@@ -2078,7 +2080,7 @@ document.getElementById("exc-list").addEventListener("click",async e=>{
 // ---------------------------------------------------------------- Performance (CVR theo iteration, từ Crebo)
 // data/cvr.csv do tools/crebo_merge.py tạo: CVR = AOS CVR (WW); creator theo Google Drive (bản 9x16).
 const PF_TXT={
-  vi:{tab:"Hiệu quả", ovTitle:"CVR các game (Crebo)", itTitle:g=>"CVR theo iteration · "+g, game:"Game", mxTitle:"CVR trung bình của từng người theo game",
+  vi:{tab:"Hiệu quả", ovTitle:"CVR các game (Crebo)", itTitle:g=>"CVR theo iteration · "+g, game:"Game", mxTitle:"CVR trung bình của từng người theo game", itMore:n=>`Xem tất cả ${n} iteration ▾`, itLess:"Thu gọn ▴",
     pTitle:g=>"Peak CVR theo người · "+g, who:"Creator", pLast:"Iteration gần nhất", pClick:"Bấm vào điểm để xem các video của người này trong iteration đó.", pList:(c,it)=>`Video của ${c} · iteration ${it}`, pNone:"Người này chưa có video có CVR trong game này.",
     cols:{game:"Game",its:"Iteration",vids:"Video có CVR",avg:"CVR TB",last:"Iteration mới nhất",lastAvg:"CVR TB iteration mới nhất",chg:"So với iteration trước",
       it:"Iteration",rej:"Rejected",med:"Trung vị",best:"Peak CVR",who:"Creator",cr:"Creator",vsGame:"So với TB game",lastIt:"Iteration gần nhất"},
@@ -2088,7 +2090,7 @@ const PF_TXT={
     mxNote:"Mỗi ô: CVR TB (số video). Màu đậm nhạt so trong từng cột game. Bấm tên game ở bảng trên để xem chi tiết.",
     none:"Chưa có dữ liệu CVR (data/cvr.csv).", pick:"Bấm để xem",
     clickIt:"Bấm vào điểm trên biểu đồ để xem video của iteration đó", peak:"Peak", rank:"#", num:"Số Creative", date:"Ngày", concept:"Concept", watch:"Xem video", top:"Top creative", noVid:"Chưa có trên Drive"},
-  en:{tab:"Performance", ovTitle:"CVR by game (Crebo)", itTitle:g=>"CVR by iteration · "+g, game:"Game", mxTitle:"Average CVR per creator by game",
+  en:{tab:"Performance", ovTitle:"CVR by game (Crebo)", itTitle:g=>"CVR by iteration · "+g, game:"Game", mxTitle:"Average CVR per creator by game", itMore:n=>`Show all ${n} iterations ▾`, itLess:"Show less ▴",
     pTitle:g=>"Peak CVR by creator · "+g, who:"Creator", pLast:"Latest iteration", pClick:"Click a point to see this person's videos in that iteration.", pList:(c,it)=>`${c}'s videos · iteration ${it}`, pNone:"This person has no videos with CVR in this game yet.",
     cols:{game:"Game",its:"Iterations",vids:"Videos with CVR",avg:"Avg CVR",last:"Latest iteration",lastAvg:"Latest iteration avg",chg:"vs previous iteration",
       it:"Iteration",rej:"Rejected",med:"Median",best:"Peak CVR",who:"Creators",cr:"Creator",vsGame:"vs game avg",lastIt:"Latest iteration"},
@@ -2098,7 +2100,7 @@ const PF_TXT={
     mxNote:"Each cell: avg CVR (videos). Shading is relative within each game column. Click a game in the first table for details.",
     none:"No CVR data yet (data/cvr.csv).", pick:"Click for details",
     clickIt:"Click a point on the chart to see that iteration's videos", peak:"Peak", rank:"#", num:"Creative no.", date:"Date", concept:"Concept", watch:"Watch", top:"Top creative", noVid:"Not on Drive"},
-  ko:{tab:"성과", ovTitle:"게임별 CVR (Crebo)", itTitle:g=>"이터레이션별 CVR · "+g, game:"게임", mxTitle:"게임별 크리에이터 평균 CVR",
+  ko:{tab:"성과", ovTitle:"게임별 CVR (Crebo)", itTitle:g=>"이터레이션별 CVR · "+g, game:"게임", mxTitle:"게임별 크리에이터 평균 CVR", itMore:n=>`이터레이션 ${n}개 모두 보기 ▾`, itLess:"접기 ▴",
     pTitle:g=>"크리에이터별 Peak CVR · "+g, who:"크리에이터", pLast:"최근 이터레이션", pClick:"점을 누르면 해당 이터레이션에서 이 사람이 만든 영상을 볼 수 있습니다.", pList:(c,it)=>`${c}의 영상 · 이터레이션 ${it}`, pNone:"이 게임에서 CVR이 있는 영상이 아직 없습니다.",
     cols:{game:"게임",its:"이터레이션",vids:"CVR 있는 영상",avg:"평균 CVR",last:"최근 이터레이션",lastAvg:"최근 이터레이션 평균",chg:"이전 이터레이션 대비",
       it:"이터레이션",rej:"Rejected",med:"중앙값",best:"Peak CVR",who:"크리에이터",cr:"크리에이터",vsGame:"게임 평균 대비",lastIt:"최근 이터레이션"},
@@ -2111,7 +2113,7 @@ const PF_TXT={
 };
 const PT=()=>PF_TXT[LANG]||PF_TXT.en;
 const PF_RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
-let PF=null, PF_GAME="", PF_EXP="", PF_VIDS=[], PF_OPEN=null, PF_WHO="", PF_WHO_IT=null;  // PF_WHO: creator đang xem trong biểu đồ theo người  // PF_OPEN: iteration đang mở ngay trong bảng
+let PF=null, PF_GAME="", PF_EXP="", PF_VIDS=[], PF_OPEN=null, PF_ALLIT=false, PF_WHO="", PF_WHO_IT=null;  // PF_WHO: creator đang xem trong biểu đồ theo người  // PF_OPEN: iteration đang mở ngay trong bảng
 // video trên Drive của một dòng CVR (cùng game + số; ưu tiên bản UA)
 function pfVideo(r){
   if(!DONE) return null; const gk=gameKey(r.game);
@@ -2206,7 +2208,12 @@ function renderPerf(){
         scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:false,grace:"8%",ticks:{color:ink},grid:{color:grid},title:{display:true,text:L.chMax,color:ink}}}}});
     cv.setAttribute("aria-label",`${L.chMax} · ${L.itTitle(PF_GAME)}: `+tested.map(x=>`${pfOrd(x.it)} ${pfF(x.st.best&&x.st.best.cvr)}`).join(", "));
   }
-  const itRows=[...byIt].reverse();
+  // bảng iteration: mặc định chỉ hiện 5 iteration gần nhất, bấm nút để xem tất cả
+  const PF_SHOW=5, allRows=[...byIt].reverse();
+  if(PF_OPEN!==null&&allRows.findIndex(x=>x.it===PF_OPEN)>=PF_SHOW) PF_ALLIT=true;
+  const itRows=PF_ALLIT?allRows:allRows.slice(0,PF_SHOW);
+  const mb=document.getElementById("pf-more");
+  mb.hidden=allRows.length<=PF_SHOW; mb.textContent=PF_ALLIT?L.itLess:L.itMore(allRows.length); mb.setAttribute("aria-expanded",PF_ALLIT);
   document.getElementById("pf-it").innerHTML=`<thead><tr><th>${C.it}</th><th class="n">${C.vids}</th><th class="n">${C.rej}</th><th class="n">${C.avg}</th><th class="n">${C.med}</th><th class="n">${C.best}</th><th class="n">${C.chg}</th><th>${C.who}</th></tr></thead><tbody>`+
     itRows.map(x=>{ const i=tested.indexOf(x), pv=i>0?tested[i-1].st.avg:null, open=x.it&&PF_OPEN===x.it;
       const sub=open?`<tr class="pf-exp"><td colspan="8">${pfVidTable(x.rows,true,"pf-sub").html}</td></tr>`:"";
@@ -2263,7 +2270,9 @@ function renderPerf(){
   document.getElementById("pf-mx").innerHTML=`<thead><tr><th>${C.cr}</th>${gcols.map(x=>`<th class="g">${gameTag(x.g)}</th>`).join("")}</tr></thead><tbody>`+
     names.map(c=>`<tr><td class="b">${escH(c)}</td>${gcols.map(x=>{ const o=cell[c][x.g]; return o?`<td class="c"${shade(o.avg,...rng[x.g])}>${pfF(o.avg)}<small>${o.n}</small></td>`:`<td class="c"></td>`; }).join("")}</tr>`).join("")+`</tbody>`;
 }
-document.getElementById("pf-game").addEventListener("change",e=>{ PF_GAME=e.target.value; PF_OPEN=null; PF_WHO_IT=null; renderPerf(); });
+document.getElementById("pf-more").addEventListener("click",()=>{ PF_ALLIT=!PF_ALLIT; if(!PF_ALLIT) PF_OPEN=null; renderPerf();
+  if(!PF_ALLIT) document.getElementById("pf-it").scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"nearest"}); });
+document.getElementById("pf-game").addEventListener("change",e=>{ PF_GAME=e.target.value; PF_OPEN=null; PF_ALLIT=false; PF_WHO_IT=null; renderPerf(); });
 document.getElementById("pf-who").addEventListener("change",e=>{ PF_WHO=e.target.value; PF_WHO_IT=null; renderPerf(); });
 function pfToOpen(){ const r=document.querySelector("#pf-it tr.sel"); if(r) r.scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"start"}); }
 // bấm iteration ở cột trái: mở / đóng danh sách video ngay bên dưới dòng đó
