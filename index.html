@@ -713,21 +713,6 @@
       <div class="pm-scroll"><table class="pf-table" id="pf-it"></table></div>
     </div>
     <div class="tcard pm-card">
-      <div class="cs-head"><h2 class="ov-h" id="pf-top-title"></h2>
-        <div class="toggle" role="group" id="pf-scope">
-          <button type="button" data-s="all" aria-pressed="true"></button>
-          <button type="button" data-s="last" aria-pressed="false"></button>
-        </div>
-      </div>
-      <div class="pm-scroll"><table class="pf-table" id="pf-top"></table></div>
-      <p class="pm-note src-line" id="pf-top-note"></p>
-    </div>
-    <div class="tcard pm-card">
-      <div class="cs-head"><h2 class="ov-h" id="pf-cr-title"></h2></div>
-      <div class="pm-scroll"><table class="pf-table" id="pf-cr"></table></div>
-      <p class="pm-note src-line" id="pf-cr-note"></p>
-    </div>
-    <div class="tcard pm-card">
       <div class="cs-head"><h2 class="ov-h" id="pf-mx-title"></h2></div>
       <div class="ov-scroll"><table class="pf-table pf-mx" id="pf-mx"></table></div>
       <p class="pm-note src-line" id="pf-mx-note"></p>
@@ -2077,49 +2062,37 @@ document.getElementById("exc-list").addEventListener("click",async e=>{
 // ---------------------------------------------------------------- Performance (CVR theo iteration, từ Crebo)
 // data/cvr.csv do tools/crebo_merge.py tạo: CVR = AOS CVR (WW); creator theo Google Drive (bản 9x16).
 const PF_TXT={
-  vi:{tab:"Hiệu quả", ovTitle:"CVR các game (Crebo)", itTitle:g=>"CVR theo iteration · "+g, game:"Game",
-    crTitle:g=>"CVR từng người · "+g, mxTitle:"CVR trung bình của từng người theo game",
+  vi:{tab:"Hiệu quả", ovTitle:"CVR các game (Crebo)", itTitle:g=>"CVR theo iteration · "+g, game:"Game", mxTitle:"CVR trung bình của từng người theo game",
     cols:{game:"Game",its:"Iteration",vids:"Video có CVR",avg:"CVR TB",last:"Iteration mới nhất",lastAvg:"CVR TB iteration mới nhất",chg:"So với iteration trước",
       it:"Iteration",rej:"Rejected",med:"Trung vị",best:"Peak CVR",who:"Creator",cr:"Creator",vsGame:"So với TB game",lastIt:"Iteration gần nhất"},
     st:{vids:"Video có CVR",avg:"CVR TB cả game",last:n=>"Iteration "+n,best:"Peak CVR"},
     chAvg:"CVR TB", chMax:"Peak CVR", noIt:"Chưa ghi iteration",
     src:(d,n,m)=>`Nguồn: file export Crebo ngày ${d} · CVR = AOS CVR (WW) · ${n} video có CVR · creator theo Google Drive (bản 9x16)${m?`, ${m} video lấy tên trên Crebo vì chưa có trên Drive`:""}.`,
-    crNote:"Mỗi game có mức CVR khác nhau nên chỉ nên so trong cùng một game. Cột “So với TB game” là CVR TB của người đó trừ CVR TB cả game.",
     mxNote:"Mỗi ô: CVR TB (số video). Màu đậm nhạt so trong từng cột game. Bấm tên game ở bảng trên để xem chi tiết.",
     none:"Chưa có dữ liệu CVR (data/cvr.csv).", pick:"Bấm để xem",
-    clickIt:"Bấm vào điểm trên biểu đồ để xem video của iteration đó", itVids:(n,g)=>"Video trong iteration "+n+" · "+g, peak:"Peak",
-    topTitle:g=>"Video work nhất · "+g, scope:{all:"Tất cả iteration",last:"Iteration mới nhất"}, rank:"#", num:"Số Creative", date:"Ngày", concept:"Concept", watch:"Xem video", top:"Top creative",
-    topNote:n=>`${n} video có Peak CVR cao nhất của game. Bấm 9x16 / 1x1 / 16x9 để xem video trên Drive; bấm số Creative ở các bảng khác cũng mở video.`, noVid:"Chưa có trên Drive"},
-  en:{tab:"Performance", ovTitle:"CVR by game (Crebo)", itTitle:g=>"CVR by iteration · "+g, game:"Game",
-    crTitle:g=>"CVR by creator · "+g, mxTitle:"Average CVR per creator by game",
+    clickIt:"Bấm vào điểm trên biểu đồ để xem video của iteration đó", peak:"Peak", rank:"#", num:"Số Creative", date:"Ngày", concept:"Concept", watch:"Xem video", top:"Top creative", noVid:"Chưa có trên Drive"},
+  en:{tab:"Performance", ovTitle:"CVR by game (Crebo)", itTitle:g=>"CVR by iteration · "+g, game:"Game", mxTitle:"Average CVR per creator by game",
     cols:{game:"Game",its:"Iterations",vids:"Videos with CVR",avg:"Avg CVR",last:"Latest iteration",lastAvg:"Latest iteration avg",chg:"vs previous iteration",
       it:"Iteration",rej:"Rejected",med:"Median",best:"Peak CVR",who:"Creators",cr:"Creator",vsGame:"vs game avg",lastIt:"Latest iteration"},
     st:{vids:"Videos with CVR",avg:"Game avg CVR",last:n=>"Iteration "+n,best:"Peak CVR"},
     chAvg:"Avg CVR", chMax:"Peak CVR", noIt:"No iteration set",
     src:(d,n,m)=>`Source: Crebo export of ${d} · CVR = AOS CVR (WW) · ${n} videos with CVR · creators from Google Drive (9x16 version)${m?`; ${m} videos use the Crebo name because they aren’t on Drive`:""}.`,
-    crNote:"CVR levels differ between games, so compare people within the same game. “vs game avg” is the person’s average minus the game’s average.",
     mxNote:"Each cell: avg CVR (videos). Shading is relative within each game column. Click a game in the first table for details.",
     none:"No CVR data yet (data/cvr.csv).", pick:"Click for details",
-    clickIt:"Click a point on the chart to see that iteration's videos", itVids:(n,g)=>"Videos in iteration "+n+" · "+g, peak:"Peak",
-    topTitle:g=>"Top videos · "+g, scope:{all:"All iterations",last:"Latest iteration"}, rank:"#", num:"Creative no.", date:"Date", concept:"Concept", watch:"Watch", top:"Top creative",
-    topNote:n=>`The ${n} videos with the highest Peak CVR in this game. Click 9x16 / 1x1 / 16x9 to watch on Drive; Creative numbers in the other tables open the video too.`, noVid:"Not on Drive"},
-  ko:{tab:"성과", ovTitle:"게임별 CVR (Crebo)", itTitle:g=>"이터레이션별 CVR · "+g, game:"게임",
-    crTitle:g=>"크리에이터별 CVR · "+g, mxTitle:"게임별 크리에이터 평균 CVR",
+    clickIt:"Click a point on the chart to see that iteration's videos", peak:"Peak", rank:"#", num:"Creative no.", date:"Date", concept:"Concept", watch:"Watch", top:"Top creative", noVid:"Not on Drive"},
+  ko:{tab:"성과", ovTitle:"게임별 CVR (Crebo)", itTitle:g=>"이터레이션별 CVR · "+g, game:"게임", mxTitle:"게임별 크리에이터 평균 CVR",
     cols:{game:"게임",its:"이터레이션",vids:"CVR 있는 영상",avg:"평균 CVR",last:"최근 이터레이션",lastAvg:"최근 이터레이션 평균",chg:"이전 이터레이션 대비",
       it:"이터레이션",rej:"Rejected",med:"중앙값",best:"Peak CVR",who:"크리에이터",cr:"크리에이터",vsGame:"게임 평균 대비",lastIt:"최근 이터레이션"},
     st:{vids:"CVR 있는 영상",avg:"게임 평균 CVR",last:n=>"이터레이션 "+n,best:"Peak CVR"},
     chAvg:"평균 CVR", chMax:"Peak CVR", noIt:"이터레이션 없음",
     src:(d,n,m)=>`출처: ${d} Crebo 내보내기 · CVR = AOS CVR (WW) · CVR 있는 영상 ${n}개 · 크리에이터는 Google 드라이브 기준(9x16)${m?`, 드라이브에 없는 영상 ${m}개는 Crebo 이름 사용`:""}.`,
-    crNote:"게임마다 CVR 수준이 달라 같은 게임 안에서만 비교하세요. ‘게임 평균 대비’는 그 사람의 평균에서 게임 평균을 뺀 값입니다.",
     mxNote:"각 칸: 평균 CVR(영상 수). 색은 게임 열 안에서 상대적입니다. 첫 번째 표에서 게임을 누르면 자세히 볼 수 있습니다.",
     none:"CVR 데이터가 없습니다 (data/cvr.csv).", pick:"자세히 보기",
-    clickIt:"차트의 점을 누르면 해당 이터레이션 영상을 볼 수 있습니다", itVids:(n,g)=>"이터레이션 영상 · "+n+" · "+g, peak:"Peak",
-    topTitle:g=>"성과 좋은 영상 · "+g, scope:{all:"전체 이터레이션",last:"최근 이터레이션"}, rank:"#", num:"Creative 번호", date:"날짜", concept:"콘셉트", watch:"영상 보기", top:"Top creative",
-    topNote:n=>`이 게임에서 Peak CVR이 가장 높은 영상 ${n}개입니다. 9x16 / 1x1 / 16x9를 누르면 드라이브 영상을 볼 수 있고, 다른 표의 Creative 번호를 눌러도 영상이 열립니다.`, noVid:"드라이브에 없음"}
+    clickIt:"차트의 점을 누르면 해당 이터레이션 영상을 볼 수 있습니다", peak:"Peak", rank:"#", num:"Creative 번호", date:"날짜", concept:"콘셉트", watch:"영상 보기", top:"Top creative", noVid:"드라이브에 없음"}
 };
 const PT=()=>PF_TXT[LANG]||PF_TXT.en;
 const PF_RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
-let PF=null, PF_GAME="", PF_EXP="", PF_SCOPE="all", PF_VIDS=[], PF_OPEN=null;  // PF_OPEN: iteration đang mở ngay trong bảng
+let PF=null, PF_GAME="", PF_EXP="", PF_VIDS=[], PF_OPEN=null;  // PF_OPEN: iteration đang mở ngay trong bảng
 // video trên Drive của một dòng CVR (cùng game + số; ưu tiên bản UA)
 function pfVideo(r){
   if(!DONE) return null; const gk=gameKey(r.game);
@@ -2164,7 +2137,6 @@ function renderPerf(){
   document.getElementById("pf-ov-title").textContent=L.ovTitle;
   document.getElementById("pf-game-l").textContent=L.game;
   document.getElementById("pf-mx-title").textContent=L.mxTitle;
-  document.getElementById("pf-cr-note").textContent=L.crNote;
   document.getElementById("pf-mx-note").textContent=L.mxNote;
   const gt=document.getElementById("pf-games");
   if(!PF||!PF.length){ gt.innerHTML=`<tbody><tr><td>${escH(PF?L.none:"…")}</td></tr></tbody>`; return; }
@@ -2187,7 +2159,6 @@ function renderPerf(){
   sel.innerHTML=games.map(x=>`<option value="${escH(x.g)}">${escH(x.g)} (${x.st.n})</option>`).join(""); sel.value=PF_GAME;
   const G=games.find(x=>x.g===PF_GAME);
   document.getElementById("pf-it-title").textContent=L.itTitle(PF_GAME);
-  document.getElementById("pf-cr-title").textContent=L.crTitle(PF_GAME);
   const byIt=[...pfGroup(G.rows,r=>r.it)].map(([it,rows])=>({it,rows,st:pfStats(rows),who:[...new Set(rows.map(r=>r.creator))].sort()})).sort((a,b)=>a.it-b.it);
   const tested=byIt.filter(x=>x.st.n&&x.it);
   const b=G.st.best;
@@ -2223,29 +2194,8 @@ function renderPerf(){
         `<td class="n">${x.st.best?`${pfF(x.st.best.cvr)} <span class="dim">${pfNum(x.st.best)} · ${escH(x.st.best.creator)}</span>`:"—"}</td>`+
         `<td class="n">${x.st.avg!==null&&pv!==null?pfD(x.st.avg-pv):pfD(null)}</td><td class="who">${escH(x.who.join(", "))}</td></tr>`+sub; }).join("")+`</tbody>`;
   document.getElementById("pf-chart-note").textContent=L.clickIt+".";
-  // ---- video work nhất
-  document.getElementById("pf-top-title").textContent=L.topTitle(PF_GAME);
-  if(PF_SCOPE!=="last") PF_SCOPE="all";
-  const sIt=PF_SCOPE==="last"?G.last:null;
-  document.getElementById("pf-top-title").textContent=sIt!==null?L.itVids(pfOrd(sIt),PF_GAME):L.topTitle(PF_GAME);
-  document.getElementById("pf-scope").innerHTML=[["all",L.scope.all],["last",`${L.scope.last} (${pfOrd(G.last)})`]]
-    .map(([k,t])=>`<button type="button" data-s="${k}" aria-pressed="${k===PF_SCOPE}">${escH(t)}</button>`).join("");
-  const TOPN=15, tv=pfVidTable(sIt===null?G.rows:G.rows.filter(r=>r.it===sIt),sIt!==null);
-  if(sIt===null){ const t=document.createElement("div"); t.innerHTML=tv.html; [...t.querySelectorAll("tbody tr")].slice(TOPN).forEach(r=>r.remove()); tv.html=t.innerHTML; tv.n=Math.min(tv.n,TOPN); }
-  document.getElementById("pf-top").innerHTML=tv.html.replace(/^<table[^>]*>|<\/table>$/g,"");
-  document.getElementById("pf-top-note").textContent=sIt!==null?L.clickIt+".":L.topNote(tv.n);
-  // ---- từng người trong game đang chọn
-  const people=[...pfGroup(G.rows,r=>r.creator)].map(([c,rows])=>{ const st=pfStats(rows);
-    const its=[...new Set(rows.filter(r=>r.cvr!==null&&r.it).map(r=>r.it))].sort((a,b)=>a-b), li=its[its.length-1];
-    return {c,st,li,la:li?pfAvg(rows.filter(r=>r.it===li&&r.cvr!==null).map(r=>r.cvr)):null}; }).filter(x=>x.st.n||x.st.rej)
-    .sort((a,b)=>b.st.n-a.st.n||a.c.localeCompare(b.c));
-  const avs=people.map(x=>x.st.avg).filter(v=>v!==null), lo=Math.min(...avs), hi=Math.max(...avs);
-  const shade=(v,lo,hi)=>v===null?"":` style="background:color-mix(in srgb, var(--heat) ${Math.round(10+40*((v-lo)/((hi-lo)||1)))}%, var(--panel))"`;
-  document.getElementById("pf-cr").innerHTML=`<thead><tr><th>${C.cr}</th><th class="n">${C.vids}</th><th class="n">${C.rej}</th><th class="n">${C.avg}</th><th class="n">${C.vsGame}</th><th class="n">${C.best}</th><th class="n">${C.lastIt}</th></tr></thead><tbody>`+
-    people.map(x=>`<tr><td class="b">${escH(x.c)}</td><td class="n">${x.st.n}</td><td class="n">${x.st.rej||""}</td><td class="n b"${shade(x.st.avg,lo,hi)}>${pfF(x.st.avg)}</td>`+
-      `<td class="n">${x.st.avg!==null?pfD(x.st.avg-G.st.avg):pfD(null)}</td><td class="n">${x.st.best?`${pfF(x.st.best.cvr)} <span class="dim">${pfNum(x.st.best)}</span>`:"—"}</td>`+
-      `<td class="n">${x.li?`${pfOrd(x.li)} · ${pfF(x.la)}`:"—"}</td></tr>`).join("")+`</tbody>`;
   // ---- ma trận người × game
+  const shade=(v,lo,hi)=>v===null?"":` style="background:color-mix(in srgb, var(--heat) ${Math.round(10+40*((v-lo)/((hi-lo)||1)))}%, var(--panel))"`;
   const gcols=games.filter(x=>x.st.n);
   const cell={}; gcols.forEach(x=>pfGroup(x.rows.filter(r=>r.cvr!==null),r=>r.creator).forEach((rows,c)=>{ (cell[c]=cell[c]||{})[x.g]={avg:pfAvg(rows.map(r=>r.cvr)),n:rows.length}; }));
   const rng={}; gcols.forEach(x=>{ const v=Object.values(cell).map(o=>o[x.g]).filter(Boolean).map(o=>o.avg); rng[x.g]=[Math.min(...v),Math.max(...v)]; });
@@ -2259,7 +2209,6 @@ function pfToOpen(){ const r=document.querySelector("#pf-it tr.sel"); if(r) r.sc
 document.getElementById("pf-it").addEventListener("click",e=>{ const b=e.target.closest("button[data-it]"); if(!b) return;
   const it=+b.dataset.it; PF_OPEN=PF_OPEN===it?null:it; renderPerf();
   const nb=document.querySelector(`#pf-it button[data-it="${it}"]`); if(nb) nb.focus({preventScroll:true}); });
-document.getElementById("pf-scope").addEventListener("click",e=>{ const b=e.target.closest("button[data-s]"); if(b){ PF_SCOPE=b.dataset.s; renderPerf(); } });
 document.getElementById("view-perf").addEventListener("click",e=>{
   const b=e.target.closest("button[data-v]"); if(!b) return; const v=PF_VIDS[+b.dataset.v]; if(!v) return;
   const dlg=document.getElementById("sv-dlg"); if(dlg.parentElement!==document.body) document.body.appendChild(dlg); // dialog nằm trong tab Đã làm đang ẩn
