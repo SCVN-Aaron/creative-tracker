@@ -1,0 +1,2039 @@
+Game,Iteration,Number,CVR,iOS CVR,Status,Creator,Source,Date,Top,Concept,Exported
+Arrow Fever,1,90032,1.27,,Tested,Aaron,Drive,2026-01-26,Unity AOS WW,Arrow Flow,2026-11-10
+Arrow Fever,1,90033,1.23,,Tested,Aaron,Drive,2026-01-27,,Arrow Flow,2026-11-10
+Arrow Fever,1,90034,1.19,,Tested,Aaron,Drive,2026-01-27,,Arrow Flow,2026-11-10
+Arrow Fever,1,90035,1.11,,Tested,Aaron,Drive,2026-01-28,,Arrow Flow,2026-11-10
+Arrow Fever,1,90036,0.94,,Tested,Aaron,Drive,2026-01-28,,Arrow Flow,2026-11-10
+Arrow Fever,1,90037,0.92,,Tested,Aaron,Drive,2026-01-28,,Arrow Flow,2026-11-10
+Arrow Fever,1,90038,1.07,,Tested,Aaron,Drive,2026-01-29,,Arrow Flow,2026-11-10
+Arrow Fever,1,90039,1.17,,Tested,Aaron,Drive,2026-01-29,,Arrow Flow,2026-11-10
+Arrow Fever,1,90040,1.16,,Tested,Aaron,Drive,2026-01-29,,Arrow Flow,2026-11-10
+Arrow Fever,1,90041,1.10,,Tested,Aaron,Drive,2026-01-30,Facebook,Arrow Flow,2026-11-10
+Arrow Fever,1,90042,1.25,,Tested,Aaron,Drive,2026-01-30,,Arrow Flow,2026-11-10
+Arrow Fever,1,90043,1.01,,Tested,Aaron,Drive,2026-01-30,,Arrow Flow,2026-11-10
+Arrow Fever,2,90044,1.40,0.77,Tested,Aaron,Drive,2026-02-10,,Arrow Flow,2026-11-10
+Arrow Fever,2,90045,1.37,0.75,Tested,Aaron,Drive,2026-02-10,,Arrow Flow,2026-11-10
+Arrow Fever,2,90046,1.16,0.65,Tested,Aaron,Drive,2026-02-10,,Arrow Flow,2026-11-10
+Arrow Fever,2,90047,1.65,0.67,Tested,Aaron,Drive,2026-02-10,Unity AOS WW,Arrow Flow,2026-11-10
+Arrow Fever,2,90048,1.19,0.65,Tested,Aaron,Drive,2026-02-11,,Arrow Flow,2026-11-10
+Arrow Fever,2,90049,1.50,0.93,Tested,Aaron,Drive,2026-02-11,Unity iOS WW,Arrow Flow,2026-11-10
+Arrow Fever,2,90050,1.16,0.67,Tested,Aaron,Drive,2026-02-11,,Arrow Flow,2026-11-10
+Arrow Fever,2,90051,1.40,0.69,Tested,Aaron,Drive,2026-02-11,,Arrow Flow,2026-11-10
+Arrow Fever,2,90052,1.44,0.85,Tested,Aaron,Drive,2026-02-11,,Arrow Flow,2026-11-10
+Arrow Fever,2,90053,1.21,0.61,Tested,Aaron,Drive,2026-02-11,,Arrow Flow,2026-11-10
+Arrow Fever,2,90054,1.31,0.56,Tested,Aaron,Drive,2026-02-12,,Arrow Flow,2026-11-10
+Arrow Fever,2,90055,1.21,0.64,Tested,Aaron,Drive,2026-02-12,,Arrow Flow,2026-11-10
+Arrow Fever,3,90056,1.44,1.27,Tested,Aaron,Drive,2026-03-02,,Arrow Flow,2026-11-10
+Arrow Fever,3,90057,2.61,1.24,Tested,Aaron,Drive,2026-03-02,,Arrow Flow,2026-11-10
+Arrow Fever,3,90058,0.91,0.89,Tested,Aaron,Drive,2026-03-02,,Arrow Flow,2026-11-10
+Arrow Fever,3,90059,0.97,1.01,Tested,Aaron,Drive,2026-03-04,,Arrow Flow,2026-11-10
+Arrow Fever,3,90060,1.35,0.66,Tested,Aaron,Drive,2026-03-02,,Arrow Flow,2026-11-10
+Arrow Fever,3,90061,0.56,0.54,Tested,Aaron,Drive,2026-03-04,,Arrow Flow,2026-11-10
+Arrow Fever,3,90062,0,1.52,Tested,Aaron,Drive,2026-03-04,,Arrow Flow,2026-11-10
+Arrow Fever,3,90063,1.25,0.87,Tested,Aaron,Drive,2026-03-05,,Arrow Flow,2026-11-10
+Arrow Fever,3,90064,1.85,0.91,Tested,Aaron,Drive,2026-03-05,,Arrow Flow,2026-11-10
+Arrow Fever,3,90065,1.96,0.65,Tested,Aaron,Drive,2026-03-05,,Arrow Flow,2026-11-10
+Arrow Fever,3,90066,1.60,0.66,Tested,Aaron,Drive,2026-03-05,,Arrow Flow,2026-11-10
+Arrow Fever,3,90067,3.15,1.39,Tested,Aaron,Drive,2026-03-05,,Arrow Flow,2026-11-10
+Arrow Fever,4,90068,1.26,,Tested,Aaron,Drive,2026-03-18,,Rescue The Puppy,2026-11-10
+Arrow Fever,4,90069,1.18,,Tested,Aaron,Drive,2026-03-18,,Rescue The Puppy,2026-11-10
+Arrow Fever,4,90070,1.44,,Tested,Aaron,Drive,2026-03-18,,Maze shape,2026-11-10
+Arrow Fever,4,90071,1.45,,Tested,Aaron,Drive,2026-03-18,,Rescue The Puppy,2026-11-10
+Arrow Fever,4,90072,1.30,,Tested,Aaron,Drive,2026-03-18,,Monkey shape,2026-11-10
+Arrow Fever,4,90073,1.26,,Tested,Aaron,Drive,2026-03-18,,Monkey Shape,2026-11-10
+Arrow Fever,4,90074,1.18,,Tested,Aaron,Drive,2026-03-18,,Leaf shape,2026-11-10
+Arrow Fever,4,90075,1.52,,Tested,Aaron,Drive,2026-03-18,,Leaf shape,2026-11-10
+Arrow Fever,4,90076,1.57,,Tested,Aaron,Drive,2026-03-18,,Snow shape,2026-11-10
+Arrow Fever,4,90077,1.29,,Tested,Aaron,Drive,2026-03-18,,Snow shape,2026-11-10
+Arrow Fever,4,90078,1.32,,Tested,Aaron,Drive,2026-03-20,,Monkey Shape,2026-11-10
+Arrow Fever,4,90079,1.35,,Tested,Aaron,Drive,2026-03-20,,Snow shape,2026-11-10
+Arrow Fever,5,90080,1.74,,Tested,Aaron,Drive,2026-04-08,Unity AOS WW,Multi-stage showcase intro + 065 variant,2026-11-10
+Arrow Fever,5,90081,1.69,,Tested,Aaron,Drive,2026-04-08,,Multi-stage showcase intro + 065 variant (level 359),2026-11-10
+Arrow Fever,5,90082,1.50,,Tested,Aaron,Drive,2026-04-08,,Multi-stage showcase intro + Crocodile,2026-11-10
+Arrow Fever,5,90083,1.63,,Tested,Aaron,Drive,2026-04-08,,Multi-stage showcase intro + 047,2026-11-10
+Arrow Fever,5,90084,1.51,,Tested,Aaron,Drive,2026-04-08,,Top Arrow Out creative variant,2026-11-10
+Arrow Fever,5,90085,1.55,,Tested,Aaron,Drive,2026-04-08,,Multi-stage showcase intro + Peacock (039),2026-11-10
+Arrow Fever,6,90086,0.98,,Tested,Hozler,Drive,2026-04-23,,Artistic Timelapse Hook + 90049,2026-11-10
+Arrow Fever,6,90087,0.74,,Tested,Hozler,Drive,2026-04-23,,Cat Construction Hook + 90082,2026-11-10
+Arrow Fever,6,90088,0.98,,Tested,Hozler,Drive,2026-04-23,,ASMR Unboxing Hook + 90080,2026-11-10
+Arrow Fever,6,90089,0.74,,Tested,Hozler,Drive,2026-04-23,,Narrative Rescue Hook + 90047,2026-11-10
+Arrow Fever,6,90090,1.15,,Tested,Hozler,Drive,2026-04-23,,Wedding Transition Hook + 90076,2026-11-10
+Arrow Fever,6,90091,0.67,,Tested,Hozler,Drive,2026-04-23,,Cupid’s Summon Hook + 90076,2026-11-10
+Arrow Fever,6,90092,1.05,,Tested,Hozler,Drive,2026-04-23,,Cosmic ASMR Hook + 90039,2026-11-10
+Arrow Fever,6,90093,0.77,,Tested,Hozler,Drive,2026-04-23,,Nostalgic Melody Hook + 90078,2026-11-10
+Arrow Fever,6,90094,0.75,,Tested,Hozler,Drive,2026-04-23,,Dance Performance Hook + 90082,2026-11-10
+Arrow Fever,6,90096,0.74,,Tested,Falcon,Drive,2026-04-23,,Dragon Head 97_1,2026-11-10
+Arrow Fever,6,90097,0.95,,Tested,Falcon,Drive,2026-04-23,,Falcon Bird 97_1,2026-11-10
+Arrow Fever,6,90098,0.98,,Tested,Falcon,Drive,2026-04-23,,Falcon Bird 97_2,2026-11-10
+Arrow Fever,6,90099,0.61,,Tested,Falcon,Drive,2026-04-23,,Falcon Bird 97_3,2026-11-10
+Arrow Fever,6,90100,0.67,,Tested,Falcon,Drive,2026-04-23,,Falcon Bird 97_4,2026-11-10
+Arrow Fever,6,90101,0.83,,Tested,Falcon,Drive,2026-04-23,,Dragon head 97_2,2026-11-10
+Arrow Fever,6,90102,1.03,,Tested,Falcon,Drive,2026-04-23,,Glass Water,2026-11-10
+Arrow Fever,6,90103,0.85,,Tested,Falcon,Drive,2026-04-23,,CPU AI,2026-11-10
+Arrow Fever,7,90104,1.35,,Tested,Miko,Drive,2026-04-29,,Feed the Fish,2026-11-10
+Arrow Fever,7,90105,1.30,,Tested,Miko,Drive,2026-04-29,,Feed the Fish but lose,2026-11-10
+Arrow Fever,7,90106,1.53,,Tested,Ruelle,Drive,2026-04-29,,Surprise arrow hook > Save the hungry dog,2026-11-10
+Arrow Fever,7,90107,1.44,,Tested,Ruelle,Drive,2026-04-29,,Weird stomachache hook > Save the sick dog,2026-11-10
+Arrow Fever,7,90108,1.50,,Tested,Ruelle,Drive,2026-04-29,,90106 + New food selection hook (Iteration),2026-11-10
+Arrow Fever,8,90109,1.72,,Tested,Ruelle,Drive,2026-05-15,,No Ads Game,2026-11-10
+Arrow Fever,8,90110,2.16,,Tested,Ruelle,Drive,2026-05-15,,Rescue Cute Dog,2026-11-10
+Arrow Fever,8,90111,1.91,,Tested,Ruelle,Drive,2026-05-15,,Rescue Cute Dog,2026-11-10
+Arrow Fever,8,90112,1.83,,Tested,Ruelle,Drive,2026-05-15,,On-beat Arrows,2026-11-10
+Arrow Fever,8,90113,1.76,,Tested,Ruelle,Drive,2026-05-15,,PvP,2026-11-10
+Arrow Fever,8,90114,1.45,,Tested,Ruelle,Drive,2026-05-15,,PvP,2026-11-10
+Arrow Fever,8,90115,1.74,,Tested,Miko,Drive,2026-05-14,,Mosquito,2026-11-10
+Arrow Fever,8,90116,1.76,,Tested,Miko,Drive,2026-05-14,,Mosquito,2026-11-10
+Arrow Fever,8,90117,1.49,,Tested,Miko,Drive,2026-05-14,,Mosquito,2026-11-10
+Arrow Fever,8,90118,1.99,,Tested,Miko,Drive,2026-05-14,,PVP,2026-11-10
+Arrow Fever,8,90119,2.13,,Tested,Miko,Drive,2026-05-14,,PVP,2026-11-10
+Arrow Fever,8,90120,1.79,,Tested,Miko,Drive,2026-05-14,,PVP,2026-11-10
+Arrow Fever,9,90121,0.74,,Tested,Quinne,Drive,2026-05-28,,COLOR BLINDNESS TEST (monochrome),2026-11-10
+Arrow Fever,9,90122,0.82,,Tested,Quinne,Drive,2026-05-28,,COLOR BLIND TEST (similar colors),2026-11-10
+Arrow Fever,9,90123,1.14,,Tested,Quinne,Drive,2026-05-28,,Low Battery,2026-11-10
+Arrow Fever,9,90124,1.35,,Tested,Quinne,Drive,2026-05-28,,EVOLUTION LEVEL (UGC) 🐒 → 🧌 → 🧠,2026-11-10
+Arrow Fever,9,90125,1.05,,Tested,Quinne,Drive,2026-05-28,,EVOLUTION LEVEL (AI HOOK) 🐒 → 🧌 → 🧠,2026-11-10
+Arrow Fever,9,90126,1.25,,Tested,Tilda,Drive,2026-05-28,,Rescue that poor animal! Fail version,2026-11-10
+Arrow Fever,9,90127,0.79,,Tested,Tilda,Drive,2026-05-28,,You are playing with a cat!,2026-11-10
+Arrow Fever,9,90128,1.04,,Tested,Tilda,Drive,2026-05-28,,Color those jars,2026-11-10
+Arrow Fever,9,90129,0.89,,Tested,Tilda,Drive,2026-05-28,,Noob vs. Pro mode,2026-11-10
+Arrow Fever,9,90130,1.31,,Tested,Tilda,Drive,2026-05-28,,3D arrow model rotating,2026-11-10
+Arrow Fever,9,90131,1.27,,Tested,Tilda,Drive,2026-05-28,,Rescue that poor animal! Win version,2026-11-10
+Arrow Fever,10,90132,1.05,,Tested,Falcon,Drive,2026-06-03,,Flower 01: Hydrangea,2026-11-10
+Arrow Fever,10,90133,1.05,,Tested,Falcon,Drive,2026-06-04,,Flower 01: Hydrangea,2026-11-10
+Arrow Fever,10,90134,1.02,,Tested,Falcon,Drive,2026-06-04,,Flower 01: Hydrangea,2026-11-10
+Arrow Fever,10,90135,0.96,,Tested,Falcon,Drive,2026-06-03,,Flower 02: Rose,2026-11-10
+Arrow Fever,10,90136,1.02,,Tested,Falcon,Drive,2026-06-04,,Flower 02: Rose,2026-11-10
+Arrow Fever,10,90137,1.06,,Tested,Falcon,Drive,2026-06-04,,Flower 02: Rose,2026-11-10
+Arrow Fever,10,90138,0.99,,Tested,Miko,Drive,2026-06-04,,Phone Call,2026-11-10
+Arrow Fever,10,90139,,,Rejected,Miko,Drive,2026-06-04,,Lock Screen,2026-11-10
+Arrow Fever,10,90140,0.87,,Tested,Miko,Drive,2026-06-04,,Cat Shape,2026-11-10
+Arrow Fever,10,90141,0.84,,Tested,Miko,Drive,2026-06-04,,Cat Shape,2026-11-10
+Arrow Fever,10,90142,1.10,,Tested,Miko,Drive,2026-06-04,,Cat Shape,2026-11-10
+Arrow Fever,10,90143,1.03,,Tested,Miko,Drive,2026-06-04,,Easy Mode and Hard Mode,2026-11-10
+Arrow Fever,10,90144,0.99,,Tested,Ruelle,Drive,2026-06-04,,Rescue,2026-11-10
+Arrow Fever,10,90145,1.00,,Tested,Ruelle,Drive,2026-06-04,,Rotate AI dog,2026-11-10
+Arrow Fever,10,90146,1.21,,Tested,Ruelle,Drive,2026-06-04,,Scroll selection,2026-11-10
+Arrow Fever,10,90147,1.06,,Tested,Ruelle,Drive,2026-06-04,,Free the arrow,2026-11-10
+Arrow Fever,10,90148,0.91,,Tested,Ruelle,Drive,2026-06-04,,Moving target challenge,2026-11-10
+Arrow Fever,10,90149,0.94,,Tested,Ruelle,Drive,2026-06-04,,Multi-level,2026-11-10
+Arrow Fever,11,90150,,,Rejected,Ruelle,Drive,2026-06-18,,Rescue,2026-11-10
+Arrow Fever,11,90151,1.22,,Tested,Ruelle,Drive,2026-06-18,,Rescue,2026-11-10
+Arrow Fever,11,90152,1.27,,Tested,Ruelle,Drive,2026-06-18,,Rescue,2026-11-10
+Arrow Fever,11,90153,0.70,,Tested,Ruelle,Drive,2026-06-18,,Rescue,2026-11-10
+Arrow Fever,11,90154,1.01,,Tested,Ruelle,Drive,2026-06-18,,Rescue,2026-11-10
+Arrow Fever,11,90155,0.92,,Tested,Ruelle,Drive,2026-06-18,,Gameplay,2026-11-10
+Arrow Fever,11,90156,0.94,,Tested,Ruelle,Drive,2026-06-18,,Gameplay,2026-11-10
+Arrow Fever,11,90157,0.94,,Tested,Miko,Drive,2026-06-18,,Challenge,2026-11-10
+Arrow Fever,11,90158,0.97,,Tested,Miko,Drive,2026-06-18,,Challenge,2026-11-10
+Arrow Fever,11,90159,1.11,,Tested,Miko,Drive,2026-06-18,,Challenge,2026-11-10
+Arrow Fever,11,90160,0.87,,Tested,Miko,Drive,2026-06-18,,Challenge,2026-11-10
+Arrow Fever,11,90161,0.65,,Tested,Miko,Drive,2026-06-18,,Mona Lisa Shape,2026-11-10
+Arrow Fever,11,90162,0.58,,Tested,Miko,Drive,2026-06-18,,Challenge,2026-11-10
+Arrow Fever,11,90163,0.82,,Tested,Miko,Drive,2026-06-18,,Challenge,2026-11-10
+Arrow Fever,11,90164,0.88,,Tested,Miko,Drive,2026-06-18,,Challenge,2026-11-10
+Arrow Fever,11,90165,0.82,,Tested,Falcon,Drive,2026-06-18,,World cup,2026-11-10
+Arrow Fever,11,90166,0.69,,Tested,Falcon,Drive,2026-06-18,,World cup,2026-11-10
+Arrow Fever,11,90167,0.69,,Tested,Falcon,Drive,2026-06-18,,World cup,2026-11-10
+Arrow Fever,11,90168,0.92,,Tested,Falcon,Drive,2026-06-18,,Animal,2026-11-10
+Arrow Fever,11,90169,0.79,,Tested,Falcon,Drive,2026-06-18,,Animal,2026-11-10
+Arrow Fever,11,90170,0.99,,Tested,Falcon,Drive,2026-06-18,,Animal,2026-11-10
+Arrow Fever,11,90171,0.88,,Tested,Falcon,Drive,2026-06-18,,Animal,2026-11-10
+Arrow Fever,11,90172,0.93,,Tested,Falcon,Drive,2026-06-18,,Animal,2026-11-10
+Arrow Fever,12,90173,1.07,,Tested,Falcon,Drive,2026-07-02,,Simple,2026-11-10
+Arrow Fever,12,90174,1.22,,Tested,Falcon,Drive,2026-07-02,,Simple,2026-11-10
+Arrow Fever,12,90175,1.08,,Tested,Falcon,Drive,2026-07-02,,Simple,2026-11-10
+Arrow Fever,12,90176,1.16,,Tested,Falcon,Drive,2026-07-02,,Simple,2026-11-10
+Arrow Fever,12,90177,1.20,,Tested,Falcon,Drive,2026-07-02,,Simple,2026-11-10
+Arrow Fever,12,90178,1.16,,Tested,Falcon,Drive,2026-07-02,,Simple,2026-11-10
+Arrow Fever,12,90179,1.07,,Tested,Falcon,Drive,2026-07-02,,Simple,2026-11-10
+Arrow Fever,12,90180,1.14,,Tested,Falcon,Drive,2026-07-02,,Shiba,2026-11-10
+Arrow Fever,12,90181,1.03,,Tested,Falcon,Drive,2026-07-02,,Shiba,2026-11-10
+Arrow Fever,12,90182,0.89,,Tested,Falcon,Drive,2026-07-02,,Shiba,2026-11-10
+Arrow Fever,12,90183,1.25,,Tested,Falcon,Drive,2026-07-02,,Shiba,2026-11-10
+Arrow Fever,13,90184,1.17,,Tested,Falcon,Drive,2026-07-16,,Key,2026-11-10
+Arrow Fever,13,90185,1.02,,Tested,Falcon,Drive,2026-07-16,,UGC + video180,2026-11-10
+Arrow Fever,13,90186,0.90,,Tested,Falcon,Drive,2026-07-16,,UGC + video180,2026-11-10
+Arrow Fever,13,90187,1.21,,Tested,Falcon,Drive,2026-07-16,,UGC + video143,2026-11-10
+Arrow Fever,13,90188,0.92,,Tested,Falcon,Drive,2026-07-16,,UGC + video143,2026-11-10
+Arrow Fever,13,90189,1.04,,Tested,Falcon,Drive,2026-07-16,,UGC + video182,2026-11-10
+Arrow Fever,13,90190,1.01,,Tested,Falcon,Drive,2026-07-16,,UGC + video182,2026-11-10
+Arrow Fever,13,90191,1.13,,Tested,Falcon,Drive,2026-07-16,,UGC + video90083,2026-11-10
+Arrow Fever,13,90192,1.02,,Tested,Falcon,Drive,2026-07-16,,UGC + video90083,2026-11-10
+Arrow Fever,13,90193,1.04,,Tested,Falcon,Drive,2026-07-16,,UGC + video180,2026-11-10
+Arrow Fever,13,90194,0.89,,Tested,Falcon,Drive,2026-07-16,,UGC + video180,2026-11-10
+Arrow Fever,13,90195,1.10,,Tested,Falcon,Drive,2026-07-16,,UGC + video143,2026-11-10
+Arrow Fever,13,90196,1.00,,Tested,Falcon,Drive,2026-07-16,,UGC + video143,2026-11-10
+Arrow Fever,13,90197,0.88,,Tested,Falcon,Drive,2026-07-16,,UGC + video182,2026-11-10
+Arrow Fever,13,90198,0.89,,Tested,Falcon,Drive,2026-07-16,,UGC + video182,2026-11-10
+Arrow Fever,13,90199,1.14,,Tested,Falcon,Drive,2026-07-16,,UGC + video90083,2026-11-10
+Arrow Fever,13,90200,0.93,,Tested,Falcon,Drive,2026-07-16,,UGC + video90083,2026-11-10
+Arrow Fever,13,90201,0.94,,Tested,Falcon,Drive,2026-07-16,,Key,2026-11-10
+Arrow Fever,14,90202,0.91,,Tested,Ruelle,Drive,2026-07-23,,Square puzzle map + Stranded golden fish → Fail (Timer),2026-11-10
+Arrow Fever,14,90203,0.90,,Tested,Ruelle,Drive,2026-07-23,,Round puzzle map + Stranded golden fish → Fail (Timer) + Tagline,2026-11-10
+Arrow Fever,14,90204,1.04,,Tested,Ruelle,Drive,2026-07-23,,Easy square puzzle map + Stranded golden fish → Fail (Timer),2026-11-10
+Arrow Fever,14,90205,0.91,,Tested,Ruelle,Drive,2026-07-23,,Square puzzle map + Stranded golden fish → Win (Timer) + 3 lives,2026-11-10
+Arrow Fever,14,90206,0.97,,Tested,Ruelle,Drive,2026-07-23,,Square puzzle map + Stranded Nemo finds Dory → Fail (Health bar) + Tagline,2026-11-10
+Arrow Fever,14,90207,0.89,,Tested,Ruelle,Drive,2026-07-23,,Square puzzle map + Stranded Nemo finds Dory → Win (IQ bar) + Floating logo,2026-11-10
+Arrow Fever,14,90208,0.99,,Tested,Ruelle,Drive,2026-07-23,,Rotating golden fish AI intro + Square puzzle map → Fail (Decreasing IQ bar),2026-11-10
+Arrow Fever,14,90209,1.11,,Tested,Ruelle,Drive,2026-07-23,,Rotating Dory AI intro + Square puzzle map → Fail (Timer) + Progress bar,2026-11-10
+Arrow Fever,14,90210,0.83,,Tested,Ruelle,Drive,2026-07-23,,Newspaper Arrow AI intro + Stranded Nemo finds Dory → Fail (Dory falls out) + Ti,2026-11-10
+Arrow Fever,14,90211,1.01,,Tested,Ruelle,Drive,2026-07-23,,Phone AI intro + Round puzzle map → Fail + Logo/Download button,2026-11-10
+Arrow Fever,14,90212,0.90,,Tested,Ruelle,Drive,2026-07-23,,"No Fish, No Water hook + Square puzzle map → Fail (Timer) + Streak pop-ups",2026-11-10
+Arrow Fever,14,90213,0.98,,Tested,Ruelle,Drive,2026-07-23,,Stranded Dory on beach AI hook + Dory finds Nemo → Win + Tagline,2026-11-10
+Arrow Fever,14,90214,0.88,,Tested,Ruelle,Drive,2026-07-23,,Round puzzle map + Stranded golden fish → Win (4 lives) + UGC + Avatar frame,2026-11-10
+Arrow Fever,14,90215,0.91,,Tested,Ruelle,Drive,2026-07-23,,Easy-to-hard level progression + Easy square - Square stranded golden fish → Win,2026-11-10
+Arrow Fever,15,90216,1.13,,Tested,Falcon,Drive,2026-07-30,,Chrysanthemun + Gameplay,2026-11-10
+Arrow Fever,15,90217,1.07,,Tested,Falcon,Drive,2026-07-30,,Sunflower + Gameplay,2026-11-10
+Arrow Fever,15,90218,0.74,,Tested,Falcon,Drive,2026-07-30,,“Mecc” Trend + Slap + Green Arrow + Special Outro,2026-11-10
+Arrow Fever,15,90219,0.82,,Tested,Falcon,Drive,2026-07-30,,Special AI intro “Mecc” Trend + Slap + Green Arrow + Special Outro,2026-11-10
+Arrow Fever,15,90220,1.04,,Tested,Falcon,Drive,2026-07-30,,“Mecc” Trend + Slap + Black Arrow + Special Outro,2026-11-10
+Arrow Fever,15,90221,0.78,,Tested,Falcon,Drive,2026-07-30,,Special AI intro “Mecc” Trend + Slap + Black Arrow + Special Outro,2026-11-10
+Arrow Fever,15,90222,0.82,,Tested,Falcon,Drive,2026-07-30,,Level map: A large man,2026-11-10
+Arrow Fever,15,90223,0.72,,Tested,Falcon,Drive,2026-07-30,,"AI intro: A jilted man + ""A large man - level 100” gameplay",2026-11-10
+Arrow Fever,15,90224,0.76,,Tested,Falcon,Drive,2026-07-30,,AI intro Man dancing 01 + 90222,2026-11-10
+Arrow Fever,15,90225,0.63,,Tested,Falcon,Drive,2026-07-30,,AI intro Man dancing 02 + 90222,2026-11-10
+Arrow Fever,16,90226,1.12,,Tested,Falcon,Drive,2026-08-13,,Violin gameplay,2026-11-10
+Arrow Fever,16,90227,1.15,,Tested,Falcon,Drive,2026-08-13,Unity AOS WW,Intro AI + Loop: Feedback 2 click 1 time x2 + Correct ASMR,2026-11-10
+Arrow Fever,16,90228,1.03,,Tested,Falcon,Drive,2026-08-13,,Eastern Dragon Dancer Gameplay,2026-11-10
+Arrow Fever,16,90229,1.08,,Tested,Falcon,Drive,2026-08-13,,Intro AI + Loop: Feedback 2 click 1 time x2 + Correct ASMR,2026-11-10
+Arrow Fever,16,90230,0.98,,Tested,Falcon,Drive,2026-08-13,,Intro AI + Loop: Feedback 2 click 1 time x2 + Correct ASMR,2026-11-10
+Arrow Fever,16,90231,1.06,,Tested,Falcon,Drive,2026-08-13,,Starry Night Gameplay,2026-11-10
+Arrow Fever,16,90232,0.98,,Tested,Falcon,Drive,2026-08-13,,"""Mecc"" Trend Intro + Starry Night Gameplay",2026-11-10
+Arrow Fever,16,90233,1.12,,Tested,Falcon,Drive,2026-08-13,,Menu Show musician + Violin gameplay (Zoom),2026-11-10
+Arrow Fever,17,90234,0.98,,Tested,Falcon,Drive,2026-08-27,,Cat + Colored pencils → Win,2026-11-10
+Arrow Fever,17,90235,1.17,,Tested,Falcon,Drive,2026-08-27,,Cat + Colored pencils → Fail,2026-11-10
+Arrow Fever,17,90236,0.94,,Tested,Falcon,Drive,2026-08-27,,Cat + Glitter pen → Win,2026-11-10
+Arrow Fever,17,90237,1.00,,Tested,Falcon,Drive,2026-08-27,,Dog + Colored pencils → Win,2026-11-10
+Arrow Fever,17,90238,1.12,,Tested,Falcon,Drive,2026-08-27,,Dog + Colored pencils → Fail,2026-11-10
+Arrow Fever,17,90239,1.12,,Tested,Falcon,Drive,2026-08-27,,Dog + Glitter pen → Win,2026-11-10
+Arrow Fever,17,90240,1.12,,Tested,Falcon,Drive,2026-08-27,,Meerkat + Colored pencils → Win,2026-11-10
+Arrow Fever,17,90241,0.9,,Tested,Falcon,Drive,2026-08-27,,Meerkat + Colored pencils → Fail,2026-11-10
+Arrow Fever,17,90242,1.16,,Tested,Falcon,Drive,2026-08-27,,Meerkat + Glitter pen → Win,2026-11-10
+Arrow Fever,17,90243,1.1,,Tested,Falcon,Drive,2026-08-27,,Cat + Colored pencils → Fail (Logic mới),2026-11-10
+Arrow Fever,17,90244,1.06,,Tested,Falcon,Drive,2026-08-27,,3 animal + Colored pencils,2026-11-10
+Arrow Fever,17,90245,1.21,,Tested,Falcon,Drive,2026-08-27,,3 animal + Glitter pen,2026-11-10
+Arrow Fever,18,90246,1.28,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90247,1.17,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90248,1.49,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90249,1.31,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90250,1.35,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90251,1.38,,Tested,Falcon,Drive,2026-09-10,,Fish Panic Intro + 90202,2026-11-10
+Arrow Fever,18,90252,1.21,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90253,0.88,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90254,1.01,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90255,0.98,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Arrow Fever,18,90256,0.94,,Tested,Falcon,Drive,2026-09-10,,Rose 2.0 + Normal hand,2026-11-10
+Bulldozer Master,,90270,1.08,,Tested,Ellie,Drive,2026-10-29,,,2026-11-10
+Bulldozer Master,,90271,0.96,,Tested,Ellie,Drive,2026-10-29,,,2026-11-10
+Bulldozer Master,,90272,1.24,,Tested,Ellie,Drive,2026-10-29,,,2026-11-10
+Bulldozer Master,,90273,1.06,,Tested,Ellie,Drive,2026-10-29,,,2026-11-10
+Bulldozer Master,,90274,1.16,,Tested,Ellie,Drive,2026-10-29,,,2026-11-10
+Bulldozer Master,,90275,1.34,,Tested,Ellie,Drive,2026-10-29,,,2026-11-10
+Bulldozer Master,13,90156,1.5,,Tested,Quinne,Drive,2026-10-01,,Multi Level,2026-11-10
+Bulldozer Master,13,90157,1.3,,Tested,Quinne,Drive,2026-10-01,,Multi Level,2026-11-10
+Bulldozer Master,13,90158,1.61,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90159,1.56,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90160,1.63,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90161,1.18,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90162,1.12,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90163,1.45,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90164,1.44,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90165,0.89,,Tested,Quinne,Drive,2026-10-01,,Multi Level,2026-11-10
+Bulldozer Master,13,90166,1.18,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90167,1.31,,Tested,Quinne,Drive,2026-10-01,,Gameplay,2026-11-10
+Bulldozer Master,13,90169,1.34,,Tested,Elliot,Drive,2026-10-01,,Continuously destroying buildings across the city,2026-11-10
+Bulldozer Master,13,90170,0.74,,Tested,Elliot,Drive,2026-10-01,,Continuously destroying cubes made of various materials,2026-11-10
+Bulldozer Master,13,90171,0,,Tested,Elliot,Drive,2026-10-01,,Drama hook + 90179,2026-11-10
+Bulldozer Master,13,90172,1.19,,Tested,Elliot,Drive,2026-10-01,,Funny hook + 90182,2026-11-10
+Bulldozer Master,13,90173,1.4,,Tested,Elvis,Drive,2026-10-01,,Creative 176 + Voice UGC,2026-11-10
+Bulldozer Master,13,90174,1.6,,Tested,Elvis,Drive,2026-10-01,,Creative 176 + Voice UGC + Avatar Streamer,2026-11-10
+Bulldozer Master,13,90175,1.31,,Tested,Elvis,Drive,2026-10-01,,Creative 176 + Drama hook AI,2026-11-10
+Bulldozer Master,13,90176,1.5,,Tested,Elvis,Drive,2026-10-01,,Creative 176 + Drama hook AI,2026-11-10
+Bulldozer Master,13,90177,1.22,,Tested,Elvis,Drive,2026-10-01,,Playable 005 + Snow theme,2026-11-10
+Bulldozer Master,13,90178,0.84,,Tested,Elvis,Drive,2026-10-01,,Playable 005 + Snow theme + Voice UGC,2026-11-10
+Bulldozer Master,13,90179,1.13,,Tested,Elvis,Drive,2026-10-01,,Playable 005 + Snow theme + Drama hook AI,2026-11-10
+Bulldozer Master,13,90180,1.22,,Tested,Elvis,Drive,2026-10-01,,Playable 005 + Snow theme + Drama hook AI,2026-11-10
+Bulldozer Master,13,90181,0.99,,Tested,Ellie,Drive,2026-10-02,,continuously delving deeper into the ground for extraction,2026-11-10
+Bulldozer Master,13,90182,1.22,,Tested,Ellie,Drive,2026-10-02,,scrap removal + upgrading,2026-11-10
+Bulldozer Master,13,90183,1.14,,Tested,Ellie,Drive,2026-10-02,,90181 + another camera angle,2026-11-10
+Bulldozer Master,13,90184,1.39,,Tested,Ellie,Drive,2026-10-02,,scrap metal collection,2026-11-10
+Bulldozer Master,14,90185,2.03,,Tested,Quinne,Drive,2026-10-08,,Multi Level,2026-11-10
+Bulldozer Master,14,90186,1.63,,Tested,Quinne,Drive,2026-10-08,,Multi Level,2026-11-10
+Bulldozer Master,14,90187,1.44,,Tested,Quinne,Drive,2026-10-08,,Multi Level,2026-11-10
+Bulldozer Master,14,90188,1.58,,Tested,Quinne,Drive,2026-10-08,,Multi Level,2026-11-10
+Bulldozer Master,14,90189,1.47,,Tested,Quinne,Drive,2026-10-08,,Multi Level,2026-11-10
+Bulldozer Master,14,90190,1.71,,Tested,Quinne,Drive,2026-10-08,,Multi Level,2026-11-10
+Bulldozer Master,14,90191,1.73,,Tested,Quinne,Drive,2026-10-08,,Multi Level,2026-11-10
+Bulldozer Master,14,90192,1.37,,Tested,Quinne,Drive,2026-10-08,,Multi Level,2026-11-10
+Bulldozer Master,14,90193,1.91,,Tested,Elvis,Drive,2026-10-08,,,2026-11-10
+Bulldozer Master,14,90194,1.34,,Tested,Elvis,Drive,2026-10-08,,,2026-11-10
+Bulldozer Master,14,90195,1.67,,Tested,Elvis,Drive,2026-10-08,,,2026-11-10
+Bulldozer Master,14,90196,1.07,,Tested,Elvis,Drive,2026-10-08,,,2026-11-10
+Bulldozer Master,14,90197,1.6,,Tested,Elvis,Drive,2026-10-08,,,2026-11-10
+Bulldozer Master,14,90198,1.52,,Tested,Elvis,Drive,2026-10-08,,,2026-11-10
+Bulldozer Master,14,90199,1.34,,Tested,Elvis,Drive,2026-10-08,,,2026-11-10
+Bulldozer Master,14,90200,1.44,,Tested,Elvis,Drive,2026-10-08,,,2026-11-10
+Bulldozer Master,14,90201,1.63,,Tested,Pax,Drive,2026-10-08,,Destroy buildings → evolve the bulldozer.,2026-11-10
+Bulldozer Master,14,90202,1.22,,Tested,Pax,Drive,2026-10-08,,90201 + Hook: The rich father challenges his daughter’s construction-worker boyf,2026-11-10
+Bulldozer Master,14,90203,1.59,,Tested,Pax,Drive,2026-10-08,,Police car → choose a vehicle → transform into a bulldozer → destroy traffic.,2026-11-10
+Bulldozer Master,14,90204,1.61,,Tested,Pax,Drive,2026-10-08,,90203 + Hook: A giant tomato crashes onto the police car.,2026-11-10
+Bulldozer Master,14,90205,1.93,,Tested,Pax,Drive,2026-10-08,,Transport gems on a dangerous mountain road → crash and fall.,2026-11-10
+Bulldozer Master,14,90206,1.51,,Tested,Ellie,Drive,2026-10-09,,clearing snow from the road -> getting into an accident,2026-11-10
+Bulldozer Master,14,90207,1.7,,Tested,Ellie,Drive,2026-10-09,,clearing snow from the road -> getting into an accident + add UI driver,2026-11-10
+Bulldozer Master,14,90208,1.39,,Tested,Ellie,Drive,2026-10-09,,Vehicle travels upward through upgrade gates -> stone-pushing attempt fails,2026-11-10
+Bulldozer Master,14,90209,1.2,,Tested,Ellie,Drive,2026-10-09,,Vehicle travels upward through upgrade gates -> stone-pushing attempt fails + ho,2026-11-10
+Bulldozer Master,14,90210,1.3,,Tested,Ellie,Drive,2026-10-09,,90208 + add UI driver,2026-11-10
+Bulldozer Master,15,90211,1.43,,Tested,Quinne,Drive,2026-10-15,,Gameplay,2026-11-10
+Bulldozer Master,15,90212,1.14,,Tested,Quinne,Drive,2026-10-15,,Gameplay,2026-11-10
+Bulldozer Master,15,90213,1.36,,Tested,Quinne,Drive,2026-10-15,,Gameplay,2026-11-10
+Bulldozer Master,15,90214,1.38,,Tested,Quinne,Drive,2026-10-15,,Gameplay,2026-11-10
+Bulldozer Master,15,90215,1.3,,Tested,Quinne,Drive,2026-10-15,,Gameplay,2026-11-10
+Bulldozer Master,15,90216,1.41,,Tested,Quinne,Drive,2026-10-15,,Gameplay,2026-11-10
+Bulldozer Master,15,90217,1.26,,Tested,Quinne,Drive,2026-10-15,,Gameplay,2026-11-10
+Bulldozer Master,15,90218,1.37,,Tested,Quinne,Drive,2026-10-15,,Gameplay,2026-11-10
+Bulldozer Master,15,90219,1.13,,Tested,Anthony,Drive,2026-10-15,,River / Golden Pig / Fantasy Resource / Volcano Map - New Structure,2026-11-10
+Bulldozer Master,15,90220,1.21,,Tested,Anthony,Drive,2026-10-15,,River / Diamond Whale / Fantasy Resource / Ice Map - New Structure,2026-11-10
+Bulldozer Master,15,90221,1.35,,Tested,Anthony,Drive,2026-10-15,,River / Ruby Dragon / Fantasy Resource / Volcano Map - New Structure,2026-11-10
+Bulldozer Master,15,90222,1.41,,Tested,Anthony,Drive,2026-10-15,,AI Intro Golden Pig - Video 90219,2026-11-10
+Bulldozer Master,15,90223,1.27,,Tested,Anthony,Drive,2026-10-15,,AI Intro Diamond Whale - Video 90220,2026-11-10
+Bulldozer Master,15,90224,1.01,,Tested,Anthony,Drive,2026-10-15,,AI Intro Ruby Dragon - Video 90221,2026-11-10
+Bulldozer Master,15,90225,1.39,,Tested,Anthony,Drive,2026-10-15,,Too Weak to Save Her / AI Drama Hook - Video131,2026-11-10
+Bulldozer Master,15,90226,1.17,,Tested,Anthony,Drive,2026-10-15,,Stolen Kingdom / AI Drama Hook - Video131,2026-11-10
+Bulldozer Master,15,90227,1.57,,Tested,Ellie,Drive,2026-10-15,,collect scrap -> crush into stone -> sell for money -> upgrade,2026-11-10
+Bulldozer Master,15,90228,1.27,,Tested,Ellie,Drive,2026-10-15,,"The camera moves continuously downward, revealing an underground area.",2026-11-10
+Bulldozer Master,15,90230,1.54,,Tested,Ellie,Drive,2026-10-15,,Hook scrap overflow + 90227,2026-11-10
+Bulldozer Master,15,90231,1.09,,Tested,Ellie,Drive,2026-10-16,,Hook A man is rejected for being poor — he seeks revenge -> 90227,2026-11-10
+Bulldozer Master,15,90232,1.35,,Tested,Ellie,Drive,2026-10-15,,Hook for washing mud off scrap metal -> upgrade,2026-11-10
+Bulldozer Master,15,90233,1.04,,Tested,Elliot,Drive,2026-10-15,,The character catches raw meteorites → crafts items → sells them for money → upg,2026-11-10
+Bulldozer Master,15,90234,0.99,,Tested,Elliot,Drive,2026-10-15,,Hook: A meteor warning notice + 90233.,2026-11-10
+Bulldozer Master,15,90235,1.01,,Tested,Elliot,Drive,2026-10-15,,Hook: The character is sad because he couldn’t mine any gold + 90233.,2026-11-10
+Bulldozer Master,15,90236,1.04,,Tested,Elliot,Drive,2026-10-15,,"Hook: Two planets collide, creating meteorites + 90233.",2026-11-10
+Bulldozer Master,16,90237,1.24,,Tested,Ruelle,Drive,2026-10-21,,Card intro - Fail/Try again - Short upgrade,2026-11-10
+Bulldozer Master,16,90238,0.93,,Tested,Ruelle,Drive,2026-10-21,,Bulldozer stuck AI intro - Default upgrade + Lever/Brake UI,2026-11-10
+Bulldozer Master,16,90239,1.16,,Tested,Ruelle,Drive,2026-10-21,,Default upgrade,2026-11-10
+Bulldozer Master,16,90240,1.14,,Tested,Ruelle,Drive,2026-10-21,,Bulldozer stuck AI intro - Default upgrade + Lever/Brake UI,2026-11-10
+Bulldozer Master,16,90241,1.08,,Tested,Ruelle,Drive,2026-10-21,,Rock walls AI intro - Default upgrade + Lever/Brake UI,2026-11-10
+Bulldozer Master,16,90242,0.82,,Tested,Ruelle,Drive,2026-10-21,,Roadside - Ancient city - Outer space - Atlantis + Lever/Brake UI,2026-11-10
+Bulldozer Master,16,90243,1.08,,Tested,Anthony,Drive,2026-10-21,,Fully AI-Generated Gameplay Video,2026-11-10
+Bulldozer Master,16,90244,1.15,,Tested,Anthony,Drive,2026-10-21,,Fast Full Loop - Early Production & Sale,2026-11-10
+Bulldozer Master,16,90245,1.02,,Tested,Anthony,Drive,2026-10-21,,Pyramid - Close-up Collapse - Camera Test,2026-11-10
+Bulldozer Master,16,90246,1.14,,Tested,Anthony,Drive,2026-10-21,,Pyramid - Customer Rush - Truck Queue,2026-11-10
+Bulldozer Master,16,90247,0.77,,Tested,Anthony,Drive,2026-10-21,,Pyramid - Purple Ore Collapse - Resource Test,2026-11-10
+Bulldozer Master,16,90248,0.89,,Tested,Anthony,Drive,2026-10-21,,Pyramid - Jade Collapse - Resource Test,2026-11-10
+Bulldozer Master,16,90249,1.15,,Tested,Max,Drive,2026-10-21,,Original Creative,2026-11-10
+Bulldozer Master,16,90254,0.88,,Tested,Max,Drive,2026-10-21,,AI Truck run to Island game,2026-11-10
+Bulldozer Master,16,90255,0.79,,Tested,Min,Drive,2026-10-21,,The character destroy capsule → sells them for money → upgrades.,2026-11-10
+Bulldozer Master,16,90256,1.04,,Tested,Min,Drive,2026-10-21,,90256 + Hook: Bulldozer clear the road in the Jungle,2026-11-10
+Bulldozer Master,16,90257,0.88,,Tested,Min,Drive,2026-10-21,,90257 + Hook: Bulldozer crush the glass skull jar,2026-11-10
+Bulldozer Master,16,90258,1.14,,Tested,Trace,Drive,2026-10-21,,"Boss mock intro - Pickaxe mining, crusher, sell - Bulldozer to drill truck upgra",2026-11-10
+Bulldozer Master,16,90259,1.1,,Tested,Trace,Drive,2026-10-21,,Hook: Betrayal bridge intro - 90258 core + Fake-playable cliff walk iterated int,2026-11-10
+Bulldozer Master,16,90260,1.06,,Tested,Trace,Drive,2026-10-21,,"Hook: Not worth saving intro - 90258 core + ""Not worth saving"" ref iterated intr",2026-11-10
+Bulldozer Master,16,90261,1.27,,Tested,Jasper,Drive,2026-10-21,,Hook: A miner jumps from cranes into a quarry + 90263 core,2026-11-10
+Bulldozer Master,16,90262,1.07,,Tested,Jasper,Drive,2026-10-21,,Hook: An angry wife gets hooked on her husband’s game + 90263 core,2026-11-10
+Bulldozer Master,16,90263,0.86,,Tested,Jasper,Drive,2026-10-21,,The miner breaks rocks and collects gems → refines resources to earn money → bui,2026-11-10
+Bulldozer Master,16,90264,0.88,,Tested,Pax,Drive,2026-10-21,,Break crystal walls → sell gems → upgrade into a drill vehicle.,2026-11-10
+Bulldozer Master,16,90265,0.8,,Tested,Pax,Drive,2026-10-21,,90264 + Hook: A gemstone bird gets crushed by an excavator.,2026-11-10
+Bulldozer Master,16,90267,0.87,,Tested,Ellie,Drive,2026-10-29,,cross the bridge to find resources -> gather -> upgrade,2026-11-10
+Bulldozer Master,16,90268,1.13,,Tested,Ellie,Drive,2026-10-29,,hook: proposing + getting rejected,2026-11-10
+Bulldozer Master,16,90269,0.94,,Tested,Ellie,Drive,2026-10-29,,hook: getting rejected,2026-11-10
+Bulldozer Master,17,90276,1.05,,Tested,Ruelle,Drive,2026-10-29,,Oil drill explode intro - Ore - Default upgrade + Lever/Brake UI,2026-11-10
+Bulldozer Master,17,90277,0.97,,Tested,Ruelle,Drive,2026-10-29,,Oil drill explode intro - Scrap - Default upgrade + Lever/Brake UI,2026-11-10
+Bulldozer Master,17,90278,1.09,,Tested,Ruelle,Drive,2026-10-29,,Face zoom intro - Ore - Default upgrade + Voiceover,2026-11-10
+Bulldozer Master,17,90279,0.74,,Tested,Ruelle,Drive,2026-10-29,,Oil drill explode intro - Ore - Default upgrade + Lever/Brake UI,2026-11-10
+Bulldozer Master,17,90280,1.17,,Tested,Ruelle,Drive,2026-10-29,,No intro - Ore - Default upgrade + Lever/Brake UI,2026-11-10
+Bulldozer Master,17,90281,0.9,,Tested,Ruelle,Drive,2026-10-29,,Default upgrade,2026-11-10
+Bulldozer Master,17,90282,1.15,,Tested,Ruelle,Drive,2026-10-29,,Default upgrade,2026-11-10
+Bulldozer Master,17,90283,1.59,,Tested,Ruelle,Drive,2026-10-29,,,2026-11-10
+Bulldozer Master,17,90284,1.15,,Tested,Max,Drive,2026-10-29,,Original Gameplay with New Zombie Bears,2026-11-10
+Bulldozer Master,17,90285,1.76,,Tested,Max,Drive,2026-10-29,,UGC Streamer Review + Magnet Scrap Collection,2026-11-10
+Bulldozer Master,17,90286,1.21,,Tested,Max,Drive,2026-10-29,,Soldiers Variant,2026-11-10
+Bulldozer Master,17,90287,1.11,,Tested,Max,Drive,2026-10-29,,Game With No WiFi,2026-11-10
+Bulldozer Master,17,90288,1.01,,Tested,Max,Drive,2026-10-29,,Scrap Clearing,2026-11-10
+Bulldozer Master,17,90289,0.73,,Tested,Max,Drive,2026-10-29,,AI Hook: Bulldozer Clearing Scrap,2026-11-10
+Bulldozer Master,17,90290,1.4,,Tested,Max,Drive,2026-10-29,,Snow Driving + Tire Upgrades,2026-11-10
+Bulldozer Master,17,90291,1.34,,Tested,Max,Drive,2026-10-29,,Mountain Truck Driving Challenge,2026-11-10
+Bulldozer Master,17,90292,1.38,,Tested,Jay,Drive,2026-10-29,,Bulldozer go to hill and fall down,2026-11-10
+Bulldozer Master,17,90293,1.02,,Tested,Jay,Drive,2026-10-29,,AI Intro + Reload ammo -> Earn money -> Upgrade Bulldozer -> Break stones -> Ear,2026-11-10
+Bulldozer Master,17,90294,1.24,,Tested,Jay,Drive,2026-10-29,,AI Hook + Break stones -> Selling -> Earn money -> Unlock new break stones devic,2026-11-10
+Bulldozer Master,17,90295,1.38,,Tested,Jay,Drive,2026-10-29,,AI Hook + Break stones -> Selling -> Earn money -> Unlock new break stones devic,2026-11-10
+Bulldozer Master,17,90296,1.01,,Tested,Jay,Drive,2026-10-29,,Collect oil -> Selling -> Upgrade -> Unlock bulldozer -> Break stones -> Selling,2026-11-10
+Bulldozer Master,17,90297,1.03,,Tested,Jay,Drive,2026-10-29,,Collect oil -> Selling -> Upgrade -> Unlock bulldozer -> Break stones -> Selling,2026-11-10
+Bulldozer Master,17,90298,1.13,,Tested,Jay,Drive,2026-10-29,,Break stones -> Selling -> Unlock,2026-11-10
+Bulldozer Master,17,90299,1.29,,Tested,Jay,Drive,2026-10-29,,Break stones -> Selling -> Unlock,2026-11-10
+Dino Universe,1,90001,2.29,,Tested,Ellie,Drive,2026-01-28,,Dino Universe,2026-11-10
+Dino Universe,1,90002,2.04,,Tested,Ellie,Drive,2026-01-29,,Dino Universe,2026-11-10
+Dino Universe,1,90003,2.05,,Tested,Ellie,Drive,2026-01-29,,Dino Universe,2026-11-10
+Dino Universe,1,90004,1.90,,Tested,Ellie,Drive,2026-01-29,,Dino Universe,2026-11-10
+Dino Universe,1,90005,2.59,,Tested,Ellie,Drive,2026-01-30,Unity AOS WW,Dino Universe,2026-11-10
+Dino Universe,1,90006,2.04,,Tested,Hozler,Drive,2026-01-27,Facebook,Dino Universe,2026-11-10
+Dino Universe,1,90007,2.26,,Tested,Hozler,Drive,2026-01-27,,Dino Universe,2026-11-10
+Dino Universe,1,90008,2.09,,Tested,Hozler,Drive,2026-01-29,,Dino Universe,2026-11-10
+Dino Universe,1,90009,1.91,,Tested,Hozler,Drive,2026-01-29,,Dino Universe,2026-11-10
+Dino Universe,1,90010,2.27,,Tested,Hozler,Drive,2026-01-29,,Dino Universe,2026-11-10
+Dino Universe,1,90011,2.30,,Tested,Hozler,Drive,2026-01-30,,Dino Universe,2026-11-10
+Dino Universe,1,90012,2.33,,Tested,Ellie,Drive,2026-01-29,,Dino Universe,2026-11-10
+Dino Universe,2,90013,2.14,1.18,Tested,Hozler,Drive,2026-02-10,,Dino Universe,2026-11-10
+Dino Universe,2,90014,2.44,1.39,Tested,Hozler,Drive,2026-02-10,Unity AOS & iOS WW,Dino Universe,2026-11-10
+Dino Universe,2,90015,1.95,0.96,Tested,Hozler,Drive,2026-02-13,,Dino Universe,2026-11-10
+Dino Universe,2,90016,2.05,1.18,Tested,Ellie,Drive,2026-02-11,,Dino Universe,2026-11-10
+Dino Universe,2,90017,2.02,1.20,Tested,Ellie,Drive,2026-02-11,,Dino Universe,2026-11-10
+Dino Universe,2,90018,1.99,0.95,Tested,Ellie,Drive,2026-02-13,,Dino Universe,2026-11-10
+Dino Universe,2,90019,2.05,1.27,Tested,Ellie,Drive,2026-02-13,,Dino Universe,2026-11-10
+Dino Universe,2,90020,2.08,1.24,Tested,Ellie,Drive,2026-02-13,,Dino Universe,2026-11-10
+Dino Universe,3,90021,2.74,,Tested,Hozler,Drive,2026-03-18,,Dino Universe,2026-11-10
+Dino Universe,3,90022,2.65,,Tested,Hozler,Drive,2026-03-18,,Dino Universe,2026-11-10
+Dino Universe,3,90023,2.54,,Tested,Hozler,Drive,2026-03-18,,Dino Universe,2026-11-10
+Dino Universe,3,90024,2.72,,Tested,Hozler,Drive,2026-03-19,,Dino Universe,2026-11-10
+Dino Universe,3,90025,2.58,,Tested,Hozler,Drive,2026-03-19,,Dino Universe,2026-11-10
+Dino Universe,3,90026,2.63,,Tested,Ellie,Drive,2026-03-17,,Dino Universe,2026-11-10
+Dino Universe,3,90027,2.72,,Tested,Ellie,Drive,2026-03-18,,Dino Universe,2026-11-10
+Dino Universe,3,90028,2.51,,Tested,Ellie,Drive,2026-03-18,,Dino Universe,2026-11-10
+Dino Universe,3,90029,2.68,,Tested,Ellie,Drive,2026-03-18,,Dino Universe,2026-11-10
+Dino Universe,3,90030,2.36,,Tested,Ellie,Drive,2026-03-18,,Dino Universe,2026-11-10
+Dino Universe,3,90031,2.7,,Tested,Kurly,Drive,2026-03-18,,Theme Introduction,2026-11-10
+Dino Universe,3,90032,2.97,,Tested,Kurly,Drive,2026-03-19,,Transform,2026-11-10
+Dino Universe,4,90033,2.31,,Tested,Aaron,Drive,2026-03-25,,playable 11 + third person shooter,2026-11-10
+Dino Universe,4,90034,2.33,,Tested,Aaron,Drive,2026-03-25,,playable 11 + third person shooter + Joystick,2026-11-10
+Dino Universe,4,90035,2.21,,Tested,Aaron,Drive,2026-03-25,,playable 11 + new concept third person shooter + Banner UI,2026-11-10
+Dino Universe,4,90036,2.15,,Tested,Aaron,Drive,2026-03-25,,playable 11 + third person shooter + UGC,2026-11-10
+Dino Universe,4,90037,2.19,,Tested,Aaron,Drive,2026-03-25,,AI intro + playable 11 + third person shooter,2026-11-10
+Dino Universe,4,90038,2.45,,Tested,Aaron,Drive,2026-03-25,,playable 11 + third person shooter + Joystick + female hand,2026-11-10
+Dino Universe,4,90039,2.00,,Tested,Aaron,Drive,2026-03-25,,AI Intro + playable 11 + third person shooter + Joystick + female hand,2026-11-10
+Dino Universe,4,90040,2.08,,Tested,Aaron,Drive,2026-03-25,,Playable 11 + Run from boss,2026-11-10
+Dino Universe,4,90041,2.12,,Tested,Aaron,Drive,2026-03-25,,AI intro + Playable 11 + Run from boss,2026-11-10
+Dino Universe,4,90042,2.05,,Tested,Aaron,Drive,2026-03-25,,AI intro + Playable 11 + Run from boss,2026-11-10
+Dino Universe,4,90043,,,Rejected,Aaron,Drive,2026-03-25,,Playable 11 + Run from boss + UGC,2026-11-10
+Dino Universe,4,90044,2.12,,Tested,Aaron,Drive,2026-03-25,,Playable 11 + Run from boss,2026-11-10
+Dino Universe,5,90045,1.63,,Tested,Kurly,Drive,2026-04-06,,Caged Hook + Gameplay,2026-11-10
+Dino Universe,5,90046,1.60,,Tested,Kurly,Drive,2026-04-06,,Transformation + Elementals,2026-11-10
+Dino Universe,5,90047,1.42,,Tested,Kurly,Drive,2026-04-06,,Poster,2026-11-10
+Dino Universe,5,90048,2.30,,Tested,Kurly,Drive,2026-04-08,,Kaiju Hook + Gameplay + UI,2026-11-10
+Dino Universe,5,90049,1.68,,Tested,Kurly,Drive,2026-04-09,,Kaiju Hook + Gameplay + UI + UGC,2026-11-10
+Dino Universe,6,90050,2.80,,Tested,Pax,Drive,2026-04-23,,3rd FPS hook + UI -> Fail -> Upgrade transformation -> Bigger Boss,2026-11-10
+Dino Universe,6,90051,2.92,,Tested,Pax,Drive,2026-04-23,,90050 + Win -> Upgrade transformation -> Bigger Boss,2026-11-10
+Dino Universe,6,90052,1.95,,Tested,Pax,Drive,2026-04-23,,Arcade -> Running -> Enhance -> Win,2026-11-10
+Dino Universe,6,90053,2.26,,Tested,Pax,Drive,2026-04-23,,Fail Hook -> Upgrade transformation,2026-11-10
+Dino Universe,6,90054,2.03,,Tested,Pax,Drive,2026-04-23,,90053 + change hook -> Upgrade transformation,2026-11-10
+Dino Universe,6,90055,2.10,,Tested,Aaron,Drive,2026-04-23,,Rescue Infected Dinosaur (Time Pressure – Chaos),2026-11-10
+Dino Universe,6,90056,2.01,,Tested,Aaron,Drive,2026-04-23,,Rescue Infected Dinosaur (Start with Companion),2026-11-10
+Dino Universe,6,90057,1.87,,Tested,Aaron,Drive,2026-04-23,,Rescue Infected Dinosaur (Chaos First – King Kong),2026-11-10
+Dino Universe,6,90058,1.91,,Tested,Aaron,Drive,2026-04-23,,Rescue Infected Dinosaur (No Intro – Direct Combat),2026-11-10
+Dino Universe,6,90059,2.04,,Tested,Aaron,Drive,2026-04-23,,Rescue Infected Dinosaur (Default),2026-11-10
+Dino Universe,6,90060,2.08,,Tested,Aaron,Drive,2026-04-23,,Rescue Infected Dinosaur (Default),2026-11-10
+Dino Universe,6,90061,2.10,,Tested,Aaron,Drive,2026-04-24,,Rescue Infected Dinosaur (Default),2026-11-10
+Dino Universe,6,90062,2.17,,Tested,Aaron,Drive,2026-04-24,,Rescue Infected Dinosaur (Default),2026-11-10
+Dino Universe,7,90063,2.55,,Tested,Kurly,Drive,2026-05-06,,Jungle Concept,2026-11-10
+Dino Universe,7,90064,2.39,,Tested,Kurly,Drive,2026-05-06,,City Concept,2026-11-10
+Dino Universe,7,90065,2.18,,Tested,Kurly,Drive,2026-05-07,,Jungle Concept + New hook,2026-11-10
+Dino Universe,7,90066,2.02,,Tested,Kurly,Drive,2026-05-07,,City Concept + new hook,2026-11-10
+Dino Universe,7,90067,2.60,,Tested,Kurly,Drive,2026-05-07,,Jungle + City Concept,2026-11-10
+Dino Universe,7,90068,2.15,,Tested,Ellie,Drive,2026-05-06,,Revenge,2026-11-10
+Dino Universe,7,90069,2.17,,Tested,Ellie,Drive,2026-05-06,,90068,2026-11-10
+Dino Universe,7,90070,2.35,,Tested,Ellie,Drive,2026-05-06,,90068 + New hook,2026-11-10
+Dino Universe,7,90071,2.24,,Tested,Ellie,Drive,2026-05-07,,Eating → Evolution,2026-11-10
+Dino Universe,7,90072,2.40,,Tested,Ellie,Drive,2026-05-07,,90071 + New hook,2026-11-10
+Dino Universe,7,90073,2.54,,Tested,Ellie,Drive,2026-05-07,,90071 + New hook,2026-11-10
+Dino Universe,8,90074,2.42,,Tested,Aaron,Drive,2026-05-15,,"Default ( cutting the tail into 1, 2, 3 pieces)",2026-11-10
+Dino Universe,8,90075,2.49,,Tested,Aaron,Drive,2026-05-15,,Boss REX Evolution,2026-11-10
+Dino Universe,8,90076,2.18,,Tested,Aaron,Drive,2026-05-15,,Human Revenge Version,2026-11-10
+Dino Universe,8,90077,2.47,,Tested,Aaron,Drive,2026-05-15,,Endless Chase,2026-11-10
+Dino Universe,8,90078,,,Rejected,Aaron,Drive,2026-05-15,,Boss First Hook,2026-11-10
+Dino Universe,9,90079,1.87,,Tested,Thiago,Drive,2026-05-21,,T-Rex Chase → Dinosaur Army,2026-11-10
+Dino Universe,9,90080,1.79,,Tested,Thiago,Drive,2026-05-21,,New Hook + 90079 Flow,2026-11-10
+Dino Universe,9,90081,1.96,,Tested,Thiago,Drive,2026-05-21,,Choose Your Dinosaur Team,2026-11-10
+Dino Universe,9,90082,2.12,,Tested,Thiago,Drive,2026-05-21,,Stolen T-Rex Egg → Hatch Team,2026-11-10
+Dino Universe,9,90083,2.08,,Tested,Thiago,Drive,2026-05-21,,New Hook + 90082 Flow,2026-11-10
+Dino Universe,10,90084,2.04,,Tested,Elliot,Drive,2026-06-11,,Realistic,2026-11-10
+Dino Universe,10,90085,2.11,,Tested,Elliot,Drive,2026-06-11,,Realistic,2026-11-10
+Dino Universe,10,90086,2.11,,Tested,Elliot,Drive,2026-06-11,,Realistic,2026-11-10
+Dino Universe,10,90087,1.93,,Tested,Elliot,Drive,2026-06-11,,Realistic,2026-11-10
+Dino Universe,10,90088,2.30,,Tested,Elliot,Drive,2026-06-11,,Realistic,2026-11-10
+Dino Universe,10,90089,2.12,,Tested,Ellie,Drive,2026-06-11,,Eating -> evolution,2026-11-10
+Dino Universe,10,90090,2.30,,Tested,Ellie,Drive,2026-06-11,,Get revenge on the T-Rex and enter the city,2026-11-10
+Dino Universe,10,90091,1.79,,Tested,Ellie,Drive,2026-06-11,,Revenge against the T-Rex,2026-11-10
+Dino Universe,10,90092,1.99,,Tested,Ellie,Drive,2026-06-11,,Revenge and Evolution,2026-11-10
+Dino Universe,10,90093,2.12,,Tested,Ellie,Drive,2026-06-11,,90092 + hook: the egg hatched,2026-11-10
+Dino Universe,10,90094,1.76,,Tested,Aaron,Drive,2026-06-10,,Tower defense ( stacking Meat) + 10 partner,2026-11-10
+Dino Universe,10,90095,1.92,,Tested,Aaron,Drive,2026-06-11,,Tower defense (default) + Joystick,2026-11-10
+Dino Universe,10,90096,1.60,,Tested,Aaron,Drive,2026-06-11,,Tower defense ( No stacking Meat ) + Joystick,2026-11-10
+Dino Universe,10,90097,1.67,,Tested,Aaron,Drive,2026-06-11,,Tower defense ( No stacking Meat) + HP Bar,2026-11-10
+Dino Universe,10,90098,1.85,,Tested,Aaron,Drive,2026-06-11,,AI intro + Tower defense (No stacking Meat),2026-11-10
+Dino Universe,10,90099,1.58,,Tested,Aaron,Drive,2026-06-11,,Tower defense ( No stacking Meat) + 10 partner,2026-11-10
+Dino Universe,11,90100,2.11,,Tested,Kurly,Drive,2026-06-26,,Fake gameplay,2026-11-10
+Dino Universe,11,90101,1.96,,Tested,Kurly,Drive,2026-06-26,,Fake gameplay,2026-11-10
+Dino Universe,11,90102,1.83,,Tested,Kurly,Drive,2026-06-26,,Fake gameplay,2026-11-10
+Dino Universe,11,90103,1.73,,Tested,Kurly,Drive,2026-06-26,,Fake gameplay,2026-11-10
+Dino Universe,11,90104,1.66,,Tested,Hozler,Drive,2026-06-25,,2D top-down,2026-11-10
+Dino Universe,11,90105,1.28,,Tested,Hozler,Drive,2026-06-25,,2D top-down,2026-11-10
+Dino Universe,11,90106,1.33,,Tested,Hozler,Drive,2026-06-25,,2D top-down,2026-11-10
+Dino Universe,11,90107,1.52,,Tested,Hozler,Drive,2026-06-25,,2D top-down,2026-11-10
+Dino Universe,11,90108,1.52,,Tested,Hozler,Drive,2026-06-25,,3D cinematic,2026-11-10
+Dino Universe,11,90109,1.22,,Tested,Hozler,Drive,2026-06-25,,3D cinematic,2026-11-10
+Dino Universe,12,90110,2.08,,Tested,Thiago,Drive,2026-07-02,,Fire Bone Dragon Evolution Tease,2026-11-10
+Dino Universe,12,90111,1.92,,Tested,Thiago,Drive,2026-07-02,,Tap-to-Play Mutation Loop,2026-11-10
+Dino Universe,12,90112,1.96,,Tested,Thiago,Drive,2026-07-02,,Spider Rex to Fire Dragon Progression,2026-11-10
+Dino Universe,12,90113,1.69,,Tested,Thiago,Drive,2026-07-02,,Dino Squad Evolution Showcase,2026-11-10
+Dino Universe,12,90114,2.04,,Tested,Thiago,Drive,2026-07-02,,Dark Cave Parasite Mutation,2026-11-10
+Dino Universe,12,90115,1.79,,Tested,Thiago,Drive,2026-07-02,,RPG Card-Style Evolution,2026-11-10
+Dino Universe,13,90116,1.95,,Tested,Aaron,Drive,2026-07-07,,Playable 014 Default,2026-11-10
+Dino Universe,13,90117,1.97,,Tested,Aaron,Drive,2026-07-07,,Playable 014 + Upgrade + Joystick,2026-11-10
+Dino Universe,13,90118,2.20,,Tested,Aaron,Drive,2026-07-07,,Creative-no-tail (humans- revenge) + Swap base skin,2026-11-10
+Dino Universe,13,90119,2.77,,Tested,Aaron,Drive,2026-07-07,,AI Intro + 498,2026-11-10
+Dino Universe,13,90120,2.59,,Tested,Aaron,Drive,2026-07-09,,AI intro + 448,2026-11-10
+Dino Universe,13,90121,2.55,,Tested,Aaron,Drive,2026-07-09,,AI intro + 411,2026-11-10
+Dino Universe,13,90122,2.64,,Tested,Aaron,Drive,2026-07-09,,UGC + 409,2026-11-10
+Dino Universe,13,90123,2.66,,Tested,Aaron,Drive,2026-07-09,,UGC + 383,2026-11-10
+Dino Universe,13,90124,2.61,,Tested,Aaron,Drive,2026-07-09,,AI intro + 357,2026-11-10
+Dino Universe,14,90125,2.23,,Tested,Ellie,Drive,2026-07-16,,Fake Death,2026-11-10
+Dino Universe,14,90126,1.93,,Tested,Ellie,Drive,2026-07-16,,Little dino attacked -> feigns death -> wakes up -> hunts -> evolves -> takes re,2026-11-10
+Dino Universe,14,90127,2.18,,Tested,Ellie,Drive,2026-07-16,,Fake Death,2026-11-10
+Dino Universe,14,90128,2.16,,Tested,Ellie,Drive,2026-07-16,,90126 + change hook,2026-11-10
+Dino Universe,14,90129,2.32,,Tested,Ellie,Drive,2026-07-16,,90126 + change hook,2026-11-10
+Dino Universe,15,90130,2.38,,Tested,Aaron,Drive,2026-07-23,,AI intro + Playable 012 - Army + Joystick + Third-Person Perspective,2026-11-10
+Dino Universe,15,90131,2.15,,Tested,Aaron,Drive,2026-07-23,,AI intro + Playable 012 - Army + Joystick,2026-11-10
+Dino Universe,15,90132,2.39,,Tested,Aaron,Drive,2026-07-23,,Playable 012 - Grass,2026-11-10
+Dino Universe,15,90133,2.21,,Tested,Aaron,Drive,2026-07-23,,Playable 012 - Grass + Joystick + Third-Person Perspective,2026-11-10
+Dino Universe,15,90134,2.42,,Tested,Aaron,Drive,2026-07-23,,Playable 12 - Water + Joystick,2026-11-10
+Dino Universe,15,90135,2.24,,Tested,Aaron,Drive,2026-07-23,,AI intro + Playable 12 - Water + Joystick,2026-11-10
+Dino Universe,15,90136,2.14,,Tested,Aaron,Drive,2026-07-23,,video325 + UGC,2026-11-10
+Dino Universe,15,90137,2.31,,Tested,Aaron,Drive,2026-07-23,,video428 + UGC,2026-11-10
+Dino Universe,15,90138,1.79,,Tested,Aaron,Drive,2026-07-23,,video480 + UGC,2026-11-10
+Dino Universe,16,90139,1.46,,Tested,Thiago,Drive,2026-07-30,,[AI]  Cute Family Dino — Nose Cam,2026-11-10
+Dino Universe,16,90140,2.03,,Tested,Thiago,Drive,2026-07-30,,[AI]  Meteor Evolution Revenge,2026-11-10
+Dino Universe,16,90141,1.98,,Tested,Thiago,Drive,2026-07-30,,[AI]  UGC + Meteor Evolution,2026-11-10
+Dino Universe,16,90142,1.74,,Tested,Thiago,Drive,2026-07-30,,[AI]  Gameplay Control Evolution,2026-11-10
+Dino Universe,16,90143,1.97,,Tested,Thiago,Drive,2026-07-30,,[AI]  Joystick gameplay version,2026-11-10
+Dino Universe,16,90144,1.93,,Tested,Thiago,Drive,2026-07-30,,[AI] - White Alpha Drama Choice,2026-11-10
+Dino Universe,17,90145,2.80,,Tested,Falcon,Drive,2026-08-06,,[UA] - video556 + UGC,2026-11-10
+Dino Universe,17,90146,2.61,,Tested,Falcon,Drive,2026-08-06,,[UA] - video498 + UGC,2026-11-10
+Dino Universe,17,90147,3.17,,Tested,Falcon,Drive,2026-08-06,,[UA] - video499 + UGC,2026-11-10
+Dino Universe,17,90148,2.61,,Tested,Falcon,Drive,2026-08-06,,[UA] - video500 + UGC,2026-11-10
+Dino Universe,17,90149,2.64,,Tested,Falcon,Drive,2026-08-06,,[UA] - video383 + UGC,2026-11-10
+Dino Universe,17,90150,1.62,,Tested,Falcon,Drive,2026-08-06,,[UA] - Playable 009,2026-11-10
+Dino Universe,17,90151,1.75,,Tested,Falcon,Drive,2026-08-06,,[UA] - Playable 009 + Tiltle,2026-11-10
+Dino Universe,17,90152,2.47,,Tested,Hozler,Drive,2026-08-06,,[AI] 3D,2026-11-10
+Dino Universe,17,90153,2.28,,Tested,Hozler,Drive,2026-08-06,,[AI] 3D,2026-11-10
+Dino Universe,17,90154,2.24,,Tested,Hozler,Drive,2026-08-06,,[AI] 3D,2026-11-10
+Dino Universe,17,90155,1.65,,Tested,Hozler,Drive,2026-08-06,,[AI] 3D,2026-11-10
+Dino Universe,17,90156,1.69,,Tested,Hozler,Drive,2026-08-06,,[AI] 3D,2026-11-10
+Dino Universe,17,90157,1.50,,Tested,Thiago,Drive,2026-08-06,,[AI] Cute Family Dino Hook — Goofy Camera-Sniffing Loop (Low-Poly).,2026-11-10
+Dino Universe,17,90158,1.90,,Tested,Thiago,Drive,2026-08-06,,[AI] Cute Family Dino Hook — Goofy Camera-Sniffing Loop (Realistic).,2026-11-10
+Dino Universe,17,90159,2.07,,Tested,Thiago,Drive,2026-08-06,,[AI] Spider Raptor hunts dinos → absorbs DNA → unlocks tendrils and grapple weap,2026-11-10
+Dino Universe,17,90160,2.15,,Tested,Thiago,Drive,2026-08-06,,[AI] Joystick gameplay UI version of 90160.,2026-11-10
+Dino Universe,17,90161,2.25,,Tested,Thiago,Drive,2026-08-06,,[AI] UGC Mutation Discovery,2026-11-10
+Dino Universe,17,90162,,,Rejected,Thiago,Drive,2026-08-06,,[AI] Dino Herd Empire Builder,2026-11-10
+Dino Universe,17,90163,1.98,,Tested,Thiago,Drive,2026-08-06,,[AI] UGC Dino Empire,2026-11-10
+Dino Universe,17,90164,2.00,,Tested,Thiago,Drive,2026-08-06,,[AI] Satisfying Cutting Machine,2026-11-10
+Dino Universe,18,90165,,,Rejected,Thiago,Drive,2026-08-20,,,2026-11-10
+Dino Universe,18,90166,2.37,,Tested,Thiago,Drive,2026-08-20,,,2026-11-10
+Dino Universe,18,90167,2.58,,Tested,Thiago,Drive,2026-08-20,,,2026-11-10
+Dino Universe,18,90168,2.11,,Tested,Thiago,Drive,2026-08-20,,,2026-11-10
+Dino Universe,18,90169,1.72,,Tested,Thiago,Drive,2026-08-20,,,2026-11-10
+Dino Universe,18,90170,,,Rejected,Thiago,Drive,2026-08-20,,,2026-11-10
+Dino Universe,18,90171,2.57,,Tested,Hozler,Drive,2026-08-20,,[AI] 3D,2026-11-10
+Dino Universe,18,90172,2.11,,Tested,Hozler,Drive,2026-08-20,,[AI] 3D,2026-11-10
+Dino Universe,18,90173,2.65,,Tested,Hozler,Drive,2026-08-20,,[AI] 3D,2026-11-10
+Dino Universe,18,90174,2.41,,Tested,Hozler,Drive,2026-08-20,,[AI] 3D,2026-11-10
+Dino Universe,18,90175,1.96,,Tested,Hozler,Drive,2026-08-20,,[AI] 3D,2026-11-10
+Dino Universe,18,90176,2.02,,Tested,Hozler,Drive,2026-08-20,,[AI] 2D,2026-11-10
+Dino Universe,18,90177,2.30,,Tested,Hozler,Drive,2026-08-20,,[AI] 2D,2026-11-10
+Dino Universe,21,90198,3.24,,Tested,Ellie,Drive,2026-09-24,,Small in stature but possessing great strength,2026-11-10
+Dino Universe,21,90199,2.67,,Tested,Ellie,Drive,2026-09-24,,90198 + change hook + UGC,2026-11-10
+Dino Universe,21,90200,2.44,,Tested,Ellie,Drive,2026-09-24,,Attack & gain allies,2026-11-10
+Dino Universe,21,90201,2.81,,Tested,Ellie,Drive,2026-09-24,,90198 + hook,2026-11-10
+Dino Universe,21,90202,3.07,,Tested,Pax,Drive,2026-09-24,,,2026-11-10
+Dino Universe,21,90203,2.87,,Tested,Pax,Drive,2026-09-24,,,2026-11-10
+Dino Universe,21,90204,2.99,,Tested,Pax,Drive,2026-09-24,,,2026-11-10
+Dino Universe,21,90205,3.20,,Tested,Pax,Drive,2026-09-24,,,2026-11-10
+Lumber Chopper,1,90001,2.38,,Tested,Kurly,Drive,2026-04-16,,3D Floating Island,2026-11-10
+Lumber Chopper,1,90002,2.48,,Tested,Kurly,Drive,2026-04-16,,Toy Art Style Progression,2026-11-10
+Lumber Chopper,1,90003,2.44,,Tested,Kurly,Drive,2026-04-16,,Toy Art Style Progression,2026-11-10
+Lumber Chopper,1,90004,2.64,,Tested,Ellie,Drive,2026-04-15,,Zero to Hero,2026-11-10
+Lumber Chopper,1,90005,2.67,,Tested,Ellie,Drive,2026-04-16,,90004 + new hook,2026-11-10
+Lumber Chopper,1,90006,2.77,,Tested,Ellie,Drive,2026-04-16,Unity AOS WW,90004 + new hook,2026-11-10
+Lumber Chopper,1,90007,2.62,,Tested,Ellie,Drive,2026-04-16,,Upgrade,2026-11-10
+Lumber Chopper,1,90008,2.60,,Tested,Ellie,Drive,2026-04-16,,90007 + change hook,2026-11-10
+Lumber Chopper,2,90009,2.80,,Tested,Elliot,Drive,2026-05-07,,3D,2026-11-10
+Lumber Chopper,2,90010,2.63,,Tested,Elliot,Drive,2026-05-07,,3D Isometric,2026-11-10
+Lumber Chopper,2,90011,2.96,,Tested,Elliot,Drive,2026-05-07,,3D,2026-11-10
+Lumber Chopper,2,90012,2.60,,Tested,Elliot,Drive,2026-05-07,,3D Isometric,2026-11-10
+Lumber Chopper,2,90013,2.68,,Tested,Elliot,Drive,2026-05-07,,3D Isometric,2026-11-10
+Lumber Chopper,2,90014,2.99,,Tested,Pax,Drive,2026-05-07,,1st FPS POV + Tools upgrade,2026-11-10
+Lumber Chopper,2,90015,2.51,,Tested,Pax,Drive,2026-05-07,,90014 + Fail hook + UI,2026-11-10
+Lumber Chopper,2,90016,2.98,,Tested,Pax,Drive,2026-05-07,,3rd POV  -> Productive -> Expand,2026-11-10
+Lumber Chopper,2,90017,3.22,,Tested,Pax,Drive,2026-05-07,,Fail hook +3rd POV -> Productive -> Expand,2026-11-10
+Lumber Chopper,2,90018,3,,Tested,Pax,Drive,2026-05-07,,Tractor upgrade,2026-11-10
+Lumber Chopper,3,90019,3.54,,Tested,Kurly,Drive,2026-05-21,,Frost theme video123,2026-11-10
+Lumber Chopper,3,90020,3.28,,Tested,Kurly,Drive,2026-05-21,,Storytelling Competitor,2026-11-10
+Lumber Chopper,3,90021,3.31,,Tested,Kurly,Drive,2026-05-21,,Hook + Frost theme video123,2026-11-10
+Lumber Chopper,3,90022,3.13,,Tested,Kurly,Drive,2026-05-21,,Storytelling Competitor,2026-11-10
+Lumber Chopper,3,90023,3.57,,Tested,Kurly,Drive,2026-05-21,,Hook + Frost theme video123,2026-11-10
+Lumber Chopper,3,90024,3.23,,Tested,Kurly,Drive,2026-05-21,,Hook + Frost theme video123,2026-11-10
+Lumber Chopper,4,90025,3.41,,Tested,Hozler,Drive,2026-06-04,,Top-down 3D Cartoon,2026-11-10
+Lumber Chopper,4,90026,3.26,,Tested,Hozler,Drive,2026-06-04,,Top-down 3d Cartoon,2026-11-10
+Lumber Chopper,4,90027,3.06,,Tested,Hozler,Drive,2026-06-04,,Isometric 3D In-Game Style,2026-11-10
+Lumber Chopper,4,90028,2.77,,Tested,Hozler,Drive,2026-06-04,,Isometric 3D In-Game Style,2026-11-10
+Lumber Chopper,4,90029,,,Rejected,Hozler,Drive,2026-06-04,,Isometric 3D In-Game Style,2026-11-10
+Lumber Chopper,4,90030,3.38,,Tested,Hozler,Drive,2026-06-04,,Top-down 3d Cartoon,2026-11-10
+Lumber Chopper,5,90031,3.39,,Tested,Pax,Drive,2026-06-18,,First-Person Low-Level Tractor Forest Cutting Loop,2026-11-10
+Lumber Chopper,5,90032,3.21,,Tested,Pax,Drive,2026-06-18,,Giant Log Wall Obstacle + POV Lumber Machine,2026-11-10
+Lumber Chopper,5,90033,3.16,,Tested,Pax,Drive,2026-06-18,,Live-Action Phone Challenge + Lumber Chopper Transformation,2026-11-10
+Lumber Chopper,5,90034,2.97,,Tested,Pax,Drive,2026-06-18,,Live-Action Couple Hook + Tractor Resource Upgrade,2026-11-10
+Lumber Chopper,5,90035,3.26,,Tested,Pax,Drive,2026-06-18,,Desert Resource Capture Mini-Game + Upgrade Economy,2026-11-10
+Lumber Chopper,5,90036,3.61,,Tested,Pax,Drive,2026-06-18,,Worker-to-Lumber Empire Progression,2026-11-10
+Lumber Chopper,6,90037,2.84,,Tested,Zaid,Drive,2026-07-16,,AI Hook + Progression + UGC + End Card,2026-11-10
+Lumber Chopper,6,90038,2.95,,Tested,Zaid,Drive,2026-07-16,,Choose Item Hook + End Card,2026-11-10
+Lumber Chopper,6,90039,2.93,,Tested,Zaid,Drive,2026-07-16,,Choose Item Hook + End Card,2026-11-10
+Lumber Chopper,6,90040,3.13,,Tested,Zaid,Drive,2026-07-16,,Interview Hook + UGC + End Card,2026-11-10
+Lumber Chopper,6,90041,,,Rejected,Zaid,Drive,2026-07-16,,AI Hook + Gameplay + End Card,2026-11-10
+Lumber Chopper,6,90042,2.91,,Tested,Zaid,Drive,2026-07-16,,AI Hook + Quest Progress +Gameplay + Endcard,2026-11-10
+Lumber Chopper,6,90043,2.81,,Tested,Zaid,Drive,2026-07-16,,Trigger Hook + End Card,2026-11-10
+Lumber Chopper,6,90044,2.91,,Tested,Zaid,Drive,2026-07-16,,Video 200 + Facecam + UGC,2026-11-10
+Lumber Chopper,6,90045,3.01,,Tested,Zaid,Drive,2026-07-16,,Video 166 + Joystick,2026-11-10
+Lumber Chopper,6,90046,2.71,,Tested,Zaid,Drive,2026-07-16,,Video 166 + Social Comment,2026-11-10
+Lumber Chopper,6,90047,2.95,,Tested,Zaid,Drive,2026-07-16,,Video 166 + UGC,2026-11-10
+Lumber Chopper,6,90048,2.89,,Tested,Zaid,Drive,2026-07-16,,Video 166 + Steering Wheel,2026-11-10
+Lumber Chopper,6,90049,3.05,,Tested,Zaid,Drive,2026-07-16,,Video 104 + Steering Wheel + Joystick,2026-11-10
+Lumber Chopper,6,90050,2.75,,Tested,Zaid,Drive,2026-07-16,,Video 90 + Steering Wheel,2026-11-10
+Lumber Chopper,6,90051,2.54,,Tested,Thiago,Drive,2026-07-16,,Giant Tree Conqueror,2026-11-10
+Lumber Chopper,6,90052,2.94,,Tested,Thiago,Drive,2026-07-16,,River Log Catching,2026-11-10
+Lumber Chopper,6,90053,2.93,,Tested,Thiago,Drive,2026-07-16,,Manual Chainsaw ASMR V1,2026-11-10
+Lumber Chopper,6,90054,2.95,,Tested,Thiago,Drive,2026-07-16,,Manual Chainsaw ASMR V2,2026-11-10
+Lumber Chopper,6,90055,2.81,,Tested,Thiago,Drive,2026-07-16,,POV Machine Progression,2026-11-10
+Lumber Chopper,6,90056,2.59,,Tested,Thiago,Drive,2026-07-16,,Mass River Collection,2026-11-10
+Lumber Chopper,6,90057,2.55,,Tested,Thiago,Drive,2026-07-16,,UGC VO,2026-11-10
+Lumber Chopper,6,90058,2.54,,Tested,Thiago,Drive,2026-07-16,,Music UGC VO,2026-11-10
+Lumber Chopper,7,90059,3.34,,Tested,Yuna,Drive,2026-07-23,,,2026-11-10
+Lumber Chopper,7,90060,3.47,,Tested,Yuna,Drive,2026-07-23,,,2026-11-10
+Lumber Chopper,7,90061,3.29,,Tested,Yuna,Drive,2026-07-23,,,2026-11-10
+Lumber Chopper,7,90062,3.48,,Tested,Yuna,Drive,2026-07-23,,,2026-11-10
+Lumber Chopper,7,90063,3.10,,Tested,Yuna,Drive,2026-07-23,,,2026-11-10
+Lumber Chopper,7,90064,3.18,,Tested,Pax,Drive,2026-07-23,,"No Ads, No Wi-Fi + POV Machine Upgrade",2026-11-10
+Lumber Chopper,7,90065,2.73,,Tested,Pax,Drive,2026-07-23,,90064 + Change Hook + UGC Commentary,2026-11-10
+Lumber Chopper,7,90066,3.31,,Tested,Pax,Drive,2026-07-23,,Magical World Tree Destruction + Lumber Empire Progression,2026-11-10
+Lumber Chopper,7,90067,3.49,,Tested,Pax,Drive,2026-07-23,,90066 + Catapult Hook,2026-11-10
+Lumber Chopper,7,90068,,,Rejected,Pax,Drive,2026-07-23,,Log Processing + Storage Frustration Gameplay,2026-11-10
+Lumber Chopper,8,90069,3.55,,Tested,Max,Drive,2026-08-06,,Chopping Logs into the River,2026-11-10
+Lumber Chopper,8,90070,2.97,,Tested,Max,Drive,2026-08-06,,9 A.M. vs. 9 P.M.,2026-11-10
+Lumber Chopper,8,90071,2.76,,Tested,Max,Drive,2026-08-06,,Zombie & Bear Attack,2026-11-10
+Lumber Chopper,8,90072,2.74,,Tested,Max,Drive,2026-08-06,,Zombie & Bear Attack 2,2026-11-10
+Lumber Chopper,8,90073,2.77,,Tested,Max,Drive,2026-08-06,,Zombie & Bear Attack 3,2026-11-10
+Lumber Chopper,8,90074,3.24,,Tested,Max,Drive,2026-08-06,,Zombie & Bear Attack 4,2026-11-10
+Lumber Chopper,8,90075,3.80,,Tested,Max,Drive,2026-08-06,,Pure Gameplay,2026-11-10
+Lumber Chopper,8,90076,3.11,,Tested,Max,Drive,2026-08-06,,POV of a Tree,2026-11-10
+Lumber Chopper,8,90077,3.15,,Tested,Max,Drive,2026-08-06,,Video075 + UGC,2026-11-10
+Lumber Chopper,8,90078,3.06,,Tested,Ellie,Drive,2026-08-05,,[AI] - Lumberjack Driver,2026-11-10
+Lumber Chopper,8,90079,3.06,,Tested,Ellie,Drive,2026-08-05,,[AI] - Lumberjack Driver,2026-11-10
+Lumber Chopper,8,90080,3.16,,Tested,Ellie,Drive,2026-08-05,,[AI] - 90078 + new hook,2026-11-10
+Lumber Chopper,8,90081,,,Rejected,Ellie,Drive,2026-08-05,,[AI] - 90079 + new hook,2026-11-10
+Lumber Chopper,9,90082,3.13,,Tested,Pax,Drive,2026-08-20,,,2026-11-10
+Lumber Chopper,9,90083,3.18,,Tested,Pax,Drive,2026-08-20,,,2026-11-10
+Lumber Chopper,9,90084,2.83,,Tested,Pax,Drive,2026-08-20,,,2026-11-10
+Lumber Chopper,9,90085,3.02,,Tested,Pax,Drive,2026-08-20,,,2026-11-10
+Lumber Chopper,9,90086,3.14,,Tested,Pax,Drive,2026-08-20,,,2026-11-10
+Lumber Chopper,9,90087,,,Rejected,Pax,Drive,2026-08-20,,,2026-11-10
+Lumber Chopper,9,90088,3.64,,Tested,Pax,Drive,2026-08-20,,,2026-11-10
+Lumber Chopper,9,90089,3.48,,Tested,Pax,Drive,2026-08-20,,,2026-11-10
+Pizza Ready,1,90001,2.89,,Tested,Ellie,Drive,2026-04-07,Unity AOS WW,Endless Pizza Tower,2026-11-10
+Pizza Ready,1,90002,2.46,,Tested,Ellie,Drive,2026-04-09,,From Zero to Pizza Empire,2026-11-10
+Pizza Ready,1,90003,1.98,,Tested,Ellie,Drive,2026-04-09,,90002 + new hook,2026-11-10
+Pizza Ready,1,90004,2.34,,Tested,Ellie,Drive,2026-04-09,,90002 + new hook,2026-11-10
+Pizza Ready,1,90005,2.60,,Tested,Ellie,Drive,2026-04-09,,90001 + new hook,2026-11-10
+Pizza Ready,2,90006,,,Rejected,Kurly,Drive,2026-04-21,,Progression,2026-11-10
+Pizza Ready,2,90007,2.93,,Tested,Kurly,Drive,2026-04-23,,Progression,2026-11-10
+Pizza Ready,2,90008,2.66,,Tested,Kurly,Drive,2026-04-23,,Emoji + Progression,2026-11-10
+Pizza Ready,2,90009,2.60,,Tested,Kurly,Drive,2026-04-23,,Emoji + Progression,2026-11-10
+Pizza Ready,2,90010,2.60,,Tested,Kurly,Drive,2026-04-23,,Emoji + Progression,2026-11-10
+Pizza Ready,2,90011,3.00,,Tested,Elliot,Drive,2026-04-23,,3D Isometric,2026-11-10
+Pizza Ready,2,90012,2.42,,Tested,Elliot,Drive,2026-04-23,,3D Isometric,2026-11-10
+Pizza Ready,2,90013,2.65,,Tested,Elliot,Drive,2026-04-23,,3D,2026-11-10
+Pizza Ready,2,90014,2.48,,Tested,Elliot,Drive,2026-04-23,,3D,2026-11-10
+Pizza Ready,2,90015,2.58,,Tested,Elliot,Drive,2026-04-23,,3D,2026-11-10
+Pizza Ready,2,90016,1.93,,Tested,Miko,Drive,2026-04-23,,Best No Wifi Game (Balloon),2026-11-10
+Pizza Ready,2,90017,2.10,,Tested,Miko,Drive,2026-04-23,,How I Became A Master Chef,2026-11-10
+Pizza Ready,2,90018,2.22,,Tested,Miko,Drive,2026-04-23,,No Ads No Ads No Ads,2026-11-10
+Pizza Ready,2,90019,2.68,,Tested,Miko,Drive,2026-04-23,,I've Been Waiting 30 Minutes,2026-11-10
+Pizza Ready,2,90020,2.72,,Tested,Miko,Drive,2026-04-23,,Time Out!? Try Again,2026-11-10
+Pizza Ready,2,90021,2.55,,Tested,Miko,Drive,2026-04-23,,Best No Wifi Game While Eating (Popcorn),2026-11-10
+Pizza Ready,3,90022,2.97,,Tested,Pax,Drive,2026-04-29,,Progress -> Crisis -> Upgrade -> Grow,2026-11-10
+Pizza Ready,3,90023,2.70,,Tested,Pax,Drive,2026-04-29,,Change hook + Fail -> Crisis -> Upgrade -> Grow,2026-11-10
+Pizza Ready,3,90024,2.89,,Tested,Pax,Drive,2026-04-29,,Drive through POV Hook + Fail -> Crisis -> Upgrade -> Grow,2026-11-10
+Pizza Ready,3,90025,2.62,,Tested,Thiago,Drive,2026-04-29,,Overload → Upgrade → Empire,2026-11-10
+Pizza Ready,3,90026,2.57,,Tested,Thiago,Drive,2026-04-29,,Noob vs Pro Comparison,2026-11-10
+Pizza Ready,3,90027,2.53,,Tested,Thiago,Drive,2026-04-29,,From 1 Pizza → Empire,2026-11-10
+Pizza Ready,4,90028,2.94,,Tested,Falcon,Drive,2026-05-05,,UGC: Trial period,2026-11-10
+Pizza Ready,4,90029,2.88,,Tested,Falcon,Drive,2026-05-06,,Teasing Customer,2026-11-10
+Pizza Ready,4,90030,2.88,,Tested,Falcon,Drive,2026-05-06,,"""Thank you!""",2026-11-10
+Pizza Ready,4,90031,3.05,,Tested,Falcon,Drive,2026-05-06,,Change camera + intro,2026-11-10
+Pizza Ready,4,90032,2.42,,Tested,Falcon,Drive,2026-05-07,,Change camera,2026-11-10
+Pizza Ready,4,90033,2.38,,Tested,Falcon,Drive,2026-05-07,,Change camera + Highlight,2026-11-10
+Pizza Ready,5,90034,2.50,,Tested,Hozler,Drive,2026-05-14,,Female MC Skydive Hook,2026-11-10
+Pizza Ready,5,90035,2.70,,Tested,Hozler,Drive,2026-05-14,,Crowd Frenzy Hook,2026-11-10
+Pizza Ready,5,90036,2.56,,Tested,Hozler,Drive,2026-05-14,,City Panorama Hook,2026-11-10
+Pizza Ready,5,90037,2.27,,Tested,Hozler,Drive,2026-05-14,,Alien Threat Hook,2026-11-10
+Pizza Ready,5,90038,1.92,,Tested,Hozler,Drive,2026-05-14,,Progression,2026-11-10
+Pizza Ready,5,90039,2.74,,Tested,Ellie,Drive,2026-05-14,,making pizza asmr,2026-11-10
+Pizza Ready,5,90040,2.45,,Tested,Ellie,Drive,2026-05-14,,Start up,2026-11-10
+Pizza Ready,5,90041,2.90,,Tested,Ellie,Drive,2026-05-14,,90039 + 90040,2026-11-10
+Pizza Ready,5,90042,2.22,,Tested,Ellie,Drive,2026-05-14,,90040 + new hook,2026-11-10
+Pizza Ready,5,90043,2.23,,Tested,Ellie,Drive,2026-05-14,,90039 + new hook,2026-11-10
+Pizza Ready,6,90044,3.30,,Tested,Elliot,Drive,2026-05-21,,3D,2026-11-10
+Pizza Ready,6,90045,2.59,,Tested,Elliot,Drive,2026-05-21,,2D,2026-11-10
+Pizza Ready,6,90046,2.80,,Tested,Elliot,Drive,2026-05-21,,3D,2026-11-10
+Pizza Ready,6,90047,3.16,,Tested,Elliot,Drive,2026-05-21,,3D,2026-11-10
+Pizza Ready,6,90048,2.68,,Tested,Elliot,Drive,2026-05-21,,2D,2026-11-10
+Pizza Ready,6,90049,3.04,,Tested,Quinne,Drive,2026-05-21,,ONLY SMART OWNERS SPEND MONEY!,2026-11-10
+Pizza Ready,6,90050,3.28,,Tested,Quinne,Drive,2026-05-21,,SAVE MONEY OR UPGRADE,2026-11-10
+Pizza Ready,6,90051,2.98,,Tested,Quinne,Drive,2026-05-21,,Beaver builds dam to block pizza,2026-11-10
+Pizza Ready,6,90052,2.79,,Tested,Quinne,Drive,2026-05-21,,Giant Cheese,2026-11-10
+Pizza Ready,6,90053,2.83,,Tested,Quinne,Drive,2026-05-21,,Memory Fail → Pro Service,2026-11-10
+Pizza Ready,6,90054,2.95,,Tested,Quinne,Drive,2026-05-21,,Farmer → Pizza Ready,2026-11-10
+Pizza Ready,6,90055,3.13,,Tested,Tilda,Drive,2026-05-21,,I can harvest all day by this method,2026-11-10
+Pizza Ready,6,90056,3.28,,Tested,Tilda,Drive,2026-05-21,,Can you handle this speed?,2026-11-10
+Pizza Ready,6,90057,3.24,,Tested,Tilda,Drive,2026-05-21,,Saving pizza can save my life!,2026-11-10
+Pizza Ready,6,90058,3.36,,Tested,Tilda,Drive,2026-05-21,,How farmers expand his business,2026-11-10
+Pizza Ready,6,90059,2.74,,Tested,Tilda,Drive,2026-05-21,,Giant cheese and tomatoes,2026-11-10
+Pizza Ready,7,90060,2.91,,Tested,Pax,Drive,2026-05-28,,3rd Person POV Overload Challenge,2026-11-10
+Pizza Ready,7,90061,2.63,,Tested,Pax,Drive,2026-05-28,,Slingshot Visual Hook + Overload Body,2026-11-10
+Pizza Ready,7,90062,2.44,,Tested,Pax,Drive,2026-05-28,,Management & Scaling Progression,2026-11-10
+Pizza Ready,7,90063,2.87,,Tested,Pax,Drive,2026-05-28,,Jump in the pool of pizzas hook + Management & Scaling Progression,2026-11-10
+Pizza Ready,7,90064,2.61,,Tested,Pax,Drive,2026-05-28,,360° camera orbit showcasing pizza restaurants in different countries,2026-11-10
+Pizza Ready,7,90065,2.65,,Tested,Hozler,Drive,2026-05-28,,Reviews Gameplay,2026-11-10
+Pizza Ready,7,90066,2.67,,Tested,Hozler,Drive,2026-05-28,,Tap to Start Button,2026-11-10
+Pizza Ready,7,90067,3.00,,Tested,Hozler,Drive,2026-05-28,,Poor Baker Mocked by Rich Competitors,2026-11-10
+Pizza Ready,7,90068,3.04,,Tested,Hozler,Drive,2026-05-28,,Fake Gameplay,2026-11-10
+Pizza Ready,7,90069,3.15,,Tested,Hozler,Drive,2026-05-28,,Furious Crowds Screaming,2026-11-10
+Pizza Ready,7,90070,2.34,,Tested,Falcon,Drive,2026-05-28,,Noob & Pro,2026-11-10
+Pizza Ready,7,90071,2.52,,Tested,Falcon,Drive,2026-05-28,,Noob & Pro,2026-11-10
+Pizza Ready,7,90072,2.23,,Tested,Falcon,Drive,2026-05-28,,Noob & Pro,2026-11-10
+Pizza Ready,7,90073,2.91,,Tested,Falcon,Drive,2026-05-28,,No ads 1,2026-11-10
+Pizza Ready,7,90074,2.78,,Tested,Falcon,Drive,2026-05-28,,No ads 2,2026-11-10
+Pizza Ready,7,90075,3.08,,Tested,Falcon,Drive,2026-05-28,,No ads 3,2026-11-10
+Pizza Ready,7,90076,2.68,,Tested,Falcon,Drive,2026-05-28,,No ads 4,2026-11-10
+Pizza Ready,8,90077,2.72,,Tested,Thiago,Drive,2026-06-04,,Pizza Shredder Hook + 90078,2026-11-10
+Pizza Ready,8,90078,2.92,,Tested,Thiago,Drive,2026-06-04,,Pizza Factory Idle Gameplay,2026-11-10
+Pizza Ready,8,90079,2.74,,Tested,Thiago,Drive,2026-06-04,,Seller Falls Into Pizza Hook + 90078,2026-11-10
+Pizza Ready,8,90080,2.49,,Tested,Thiago,Drive,2026-06-04,,Upgrade Staff & Expand Pizza Shop,2026-11-10
+Pizza Ready,8,90081,2.35,,Tested,Thiago,Drive,2026-06-04,,Before Chaos/After Upgrade + 90079,2026-11-10
+Pizza Ready,8,90082,2.46,,Tested,Thiago,Drive,2026-06-04,,High Pizza Stack/Overloaded Shop + 90079,2026-11-10
+Pizza Ready,8,90083,,,Rejected,Kurly,Drive,2026-06-04,,1st POV air ballon,2026-11-10
+Pizza Ready,8,90084,2.42,,Tested,Kurly,Drive,2026-06-04,,1st POV air ballon,2026-11-10
+Pizza Ready,8,90085,,,Rejected,Kurly,Drive,2026-06-04,,1st POV air ballon,2026-11-10
+Pizza Ready,8,90086,2.77,,Tested,Kurly,Drive,2026-06-04,,Escalator Upgrade,2026-11-10
+Pizza Ready,8,90087,2.80,,Tested,Kurly,Drive,2026-06-04,,Escalator Upgrade,2026-11-10
+Pizza Ready,9,90088,3.13,,Tested,Tilda,Drive,2026-06-11,,Save our clients from the heavy rain!,2026-11-10
+Pizza Ready,9,90089,3.19,,Tested,Tilda,Drive,2026-06-11,,Fix the house now,2026-11-10
+Pizza Ready,9,90090,3.40,,Tested,Tilda,Drive,2026-06-09,,UGC How to level up my restaurant ranking,2026-11-10
+Pizza Ready,9,90091,2.76,,Tested,Tilda,Drive,2026-06-11,,How to level up my restaurant ranking?,2026-11-10
+Pizza Ready,9,90092,2.89,,Tested,Tilda,Drive,2026-06-10,,Smash tomatoes,2026-11-10
+Pizza Ready,9,90093,2.56,,Tested,Tilda,Drive,2026-06-10,,How to upgrade my tomatoes field?,2026-11-10
+Pizza Ready,9,90094,2.81,,Tested,Miko,Drive,2026-06-11,,Playable029 + UCG Pizza Avatar + Intro Slingshot,2026-11-10
+Pizza Ready,9,90095,2.87,,Tested,Miko,Drive,2026-06-11,,Playable029 + UCG Pizza Avatar + Intro Pizza Rain,2026-11-10
+Pizza Ready,9,90096,2.91,,Tested,Miko,Drive,2026-06-11,,Playable026 + 5 Star Progression Bar,2026-11-10
+Pizza Ready,9,90097,2.97,,Tested,Miko,Drive,2026-06-11,,Playable026 + 5 Star Progression Bar + UCG Pizza Avatar,2026-11-10
+Pizza Ready,9,90098,2.72,,Tested,Miko,Drive,2026-06-11,,Playable026 + Time Pressure + Hourglass UGC,2026-11-10
+Pizza Ready,9,90099,2.92,,Tested,Miko,Drive,2026-06-11,,Playable026 + 5 Star Progression Bar + Hourglass UGC,2026-11-10
+Pizza Ready,9,90100,3.03,,Tested,Ruelle,Drive,2026-06-11,,Challenge,2026-11-10
+Pizza Ready,9,90101,3.01,,Tested,Ruelle,Drive,2026-06-11,,Challenge,2026-11-10
+Pizza Ready,9,90102,3.21,,Tested,Ruelle,Drive,2026-06-11,,Gameplay,2026-11-10
+Pizza Ready,9,90103,3.03,,Tested,Ruelle,Drive,2026-06-11,,Gameplay,2026-11-10
+Pizza Ready,9,90104,3.26,,Tested,Ruelle,Drive,2026-06-11,,Challenge,2026-11-10
+Pizza Ready,9,90105,3.41,,Tested,Ruelle,Drive,2026-06-11,,Storytelling,2026-11-10
+Pizza Ready,10,90106,2.79,,Tested,Elliot,Drive,2026-06-18,,3D,2026-11-10
+Pizza Ready,10,90107,2.87,,Tested,Elliot,Drive,2026-06-18,,2D,2026-11-10
+Pizza Ready,10,90108,3.07,,Tested,Elliot,Drive,2026-06-18,,3D,2026-11-10
+Pizza Ready,10,90109,2.75,,Tested,Elliot,Drive,2026-06-18,,2D,2026-11-10
+Pizza Ready,10,90110,2.79,,Tested,Elliot,Drive,2026-06-18,,2D,2026-11-10
+Pizza Ready,10,90111,2.78,,Tested,Ellie,Drive,2026-06-18,,2D,2026-11-10
+Pizza Ready,10,90112,2.78,,Tested,Ellie,Drive,2026-06-18,,2D,2026-11-10
+Pizza Ready,10,90113,2.93,,Tested,Ellie,Drive,2026-06-18,,3D,2026-11-10
+Pizza Ready,10,90114,2.94,,Tested,Ellie,Drive,2026-06-18,,2D,2026-11-10
+Pizza Ready,10,90115,2.43,,Tested,Ellie,Drive,2026-06-18,,3D,2026-11-10
+Pizza Ready,11,90116,3.11,,Tested,Aaron,Drive,2026-06-25,,Creative/Corn Pizza + Upgrade Chainsaw/ Conveyor,2026-11-10
+Pizza Ready,11,90117,3.06,,Tested,Aaron,Drive,2026-06-25,,Creative/Corn Pizza + Upgrade: +3 Workers,2026-11-10
+Pizza Ready,11,90118,3.11,,Tested,Aaron,Drive,2026-06-25,,Creative/Corn Pizza + Upgrade Buzzsaw/ Conveyor,2026-11-10
+Pizza Ready,11,90119,3.21,,Tested,Aaron,Drive,2026-06-25,,Creative/Corn Pizza + Auto Buzzsaw/Conveyor,2026-11-10
+Pizza Ready,11,90120,3.02,,Tested,Aaron,Drive,2026-06-25,,Sling shot + Creative/Corn Pizza +3 Workers/Upgrade Conveyor,2026-11-10
+Pizza Ready,11,90121,2.96,,Tested,Aaron,Drive,2026-06-25,,Playable 41 Resource Gathering,2026-11-10
+Pizza Ready,11,90122,3.29,,Tested,Miko,Drive,2026-06-25,,Gacha,2026-11-10
+Pizza Ready,11,90123,3.12,,Tested,Miko,Drive,2026-06-25,,Gacha,2026-11-10
+Pizza Ready,11,90124,2.70,,Tested,Miko,Drive,2026-06-25,,Gameplay,2026-11-10
+Pizza Ready,11,90125,2.86,,Tested,Miko,Drive,2026-06-25,,Gacha,2026-11-10
+Pizza Ready,11,90126,2.89,,Tested,Miko,Drive,2026-06-25,,Challenge,2026-11-10
+Pizza Ready,11,90127,3.06,,Tested,Miko,Drive,2026-06-25,,Gameplay,2026-11-10
+Pizza Ready,11,90128,3.47,,Tested,Miko,Drive,2026-06-25,,Gameplay,2026-11-10
+Pizza Ready,11,90129,2.98,,Tested,Miko,Drive,2026-06-25,,Challenge,2026-11-10
+Pizza Ready,12,90130,2.76,,Tested,Elliot,Drive,2026-07-02,,3D,2026-11-10
+Pizza Ready,12,90131,2.64,,Tested,Elliot,Drive,2026-07-02,,3D,2026-11-10
+Pizza Ready,12,90132,2.75,,Tested,Elliot,Drive,2026-07-02,,3D,2026-11-10
+Pizza Ready,12,90133,3.03,,Tested,Elliot,Drive,2026-07-02,,3D,2026-11-10
+Pizza Ready,12,90134,2.31,,Tested,Elliot,Drive,2026-07-02,,3D,2026-11-10
+Pizza Ready,12,90135,2.95,,Tested,Zaid,Drive,2026-07-02,,Slingshot + Playable29 + UGC,2026-11-10
+Pizza Ready,12,90136,2.34,,Tested,Zaid,Drive,2026-07-02,,Story Telling ( Playable 42+33) + UGC,2026-11-10
+Pizza Ready,12,90137,2.91,,Tested,Zaid,Drive,2026-07-02,,Hook is a pop-up for branches + Branch Progress + Playabale 29 + Playabale 33,2026-11-10
+Pizza Ready,12,90138,2.85,,Tested,Zaid,Drive,2026-07-02,,Upgrade Button + Playable 37,2026-11-10
+Pizza Ready,12,90139,3.09,,Tested,Zaid,Drive,2026-07-02,,Upgrade Button + Playable 37,2026-11-10
+Pizza Ready,12,90140,3.17,,Tested,Zaid,Drive,2026-07-02,,Playable 29 + UGC,2026-11-10
+Pizza Ready,13,90141,2.21,,Tested,Kurly,Drive,2026-07-09,,Vacuum + underwater concept,2026-11-10
+Pizza Ready,13,90142,2.80,,Tested,Kurly,Drive,2026-07-09,,Boss revenge,2026-11-10
+Pizza Ready,13,90143,2.53,,Tested,Kurly,Drive,2026-07-09,,Flying hook + 90143,2026-11-10
+Pizza Ready,13,90144,2.73,,Tested,Kurly,Drive,2026-07-09,,Best No Wifi game hook + 90143,2026-11-10
+Pizza Ready,13,90145,2.48,,Tested,Kurly,Drive,2026-07-09,,Boss kick out of restaurant + 90143,2026-11-10
+Pizza Ready,13,90146,2.6,,Tested,Quinne,Drive,2026-07-09,,Storytelling,2026-11-10
+Pizza Ready,13,90147,2.55,,Tested,Quinne,Drive,2026-07-09,,Gameplay,2026-11-10
+Pizza Ready,13,90148,2.67,,Tested,Quinne,Drive,2026-07-09,,Storytelling,2026-11-10
+Pizza Ready,13,90149,2.83,,Tested,Quinne,Drive,2026-07-09,,Gameplay,2026-11-10
+Pizza Ready,13,90150,2.77,,Tested,Quinne,Drive,2026-07-09,,Storytelling,2026-11-10
+Pizza Ready,13,90151,2.58,,Tested,Quinne,Drive,2026-07-09,,Storytelling,2026-11-10
+Pizza Ready,13,90152,3.03,,Tested,Quinne,Drive,2026-07-09,,Gameplay,2026-11-10
+Pizza Ready,13,90153,2.68,,Tested,Quinne,Drive,2026-07-09,,Gameplay,2026-11-10
+Pizza Ready,13,90154,2.67,,Tested,Quinne,Drive,2026-07-09,,Storytelling,2026-11-10
+Pizza Ready,13,90155,2.26,,Tested,Hozler,Drive,2026-07-09,,3D + Source Shipping Progression,2026-11-10
+Pizza Ready,13,90156,2.30,,Tested,Hozler,Drive,2026-07-09,,Ocean Train Crash Hook + 90155,2026-11-10
+Pizza Ready,13,90157,2.15,,Tested,Hozler,Drive,2026-07-09,,90156 + UGC and No-Wifi Header,2026-11-10
+Pizza Ready,13,90158,2.43,,Tested,Hozler,Drive,2026-07-09,,2D + Ocean Customer Progression,2026-11-10
+Pizza Ready,13,90159,1.81,,Tested,Hozler,Drive,2026-07-09,,Prison Bomb Rescue Hook + 90158,2026-11-10
+Pizza Ready,13,90160,2.41,,Tested,Hozler,Drive,2026-07-09,,Fish Feeding Growth Hook + 90158 + No-Ads Header,2026-11-10
+Pizza Ready,14,90161,2.67,,Tested,Ruelle,Drive,2026-07-16,,Gameplay,2026-11-10
+Pizza Ready,14,90162,2.90,,Tested,Ruelle,Drive,2026-07-16,,Gameplay,2026-11-10
+Pizza Ready,14,90163,2.60,,Tested,Ruelle,Drive,2026-07-16,,Gameplay,2026-11-10
+Pizza Ready,14,90164,2.60,,Tested,Ruelle,Drive,2026-07-16,,UGC,2026-11-10
+Pizza Ready,14,90165,2.48,,Tested,Ruelle,Drive,2026-07-16,,Gameplay,2026-11-10
+Pizza Ready,14,90166,2.77,,Tested,Ruelle,Drive,2026-07-16,,Gameplay,2026-11-10
+Pizza Ready,14,90167,2.43,,Tested,Ruelle,Drive,2026-07-16,,Gameplay,2026-11-10
+Pizza Ready,14,90168,2.33,,Tested,Ruelle,Drive,2026-07-16,,Gameplay,2026-11-10
+Pizza Ready,14,90169,2.48,,Tested,Ruelle,Drive,2026-07-16,,Creative 432 Iteration,2026-11-10
+Pizza Ready,14,90170,2.84,,Tested,Ruelle,Drive,2026-07-16,,Creative 415 Iteration,2026-11-10
+Pizza Ready,14,90171,2.79,,Tested,Ruelle,Drive,2026-07-16,,Creative 434 Iteration,2026-11-10
+Pizza Ready,14,90172,3.05,,Tested,Ruelle,Drive,2026-07-16,,Creative 488 Iteration,2026-11-10
+Pizza Ready,14,90173,2.88,,Tested,Ruelle,Drive,2026-07-16,,Creative 603 Iteration,2026-11-10
+Pizza Ready,14,90174,2.32,,Tested,Yuna,Drive,2026-07-16,,Catch Fish → Sell Pizza → Pizza Empire,2026-11-10
+Pizza Ready,14,90175,2.30,,Tested,Yuna,Drive,2026-07-16,,Best No Wi-Fi Game hook + 90174,2026-11-10
+Pizza Ready,14,90176,2.32,,Tested,Yuna,Drive,2026-07-16,,Pizza reaction hook + 90174,2026-11-10
+Pizza Ready,14,90177,2.36,,Tested,Yuna,Drive,2026-07-16,,Pizza shop through 4 seasons,2026-11-10
+Pizza Ready,14,90178,2.37,,Tested,Yuna,Drive,2026-07-16,,Looking back at the beginning hook + 90177,2026-11-10
+Pizza Ready,15,90179,2.71,,Tested,Quinne,Drive,2026-07-23,,Gameplay + Store dirtiness progress bar ➔ lose + Playable 025,2026-11-10
+Pizza Ready,15,90180,2.87,,Tested,Quinne,Drive,2026-07-23,,Intro Dirty counter ➔ Gameplay + Progress bar ➔ win + Playable 025,2026-11-10
+Pizza Ready,15,90181,2.65,,Tested,Quinne,Drive,2026-07-23,,Intro Dirty store ➔ Gameplay ➔ win + Playable 025,2026-11-10
+Pizza Ready,15,90182,2.52,,Tested,Quinne,Drive,2026-07-23,,Intro Slingshot ➔ Gameplay ➔ win + Playable 034,2026-11-10
+Pizza Ready,15,90183,2.63,,Tested,Quinne,Drive,2026-07-23,,Gameplay + FX + Thermometer/HP bar ➔ lose + Playable 034,2026-11-10
+Pizza Ready,15,90184,2.33,,Tested,Quinne,Drive,2026-07-23,,Intro X-ray ➔ Gameplay ➔ win + Playable 034,2026-11-10
+Pizza Ready,15,90185,3.63,,Tested,Quinne,Drive,2026-07-23,,Intro Minigame ➔ Video 515,2026-11-10
+Pizza Ready,15,90186,3.32,,Tested,Quinne,Drive,2026-07-23,,AI Intro ➔ Video 515 + Tittle + FX ➔ CTA,2026-11-10
+Pizza Ready,15,90187,2.97,,Tested,Quinne,Drive,2026-07-23,,AI Intro ➔ UGC + Video 515,2026-11-10
+Pizza Ready,15,90188,2.97,,Tested,Falcon,Drive,2026-07-20,,Gameplay,2026-11-10
+Pizza Ready,15,90189,2.77,,Tested,Falcon,Drive,2026-07-22,,Gameplay,2026-11-10
+Pizza Ready,15,90190,2.39,,Tested,Falcon,Drive,2026-07-20,,Gameplay,2026-11-10
+Pizza Ready,15,90191,3.10,,Tested,Falcon,Drive,2026-07-20,,Creative video581,2026-11-10
+Pizza Ready,15,90192,3.38,,Tested,Falcon,Drive,2026-07-20,,Creative video432,2026-11-10
+Pizza Ready,15,90193,3.07,,Tested,Falcon,Drive,2026-07-20,,Creative video415,2026-11-10
+Pizza Ready,15,90194,3.2,,Tested,Falcon,Drive,2026-07-20,,Creative video600,2026-11-10
+Pizza Ready,15,90195,3.17,,Tested,Falcon,Drive,2026-07-20,,Creative video488,2026-11-10
+Pizza Ready,15,90196,3.26,,Tested,Falcon,Drive,2026-07-20,,Creative video434,2026-11-10
+Pizza Ready,15,90197,3.06,,Tested,Falcon,Drive,2026-07-20,,Creative video600,2026-11-10
+Pizza Ready,15,90198,2.62,,Tested,Ellie,Drive,2026-07-23,,,2026-11-10
+Pizza Ready,15,90199,2.66,,Tested,Ellie,Drive,2026-07-23,,selling pizza on a snowy island.,2026-11-10
+Pizza Ready,15,90200,2.92,,Tested,Ellie,Drive,2026-07-23,,selling pizza on the train,2026-11-10
+Pizza Ready,15,90201,2.50,,Tested,Ellie,Drive,2026-07-23,,90199 + hook: plane,2026-11-10
+Pizza Ready,15,90202,2.63,,Tested,Ellie,Drive,2026-07-23,,90198 + hook: the injured girl,2026-11-10
+Pizza Ready,16,90203,2.49,,Tested,Tilda,Drive,2026-07-30,,Playable 042 + UGC,2026-11-10
+Pizza Ready,16,90204,2.53,,Tested,Tilda,Drive,2026-07-30,,Playable 042,2026-11-10
+Pizza Ready,16,90205,2.44,,Tested,Tilda,Drive,2026-07-30,,Playable 042 + UGC,2026-11-10
+Pizza Ready,16,90206,2.49,,Tested,Tilda,Drive,2026-07-30,,Playable 040,2026-11-10
+Pizza Ready,16,90207,2.65,,Tested,Tilda,Drive,2026-07-30,,Playable 040 + UGC,2026-11-10
+Pizza Ready,16,90208,2.99,,Tested,Tilda,Drive,2026-07-30,,Playable 027,2026-11-10
+Pizza Ready,16,90209,3.07,,Tested,Tilda,Drive,2026-07-30,,Playable 027,2026-11-10
+Pizza Ready,16,90210,2.73,,Tested,Tilda,Drive,2026-07-30,,Playable 028,2026-11-10
+Pizza Ready,17,90211,3.07,,Tested,Tilda,Drive,2026-08-06,,Playable 038,2026-11-10
+Pizza Ready,17,90212,2.85,,Tested,Tilda,Drive,2026-08-06,,Playable 038,2026-11-10
+Pizza Ready,17,90213,2.75,,Tested,Tilda,Drive,2026-08-06,,Playable 038 + UGC,2026-11-10
+Pizza Ready,17,90214,3.05,,Tested,Tilda,Drive,2026-08-06,,Playable 036,2026-11-10
+Pizza Ready,17,90215,2.87,,Tested,Tilda,Drive,2026-08-06,,Playable 036,2026-11-10
+Pizza Ready,17,90216,3.07,,Tested,Tilda,Drive,2026-08-06,,Playable 036,2026-11-10
+Pizza Ready,17,90217,2.98,,Tested,Tilda,Drive,2026-08-06,,Playable 034,2026-11-10
+Pizza Ready,17,90218,2.67,,Tested,Tilda,Drive,2026-08-06,,Playable 034,2026-11-10
+Pizza Ready,17,90219,3.32,,Tested,Tilda,Drive,2026-08-06,,Playable 034,2026-11-10
+Pizza Ready,17,90220,2.93,,Tested,Tilda,Drive,2026-08-06,,Playable 034 + UGC,2026-11-10
+Pizza Ready,18,90221,2.36,,Tested,Ellie,Drive,2026-08-13,,Catching rats to make pizza,2026-11-10
+Pizza Ready,18,90222,2.97,,Tested,Ellie,Drive,2026-08-13,,Pizza theme snow,2026-11-10
+Pizza Ready,18,90223,,,Rejected,Ellie,Drive,2026-08-13,,90221 + new hook,2026-11-10
+Pizza Ready,18,90224,,,Rejected,Ellie,Drive,2026-08-13,,90222 + new hook,2026-11-10
+Pizza Ready,18,90225,2.51,,Tested,Yuna,Drive,2026-08-13,,[AI] Feed Zombies → Turn Human,2026-11-10
+Pizza Ready,18,90226,,,Rejected,Yuna,Drive,2026-08-13,,[AI] Realistic drama hook + clean & unlock pizza shop,2026-11-10
+Pizza Ready,18,90227,2.38,,Tested,Yuna,Drive,2026-08-13,,[AI] No Ads hook + 90226,2026-11-10
+Pizza Ready,18,90228,2.38,,Tested,Yuna,Drive,2026-08-13,,[AI] Pizza showcase → serve customers,2026-11-10
+Pizza Ready,18,90229,2.40,,Tested,Yuna,Drive,2026-08-13,,[AI] Pizza showcase variation → serve customers,2026-11-10
+Pizza Ready,18,90230,3.03,,Tested,Tilda,Drive,2026-08-13,,Playable 055 + AI Hook,2026-11-10
+Pizza Ready,18,90231,3.08,,Tested,Tilda,Drive,2026-08-13,,Playable 055 + AI Hook,2026-11-10
+Pizza Ready,18,90232,3.40,,Tested,Tilda,Drive,2026-08-13,,Playable 055,2026-11-10
+Pizza Ready,18,90233,3.29,,Tested,Tilda,Drive,2026-08-13,,Playable 055,2026-11-10
+Pizza Ready,18,90234,2.39,,Tested,Tilda,Drive,2026-08-13,,Playable 051 + AI Hook,2026-11-10
+Pizza Ready,18,90235,2.83,,Tested,Tilda,Drive,2026-08-13,,Playable 051,2026-11-10
+Pizza Ready,18,90236,2.97,,Tested,Tilda,Drive,2026-08-13,,Playable 051 + AI Hook,2026-11-10
+Pizza Ready,18,90237,2.97,,Tested,Tilda,Drive,2026-08-13,,Playable 051 + UGC,2026-11-10
+Pizza Ready,19,90238,2.63,,Tested,Tilda,Drive,2026-08-20,,"Playable 052 bear version +
+Draft version (remove pink arrow3D later)
+AI hook Re",2026-11-10
+Pizza Ready,19,90239,2.18,,Tested,Tilda,Drive,2026-08-20,,Playable 034 + AI hook smash down,2026-11-10
+Pizza Ready,19,90240,2.41,,Tested,Tilda,Drive,2026-08-20,,Playable 052 bear version + smash down AI hook with bears cube -> break them all,2026-11-10
+Pizza Ready,19,90241,2.20,,Tested,Tilda,Drive,2026-08-20,,Playable 052 wheat version + From 1 Wheat to Empire thanks to this method,2026-11-10
+Pizza Ready,19,90242,2.28,,Tested,Tilda,Drive,2026-08-20,,Playable 052 wheat version + Gain 5 stars by selling enough pizza,2026-11-10
+Pizza Ready,19,90243,2.09,,Tested,Tilda,Drive,2026-08-20,,"Playable 034 + AI Hook: at night the winter wind is flowing, POV someone sitting",2026-11-10
+Pizza Ready,19,90244,2.36,,Tested,Tilda,Drive,2026-08-20,,Playable 034 + AI Hook: the winter wind flows the pizza by the window → got froz,2026-11-10
+Pizza Ready,19,90245,2.08,,Tested,Tilda,Drive,2026-08-20,,Playable 034,2026-11-10
+Pizza Ready,20,90246,3.20,,Tested,Tilda,Drive,2026-08-27,,Playable 059 + Gameplay full,2026-11-10
+Pizza Ready,20,90247,3.21,,Tested,Tilda,Drive,2026-08-27,,Playable 059 + Urgent: Customer pressure,2026-11-10
+Pizza Ready,20,90248,3.18,,Tested,Tilda,Drive,2026-08-27,,Playable 059 + AI hook open shop,2026-11-10
+Pizza Ready,20,90249,2.99,,Tested,Tilda,Drive,2026-08-27,,Playable 059 + UGC,2026-11-10
+Pizza Ready,20,90250,3.69,,Tested,Tilda,Drive,2026-08-27,,Playable 049 + Escalator Reveal / Connect Two Floors,2026-11-10
+Pizza Ready,20,90251,3.70,,Tested,Tilda,Drive,2026-08-27,,Playable 049 + Drive-through Rush / Destination First,2026-11-10
+Pizza Ready,20,90252,3.64,,Tested,Tilda,Drive,2026-08-27,,Playable 049 + Manual Bottleneck → Full Automation,2026-11-10
+Pizza Ready,20,90253,3.54,,Tested,Tilda,Drive,2026-08-27,,Playable 049,2026-11-10
+Pizza Ready,23,90272,2.57,,Tested,Tilda,Drive,2026-09-24,,Playable 044 + gameplay,2026-11-10
+Pizza Ready,23,90273,3.05,,Tested,Tilda,Drive,2026-09-24,,Playable 044 + gameplay Boat Rush,2026-11-10
+Pizza Ready,23,90274,3.14,,Tested,Tilda,Drive,2026-09-24,,Playable 044 + 432-Style Layout,2026-11-10
+Pizza Ready,23,90275,3.16,,Tested,Tilda,Drive,2026-09-24,,Playable 044 + extend tomatoes,2026-11-10
+Pizza Ready,23,90276,2.76,,Tested,Tilda,Drive,2026-09-24,,Playable 044 + tropical resort version,2026-11-10
+Pizza Ready,23,90277,2.65,,Tested,Tilda,Drive,2026-09-24,,Playable 044 + Frozen Ocean version,2026-11-10
+Pizza Ready,23,90278,3.07,,Tested,Tilda,Drive,2026-09-24,,Playable 044 + tropical resort version + AI hook,2026-11-10
+Pizza Ready,23,90279,2.85,,Tested,Tilda,Drive,2026-09-24,,Playable 044 + Frozen Ocean version + AI Hook,2026-11-10
+Pizza Ready,24,90280,3.35,,Tested,Tilda,Drive,2026-10-01,,Playable 059 + Japanese Fishing Restaurant,2026-11-10
+Pizza Ready,24,90281,3.19,,Tested,Tilda,Drive,2026-10-01,,Playable 059 + Giant Shark Catch,2026-11-10
+Pizza Ready,24,90282,3.21,,Tested,Tilda,Drive,2026-10-01,,Playable 059 + Net Physics Pull,2026-11-10
+Pizza Ready,24,90283,2.87,,Tested,Tilda,Drive,2026-10-01,,Playable 059 + Fish-to-Queue One Frame,2026-11-10
+Pizza Ready,24,90284,2.91,,Tested,Tilda,Drive,2026-10-01,,Playable 059 + Change camera angle into 45 degrees,2026-11-10
+Pizza Ready,25,90288,3.55,,Tested,Tilda,Drive,2026-10-08,,Playable 027 + 432 Compact Drive-Thru,2026-11-10
+Pizza Ready,25,90289,3.68,,Tested,Tilda,Drive,2026-10-08,,Playable 027 + Drive-Thru Rush,2026-11-10
+Pizza Ready,25,90290,3.57,,Tested,Tilda,Drive,2026-10-08,,Playable 027 + Pepperoni Cutter First,2026-11-10
+Pizza Ready,25,90291,3.61,,Tested,Tilda,Drive,2026-10-08,,Playable 027 + Bacon Factory,2026-11-10
+Pizza Ready,25,90292,3.44,,Tested,Tilda,Drive,2026-10-08,,Playable 027 + Fish Prep Close-up,2026-11-10
+Pizza Ready,25,90293,3.38,,Tested,Tilda,Drive,2026-10-08,,Playable 027 + Three Customer Lines,2026-11-10
+Pizza Ready,26,90294,3.58,,Tested,Tilda,Drive,2026-10-15,,"Creative Blade_Laser_Cheese + AI hook ""That’s Actually the Game?""",2026-11-10
+Pizza Ready,26,90295,,,Rejected,Tilda,Drive,2026-10-15,,"Creative Blade_Laser_Cheese + AI hook ""Who's The Boss?""",2026-11-10
+Pizza Ready,26,90296,3.19,,Tested,Tilda,Drive,2026-10-15,,Creative Blade_Laser_Cheese + All counters open setting with pressure,2026-11-10
+Pizza Ready,26,90297,3.66,,Tested,Tilda,Drive,2026-10-15,,Creative Blade_Laser_Cheese + Drive-Thru Pressure,2026-11-10
+Pizza Ready,26,90298,3.67,,Tested,Tilda,Drive,2026-10-15,,Creative Blade_Laser_Cheese + All counters open setting,2026-11-10
+Pizza Ready,27,90302,3.70,,Tested,Tilda,Drive,2026-10-21,,Playable057 + Full loop to test if it works as a creative,2026-11-10
+Pizza Ready,27,90303,3.83,,Tested,Tilda,Drive,2026-10-21,,"Playable057 + Pizza Pile-up to determine pressure from 2 queues of customers, mo",2026-11-10
+Pizza Ready,27,90304,3.26,,Tested,Tilda,Drive,2026-10-21,,Playable057 + UGC avatar about the factory reaction and big subtitles to test re,2026-11-10
+Pizza Ready,27,90305,3.46,,Tested,Tilda,Drive,2026-10-21,,Playable057 + Machine focusing first to test if it can be more effective than ju,2026-11-10
+Pizza Ready,27,90306,3.32,,Tested,Tilda,Drive,2026-10-21,,Playable057 + Long AI Hook Feed all of Us - to test if the customers' doubt can ,2026-11-10
+Pizza Ready,27,90307,3.71,,Tested,Tilda,Drive,2026-10-21,,Playable057 + Long AI Hook romance drama reference from Township game.,2026-11-10
+Pizza Ready,28,90308,3.18,,Tested,Tilda,Drive,2026-10-29,,Playable053 + Full Loop — Control  to test the whole gameplay and to control oth,2026-11-10
+Pizza Ready,28,90309,3.41,,Tested,Tilda,Drive,2026-10-29,,Playable053 + Rolling Harvest First to test attention of close-up camera for har,2026-11-10
+Pizza Ready,28,90310,3.62,,Tested,Tilda,Drive,2026-10-29,,Playable053 + Serve the Rush - Impatient customers should be serve faster and te,2026-11-10
+Pizza Ready,28,90311,3.20,,Tested,Tilda,Drive,2026-10-29,,Playable053 + Worker First - to test if reduce the manual task on the field can ,2026-11-10
+Pizza Ready,28,90312,3.15,,Tested,Tilda,Drive,2026-10-29,,Playable053 + AI Hook drama: the pizza guy being triggered by the rival neighbor,2026-11-10
+Pizza Ready,28,90313,3.66,,Tested,Tilda,Drive,2026-10-29,,Playable053 + unlock frozen fields and jump straight to high productivity and sh,2026-11-10
+Pizza Ready,28,90314,3.13,,Tested,Tilda,Drive,2026-10-29,,Full AI Video - Clone gameplay from Township top video,2026-11-10
+Pizza Ready,28,90315,3.23,,Tested,Tilda,Drive,2026-10-29,,Playable053 + Unlock frozen mode for fields + unlock customers for pasta to crea,2026-11-10
+Pizza Ready,29,90316,3.31,,Tested,Tilda,Drive,2026-11-05,,Playable 028 + Layout 432 — Narrow Factory: Test if longer map can work more eff,2026-11-10
+Pizza Ready,29,90317,3.37,,Tested,Tilda,Drive,2026-11-05,,Playable 028 + Front View setting map: Change the POV to test if it can work mor,2026-11-10
+Pizza Ready,29,90318,3.35,,Tested,Tilda,Drive,2026-11-05,,Playable 028 + First-Person Factory: view from behind and above the player to ma,2026-11-10
+Pizza Ready,29,90319,2.97,,Tested,Tilda,Drive,2026-11-05,,Playable 028 + AI hook Layout 432 + Flight Tagline to enhance the benefit of the,2026-11-10
+Pizza Ready,29,90320,3.41,,Tested,Tilda,Drive,2026-11-05,,"Playable 028 + Customer Riot: to test if unfair treatment of the mother, child, ",2026-11-10
+Pizza Ready,29,90321,3.28,,Tested,Tilda,Drive,2026-11-05,,Playable 028 + AI Drama — You’re the Delivery Boy: to test if the identity twist,2026-11-10
+Pizza Ready,29,90322,,,Rejected,Tilda,Drive,2026-11-05,,Playable 028 + AI Drama — Only One Slice?,2026-11-10
+Pizza Ready,29,90323,2.86,,Tested,Tilda,Drive,2026-11-05,,AI Full Video - How to make pizza: Test if clay stop motion can work with viewer,2026-11-10
+Prison Life,1,90001,3.77,2.59,Tested,,Crebo,2026-07-04,,Prison Life,2026-11-10
+Prison Life,1,90002,4.46,2.53,Tested,,Crebo,2026-07-04,,Prison Life,2026-11-10
+Prison Life,1,90003,3.93,2.73,Tested,,Crebo,2026-07-04,,Prison Life,2026-11-10
+Prison Life,1,90004,4.13,2.57,Tested,,Crebo,2026-07-04,,Prison Life,2026-11-10
+Prison Life,1,90005,4.58,2.77,Tested,,Crebo,2026-07-04,Unity AOS & iOS WW,Prison Life,2026-11-10
+Prison Life,1,90006,,,Rejected,,Crebo,2026-07-04,,Prison Life,2026-11-10
+Prison Life,1,90007,,,Rejected,,Crebo,2026-07-04,,Prison Life,2026-11-10
+Prison Life,2,90008,4.07,,Tested,,Crebo,2026-07-04,,From inmate to ultimate prison boss — upgrade your way to a powerful empire.,2026-11-10
+Prison Life,2,90009,4.22,,Tested,,Crebo,2026-07-04,,New hook + 90008,2026-11-10
+Prison Life,2,90010,4.43,,Tested,,Crebo,2026-07-04,,From prisoner to prison boss — control and build your own empire,2026-11-10
+Prison Life,2,90011,3.70,,Tested,,Crebo,2026-07-04,,Control chaos — turn prison escape madness into your power,2026-11-10
+Prison Life,2,90012,3.64,,Tested,,Crebo,2026-07-04,,Last scene of 90011 used as opening hook,2026-11-10
+Snake Clash,2,90006,1.2,,Tested,Aaron,Drive,2025-12-02,,Snake Clash,2026-11-10
+Snake Clash,2,90007,1.28,,Tested,Aaron,Drive,2025-12-02,,Snake Clash,2026-11-10
+Snake Clash,2,90008,1.28,,Tested,Aaron,Drive,2025-12-02,,Snake Clash,2026-11-10
+Snake Clash,2,90009,1.15,,Tested,Aaron,Drive,2025-12-02,,Snake Clash,2026-11-10
+Snake Clash,2,90010,1.38,,Tested,Aaron,Drive,2025-12-02,,Snake Clash,2026-11-10
+Snake Clash,2,90011,1.42,,Tested,Aaron,Drive,2025-12-02,Unity AOS WW,Snake Clash,2026-11-10
+Snake Clash,2,90012,1.41,,Tested,Aaron,Drive,2025-12-04,,Snake Clash,2026-11-10
+Snake Clash,2,90013,1.26,,Tested,Aaron,Drive,2025-12-04,,Snake Clash,2026-11-10
+Snake Clash,2,90014,1.22,,Tested,Aaron,Drive,2025-12-04,,Snake Clash,2026-11-10
+Snake Clash,2,90015,1.16,,Tested,Aaron,Drive,2025-12-05,,Snake Clash,2026-11-10
+Snake Clash,2,90016,1.37,,Tested,Aaron,Drive,2025-12-05,,Snake Clash,2026-11-10
+Snake Clash,2,90017,1.18,,Tested,Aaron,Drive,2025-12-05,Facebook,Snake Clash,2026-11-10
+Snake Clash,3,90018,1.34,,Tested,Aaron,Drive,2025-12-09,,Snake Clash,2026-11-10
+Snake Clash,3,90019,1.34,,Tested,Aaron,Drive,2025-12-09,,Snake Clash,2026-11-10
+Snake Clash,3,90020,1.30,,Tested,Aaron,Drive,2025-12-10,Facebook,Snake Clash,2026-11-10
+Snake Clash,3,90021,1.25,,Tested,Aaron,Drive,2025-12-10,,Snake Clash,2026-11-10
+Snake Clash,3,90022,1.09,,Tested,Aaron,Drive,2025-12-10,,Snake Clash,2026-11-10
+Snake Clash,3,90023,1.20,,Tested,Aaron,Drive,2025-12-10,,Snake Clash,2026-11-10
+Snake Clash,3,90024,1.42,,Tested,Aaron,Drive,2025-12-11,Unity AOS WW,Snake Clash,2026-11-10
+Snake Clash,3,90025,1.34,,Tested,Aaron,Drive,2025-12-11,,Snake Clash,2026-11-10
+Snake Clash,3,90026,1.32,,Tested,Aaron,Drive,2025-12-11,,Snake Clash,2026-11-10
+Snake Clash,3,90027,1.31,,Tested,Aaron,Drive,2025-12-11,,Snake Clash,2026-11-10
+Snake Clash,3,90028,1.39,,Tested,Aaron,Drive,2025-12-12,,Snake Clash,2026-11-10
+Snake Clash,3,90029,1.23,,Tested,Aaron,Drive,2025-12-12,,Snake Clash,2026-11-10
+Snake Clash,4,90030,1.46,,Tested,Aaron,Drive,2025-12-16,,Snake Clash,2026-11-10
+Snake Clash,4,90031,1.29,,Tested,Aaron,Drive,2025-12-16,,Snake Clash,2026-11-10
+Snake Clash,4,90032,1.33,,Tested,Aaron,Drive,2025-12-17,,Snake Clash,2026-11-10
+Snake Clash,4,90033,1.36,,Tested,Aaron,Drive,2025-12-17,,Snake Clash,2026-11-10
+Snake Clash,4,90034,1.48,,Tested,Aaron,Drive,2025-12-17,,Snake Clash,2026-11-10
+Snake Clash,4,90035,1.37,,Tested,Aaron,Drive,2025-12-17,,Snake Clash,2026-11-10
+Snake Clash,4,90036,1.30,,Tested,Aaron,Drive,2025-12-18,,Snake Clash,2026-11-10
+Snake Clash,4,90037,1.49,,Tested,Aaron,Drive,2025-12-18,Unity AOS WW,Snake Clash,2026-11-10
+Snake Clash,4,90038,1.35,,Tested,Aaron,Drive,2025-12-18,,Snake Clash,2026-11-10
+Snake Clash,4,90039,1.41,,Tested,Aaron,Drive,2025-12-19,,Snake Clash,2026-11-10
+Snake Clash,4,90040,1.48,,Tested,Aaron,Drive,2025-12-19,Facebook,Snake Clash,2026-11-10
+Snake Clash,4,90041,1.24,,Tested,Aaron,Drive,2025-12-19,,Snake Clash,2026-11-10
+Snake Clash,5,90042,1.36,,Tested,Aaron,Drive,2025-12-23,,Snake Clash,2026-11-10
+Snake Clash,5,90043,1.47,,Tested,Aaron,Drive,2025-12-23,,Snake Clash,2026-11-10
+Snake Clash,5,90044,1.33,,Tested,Aaron,Drive,2025-12-23,,Snake Clash,2026-11-10
+Snake Clash,5,90045,1.43,,Tested,Aaron,Drive,2025-12-23,,Snake Clash,2026-11-10
+Snake Clash,5,90046,1.40,,Tested,Aaron,Drive,2025-12-23,,Snake Clash,2026-11-10
+Snake Clash,5,90047,1.43,,Tested,Aaron,Drive,2025-12-25,Facebook,Snake Clash,2026-11-10
+Snake Clash,5,90048,1.37,,Tested,Aaron,Drive,2025-12-25,,Snake Clash,2026-11-10
+Snake Clash,5,90049,1.27,,Tested,Aaron,Drive,2025-12-25,,Snake Clash,2026-11-10
+Snake Clash,5,90050,1.36,,Tested,Aaron,Drive,2025-12-25,,Snake Clash,2026-11-10
+Snake Clash,5,90051,1.31,,Tested,Aaron,Drive,2025-12-25,,Snake Clash,2026-11-10
+Snake Clash,5,90052,1.47,,Tested,Aaron,Drive,2025-12-25,Unity AOS WW,Snake Clash,2026-11-10
+Snake Clash,5,90053,0.99,,Tested,Aaron,Drive,2025-12-25,,Snake Clash,2026-11-10
+Snake Clash,5,90054,1.46,,Tested,Aaron,Drive,2025-12-25,,Snake Clash,2026-11-10
+Snake Clash,6,90055,1.08,,Tested,Aaron,Drive,2026-01-21,,Snake Clash,2026-11-10
+Snake Clash,6,90056,1.28,,Tested,Aaron,Drive,2026-01-21,,Snake Clash,2026-11-10
+Snake Clash,6,90057,1.16,,Tested,Aaron,Drive,2026-01-22,,Snake Clash,2026-11-10
+Snake Clash,6,90058,1.35,,Tested,Aaron,Drive,2026-01-23,,Snake Clash,2026-11-10
+Snake Clash,6,90059,0.92,,Tested,Aaron,Drive,2026-01-23,,Snake Clash,2026-11-10
+Snake Clash,6,90060,1.14,,Tested,Aaron,Drive,2026-01-23,Facebook,Snake Clash,2026-11-10
+Snake Clash,6,90061,1.32,,Tested,Aaron,Drive,2026-01-23,,Snake Clash,2026-11-10
+Snake Clash,6,90062,1.35,,Tested,Aaron,Drive,2026-01-20,Unity AOS WW,Snake Clash,2026-11-10
+Snake Clash,6,90063,1.20,,Tested,Aaron,Drive,2026-01-22,,Snake Clash,2026-11-10
+Snake Clash,6,90064,1.17,,Tested,Aaron,Drive,2026-01-22,,Snake Clash,2026-11-10
+Snake Clash,6,90065,1.16,,Tested,Aaron,Drive,2026-01-22,,Snake Clash,2026-11-10
+Snake Clash,6,90066,1.33,,Tested,Aaron,Drive,2026-01-22,,Snake Clash,2026-11-10
+Snake Clash,7,90067,1.22,1.09,Tested,Aaron,Drive,2026-02-03,,Snake Clash,2026-11-10
+Snake Clash,7,90068,1.13,1.12,Tested,Aaron,Drive,2026-02-04,,Snake Clash,2026-11-10
+Snake Clash,7,90069,1.09,1.05,Tested,Aaron,Drive,2026-02-04,,Snake Clash,2026-11-10
+Snake Clash,7,90070,1.20,0.90,Tested,Aaron,Drive,2026-02-05,,Snake Clash,2026-11-10
+Snake Clash,7,90071,1.19,1.00,Tested,Aaron,Drive,2026-02-05,,Snake Clash,2026-11-10
+Snake Clash,7,90072,1.24,1.01,Tested,Aaron,Drive,2026-02-06,,Snake Clash,2026-11-10
+Snake Clash,7,90073,1.20,1.10,Tested,Aaron,Drive,2026-02-05,,Snake Clash,2026-11-10
+Snake Clash,7,90074,1.08,1.06,Tested,Aaron,Drive,2026-02-05,,Snake Clash,2026-11-10
+Snake Clash,7,90075,1.44,1.00,Tested,Aaron,Drive,2026-02-06,Unity AOS WW,Snake Clash,2026-11-10
+Snake Clash,7,90076,1.43,1.37,Tested,Aaron,Drive,2026-02-06,Unity iOS WW,Snake Clash,2026-11-10
+Snake Clash,7,90077,1.05,1.03,Tested,Aaron,Drive,2026-02-06,,Snake Clash,2026-11-10
+Snake Clash,7,90078,1.22,0.99,Tested,Aaron,Drive,2026-02-06,,Snake Clash,2026-11-10
+Snake Clash,8,90079,1.41,,Tested,Aaron,Drive,2026-02-27,Unity AOS WW,Snake Clash,2026-11-10
+Snake Clash,8,90080,1.36,,Tested,Aaron,Drive,2026-02-27,,Snake Clash,2026-11-10
+Snake Clash,8,90081,1.33,,Tested,Aaron,Drive,2026-02-26,,Snake Clash,2026-11-10
+Snake Clash,8,90082,1.33,,Tested,Aaron,Drive,2026-02-27,,Snake Clash,2026-11-10
+Snake Clash,8,90083,1.20,,Tested,Aaron,Drive,2026-02-27,,Snake Clash,2026-11-10
+Snake Clash,8,90084,1.21,,Tested,Aaron,Drive,2026-02-27,,Snake Clash,2026-11-10
+Snake Clash,8,90085,1.05,,Tested,Aaron,Drive,2026-02-27,,Snake Clash,2026-11-10
+Snake Clash,9,90086,1.18,,Tested,Aaron,Drive,2026-03-10,,Neon/Starwar,2026-11-10
+Snake Clash,9,90087,1.64,,Tested,Aaron,Drive,2026-03-10,,Neon/Starwar,2026-11-10
+Snake Clash,9,90088,1.19,,Tested,Aaron,Drive,2026-03-10,,Neon/Starwar,2026-11-10
+Snake Clash,9,90089,1.55,,Tested,Aaron,Drive,2026-03-11,,020 + 256,2026-11-10
+Snake Clash,9,90090,1.54,,Tested,Aaron,Drive,2026-03-11,,020 + 256,2026-11-10
+Snake Clash,9,90091,1.65,,Tested,Aaron,Drive,2026-03-12,,020 + 256,2026-11-10
+Snake Clash,9,90092,1.46,,Tested,Aaron,Drive,2026-03-12,,020 + 256,2026-11-10
+Snake Clash,9,90093,1.83,,Tested,Aaron,Drive,2026-03-12,,020 + 256,2026-11-10
+Snake Clash,9,90094,1.46,,Tested,Aaron,Drive,2026-03-12,,020 + 256,2026-11-10
+Snake Clash,9,90095,1.40,,Tested,Aaron,Drive,2026-03-12,,020 + 256,2026-11-10
+Snake Clash,9,90096,1.49,,Tested,Aaron,Drive,2026-03-12,,AI + 020 + 256,2026-11-10
+Snake Clash,9,90097,1.43,,Tested,Aaron,Drive,2026-03-12,,AI + 020 + 256 + UGC,2026-11-10
+Snake Clash,10,90098,0.85,,Tested,Kurly,Drive,2026-03-24,,3D Realistic,2026-11-10
+Snake Clash,10,90099,1.21,,Tested,Kurly,Drive,2026-03-25,,3D realistic,2026-11-10
+Snake Clash,10,90100,1.14,,Tested,Kurly,Drive,2026-03-25,,3D realistic,2026-11-10
+Snake Clash,10,90101,0.91,,Tested,Kurly,Drive,2026-03-26,,Retro 32bit Pixel,2026-11-10
+Snake Clash,10,90102,0.89,,Tested,Kurly,Drive,2026-03-26,,Retro 32bit Pixel,2026-11-10
+Snake Clash,10,90103,0.83,,Tested,Hozler,Drive,2026-03-24,,Style 2D game pixel + Progression,2026-11-10
+Snake Clash,10,90104,1.08,,Tested,Hozler,Drive,2026-03-24,,Global Boss + Progression,2026-11-10
+Snake Clash,10,90105,0.94,,Tested,Hozler,Drive,2026-03-26,,Valkyrie & Mythic Beast + Evolution,2026-11-10
+Snake Clash,10,90106,0.92,,Tested,Hozler,Drive,2026-03-26,,106: Dual-Mode Comparison (3D-cinematic vs 2D-gameplay),2026-11-10
+Snake Clash,10,90107,0.89,,Tested,Hozler,Drive,2026-03-27,,K-POP Music x Game Fusion,2026-11-10
+Snake Clash,10,90108,1.25,,Tested,Ellie,Drive,2026-03-24,,Ref 661+change text,2026-11-10
+Snake Clash,10,90109,0.93,,Tested,Ellie,Drive,2026-03-26,,Ref 773,2026-11-10
+Snake Clash,10,90110,0.99,,Tested,Ellie,Drive,2026-03-26,,Ref 777 + new enviroment,2026-11-10
+Snake Clash,10,90111,0.92,,Tested,Ellie,Drive,2026-03-26,,109 + new hook,2026-11-10
+Snake Clash,10,90112,1.12,,Tested,Ellie,Drive,2026-03-27,,108 + new hook,2026-11-10
+Snake Clash,11,90113,1.36,,Tested,Aaron,Drive,2026-04-01,,AI + 091,2026-11-10
+Snake Clash,11,90114,1.57,,Tested,Aaron,Drive,2026-04-01,,Intro boss fight + 091,2026-11-10
+Snake Clash,11,90115,1.19,,Tested,Aaron,Drive,2026-03-31,,Snake racing,2026-11-10
+Snake Clash,11,90116,1.23,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,11,90117,1.01,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,11,90118,1.08,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,11,90119,1.17,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,11,90120,1.26,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,11,90121,1.29,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,11,90122,1.13,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,11,90123,1.01,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,11,90124,1.05,,Tested,Aaron,Drive,2026-04-01,,Snake racing,2026-11-10
+Snake Clash,12,90125,1.07,,Tested,Hozler,Drive,2026-04-09,,Evolution & Revenge Cinematic,2026-11-10
+Snake Clash,12,90126,1.42,,Tested,Hozler,Drive,2026-04-09,,90125 + New Hook,2026-11-10
+Snake Clash,12,90127,1.16,,Tested,Hozler,Drive,2026-04-09,,90128 + New Hook,2026-11-10
+Snake Clash,12,90128,1.35,,Tested,Hozler,Drive,2026-04-09,,Progression,2026-11-10
+Snake Clash,12,90129,1.42,,Tested,Hozler,Drive,2026-04-09,,Evolution Timeline,2026-11-10
+Snake Clash,12,90130,1.66,,Tested,Ruelle,Drive,2026-04-09,Unity AOS WW,472 + New Hook,2026-11-10
+Snake Clash,12,90131,1.64,,Tested,Ruelle,Drive,2026-04-09,,195 + New Twist,2026-11-10
+Snake Clash,12,90132,1.33,,Tested,Miko,Drive,2026-04-09,,Ref 472 + New Hook,2026-11-10
+Snake Clash,12,90133,1.59,,Tested,Miko,Drive,2026-04-09,,195 + Boss Fight,2026-11-10
+Snake Clash,13,90134,1.24,,Tested,Hozler,Drive,2026-04-16,,Narrative Hook + 90043,2026-11-10
+Snake Clash,13,90135,1.28,,Tested,Hozler,Drive,2026-04-16,,Magic Hook + 90114,2026-11-10
+Snake Clash,13,90136,1.26,,Tested,Hozler,Drive,2026-04-16,,Fake Reality Hook + 90093,2026-11-10
+Snake Clash,13,90137,1.21,,Tested,Hozler,Drive,2026-04-16,,Crafting Hook + 90043,2026-11-10
+Snake Clash,13,90138,1.58,,Tested,Hozler,Drive,2026-04-16,,Toy-to-life Hook + 90114,2026-11-10
+Snake Clash,13,90139,1.34,,Tested,Elliot,Drive,2026-04-16,,Realistic,2026-11-10
+Snake Clash,13,90140,1.35,,Tested,Elliot,Drive,2026-04-16,,Baby monitor hook + 90139,2026-11-10
+Snake Clash,13,90141,1.87,,Tested,Elliot,Drive,2026-04-16,,Change the first prey hook + 90139,2026-11-10
+Snake Clash,13,90142,1.20,,Tested,Elliot,Drive,2026-04-16,,Stylized 3D,2026-11-10
+Snake Clash,13,90143,1.25,,Tested,Elliot,Drive,2026-04-16,,Climax hook + 90143,2026-11-10
+Snake Clash,13,90144,1.22,,Tested,Falcon,Drive,2026-04-16,,UGC skin Hati,2026-11-10
+Snake Clash,13,90145,,,Rejected,Falcon,Drive,2026-04-16,,Meme Snake,2026-11-10
+Snake Clash,14,90146,1.42,,Tested,Thiago,Drive,2026-04-23,,90147 + Hot Trend Music,2026-11-10
+Snake Clash,14,90147,1.22,,Tested,Thiago,Drive,2026-04-23,,Multi-form Snake Evolution Showcase,2026-11-10
+Snake Clash,14,90148,1.30,,Tested,Thiago,Drive,2026-04-23,,Portal Evolution Snake Showcase,2026-11-10
+Snake Clash,14,90149,0.99,,Tested,Thiago,Drive,2026-04-23,,Final Form Hook + 90148,2026-11-10
+Snake Clash,14,90150,1.23,,Tested,Thiago,Drive,2026-04-23,,Evolution Progression,2026-11-10
+Snake Clash,14,90151,1.55,,Tested,Thiago,Drive,2026-04-23,,Wooden Carving Hook + 90150,2026-11-10
+Snake Clash,14,90152,1.46,,Tested,Ruelle,Drive,2026-04-23,,Let’s Go Fever Time (Game Tips),2026-11-10
+Snake Clash,14,90153,1.60,,Tested,Ruelle,Drive,2026-04-23,,Fever Time VS. Skins (Final Boss Fight + Reward Selection Hook + 90152),2026-11-10
+Snake Clash,14,90154,1.27,,Tested,Ruelle,Drive,2026-04-23,,Best Game To Play On The Toilet (No Ads Hook + 90152 + On-beat Phonk Music Gamep,2026-11-10
+Snake Clash,14,90155,1.38,,Tested,Ruelle,Drive,2026-04-23,,[Snake.io] Competitor Study,2026-11-10
+Snake Clash,14,90156,1.76,,Tested,Ruelle,Drive,2026-04-23,,WHO WILL WIN? (New Volcano Snake Boss Hook),2026-11-10
+Snake Clash,14,90157,1.47,,Tested,Ruelle,Drive,2026-04-23,,Smallest Snake... Turned Big! (Breaking News Hook + Lab scenario),2026-11-10
+Snake Clash,15,90158,1.62,,Tested,Ellie,Drive,2026-04-29,,Progress -> Eat -> Bigger -> Fight -> Win,2026-11-10
+Snake Clash,15,90159,1.59,,Tested,Ellie,Drive,2026-04-29,,Progress -> Eat -> Bigger -> Fight -> Win,2026-11-10
+Snake Clash,15,90160,1.62,,Tested,Ellie,Drive,2026-04-29,,Progress -> Eat -> Bigger -> Fight -> Win,2026-11-10
+Snake Clash,15,90161,1.08,,Tested,Hozler,Drive,2026-04-29,,Interaction Transition Hook + 90131,2026-11-10
+Snake Clash,15,90162,1.64,,Tested,Hozler,Drive,2026-04-29,,Epic Siege Hook + 90076,2026-11-10
+Snake Clash,15,90163,1.38,,Tested,Hozler,Drive,2026-04-29,,Nightmare Twist Hook + 90034,2026-11-10
+Snake Clash,15,90164,1.26,,Tested,Hozler,Drive,2026-04-29,,Cosmic Devour Hook + 90080,2026-11-10
+Snake Clash,15,90165,1.26,,Tested,Hozler,Drive,2026-04-29,,Revenge Call Hook + 90133,2026-11-10
+Snake Clash,15,90166,1.27,,Tested,Aaron,Drive,2026-04-29,,Racing Snake,2026-11-10
+Snake Clash,15,90167,1.22,,Tested,Aaron,Drive,2026-04-29,,Racing Snake,2026-11-10
+Snake Clash,15,90168,1.21,,Tested,Aaron,Drive,2026-04-29,,Racing Snake,2026-11-10
+Snake Clash,16,90169,1.34,,Tested,Miko,Drive,2026-05-07,,"Collect Buff → Evo the snake to another form, change map",2026-11-10
+Snake Clash,16,90170,1.51,,Tested,Miko,Drive,2026-05-07,,X99 Progression Bar,2026-11-10
+Snake Clash,16,90171,1.51,,Tested,Miko,Drive,2026-05-07,,x99 Progression Bar + adding Joystick and Change the layout,2026-11-10
+Snake Clash,16,90172,1.44,,Tested,Miko,Drive,2026-05-07,,UGC Tutorial + Update Talent,2026-11-10
+Snake Clash,16,90173,1.65,,Tested,Miko,Drive,2026-05-07,,Gacha Egg to Collect Buff Intro,2026-11-10
+Snake Clash,16,90174,1.56,,Tested,Miko,Drive,2026-05-07,,Best no wifi game while eating intro,2026-11-10
+Snake Clash,17,90175,1.50,,Tested,Thiago,Drive,2026-05-14,,Tap-to-Play Cliff Hook,2026-11-10
+Snake Clash,17,90176,1.54,,Tested,Thiago,Drive,2026-05-14,,Monster Escape Gameplay UI,2026-11-10
+Snake Clash,17,90177,1.42,,Tested,Thiago,Drive,2026-05-14,,Cinematic Monster Escape,2026-11-10
+Snake Clash,17,90178,1.50,,Tested,Thiago,Drive,2026-05-14,,Military Cargo Drop Hook,2026-11-10
+Snake Clash,17,90179,1.43,,Tested,Thiago,Drive,2026-05-14,,Endless Snake Evolution,2026-11-10
+Snake Clash,17,90180,1.18,,Tested,Kurly,Drive,2026-05-12,,AAA game fight,2026-11-10
+Snake Clash,17,90181,1.38,,Tested,Kurly,Drive,2026-05-14,,Realistic upgrade,2026-11-10
+Snake Clash,17,90182,1.36,,Tested,Kurly,Drive,2026-05-14,,Fake gameplay 3rd POV,2026-11-10
+Snake Clash,17,90183,1.85,,Tested,Kurly,Drive,2026-05-14,,Fake gameplay 3rd POV,2026-11-10
+Snake Clash,17,90184,1.38,,Tested,Kurly,Drive,2026-05-14,,Fake gameplay 3rd POV,2026-11-10
+Snake Clash,17,90185,1.53,,Tested,Falcon,Drive,2026-05-14,,Chill gameplay: Continuously eat small snakes,2026-11-10
+Snake Clash,17,90186,1.39,,Tested,Falcon,Drive,2026-05-14,,90185 + Intro Choose to Level up,2026-11-10
+Snake Clash,17,90187,1.6,,Tested,Falcon,Drive,2026-05-14,,90186 + Music,2026-11-10
+Snake Clash,17,90188,1.65,,Tested,Falcon,Drive,2026-05-14,,90187 + Fast Intro + Outro Choose to upgrade,2026-11-10
+Snake Clash,17,90189,1.93,,Tested,Falcon,Drive,2026-05-14,,Playable ads 10 video,2026-11-10
+Snake Clash,17,90190,1.8,,Tested,Falcon,Drive,2026-05-14,,90189 + Caption trigger,2026-11-10
+Snake Clash,17,90191,1.65,,Tested,Falcon,Drive,2026-05-14,,90190 + Outro Choose to upgrade,2026-11-10
+Snake Clash,17,90192,1.53,,Tested,Falcon,Drive,2026-05-14,,Playable ads 27 video,2026-11-10
+Snake Clash,17,90193,1.43,,Tested,Falcon,Drive,2026-05-14,,90192 + New Intro Choose to upgrade + Level up,2026-11-10
+Snake Clash,17,90194,1.43,,Tested,Quinne,Drive,2026-05-14,,Time Survival,2026-11-10
+Snake Clash,17,90195,1.58,,Tested,Quinne,Drive,2026-05-14,,POV: Getting this skin took you 3 days,2026-11-10
+Snake Clash,17,90196,1.27,,Tested,Tilda,Drive,2026-05-15,,Clumsy bumping head,2026-11-10
+Snake Clash,17,90197,1.47,,Tested,Tilda,Drive,2026-05-15,,Avoid collecting all the coins,2026-11-10
+Snake Clash,18,90198,1.60,,Tested,Ruelle,Drive,2026-05-21,,Tell you a secret,2026-11-10
+Snake Clash,18,90199,1.37,,Tested,Ruelle,Drive,2026-05-21,,Tell you a secret,2026-11-10
+Snake Clash,18,90200,1.27,,Tested,Ruelle,Drive,2026-05-21,,Matching cards,2026-11-10
+Snake Clash,18,90201,1.46,,Tested,Ruelle,Drive,2026-05-21,,Matching cards,2026-11-10
+Snake Clash,18,90202,1.25,,Tested,Ruelle,Drive,2026-05-21,,Matching cards,2026-11-10
+Snake Clash,18,90203,1.31,,Tested,Ruelle,Drive,2026-05-21,,No ads,2026-11-10
+Snake Clash,18,90204,1.31,,Tested,Ruelle,Drive,2026-05-21,,No ads,2026-11-10
+Snake Clash,18,90205,1.68,,Tested,Ruelle,Drive,2026-05-21,,Volcano boss,2026-11-10
+Snake Clash,18,90206,1.52,,Tested,Ruelle,Drive,2026-05-21,,Volcano boss,2026-11-10
+Snake Clash,18,90207,1.58,,Tested,Aaron,Drive,2026-05-21,,UGC Tell a Secret + Upgrade Graphic + UI click + Purple Snake,2026-11-10
+Snake Clash,18,90208,1.43,,Tested,Aaron,Drive,2026-05-21,,UGC Tell a Secret + Upgrade Graphic + Blackhole +  Red Snake + Desert,2026-11-10
+Snake Clash,18,90209,1.39,,Tested,Aaron,Drive,2026-05-21,,UGC Tell a Secret + Upgrade Graphic + Blackhole +  Red Snake + Snow map,2026-11-10
+Snake Clash,18,90210,1.67,,Tested,Aaron,Drive,2026-05-21,,UGC Tell a Secret + Upgrade Graphic + UI Clock +  Red Snake + Snow map,2026-11-10
+Snake Clash,18,90211,1.88,,Tested,Aaron,Drive,2026-05-21,,Upgrade Graphic + Black hole + purple Snake → red snake,2026-11-10
+Snake Clash,19,90212,2.13,,Tested,Aaron,Drive,2026-05-28,,Collect Eggs + Add Quest UI + Continuous Skin Changing + Map,2026-11-10
+Snake Clash,19,90213,1.89,,Tested,Aaron,Drive,2026-05-28,,Collect Eggs Hook + Progression Bar + Continuous Skin Changing + Map,2026-11-10
+Snake Clash,19,90214,1.91,,Tested,Aaron,Drive,2026-05-28,,Collection Hook + Progression Bar + Continuous Skin Changing,2026-11-10
+Snake Clash,19,90215,1.77,,Tested,Aaron,Drive,2026-05-28,,Collect Eggs + Add Quest UI + Continuous Skin Changing,2026-11-10
+Snake Clash,19,90216,1.72,,Tested,Aaron,Drive,2026-05-28,,UGC - Collect Eggs + Add Quest UI + Continuous Skin Changing + Map,2026-11-10
+Snake Clash,19,90217,1.60,,Tested,Aaron,Drive,2026-05-28,,UGC - AI intro - Progression Bar + Continuous Skin Changing + Map,2026-11-10
+Snake Clash,19,90218,1.44,,Tested,Ellie,Drive,2026-05-28,,90158 + change progress bar's position,2026-11-10
+Snake Clash,19,90219,1.34,,Tested,Ellie,Drive,2026-05-28,,Snakes bite people in a variety of environments,2026-11-10
+Snake Clash,19,90220,1.29,,Tested,Ellie,Drive,2026-05-28,,snakes outside the train carriage,2026-11-10
+Snake Clash,19,90221,1.56,,Tested,Ellie,Drive,2026-05-28,,pixel art,2026-11-10
+Snake Clash,19,90222,1.61,,Tested,Ellie,Drive,2026-05-28,,90221 + new hook,2026-11-10
+Snake Clash,19,90223,1.38,,Tested,Elliot,Drive,2026-05-28,,2D,2026-11-10
+Snake Clash,19,90224,1.35,,Tested,Elliot,Drive,2026-05-28,,3D,2026-11-10
+Snake Clash,19,90225,1.32,,Tested,Elliot,Drive,2026-05-28,,2D,2026-11-10
+Snake Clash,19,90226,1.44,,Tested,Elliot,Drive,2026-05-28,,2D,2026-11-10
+Snake Clash,19,90227,1.32,,Tested,Elliot,Drive,2026-05-28,,3D,2026-11-10
+Snake Clash,20,90228,1.60,,Tested,Pax,Drive,2026-06-04,,Slingshot Hook + Cloud Map Progression,2026-11-10
+Snake Clash,20,90229,1.75,,Tested,Pax,Drive,2026-06-04,,Pink Cotton Snake Egg Falling Into Cloud Map,2026-11-10
+Snake Clash,20,90230,1.53,,Tested,Pax,Drive,2026-06-04,,3rd Person POV Boss Fight Progression,2026-11-10
+Snake Clash,20,90231,1.63,,Tested,Pax,Drive,2026-06-04,,Portal Hook + Boss Progression,2026-11-10
+Snake Clash,20,90232,1.50,,Tested,Pax,Drive,2026-06-04,,Map & Skin Reveal + Core Game Loop,2026-11-10
+Snake Clash,20,90233,1.72,,Tested,Aaron,Drive,2026-06-04,,Volcano Map (PUBG) + Purple Snake → Red Snake/ WIN,2026-11-10
+Snake Clash,20,90234,1.45,,Tested,Aaron,Drive,2026-06-04,,Volcano Map (PUBG) + Purple Snake → Red Snake/ LOSE,2026-11-10
+Snake Clash,20,90235,1.14,,Tested,Aaron,Drive,2026-06-04,,Volcano Map/Purple Snake →  Snow Snake/ WIn,2026-11-10
+Snake Clash,20,90236,1.42,,Tested,Aaron,Drive,2026-06-04,,Volcano Map/Purple Snake →  Snow Snake/ LOSE,2026-11-10
+Snake Clash,20,90237,1.33,,Tested,Aaron,Drive,2026-06-04,,Volcano Map/Iris Snake →  Snow Snake/ WIn,2026-11-10
+Snake Clash,20,90238,1.28,,Tested,Aaron,Drive,2026-06-04,,Volcano Map (PUBG) /Iris Snake  →  Snow Snake/ WIn,2026-11-10
+Snake Clash,20,90239,1.48,,Tested,Tilda,Drive,2026-06-04,,[BACK UP] revenge snake,2026-11-10
+Snake Clash,20,90240,1.19,,Tested,Tilda,Drive,2026-06-04,,Play it dump 01,2026-11-10
+Snake Clash,20,90241,1.52,,Tested,Tilda,Drive,2026-06-04,,UGC video tuts 01,2026-11-10
+Snake Clash,20,90242,1.57,,Tested,Tilda,Drive,2026-06-04,,UGC video tuts 02,2026-11-10
+Snake Clash,20,90243,1.60,,Tested,Tilda,Drive,2026-06-04,,Skin changing,2026-11-10
+Snake Clash,20,90244,1.68,,Tested,Tilda,Drive,2026-06-04,,Play it pro 01,2026-11-10
+Snake Clash,20,90245,1.37,,Tested,Tilda,Drive,2026-06-04,,Play it pro 02,2026-11-10
+Snake Clash,21,90246,1.53,,Tested,Quinne,Drive,2026-06-11,,Archaeology,2026-11-10
+Snake Clash,21,90247,1.51,,Tested,Quinne,Drive,2026-06-11,,Archaeology,2026-11-10
+Snake Clash,21,90248,1.73,,Tested,Quinne,Drive,2026-06-11,,Underground,2026-11-10
+Snake Clash,21,90249,1.79,,Tested,Quinne,Drive,2026-06-11,,Slot Machine,2026-11-10
+Snake Clash,21,90250,1.49,,Tested,Quinne,Drive,2026-06-11,,Slot Machine,2026-11-10
+Snake Clash,21,90251,1.56,,Tested,Falcon,Drive,2026-06-11,,Change skin hook,2026-11-10
+Snake Clash,21,90252,1.51,,Tested,Falcon,Drive,2026-06-11,,Change skin hook UCG,2026-11-10
+Snake Clash,21,90253,1.75,,Tested,Falcon,Drive,2026-06-11,,Upgrade skin,2026-11-10
+Snake Clash,21,90254,1.69,,Tested,Falcon,Drive,2026-06-09,,Battle Boss,2026-11-10
+Snake Clash,21,90255,1.65,,Tested,Falcon,Drive,2026-06-11,,Upgrade skin,2026-11-10
+Snake Clash,21,90256,1.59,,Tested,Falcon,Drive,2026-06-09,,Battle Boss,2026-11-10
+Snake Clash,21,90257,1.55,,Tested,Thiago,Drive,2026-06-11,,Rainbow Boss Fight,2026-11-10
+Snake Clash,21,90258,1.58,,Tested,Thiago,Drive,2026-06-11,,Swallow the Rainbow Boss,2026-11-10
+Snake Clash,21,90259,1.32,,Tested,Thiago,Drive,2026-06-11,,Slingshot Snake Launch,2026-11-10
+Snake Clash,21,90260,1.47,,Tested,Thiago,Drive,2026-06-11,,Lava Snake Evolution,2026-11-10
+Snake Clash,21,90261,1.47,,Tested,Thiago,Drive,2026-06-11,,Lava Egg Hatch,2026-11-10
+Snake Clash,22,90262,1.34,,Tested,Aaron,Drive,2026-06-18,,Sling shot 1 + Paperio creative,2026-11-10
+Snake Clash,22,90263,1.62,,Tested,Aaron,Drive,2026-06-18,,Sling shot 2 + Paperio creative,2026-11-10
+Snake Clash,22,90264,1.44,,Tested,Aaron,Drive,2026-06-18,,Sling shot 3 + Paperio creative + 90210,2026-11-10
+Snake Clash,22,90265,1.44,,Tested,Aaron,Drive,2026-06-18,,Sling shot + Paperio creative,2026-11-10
+Snake Clash,22,90266,1.71,,Tested,Aaron,Drive,2026-06-18,,Sling shot + Paperio creative,2026-11-10
+Snake Clash,22,90267,1.78,,Tested,Aaron,Drive,2026-06-18,,Sling shot + Paperio creative,2026-11-10
+Snake Clash,22,90268,1.44,,Tested,Tilda,Drive,2026-06-18,,Unlock new skin (win hook),2026-11-10
+Snake Clash,22,90269,1.42,,Tested,Tilda,Drive,2026-06-18,,Unlock new skin (fail hook),2026-11-10
+Snake Clash,22,90270,1.43,,Tested,Tilda,Drive,2026-06-18,,UGC select new skills,2026-11-10
+Snake Clash,22,90271,1.12,,Tested,Tilda,Drive,2026-06-18,,Select new skills to unlock new skin,2026-11-10
+Snake Clash,22,90272,1.21,,Tested,Tilda,Drive,2026-06-18,,Open all the boxes,2026-11-10
+Snake Clash,22,90273,1.04,,Tested,Tilda,Drive,2026-06-18,,Can you beat the boss?,2026-11-10
+Snake Clash,22,90274,1.29,,Tested,Zaid,Drive,2026-06-18,,Rainbow Skin Evolution + UGC,2026-11-10
+Snake Clash,22,90275,1.47,,Tested,Zaid,Drive,2026-06-18,,King Of The Arena,2026-11-10
+Snake Clash,22,90276,1.56,,Tested,Max,Drive,2026-06-18,,Hidden Knowledge + Voice,2026-11-10
+Snake Clash,22,90277,1.49,,Tested,Max,Drive,2026-06-18,,Become the World Champion + Voice,2026-11-10
+Snake Clash,22,90278,1.65,,Tested,Kurly,Drive,2026-06-18,,Beach Snake,2026-11-10
+Snake Clash,22,90279,1.52,,Tested,Kurly,Drive,2026-06-18,,Boss Intro + Beach Snake,2026-11-10
+Snake Clash,22,90280,1.36,,Tested,Kurly,Drive,2026-06-18,,Slingshot + Beach Snake,2026-11-10
+Snake Clash,22,90281,1.46,,Tested,Kurly,Drive,2026-06-18,,Slot Machine + Beach Snake,2026-11-10
+Snake Clash,22,90282,1.44,,Tested,Kurly,Drive,2026-06-18,,Boss intro + Beach Snake,2026-11-10
+Snake Clash,23,90283,1.92,,Tested,Max,Drive,2026-06-25,,Discovery + Power,2026-11-10
+Snake Clash,23,90284,1.71,,Tested,Max,Drive,2026-06-25,,Social + Excitement,2026-11-10
+Snake Clash,23,90285,1.45,,Tested,Max,Drive,2026-06-25,,Discovery + Completion,2026-11-10
+Snake Clash,23,90286,1.37,,Tested,Max,Drive,2026-06-25,,Completion + Power,2026-11-10
+Snake Clash,23,90287,1.32,,Tested,Max,Drive,2026-06-25,,Fantasy + Power,2026-11-10
+Snake Clash,23,90288,1.40,,Tested,Max,Drive,2026-06-25,,Design + Strategy,2026-11-10
+Snake Clash,23,90289,1.48,,Tested,Falcon,Drive,2026-06-25,,Eat all gameplay,2026-11-10
+Snake Clash,23,90290,1.64,,Tested,Falcon,Drive,2026-06-25,,UGC,2026-11-10
+Snake Clash,23,90291,1.64,,Tested,Falcon,Drive,2026-06-25,,Fail hook,2026-11-10
+Snake Clash,23,90292,1.52,,Tested,Falcon,Drive,2026-06-25,,Magnet gameplay,2026-11-10
+Snake Clash,23,90293,1.43,,Tested,Falcon,Drive,2026-06-25,,UGC,2026-11-10
+Snake Clash,23,90294,1.58,,Tested,Falcon,Drive,2026-06-25,,UGC,2026-11-10
+Snake Clash,23,90295,1.85,,Tested,Ruelle,Drive,2026-06-25,,Gameplay,2026-11-10
+Snake Clash,23,90296,2.03,,Tested,Ruelle,Drive,2026-06-25,,Gameplay,2026-11-10
+Snake Clash,23,90297,2.10,,Tested,Ruelle,Drive,2026-06-25,,Gameplay,2026-11-10
+Snake Clash,23,90298,1.44,,Tested,Ruelle,Drive,2026-06-25,,Gameplay,2026-11-10
+Snake Clash,23,90299,2.15,,Tested,Ruelle,Drive,2026-06-25,,Storytelling,2026-11-10
+Snake Clash,23,90300,1.48,,Tested,Ruelle,Drive,2026-06-25,,Gameplay,2026-11-10
+Snake Clash,23,90301,1.75,,Tested,Ruelle,Drive,2026-06-25,,Gameplay,2026-11-10
+Snake Clash,23,90302,1.85,,Tested,Zaid,Drive,2026-06-25,,Fail Hook,2026-11-10
+Snake Clash,23,90303,1.65,,Tested,Zaid,Drive,2026-06-25,,Gameplay,2026-11-10
+Snake Clash,23,90304,1.62,,Tested,Zaid,Drive,2026-06-25,,Gameplay,2026-11-10
+Snake Clash,23,90305,1.58,,Tested,Zaid,Drive,2026-06-25,,Gameplay + UGC,2026-11-10
+Snake Clash,23,90306,1.36,,Tested,Zaid,Drive,2026-06-25,,Fail Hook,2026-11-10
+Snake Clash,23,90307,1.71,,Tested,Zaid,Drive,2026-06-25,,Tip And Tric & UGC,2026-11-10
+Snake Clash,23,90308,1.23,,Tested,Ellie,Drive,2026-06-25,,realistic,2026-11-10
+Snake Clash,23,90309,1.61,,Tested,Ellie,Drive,2026-06-25,,2D,2026-11-10
+Snake Clash,23,90310,1.44,,Tested,Ellie,Drive,2026-06-25,,realistic,2026-11-10
+Snake Clash,23,90311,1.37,,Tested,Ellie,Drive,2026-06-25,,90310 + new hook,2026-11-10
+Snake Clash,24,90312,1.48,,Tested,Quinne,Drive,2026-07-02,,"Multi-level + NO ADS, NO WIFI + Progress Bar + Kill Counter + playable 012",2026-11-10
+Snake Clash,24,90313,1.42,,Tested,Quinne,Drive,2026-07-02,,Multi-level + AI Intro + Progress Bar + playable 012,2026-11-10
+Snake Clash,24,90314,1.73,,Tested,Quinne,Drive,2026-07-02,,Multi-level + Kill Progress + playable 026,2026-11-10
+Snake Clash,24,90315,1.57,,Tested,Quinne,Drive,2026-07-02,,Multi-level + playable 026,2026-11-10
+Snake Clash,24,90316,1.57,,Tested,Quinne,Drive,2026-07-02,,Multi-level + Kill Counter + playable 026,2026-11-10
+Snake Clash,24,90317,1.56,,Tested,Quinne,Drive,2026-07-02,,Storytelling + Streamer cam + UGC + playable 019,2026-11-10
+Snake Clash,24,90318,1.59,,Tested,Hozler,Drive,2026-07-02,,Top-down gaming:  Red Dragon's Map Sweeping,2026-11-10
+Snake Clash,24,90320,1.56,,Tested,Hozler,Drive,2026-07-02,,90318 + New Hook: Unlock Red Dragon.,2026-11-10
+Snake Clash,24,90321,1.46,,Tested,Hozler,Drive,2026-07-02,,90318 + Voiceover.,2026-11-10
+Snake Clash,24,90322,1.58,,Tested,Hozler,Drive,2026-07-02,,"New Hook + 90126, Kong vs Godzilla",2026-11-10
+Snake Clash,24,90323,1.43,,Tested,Hozler,Drive,2026-07-02,,A variation of 90322 + UGC Reaction,2026-11-10
+Snake Clash,25,90324,1.33,,Tested,Max,Drive,2026-07-09,,Giant Snake in the Supermarket!,2026-11-10
+Snake Clash,25,90325,,,Rejected,Max,Drive,2026-07-09,,AI Attacks,2026-11-10
+Snake Clash,25,90326,1.52,,Tested,Max,Drive,2026-07-09,,Comment Card,2026-11-10
+Snake Clash,25,90327,1.47,,Tested,Max,Drive,2026-07-09,,Snake in the Aqua Park,2026-11-10
+Snake Clash,25,90328,1.75,,Tested,Max,Drive,2026-07-09,,Creative728 + Thread,2026-11-10
+Snake Clash,25,90329,2,,Tested,Max,Drive,2026-07-09,,ASMR Ask + Creative325,2026-11-10
+Snake Clash,25,90330,1.67,,Tested,Max,Drive,2026-07-09,,Creative882 + Caption Banner,2026-11-10
+Snake Clash,25,90331,1.74,,Tested,Max,Drive,2026-07-09,,New Skin Banner + Creative605,2026-11-10
+Snake Clash,25,90332,1.47,,Tested,Max,Drive,2026-07-09,,Spider Snake,2026-11-10
+Snake Clash,25,90333,1.90,,Tested,Falcon,Drive,2026-07-08,,Choose UR Snake,2026-11-10
+Snake Clash,25,90334,1.84,,Tested,Falcon,Drive,2026-07-08,,Choose UR Snake,2026-11-10
+Snake Clash,25,90335,1.48,,Tested,Falcon,Drive,2026-07-10,,Choose UR Snake,2026-11-10
+Snake Clash,25,90336,1.35,,Tested,Falcon,Drive,2026-07-10,,Korean video: add UGC,2026-11-10
+Snake Clash,25,90337,1.44,,Tested,Falcon,Drive,2026-07-10,,Korean video: add UGC,2026-11-10
+Snake Clash,25,90338,1.51,,Tested,Falcon,Drive,2026-07-10,,Korean video: add UGC,2026-11-10
+Snake Clash,25,90339,1.68,,Tested,Falcon,Drive,2026-07-10,,Korean video: add UGC,2026-11-10
+Snake Clash,25,90340,1.41,,Tested,Falcon,Drive,2026-07-10,,Korean video: add UGC,2026-11-10
+Snake Clash,25,90341,1.71,,Tested,Falcon,Drive,2026-07-10,,Korean video: add UGC,2026-11-10
+Snake Clash,25,90342,1.54,,Tested,Thiago,Drive,2026-07-09,,Snake Evolution + Boss Escalation,2026-11-10
+Snake Clash,25,90343,1.42,,Tested,Thiago,Drive,2026-07-09,,UGC Voice-over Version,2026-11-10
+Snake Clash,25,90344,1.38,,Tested,Thiago,Drive,2026-07-09,,Space Fall Hook,2026-11-10
+Snake Clash,25,90345,1.63,,Tested,Thiago,Drive,2026-07-09,,Rainbow Beach Evolution,2026-11-10
+Snake Clash,25,90346,1.66,,Tested,Thiago,Drive,2026-07-09,,Upgrade Label Version,2026-11-10
+Snake Clash,25,90347,1.66,,Tested,Thiago,Drive,2026-07-09,,Sky Slingshot x999 Hook,2026-11-10
+Snake Clash,25,90348,1.87,,Tested,Yuna,Drive,2026-07-09,,Arena champion → escapes → Shark Snake evolution,2026-11-10
+Snake Clash,25,90349,1.34,,Tested,Yuna,Drive,2026-07-09,,TV News Hook + rewind + 90348.,2026-11-10
+Snake Clash,25,90350,1.32,,Tested,Yuna,Drive,2026-07-09,,Realistic TV news hook + rewind + 90348,2026-11-10
+Snake Clash,25,90351,1.65,,Tested,Yuna,Drive,2026-07-09,,Copycat snake → Meme skin evolution,2026-11-10
+Snake Clash,25,90352,1.65,,Tested,Yuna,Drive,2026-07-09,,Slingshot fail hook + 90351,2026-11-10
+Snake Clash,25,90353,1.28,,Tested,Zaid,Drive,2026-07-09,,Slingshot Event,2026-11-10
+Snake Clash,25,90354,1.28,,Tested,Zaid,Drive,2026-07-09,,Slingshot Gear,2026-11-10
+Snake Clash,25,90355,1.60,,Tested,Zaid,Drive,2026-07-09,,No Ads No Wifi Old TV,2026-11-10
+Snake Clash,25,90356,1.69,,Tested,Zaid,Drive,2026-07-09,,Korean video: add Hook,2026-11-10
+Snake Clash,25,90357,1.88,,Tested,Zaid,Drive,2026-07-09,,Korean video: add Joystick,2026-11-10
+Snake Clash,25,90358,1.85,,Tested,Zaid,Drive,2026-07-09,,Korean video: add Hook,2026-11-10
+Snake Clash,25,90359,1.94,,Tested,Zaid,Drive,2026-07-09,,Korean video: add Joystick,2026-11-10
+Snake Clash,25,90360,2.02,,Tested,Zaid,Drive,2026-07-09,,Korean video: add UGC,2026-11-10
+Snake Clash,25,90361,1.33,,Tested,Zaid,Drive,2026-07-09,,Korean video: add UGC,2026-11-10
+Snake Clash,25,90362,1.60,,Tested,Elvis,Drive,2026-07-09,,Secret Speed Trick,2026-11-10
+Snake Clash,25,90363,1.74,,Tested,Elvis,Drive,2026-07-09,,Hidden Speed Boost,2026-11-10
+Snake Clash,26,90364,1.36,,Tested,Miko,Drive,2026-07-16,,Multiply egg intro + Crash eggs → 1 snake hatched (Default),2026-11-10
+Snake Clash,26,90365,1.54,,Tested,Miko,Drive,2026-07-16,,Multiply egg intro + Crash eggs → Multiple snakes hatched,2026-11-10
+Snake Clash,26,90366,1.44,,Tested,Miko,Drive,2026-07-16,,Default intro + Farm multiple snakes in line (No danger),2026-11-10
+Snake Clash,26,90367,1.42,,Tested,Miko,Drive,2026-07-16,,Default intro + Farm multiple snakes in line (Add danger → Revenge),2026-11-10
+Snake Clash,26,90368,1.14,,Tested,Miko,Drive,2026-07-16,,Default version + Add territory trail effect,2026-11-10
+Snake Clash,26,90369,1.58,,Tested,Miko,Drive,2026-07-16,,Default version + Farm multiple snakes in line (No danger) + Add territory trail,2026-11-10
+Snake Clash,26,90370,1.11,,Tested,Miko,Drive,2026-07-16,,Default version + Egg count + VFX + Music,2026-11-10
+Snake Clash,26,90371,1.38,,Tested,Miko,Drive,2026-07-16,,90366 + Lose,2026-11-10
+Snake Clash,26,90372,1.38,,Tested,Miko,Drive,2026-07-16,,Intro Pick an Object + 90364,2026-11-10
+Snake Clash,26,90373,1.35,,Tested,Miko,Drive,2026-07-16,,Tap to Start intro + 90368,2026-11-10
+Snake Clash,26,90374,1.31,,Tested,Miko,Drive,2026-07-16,,“Easter egg?” tagline → 004,2026-11-10
+Snake Clash,26,90375,1.30,,Tested,Miko,Drive,2026-07-16,,AI intro: Black streamer + 90367,2026-11-10
+Snake Clash,26,90376,1.29,,Tested,Miko,Drive,2026-07-16,,Tap to Start intro + 90364,2026-11-10
+Snake Clash,26,90377,1.40,,Tested,Miko,Drive,2026-07-16,,Timing Bar + Joystick + 90369,2026-11-10
+Snake Clash,26,90378,1.62,,Tested,Tilda,Drive,2026-07-14,,Fail hook with slingshot,2026-11-10
+Snake Clash,26,90379,1.47,,Tested,Tilda,Drive,2026-07-14,,Slingshot the golden food,2026-11-10
+Snake Clash,26,90380,1.42,,Tested,Tilda,Drive,2026-07-14,,fail hook with Multi bounce hook,2026-11-10
+Snake Clash,26,90381,1.35,,Tested,Tilda,Drive,2026-07-15,,Creative 01 and 02 + fail hook,2026-11-10
+Snake Clash,26,90382,1.16,,Tested,Tilda,Drive,2026-07-15,,Finish the whole supermarket,2026-11-10
+Snake Clash,26,90383,1.51,,Tested,Tilda,Drive,2026-07-14,,Destroy the Store Challenge,2026-11-10
+Snake Clash,26,90384,1.28,,Tested,Tilda,Drive,2026-07-15,,Eat all the snake on time,2026-11-10
+Snake Clash,26,90385,1.60,,Tested,Tilda,Drive,2026-07-16,,UGC Fire vs. Ice Power,2026-11-10
+Snake Clash,26,90386,1.72,,Tested,Tilda,Drive,2026-07-16,,UGC Become the King of the Map,2026-11-10
+Snake Clash,26,90387,1.44,,Tested,Tilda,Drive,2026-07-16,,UGC for Creative 01 and 02,2026-11-10
+Snake Clash,26,90388,1.45,,Tested,Elliot,Drive,2026-07-16,,A snake swallowing a baby seal -> the evolutionary process of snakes,2026-11-10
+Snake Clash,26,90389,1.27,,Tested,Elliot,Drive,2026-07-16,,The snake's mukbang show,2026-11-10
+Snake Clash,26,90390,1.48,,Tested,Elliot,Drive,2026-07-16,,New hook + 90388,2026-11-10
+Snake Clash,26,90391,1.45,,Tested,Elliot,Drive,2026-07-16,,UGC + New hook + 90388,2026-11-10
+Snake Clash,26,90392,1.49,,Tested,Elliot,Drive,2026-07-16,,New hook + The snake's mukbang show,2026-11-10
+Snake Clash,27,90393,1.37,,Tested,Max,Drive,2026-07-23,,"Use the in-game from Playable 32 as the hook, then transition to Music Playable ",2026-11-10
+Snake Clash,27,90394,1.57,,Tested,Max,Drive,2026-07-23,,"Start with the Pig Skin selection panel. The player chooses the Pig Skin, then g",2026-11-10
+Snake Clash,27,90395,1.52,,Tested,Max,Drive,2026-07-23,,"Begin with the normal desert map. A hand suddenly snaps its fingers, turning off",2026-11-10
+Snake Clash,27,90396,1.8,,Tested,Max,Drive,2026-07-23,,"The video opens with the boss eating almost the entire snake, leaving only its h",2026-11-10
+Snake Clash,27,90397,1.52,,Tested,Max,Drive,2026-07-23,,The red snake is launched toward a giant frozen island packed with snakes. It ex,2026-11-10
+Snake Clash,27,90398,1.73,,Tested,Max,Drive,2026-07-23,,"The snake rushes toward the boss, but a voice stops it: ""Wait! You're not strong",2026-11-10
+Snake Clash,27,90399,1.79,,Tested,Max,Drive,2026-07-23,,The video starts with a simple hyper-casual desert scene. The gameplay then swit,2026-11-10
+Snake Clash,27,90400,,,Rejected,Max,Drive,2026-07-23,,Use the winning gameplay from Video 927 with the streamer-style UGC script follo,2026-11-10
+Snake Clash,27,90401,1.52,,Tested,Max,Drive,2026-07-23,,Use the winning gameplay from Video 848 with the streamer-style UGC script follo,2026-11-10
+Snake Clash,27,90402,1.63,,Tested,Max,Drive,2026-07-23,,Use the winning gameplay from Video 882 with the streamer-style UGC script follo,2026-11-10
+Snake Clash,27,90403,1.45,,Tested,Zaid,Drive,2026-07-23,,Hook Snake Merge + Gameplay,2026-11-10
+Snake Clash,27,90404,1.70,,Tested,Zaid,Drive,2026-07-23,,Showcase Hook + Gameplay,2026-11-10
+Snake Clash,27,90405,1.41,,Tested,Zaid,Drive,2026-07-23,,Trick and Tips + UGC + Gameplay,2026-11-10
+Snake Clash,27,90406,1.60,,Tested,Zaid,Drive,2026-07-23,,Tips and Trick Hook + UGC + Gameplay,2026-11-10
+Snake Clash,27,90407,1.59,,Tested,Zaid,Drive,2026-07-23,,AI Hook + Fake UI Game + Gameplay,2026-11-10
+Snake Clash,27,90408,1.61,,Tested,Zaid,Drive,2026-07-23,,Choose Color Hook + Gameplay,2026-11-10
+Snake Clash,27,90409,1.55,,Tested,Zaid,Drive,2026-07-23,,Video 617 + Tiktok Comment,2026-11-10
+Snake Clash,27,90410,1.70,,Tested,Zaid,Drive,2026-07-23,,Video 606 + Tiktok Comment + UGC,2026-11-10
+Snake Clash,27,90411,1.74,,Tested,Zaid,Drive,2026-07-23,,Video 325 + UGC,2026-11-10
+Snake Clash,27,90412,1.48,,Tested,Kurly,Drive,2026-07-22,,Mecha snake Attack + white viper face off,2026-11-10
+Snake Clash,27,90413,1.63,,Tested,Kurly,Drive,2026-07-22,,white viper attack + black viper face off,2026-11-10
+Snake Clash,27,90414,1.68,,Tested,Kurly,Drive,2026-07-22,,Realistic: snake attack + evolve pay offs + fail,2026-11-10
+Snake Clash,27,90415,1.37,,Tested,Kurly,Drive,2026-07-22,,Hook gear up + 90414,2026-11-10
+Snake Clash,27,90416,1.48,,Tested,Kurly,Drive,2026-07-22,,Hook Washington Monument destroyed + 90142,2026-11-10
+Snake Clash,27,90417,1.43,,Tested,Hozler,Drive,2026-07-23,,3D pixar: Boss Slain Snake Progression,2026-11-10
+Snake Clash,27,90418,1.46,,Tested,Hozler,Drive,2026-07-23,,Princess Caress Hook + 90417,2026-11-10
+Snake Clash,27,90419,1.36,,Tested,Hozler,Drive,2026-07-23,,2D side scrolling: Multi-Tier Snake Evolution Progression,2026-11-10
+Snake Clash,27,90420,1.23,,Tested,Hozler,Drive,2026-07-23,,Flying Fire Drake Skill Hook + 90419,2026-11-10
+Snake Clash,27,90421,1.27,,Tested,Hozler,Drive,2026-07-23,,Yin Yang Ultimate Duel Hook + 90419,2026-11-10
+Snake Clash,27,90422,1.48,,Tested,Hozler,Drive,2026-07-23,,Pirate Ship Devour Hook + 90419,2026-11-10
+Snake Clash,28,90423,1.55,,Tested,Max,Drive,2026-07-30,,Playable 40 + Under the Sea + music,2026-11-10
+Snake Clash,28,90424,1.36,,Tested,Max,Drive,2026-07-30,,Playable 40 + Hook + Under the Sea,2026-11-10
+Snake Clash,28,90425,1.42,,Tested,Max,Drive,2026-07-30,,Playable Slingshot + Easter island,2026-11-10
+Snake Clash,28,90426,1.38,,Tested,Max,Drive,2026-07-30,,Playable Slingshot + Hook + Easter island,2026-11-10
+Snake Clash,28,90427,1.58,,Tested,Max,Drive,2026-07-30,,Playable Slingshot + Easter island sand,2026-11-10
+Snake Clash,28,90428,1.64,,Tested,Max,Drive,2026-07-30,,Playable Slingshot + Hook + Easter island sand,2026-11-10
+Snake Clash,28,90429,1.42,,Tested,Max,Drive,2026-07-30,,Playable 13 + Hidden trick + US skin snake,2026-11-10
+Snake Clash,29,90430,1.51,,Tested,Zaid,Drive,2026-08-06,,Fail Hook + UGC Hook + Tips And Trick + Gameplay + UGC,2026-11-10
+Snake Clash,29,90431,1.93,,Tested,Zaid,Drive,2026-08-06,,Win Hook + UGC Hook + Tips And Trick + Gameplay + UGC,2026-11-10
+Snake Clash,29,90432,1.28,,Tested,Zaid,Drive,2026-08-06,,AI hook + Gameplay + UGC,2026-11-10
+Snake Clash,29,90433,1.20,,Tested,Zaid,Drive,2026-08-06,,AI hook + Gameplay + UGC,2026-11-10
+Snake Clash,29,90434,1.35,,Tested,Zaid,Drive,2026-08-06,,UGC Hook + GamePlay + UGC,2026-11-10
+Snake Clash,29,90435,1.33,,Tested,Zaid,Drive,2026-08-06,,AI Hook + Gameplay,2026-11-10
+Snake Clash,29,90436,1.44,,Tested,Zaid,Drive,2026-08-06,,Video 90166 + Hook AI,2026-11-10
+Snake Clash,29,90437,1.83,,Tested,Zaid,Drive,2026-08-06,,Video 643 + UGC Hook + Social Comment,2026-11-10
+Snake Clash,29,90438,1.66,,Tested,Zaid,Drive,2026-08-06,,Video 856 + Social Comment,2026-11-10
+Snake Clash,29,90439,1.83,,Tested,Elvis,Drive,2026-08-06,,creative 605 + avatar streamer,2026-11-10
+Snake Clash,29,90440,1.59,,Tested,Elvis,Drive,2026-08-06,,Playable 032 + fake ui+ugc,2026-11-10
+Snake Clash,29,90441,1.63,,Tested,Elvis,Drive,2026-08-06,,creative 882 + avatar streamer,2026-11-10
+Snake Clash,29,90442,2.13,,Tested,Elvis,Drive,2026-08-06,,creative 847 + avatar streamer,2026-11-10
+Snake Clash,29,90443,1.63,,Tested,Elvis,Drive,2026-08-06,,Playable 013 + fake ui + ugc,2026-11-10
+Snake Clash,29,90444,1.49,,Tested,Elvis,Drive,2026-08-06,,Playable 013 + fake ui + ugc,2026-11-10
+Snake Clash,29,90445,1.32,,Tested,Elvis,Drive,2026-08-06,,Playable 032 + fake ui + voice ugc,2026-11-10
+Snake Clash,29,90446,1.48,,Tested,Elvis,Drive,2026-08-06,,AI UGC Hook + Creative 882,2026-11-10
+Snake Clash,30,90447,1.45,,Tested,Zaid,Drive,2026-08-13,,Head-Only Comeback Playable043,2026-11-10
+Snake Clash,30,90448,1.56,,Tested,Zaid,Drive,2026-08-13,,"Tiny Snake, Boss Killer, Playable043",2026-11-10
+Snake Clash,30,90449,1.56,,Tested,Zaid,Drive,2026-08-13,,Slip Through the Gap,2026-11-10
+Snake Clash,30,90450,1.72,,Tested,Zaid,Drive,2026-08-13,,Hook inspiration 325 x Playable 043,2026-11-10
+Snake Clash,30,90451,1.45,,Tested,Zaid,Drive,2026-08-13,,Video891 + UGC Hook + Social Comment,2026-11-10
+Snake Clash,30,90452,1.63,,Tested,Zaid,Drive,2026-08-13,,Video605 + UGC Hook + Social Comment,2026-11-10
+Snake Clash,30,90453,1.77,,Tested,Zaid,Drive,2026-08-13,,Video026 + FaceCam,2026-11-10
+Snake Clash,30,90454,1.49,,Tested,Zaid,Drive,2026-08-13,,Video885 + AI Hook + UGC,2026-11-10
+Snake Clash,31,90455,,,Rejected,Zaid,Drive,2026-08-20,,Creator visual and AI VO structure / Trick from Video90442 + Body video gameplay,2026-11-10
+Snake Clash,31,90457,1.44,,Tested,Zaid,Drive,2026-08-20,,Apply main concept from Video1008 + New 4 skin (Playable 032),2026-11-10
+Snake Clash,31,90458,1.33,,Tested,Zaid,Drive,2026-08-20,,Rework from intro of Video90304 + Text pop-up + VO + Body (Playable 032),2026-11-10
+Snake Clash,31,90459,1.6,,Tested,Zaid,Drive,2026-08-20,,Video90189 + Joystick,2026-11-10
+Snake Clash,31,90460,1.63,,Tested,Zaid,Drive,2026-08-20,,Video90189 + VO,2026-11-10
+Snake Clash,31,90461,1.52,,Tested,Zaid,Drive,2026-08-20,,Video90189 + Tagline,2026-11-10
+Snake Clash,31,90462,1.74,,Tested,Zaid,Drive,2026-08-20,,Video90189 + Social Comment + Win Hook,2026-11-10
+Snake Clash,32,90463,1.15,,Tested,Zaid,Drive,2026-08-27,,Playable 27 + Realistic Racing Concept + Leaderboard,2026-11-10
+Snake Clash,32,90464,1.18,,Tested,Zaid,Drive,2026-08-27,,Playable 27 + Realistic Racing Concept + Progression,2026-11-10
+Snake Clash,32,90465,1.05,,Tested,Zaid,Drive,2026-08-27,,Pulling Physics AI + Playable 27 + Realistic Racing Concept + Leaderboard,2026-11-10
+Snake Clash,32,90466,1.10,,Tested,Zaid,Drive,2026-08-27,,Pulling Physics AI + Playable 27 + Realistic Racing Concept + Progression,2026-11-10
+Snake Clash,32,90467,1.81,,Tested,Zaid,Drive,2026-08-27,,Video 929 + UGC,2026-11-10
+Snake Clash,32,90468,1.90,,Tested,Zaid,Drive,2026-08-27,,Chasing Hook + Video 929 + UGC,2026-11-10
+Snake Clash,32,90469,1.34,,Tested,Zaid,Drive,2026-08-27,,Video 992 + UGC,2026-11-10
+Snake Clash,32,90470,1.65,,Tested,Zaid,Drive,2026-08-27,,Winning Hook + Video 992 + UGC,2026-11-10
+Snake Clash,33,90471,1.62,,Tested,Zaid,Drive,2026-09-10,,Tagline + Cover Hook Video 256 + Change Skin + Chest + Trigger + Playable 27 (Ch,2026-11-10
+Snake Clash,33,90472,1.52,,Tested,Zaid,Drive,2026-09-10,,Social Comment + Winning Boss Hook + Chest + Change Skin + UGC + Playable 27 (Ch,2026-11-10
+Snake Clash,33,90473,1.83,,Tested,Zaid,Drive,2026-09-10,,Cover Hook Video 325 + Chest + Trigger + Playable 27 (Change Map),2026-11-10
+Snake Clash,33,90474,1.57,,Tested,Zaid,Drive,2026-09-10,,Chest + Trigger + Playable 27 (Change Map),2026-11-10
+Snake Clash,33,90475,1.91,,Tested,Zaid,Drive,2026-09-10,,Boss Chasing Hook + Cover Hook Video 256 + Playable 32 (Change map: Grass),2026-11-10
+Snake Clash,33,90476,1.81,,Tested,Zaid,Drive,2026-09-10,,Boss Chasing Hook + Cover Hook Video 256 + Playable 32 (Change map: Orange),2026-11-10
+Snake Clash,33,90477,1.92,,Tested,Zaid,Drive,2026-09-10,,Video 470 + Boss Chasing Hook + UGC + Rewind,2026-11-10
+Snake Clash,33,90478,1.22,,Tested,Zaid,Drive,2026-09-10,,Streamer + UGC + Playable 34,2026-11-10
+Snake Clash,33,90479,1.53,,Tested,Zaid,Drive,2026-09-10,,Streamer + UGC + Playable 34 (Change Map),2026-11-10
+Snake Clash,33,90480,1.42,,Tested,Zaid,Drive,2026-09-10,,Social Comment + Streamer + UGC + Playable 34 (Change Map),2026-11-10
+Snake Clash,33,90481,2.37,,Tested,Zaid,Drive,2026-09-10,,Video 812 + Winning Boss Hook + Joystick,2026-11-10
+Snake Clash,33,90482,2.02,,Tested,Zaid,Drive,2026-09-10,,Video 812 + Winning Boss Hook + UGC,2026-11-10
+Snake Clash,35,90501,1.7,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Jump Hole ( Enemy ) + Portal + Progression Change Skin +,2026-11-10
+Snake Clash,35,90502,1.81,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Jump Hole Fail + Portal + Progression Change Skin + Boss,2026-11-10
+Snake Clash,35,90503,1.8,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Jump Hole ( Enemy ) + Portal + Progression Change Skin +,2026-11-10
+Snake Clash,35,90504,1.52,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Snake Chasing + Jump Hole ( Enemy )+ Portal + Progressio,2026-11-10
+Snake Clash,35,90505,1.48,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal +  Jump Hole ( No Enemy ) + Snake Chasing + Fail + Rewind ,2026-11-10
+Snake Clash,35,90506,1.87,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Domination Fail Hook + Rewind +Jump Hole ( Enemy ) + Por,2026-11-10
+Snake Clash,35,90507,1.73,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Loose Hook + Jump Hole ( Enemy ) + Portal + Progression ,2026-11-10
+Snake Clash,35,90508,1.67,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Jump Hole ( No Enemy ) + Portal + Progression Change Ski,2026-11-10
+Snake Clash,35,90509,1.93,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Jump Hole ( Enemy ) + Portal + Progression Change Skin +,2026-11-10
+Snake Clash,35,90510,1.49,,Tested,Zaid,Drive,2026-09-24,,Creative/Snake-Portal + Jump Hole ( Enemy ) + Snake Chasing + Portal + Progressi,2026-11-10
+Snake Clash,35,90511,1.98,,Tested,Zaid,Drive,2026-09-24,,Hook Creative/Snake-Portal + Gameplay Playable 32 ( Skin RainBow ),2026-11-10
+Snake Clash,35,90512,1.94,,Tested,Zaid,Drive,2026-09-24,,Hook Creative/Snake-Portal + Gameplay Playable 32 ( Skin Snow ),2026-11-10
+Snake Clash,36,90513,1.77,,Tested,Zaid,Drive,2026-10-01,,Video 1020 + AI hook,2026-11-10
+Snake Clash,36,90514,1.61,,Tested,Zaid,Drive,2026-10-01,,LeaderBoard + Change Feed Fruit + Boss Chasing,2026-11-10
+Snake Clash,36,90515,1.61,,Tested,Zaid,Drive,2026-10-01,,LeaderBoard + Change Feed Fruit + Tips And Trick + UGC,2026-11-10
+Snake Clash,36,90516,1.69,,Tested,Zaid,Drive,2026-10-01,,LeaderBoard + Change Feed Insect + Boss Chasing,2026-11-10
+Snake Clash,36,90517,1.61,,Tested,Zaid,Drive,2026-10-01,,LeaderBoard + Change Feed Insect + Tips And Trick + UGC,2026-11-10
+Snake Clash,36,90518,1.78,,Tested,Zaid,Drive,2026-10-01,,Video 1020 + Play Game In Ipad,2026-11-10
+Snake Clash,36,90519,1.71,,Tested,Zaid,Drive,2026-10-01,,Video 1020 + Reviewer Hook,2026-11-10
+Snake Clash,36,90520,1.86,,Tested,Zaid,Drive,2026-10-01,,Creative Portal + Jump Hole + Hook Dominate + Gameplay,2026-11-10
+Snake Clash,37,90521,1.97,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Gate Requirements + Break The Egg + Mission Open Gate ,2026-11-10
+Snake Clash,37,90522,1.97,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Break The Egg + Mission Open Gate + Evolution + Time L,2026-11-10
+Snake Clash,37,90523,2.02,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Orb Tower + Mission Open Gate + Evolution + Time Limit,2026-11-10
+Snake Clash,37,90524,1.79,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Gate Requirements  + Orb Tower + Mission Open Gate + E,2026-11-10
+Snake Clash,37,90525,1.53,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Gate Requirements  + Orb Tower + Break The Egg + Missi,2026-11-10
+Snake Clash,37,90526,1.91,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Gate Requirements  + Orb Tower + Break The Egg + Missi,2026-11-10
+Snake Clash,37,90527,1.91,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Gate Requirements  + Orb Tower + Break The Egg + Missi,2026-11-10
+Snake Clash,37,90528,2.04,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Gate Requirements  + Orb Tower + Break The Egg + Missi,2026-11-10
+Snake Clash,37,90529,1.56,,Tested,Zaid,Drive,2026-10-08,,Video90527 + UGC,2026-11-10
+Snake Clash,37,90530,1.68,,Tested,Zaid,Drive,2026-10-08,,Video90527+ Hook AI Reviewer ( Man ),2026-11-10
+Snake Clash,37,90531,1.62,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + AI Hook + Change Mechanic Snake Universe ( No Mission ,2026-11-10
+Snake Clash,37,90532,1.88,,Tested,Zaid,Drive,2026-10-08,,Creative/Snake_Universe + Change Mechanic Snake Universe ( No Mission Open Gate ,2026-11-10
+Snake Clash,37,90533,2.17,,Tested,Jay,Drive,2026-10-09,,UGC + Secret cheat mode,2026-11-10
+Snake Clash,37,90534,2.04,,Tested,Jay,Drive,2026-10-09,,Playable 040 + Purple snake skin,2026-11-10
+Snake Clash,38,90535,2.10,,Tested,Zaid,Drive,2026-10-15,,Domination Hook + Combo Text + Progression + Snake Wave + Playable 046,2026-11-10
+Snake Clash,38,90536,2.07,,Tested,Zaid,Drive,2026-10-15,,Level Up Hook + UGC + Evolution + Tips And Tricks + Snake Wave + Combo Text  + P,2026-11-10
+Snake Clash,38,90537,2.03,,Tested,Zaid,Drive,2026-10-15,,Level Up Hook + Chasing Snake + UGC + Facecam + Evolution + Combo Text + Snake W,2026-11-10
+Snake Clash,38,90538,2.17,,Tested,Zaid,Drive,2026-10-15,,Level Up Hook + Combo Text  + Progression + Snake Wave + Playable 046,2026-11-10
+Snake Clash,38,90539,1.79,,Tested,Zaid,Drive,2026-10-15,,"Win Hook ""Boss Fight"" + Domination Hook  + UGC + Tips And Tricks +  Progression ",2026-11-10
+Snake Clash,38,90540,1.86,,Tested,Zaid,Drive,2026-10-15,,AI Hook + Video 1110,2026-11-10
+Snake Clash,38,90541,2.21,,Tested,Zaid,Drive,2026-10-15,,AI Hook + Video 1110,2026-11-10
+Snake Clash,38,90542,2.37,,Tested,Zaid,Drive,2026-10-15,,AI Hook + Video 1110,2026-11-10
+Snake Clash,38,90543,1.78,,Tested,Elvis,Drive,2026-10-15,,Creative Playable LeaderBoard / Insect Feed - Dark Arena - Boss Chase - Revenge,2026-11-10
+Snake Clash,38,90544,1.71,,Tested,Elvis,Drive,2026-10-15,,Creative Playable LeaderBoard / Real Hand iPad Gameplay - Dark Arena - Chill/Hea,2026-11-10
+Snake Clash,38,90545,2.03,,Tested,Elvis,Drive,2026-10-15,,"Win Hook ""Boss Fight"" + Skin Shop - Insect Feed Change",2026-11-10
+Snake Clash,38,90546,1.82,,Tested,Elvis,Drive,2026-10-15,,Creative Playable LeaderBoard / Fruit Feed - Green Arena - Boss Chase - Revenge,2026-11-10
+Snake Clash,38,90547,1.67,,Tested,Elvis,Drive,2026-10-15,,Creative Playable LeaderBoard / Real Hand iPad Gameplay - Fruit Feed - Green Are,2026-11-10
+Snake Clash,38,90548,1.77,,Tested,Elvis,Drive,2026-10-15,,Creative Playable LeaderBoard / AI Hook Snake Tower Collision - Physics Collapse,2026-11-10
+Snake Clash,38,90549,1.93,,Tested,Jay,Drive,2026-10-15,,Lucky spin + Snake purple skin + Playable 040,2026-11-10
+Snake Clash,38,90550,1.75,,Tested,Jay,Drive,2026-10-15,,Select skin -> red lose -> rainbow win -> stage clear,2026-11-10
+Snake Clash,38,90551,2.08,,Tested,Jay,Drive,2026-10-15,,Intro Egg break  + Playable 045,2026-11-10
+Snake Clash,38,90552,2.08,,Tested,Jay,Drive,2026-10-15,,"AI Hook + Playable 042 ""Desert Map""",2026-11-10
+Snake Clash,38,90553,2.04,,Tested,Jay,Drive,2026-10-15,,UGC + Vid 900534,2026-11-10
+Snake Clash,38,90554,2.14,,Tested,Jay,Drive,2026-10-15,,UGC Streamer + Vid 847,2026-11-10
+Snake Clash,39,90555,2.25,,Tested,Zaid,Drive,2026-10-21,,Creative Universe + Explosion Eat FX + Tips And Trick  + Skin Shop + UGC,2026-11-10
+Snake Clash,39,90556,1.61,,Tested,Zaid,Drive,2026-10-21,,Creative Universe + Explosion Eat FX + Tips And Trick ( X3 Faster ) + Rewind + E,2026-11-10
+Snake Clash,39,90557,1.9,,Tested,Zaid,Drive,2026-10-21,,Creative Universe + Explosion Eat FX + Tips And Trick ( New Map ) + Rewind + Evo,2026-11-10
+Snake Clash,39,90558,1.96,,Tested,Zaid,Drive,2026-10-21,,Creative Universe + Explosion Eat FX + No ADS + UGC,2026-11-10
+Snake Clash,39,90559,2.07,,Tested,Zaid,Drive,2026-10-21,,Creative Universe + Explosion Eat FX + Progression,2026-11-10
+Snake Clash,39,90560,1.62,,Tested,Zaid,Drive,2026-10-21,,Creative Universe + Explosion Eat FX + Progression + UGC,2026-11-10
+Snake Clash,39,90561,2.38,,Tested,Jay,Drive,2026-10-21,,Intro boss -> Change camera + Playable 042,2026-11-10
+Snake Clash,39,90562,2.36,,Tested,Jay,Drive,2026-10-21,,Change camera + playable 042,2026-11-10
+Snake Clash,39,90563,1.56,,Tested,Jay,Drive,2026-10-21,,AI Intro + Playable 040,2026-11-10
+Snake Clash,39,90564,1.74,,Tested,Jay,Drive,2026-10-21,,AI Intro + Playable 040,2026-11-10
+Snake Clash,39,90565,2.20,,Tested,Jay,Drive,2026-10-21,,UGC Voice + Vid 408,2026-11-10
+Snake Clash,39,90566,2.09,,Tested,Jay,Drive,2026-10-21,,UGC Streamer + Vid 606,2026-11-10
+Snake Clash,40,90568,2.42,,Tested,Elvis,Drive,2026-10-29,,Creative Playable LeaderBoard / Purple Snake to Snow Snake Transformation Hook -,2026-11-10
+Snake Clash,40,90569,2.32,,Tested,Elvis,Drive,2026-10-29,,Creative Playable LeaderBoard / Purple Snake to Snow Snake Transformation Hook -,2026-11-10
+Snake Clash,40,90570,2.17,,Tested,Elvis,Drive,2026-10-29,,Creative Playable LeaderBoard / Video 90569 - UGC,2026-11-10
+Snake Clash,40,90571,1.99,,Tested,Elvis,Drive,2026-10-29,,Creative Playable LeaderBoard / Video 90210 - Streamer Reaction,2026-11-10
+Snake Clash,40,90572,2.29,,Tested,Elvis,Drive,2026-10-29,,Creative Playable LeaderBoard / Video 1126 - Streamer Reaction,2026-11-10
+Suzy's Restaurant,1,90001,3.46,,Tested,Miko,Drive,2026-07-02,,Gameplay,2026-11-10
+Suzy's Restaurant,1,90002,3.21,,Tested,Miko,Drive,2026-07-02,,Storytelling,2026-11-10
+Suzy's Restaurant,1,90003,3.6,,Tested,Miko,Drive,2026-07-02,,Gameplay,2026-11-10
+Suzy's Restaurant,1,90004,3.09,,Tested,Miko,Drive,2026-07-02,,Gameplay,2026-11-10
+Suzy's Restaurant,1,90005,3.17,,Tested,Miko,Drive,2026-07-02,,Storytelling,2026-11-10
+Suzy's Restaurant,1,90006,3.11,,Tested,Miko,Drive,2026-07-02,,Storytelling,2026-11-10
+Suzy's Restaurant,1,90007,2.63,,Tested,Ruelle,Drive,2026-07-02,,Challenge,2026-11-10
+Suzy's Restaurant,1,90008,3.01,,Tested,Ruelle,Drive,2026-07-02,,Gameplay,2026-11-10
+Suzy's Restaurant,1,90009,2.81,,Tested,Ruelle,Drive,2026-07-02,,Rescue,2026-11-10
+Suzy's Restaurant,1,90010,2.97,,Tested,Ruelle,Drive,2026-07-02,,Gameplay,2026-11-10
+Suzy's Restaurant,1,90011,2.79,,Tested,Ruelle,Drive,2026-07-02,,Storytelling,2026-11-10
+Suzy's Restaurant,1,90012,2.75,,Tested,Ruelle,Drive,2026-07-02,,Rescue,2026-11-10
+Suzy's Restaurant,2,90013,2.88,,Tested,Miko,Drive,2026-07-09,,Storytelling,2026-11-10
+Suzy's Restaurant,2,90014,2.6,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90015,3.1,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90016,3.2,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90017,2.68,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90018,2.99,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90019,3.39,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90020,3.41,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90021,3.08,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90022,3.49,,Tested,Miko,Drive,2026-07-09,,Gameplay,2026-11-10
+Suzy's Restaurant,2,90023,3.14,,Tested,Miko,Drive,2026-07-09,,Storytelling,2026-11-10
+Suzy's Restaurant,3,90024,3.45,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,3,90025,3.42,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,3,90026,3.75,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,3,90027,3.33,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,3,90028,3.24,,Tested,Miko,Drive,2026-07-23,,Storytelling,2026-11-10
+Suzy's Restaurant,3,90029,3.58,,Tested,Miko,Drive,2026-07-23,,Storytelling,2026-11-10
+Suzy's Restaurant,3,90030,3.67,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,3,90031,3.31,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,3,90032,3.46,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,3,90033,3.01,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,3,90034,3.11,,Tested,Miko,Drive,2026-07-23,,Gameplay,2026-11-10
+Suzy's Restaurant,4,90035,3.1,,Tested,Miko,Drive,2026-07-30,,Gameplay,2026-11-10
+Suzy's Restaurant,4,90036,2.41,,Tested,Miko,Drive,2026-07-30,,Gameplay,2026-11-10
+Suzy's Restaurant,4,90037,2.97,,Tested,Miko,Drive,2026-07-30,,Storytelling,2026-11-10
+Suzy's Restaurant,4,90038,2.79,,Tested,Miko,Drive,2026-07-30,,Storytelling,2026-11-10
+Suzy's Restaurant,4,90039,2.93,,Tested,Miko,Drive,2026-07-30,,Storytelling,2026-11-10
+Suzy's Restaurant,4,90040,2.62,,Tested,Miko,Drive,2026-07-30,,Storytelling,2026-11-10
+Suzy's Restaurant,4,90041,2.75,,Tested,Miko,Drive,2026-07-30,,Gameplay,2026-11-10
+Suzy's Restaurant,4,90042,2.66,,Tested,Miko,Drive,2026-07-30,,Gameplay,2026-11-10
+Suzy's Restaurant,4,90043,2.76,,Tested,Miko,Drive,2026-07-30,,Gameplay,2026-11-10
+Suzy's Restaurant,4,90044,3.42,,Tested,Miko,Drive,2026-07-30,,Gameplay,2026-11-10
+Suzy's Restaurant,5,90045,3.73,,Tested,Miko,Drive,2026-08-06,,Challenge,2026-11-10
+Suzy's Restaurant,5,90046,3.54,,Tested,Miko,Drive,2026-08-06,,Challenge,2026-11-10
+Suzy's Restaurant,5,90047,3.99,,Tested,Miko,Drive,2026-08-06,,Gameplay,2026-11-10
+Suzy's Restaurant,5,90048,3.55,,Tested,Miko,Drive,2026-08-06,,Gameplay,2026-11-10
+Suzy's Restaurant,5,90049,3.47,,Tested,Miko,Drive,2026-08-06,,Gameplay,2026-11-10
+Suzy's Restaurant,5,90050,3.57,,Tested,Miko,Drive,2026-08-06,,Storytelling,2026-11-10
+Suzy's Restaurant,5,90051,3.36,,Tested,Miko,Drive,2026-08-06,,Storytelling,2026-11-10
+Suzy's Restaurant,5,90052,3.15,,Tested,Miko,Drive,2026-08-06,,Storytelling,2026-11-10
+Suzy's Restaurant,5,90053,0,,Tested,Miko,Drive,2026-08-06,,Storytelling,2026-11-10
+Suzy's Restaurant,5,90054,3.27,,Tested,Miko,Drive,2026-08-06,,Storytelling,2026-11-10
+Suzy's Restaurant,6,90055,3.13,,Tested,Elvis,Drive,2026-08-13,,Gameplay,2026-11-10
+Suzy's Restaurant,6,90056,3.01,,Tested,Elvis,Drive,2026-08-13,,Gameplay,2026-11-10
+Suzy's Restaurant,6,90057,3.13,,Tested,Elvis,Drive,2026-08-13,,Gameplay,2026-11-10
+Suzy's Restaurant,6,90058,2.98,,Tested,Elvis,Drive,2026-08-13,,Gameplay,2026-11-10
+Suzy's Restaurant,6,90059,3.49,,Tested,Elvis,Drive,2026-08-13,,Gameplay,2026-11-10
+Suzy's Restaurant,6,90060,3.41,,Tested,Elvis,Drive,2026-08-13,,Gameplay,2026-11-10
+Suzy's Restaurant,6,90061,2.93,,Tested,Elvis,Drive,2026-08-13,,Gameplay,2026-11-10
+Suzy's Restaurant,6,90062,2.65,,Tested,Elvis,Drive,2026-08-13,,Gameplay,2026-11-10
+Suzy's Restaurant,7,90063,3.42,,Tested,Elvis,Drive,2026-08-27,,Gameplay,2026-11-10
+Suzy's Restaurant,7,90064,3.34,,Tested,Elvis,Drive,2026-08-27,,Gameplay,2026-11-10
+Suzy's Restaurant,7,90065,3.36,,Tested,Elvis,Drive,2026-08-27,,Gameplay,2026-11-10
+Suzy's Restaurant,7,90066,3.36,,Tested,Elvis,Drive,2026-08-27,,Gameplay,2026-11-10
+Suzy's Restaurant,7,90067,3.61,,Tested,Elvis,Drive,2026-08-27,,Gameplay,2026-11-10
+Suzy's Restaurant,7,90068,3.38,,Tested,Elvis,Drive,2026-08-27,,Gameplay,2026-11-10
+Suzy's Restaurant,7,90069,3.33,,Tested,Elvis,Drive,2026-08-27,,Gameplay,2026-11-10
+Suzy's Restaurant,7,90070,3.9,,Tested,Elvis,Drive,2026-08-27,,Gameplay,2026-11-10
+Suzy's Restaurant,8,90071,3.68,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Perfect ASMR Factory - Pepperoni Pizza,2026-11-10
+Suzy's Restaurant,8,90072,3.95,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Perfect ASMR Factory - Hot Dog,2026-11-10
+Suzy's Restaurant,8,90073,3.44,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Slice Overflow Breaks the Restaurant - Pepperoni Pizza,2026-11-10
+Suzy's Restaurant,8,90074,3.83,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Slice Overflow Breaks the Restaurant - Hot Dog,2026-11-10
+Suzy's Restaurant,8,90075,3.08,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Player Stack Collapse - Pepperoni Pizza,2026-11-10
+Suzy's Restaurant,8,90076,3.58,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Player Stack Collapse - Hot Dog,2026-11-10
+Suzy's Restaurant,8,90077,3.6,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Player Stack Collapse - Pepperoni Pizza + AI intro,2026-11-10
+Suzy's Restaurant,8,90078,3.44,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Perfect ASMR Factory - Hot Dog + AI intro,2026-11-10
+Suzy's Restaurant,8,90079,3.69,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Slice Overflow Breaks the Restaurant - Pepperoni Pizza + ,2026-11-10
+Suzy's Restaurant,8,90080,3.43,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Slice Overflow Breaks the Restaurant - Hot Dog + AI intro,2026-11-10
+Suzy's Restaurant,8,90081,2.97,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Player Stack Collapse - Pepperoni Pizza + AI intro,2026-11-10
+Suzy's Restaurant,8,90082,3.34,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Perfect ASMR Factory - Pepperoni Pizza + AI intro,2026-11-10
+Suzy's Restaurant,8,90083,3.38,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Perfect ASMR Factory - Pepperoni Pizza + AI intro,2026-11-10
+Suzy's Restaurant,8,90084,3.75,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Perfect ASMR Factory - Pepperoni Pizza + AI intro,2026-11-10
+Suzy's Restaurant,8,90085,3.51,,Tested,Elvis,Drive,2026-09-10,,Creative SuzyCutting / Perfect ASMR Factory - Pepperoni Pizza + AI intro,2026-11-10
+XP Hero,1,90001,1.94,,Tested,Hozler,Drive,2026-01-16,,,2026-11-10
+XP Hero,1,90002,1.92,,Tested,Hozler,Drive,2026-01-16,,,2026-11-10
+XP Hero,1,90003,2.01,,Tested,Ellie,Drive,2026-01-15,,,2026-11-10
+XP Hero,1,90004,1.97,,Tested,Hozler,Drive,2026-01-19,,,2026-11-10
+XP Hero,1,90005,1.93,,Tested,Ellie,Drive,2026-01-19,,,2026-11-10
+XP Hero,1,90006,1.89,,Tested,Hozler,Drive,2026-01-20,,,2026-11-10
+XP Hero,1,90007,2.44,,Tested,Ellie,Drive,2026-01-20,Unity AOS WW,,2026-11-10
+XP Hero,1,90008,2.01,,Tested,Hozler,Drive,2026-01-20,,,2026-11-10
+XP Hero,1,90009,2.30,,Tested,Ellie,Drive,2026-01-21,,,2026-11-10
+XP Hero,1,90010,1.88,,Tested,Hozler,Drive,2026-01-21,,,2026-11-10
+XP Hero,1,90011,2.29,,Tested,Ellie,Drive,2026-01-21,,,2026-11-10
+XP Hero,1,90012,,,Rejected,Hozler,Drive,2026-01-22,,,2026-11-10
+XP Hero,1,90013,1.99,,Tested,Ellie,Drive,2026-01-22,,,2026-11-10
+XP Hero,1,90014,,,Rejected,Hozler,Drive,2026-01-23,,,2026-11-10
+XP Hero,1,90015,2.12,,Tested,Ellie,Drive,2026-01-23,,,2026-11-10
+XP Hero,1,90016,1.89,,Tested,Hozler,Drive,2026-01-23,Facebook,,2026-11-10
+XP Hero,2,90017,2.14,1.09,Tested,Hozler,Drive,2026-02-04,,,2026-11-10
+XP Hero,2,90018,1.95,1.06,Tested,Hozler,Drive,2026-02-04,,,2026-11-10
+XP Hero,2,90019,2.11,1.09,Tested,Hozler,Drive,2026-02-04,,,2026-11-10
+XP Hero,2,90020,2.20,1.01,Tested,Hozler,Drive,2026-02-05,,,2026-11-10
+XP Hero,2,90021,2.31,1.22,Tested,Hozler,Drive,2026-02-05,,,2026-11-10
+XP Hero,2,90022,2.41,1.06,Tested,Hozler,Drive,2026-02-06,Unity AOS WW,,2026-11-10
+XP Hero,2,90023,2.05,1.25,Tested,Ellie,Drive,2026-02-04,Unity iOS WW,,2026-11-10
+XP Hero,2,90024,2.22,1.25,Tested,Ellie,Drive,2026-02-04,,,2026-11-10
+XP Hero,2,90025,1.98,1.10,Tested,Ellie,Drive,2026-02-04,,,2026-11-10
+XP Hero,2,90026,2.24,1.10,Tested,Ellie,Drive,2026-02-05,,,2026-11-10
+XP Hero,2,90027,2.29,0.93,Tested,Ellie,Drive,2026-02-05,,,2026-11-10
+XP Hero,2,90028,,1.06,Not tested,Ellie,Drive,2026-02-05,,,2026-11-10
+XP Hero,3,90029,2.13,,Tested,Hozler,Drive,2026-02-25,,,2026-11-10
+XP Hero,3,90030,2.18,,Tested,Hozler,Drive,2026-02-25,,,2026-11-10
+XP Hero,3,90031,2.53,,Tested,Hozler,Drive,2026-02-26,,,2026-11-10
+XP Hero,3,90032,2.51,,Tested,Hozler,Drive,2026-02-26,,,2026-11-10
+XP Hero,3,90033,2.35,,Tested,Hozler,Drive,2026-02-27,,,2026-11-10
+XP Hero,3,90034,2.30,,Tested,Ellie,Drive,2026-02-26,,,2026-11-10
+XP Hero,3,90035,2.54,,Tested,Ellie,Drive,2026-02-26,,,2026-11-10
+XP Hero,3,90036,2.58,,Tested,Ellie,Drive,2026-02-26,Unity AOS WW,,2026-11-10
+XP Hero,3,90037,2.55,,Tested,Ellie,Drive,2026-02-27,,,2026-11-10
+XP Hero,3,90038,2.51,,Tested,Ellie,Drive,2026-02-27,,,2026-11-10
+XP Hero,5,90049,1.75,,Tested,Hozler,Drive,2026-04-02,,,2026-11-10
+XP Hero,5,90050,,,Rejected,Hozler,Drive,2026-04-02,,,2026-11-10
+XP Hero,5,90051,1.73,,Tested,Hozler,Drive,2026-04-02,,,2026-11-10
+XP Hero,5,90052,1.81,,Tested,Hozler,Drive,2026-04-02,,,2026-11-10
+XP Hero,5,90053,,,Rejected,Hozler,Drive,2026-04-02,,,2026-11-10
+XP Hero,5,90054,2.15,,Tested,Ellie,Drive,2026-04-01,,,2026-11-10
+XP Hero,5,90055,2.17,,Tested,Ellie,Drive,2026-03-30,,,2026-11-10
+XP Hero,5,90056,2.20,,Tested,Ellie,Drive,2026-03-30,,,2026-11-10
+XP Hero,5,90057,1.88,,Tested,Ellie,Drive,2026-04-02,,,2026-11-10
+XP Hero,5,90058,1.95,,Tested,Ellie,Drive,2026-04-02,,,2026-11-10
+XP Hero,5,90059,1.88,,Tested,Kurly,Drive,2026-03-30,,,2026-11-10
+XP Hero,5,90060,2.37,,Tested,Kurly,Drive,2026-03-01,Unity AOS WW,,2026-11-10
+XP Hero,5,90061,2.04,,Tested,Kurly,Drive,2026-04-01,,,2026-11-10
+XP Hero,5,90062,1.79,,Tested,Kurly,Drive,2026-04-01,,,2026-11-10
+XP Hero,5,90063,1.87,,Tested,Kurly,Drive,2026-04-01,,,2026-11-10
+XP Hero,6,90064,2.11,,Tested,Thiago,Drive,2026-04-09,Unity AOS WW,Fail to Boss Fight,2026-11-10
+XP Hero,6,90065,2.01,,Tested,Thiago,Drive,2026-04-09,,New Hook + 90064 (Boss fight - Traning to better every chapter),2026-11-10
+XP Hero,6,90066,2.01,,Tested,Elliot,Drive,2026-04-09,,Realistic,2026-11-10
+XP Hero,6,90067,2.07,,Tested,Elliot,Drive,2026-04-09,,Climax hook + 90066,2026-11-10
+XP Hero,7,90068,4.19,,Tested,Pax,Drive,2026-04-15,,3D cinematic action hook,2026-11-10
+XP Hero,7,90069,4.17,,Tested,Pax,Drive,2026-04-16,,Upgrade transformation,2026-11-10
+XP Hero,8,90070,3.09,,Tested,Ellie,Drive,2026-04-23,,Fight in train,2026-11-10
+XP Hero,8,90071,2.84,,Tested,Ellie,Drive,2026-04-23,,Flee & Fight in horde,2026-11-10
+XP Hero,8,90072,3.29,,Tested,Ellie,Drive,2026-04-23,,90070 + new hook,2026-11-10
+XP Hero,8,90073,3.58,,Tested,Ellie,Drive,2026-04-23,,90070 + new hook,2026-11-10
+XP Hero,8,90074,3.25,,Tested,Ellie,Drive,2026-04-23,,90071 + new hook,2026-11-10
+XP Hero,9,90075,2.96,,Tested,Kurly,Drive,2026-04-28,,AAA gameplay + defeat,2026-11-10
+XP Hero,9,90076,2.77,,Tested,Kurly,Drive,2026-04-28,,AAA gameplay + win,2026-11-10
+XP Hero,9,90077,2.87,,Tested,Kurly,Drive,2026-04-28,,Hook face boss + 90075,2026-11-10
+XP Hero,9,90078,2.60,,Tested,Elliot,Drive,2026-04-29,,8-bit,2026-11-10
+XP Hero,9,90079,2.75,,Tested,Elliot,Drive,2026-04-29,,90078 + voice over,2026-11-10
+XP Hero,9,90080,2.61,,Tested,Elliot,Drive,2026-04-29,,90079 + new hook,2026-11-10
+XP Hero,10,90081,3.07,,Tested,Thiago,Drive,2026-05-07,,Skyfall Train Survival,2026-11-10
+XP Hero,10,90082,2.87,,Tested,Thiago,Drive,2026-05-07,,Sky Drop Train Hook,2026-11-10
+XP Hero,10,90083,2.87,,Tested,Thiago,Drive,2026-05-07,,Defeat Comeback Journey,2026-11-10
+XP Hero,10,90084,3.10,,Tested,Thiago,Drive,2026-05-07,,Progress Bar Evolution,2026-11-10
+XP Hero,10,90085,2.77,,Tested,Thiago,Drive,2026-05-07,,Army March Evolution,2026-11-10
+XP Hero,10,90086,2.97,,Tested,Thiago,Drive,2026-05-07,,Cliff Fall Evolution,2026-11-10
+XP Hero,10,90087,3.05,,Tested,Hozler,Drive,2026-05-07,,Selection Progression,2026-11-10
+XP Hero,10,90088,2.81,,Tested,Hozler,Drive,2026-05-07,,Interactive Lock Hook,2026-11-10
+XP Hero,10,90089,2.81,,Tested,Hozler,Drive,2026-05-07,,Narrative Summon Hook + 90087,2026-11-10
+XP Hero,10,90090,3.60,,Tested,Hozler,Drive,2026-05-07,,Side-Scrolling Evolution 2D Game,2026-11-10
+XP Hero,10,90091,2.91,,Tested,Hozler,Drive,2026-05-07,,Supreme Beast Hook + 90090,2026-11-10
+XP Hero,11,90092,3.03,,Tested,Elliot,Drive,2026-05-14,,3D Isometric,2026-11-10
+XP Hero,11,90093,3.20,,Tested,Elliot,Drive,2026-05-14,,Realistic,2026-11-10
+XP Hero,11,90094,2.99,,Tested,Elliot,Drive,2026-05-14,,3D Isometric,2026-11-10
+XP Hero,11,90095,3.05,,Tested,Elliot,Drive,2026-05-14,,3D Isometric,2026-11-10
+XP Hero,11,90096,3.06,,Tested,Elliot,Drive,2026-05-14,,Realistic,2026-11-10
+XP Hero,11,90097,2.83,,Tested,Pax,Drive,2026-05-14,,Start game -> customize screen -> in-game screen -> survival defense -> upgrade ,2026-11-10
+XP Hero,11,90098,2.80,,Tested,Pax,Drive,2026-05-14,,Start game -> customize screen -> in-game screen -> survival defense -> upgrade ,2026-11-10
+XP Hero,11,90099,2.96,,Tested,Pax,Drive,2026-05-14,,Noob vs Pro split-screen survival comparison,2026-11-10
+XP Hero,11,90100,2.75,,Tested,Pax,Drive,2026-05-14,,3rd-person POV survival defense build loop,2026-11-10
+XP Hero,11,90101,2.93,,Tested,Pax,Drive,2026-05-14,,3rd-person POV survival defense build loop + UI,2026-11-10
+XP Hero,12,90102,2.80,,Tested,Ellie,Drive,2026-05-21,,AI 428 + new hook,2026-11-10
+XP Hero,12,90103,2.72,,Tested,Ellie,Drive,2026-05-21,,AI 428 + new hook,2026-11-10
+XP Hero,12,90104,2.38,,Tested,Ellie,Drive,2026-05-21,,demonstrating strength,2026-11-10
+XP Hero,12,90105,2.63,,Tested,Ellie,Drive,2026-05-21,,fighting on the train,2026-11-10
+XP Hero,12,90106,2.73,,Tested,Ellie,Drive,2026-05-21,,90105 + new hook,2026-11-10
+XP Hero,12,90107,2.68,,Tested,Hozler,Drive,2026-05-21,,Jump Scare Hook + Progression,2026-11-10
+XP Hero,12,90108,2.74,,Tested,Hozler,Drive,2026-05-21,,Progression,2026-11-10
+XP Hero,12,90109,2.67,,Tested,Hozler,Drive,2026-05-21,,Thunder Awakening Hook + 90107,2026-11-10
+XP Hero,12,90110,2.60,,Tested,Hozler,Drive,2026-05-21,,Level Evolution,2026-11-10
+XP Hero,12,90111,2.62,,Tested,Hozler,Drive,2026-05-21,,Gacha Card Summon Hook,2026-11-10
+XP Hero,12,90112,,,Rejected,Hozler,Drive,2026-05-21,,Mage Choice Hook + 90110,2026-11-10
+XP Hero,13,90113,2.49,,Tested,Thiago,Drive,2026-05-28,,UGC Rap Gameplay Flow,2026-11-10
+XP Hero,13,90114,2.69,,Tested,Thiago,Drive,2026-05-28,,XP Hero Update Gameplay,2026-11-10
+XP Hero,13,90115,2.41,,Tested,Thiago,Drive,2026-05-28,,Airport Taxi UGC Hook,2026-11-10
+XP Hero,13,90116,2.55,,Tested,Thiago,Drive,2026-05-28,,Taxi Hook + Rap Version,2026-11-10
+XP Hero,13,90117,2.65,,Tested,Thiago,Drive,2026-05-28,,Buried Hero Comeback,2026-11-10
+XP Hero,13,90118,2.39,,Tested,Thiago,Drive,2026-05-28,,New Hook + Buried Hero,2026-11-10
+XP Hero,13,90119,2.68,,Tested,Thiago,Drive,2026-05-28,,Alt Hook + Buried Hero,2026-11-10
+XP Hero,13,90120,2.26,,Tested,Thiago,Drive,2026-05-28,,Real Playable Pixel RPG,2026-11-10
+XP Hero,13,90121,2.46,,Tested,Thiago,Drive,2026-05-28,,End Music Variation,2026-11-10
+XP Hero,13,90122,2.32,,Tested,Kurly,Drive,2026-05-28,,Dark theme Fake gameplay,2026-11-10
+XP Hero,13,90123,2.34,,Tested,Kurly,Drive,2026-05-28,,Dark theme Fake gameplay,2026-11-10
+XP Hero,13,90124,2.62,,Tested,Kurly,Drive,2026-05-28,,Dark theme Fake gameplay,2026-11-10
+XP Hero,13,90125,2.58,,Tested,Kurly,Drive,2026-05-28,,Barbershop,2026-11-10
+XP Hero,14,90126,3.13,,Tested,Elliot,Drive,2026-06-04,,3D,2026-11-10
+XP Hero,14,90127,2.99,,Tested,Elliot,Drive,2026-06-04,,8 bit,2026-11-10
+XP Hero,14,90128,3.05,,Tested,Elliot,Drive,2026-06-04,,3D,2026-11-10
+XP Hero,14,90129,2.85,,Tested,Elliot,Drive,2026-06-04,,8 bit,2026-11-10
+XP Hero,14,90130,2.51,,Tested,Elliot,Drive,2026-06-04,,8 bit,2026-11-10
+XP Hero,14,90131,2.82,,Tested,Ellie,Drive,2026-06-04,,dungeon pixel,2026-11-10
+XP Hero,14,90132,2.99,,Tested,Ellie,Drive,2026-06-04,,dungeon pixel,2026-11-10
+XP Hero,14,90133,3.15,,Tested,Ellie,Drive,2026-06-04,,Monster hunting -> Upgrade,2026-11-10
+XP Hero,14,90134,2.92,,Tested,Ellie,Drive,2026-06-04,,upgrades on trains,2026-11-10
+XP Hero,14,90135,3.55,,Tested,Ellie,Drive,2026-06-04,,upgrades on trains,2026-11-10
+XP Hero,15,90136,2.85,,Tested,Kurly,Drive,2026-06-11,,,2026-11-10
+XP Hero,15,90137,2.91,,Tested,Kurly,Drive,2026-06-11,,,2026-11-10
+XP Hero,15,90138,3.36,,Tested,Kurly,Drive,2026-06-11,,,2026-11-10
+XP Hero,15,90139,3.32,,Tested,Kurly,Drive,2026-06-11,,,2026-11-10
+XP Hero,15,90140,3,,Tested,Kurly,Drive,2026-06-11,,,2026-11-10
+XP Hero,15,90141,3.02,,Tested,Pax,Drive,2026-06-11,,Fast Monster Fight + Sword Upgrade + Boss Win,2026-11-10
+XP Hero,15,90142,2.90,,Tested,Pax,Drive,2026-06-11,,Changed Hook + Monster Fight + Boss Lose,2026-11-10
+XP Hero,15,90143,2.86,,Tested,Pax,Drive,2026-06-11,,Monster Tower Boss Rush + Weapon Upgrade,2026-11-10
+XP Hero,15,90144,2.96,,Tested,Pax,Drive,2026-06-11,,Fail First + Upgrade Comeback + Boss Challenge,2026-11-10
+XP Hero,15,90145,3.08,,Tested,Pax,Drive,2026-06-11,,First-Person Pixel RPG + Sword & Companion Choice,2026-11-10
+XP Hero,16,90147,2.61,,Tested,Thiago,Drive,2026-06-18,,Bridge World Progression,2026-11-10
+XP Hero,16,90148,2.75,,Tested,Thiago,Drive,2026-06-18,,Town Attack Gameplay Baseline,2026-11-10
+XP Hero,16,90149,2.97,,Tested,Thiago,Drive,2026-06-18,,Town Attack New Outro,2026-11-10
+XP Hero,16,90150,2.50,,Tested,Thiago,Drive,2026-06-18,,Train Return / Town Attack Hook,2026-11-10
+XP Hero,16,90151,2.49,,Tested,Thiago,Drive,2026-06-18,,Wolf Chase Train Upgrade,2026-11-10
+XP Hero,16,90152,2.94,,Tested,Thiago,Drive,2026-06-18,,Ridge Chase Hook,2026-11-10
+XP Hero,16,90153,2.62,,Tested,Thiago,Drive,2026-06-18,,UGC Wolf Chase Version,2026-11-10
+XP Hero,16,90154,3,,Tested,Hozler,Drive,2026-06-18,,3D top-down,2026-11-10
+XP Hero,16,90155,2.71,,Tested,Hozler,Drive,2026-06-18,,3D top-down,2026-11-10
+XP Hero,16,90156,2.99,,Tested,Hozler,Drive,2026-06-18,,3D top-down,2026-11-10
+XP Hero,16,90157,3.01,,Tested,Hozler,Drive,2026-06-18,,3D cinematic,2026-11-10
+XP Hero,16,90158,2.67,,Tested,Hozler,Drive,2026-06-18,,2D Retro,2026-11-10
+XP Hero,16,90159,2.73,,Tested,Hozler,Drive,2026-06-18,,2D Retro,2026-11-10
+XP Hero,16,90160,2.99,,Tested,Hozler,Drive,2026-06-18,,2D Retro,2026-11-10
+XP Hero,17,90161,3.02,,Tested,Pax,Drive,2026-06-25,,,2026-11-10
+XP Hero,17,90162,3.01,,Tested,Pax,Drive,2026-06-25,,,2026-11-10
+XP Hero,17,90163,2.93,,Tested,Pax,Drive,2026-06-25,,,2026-11-10
+XP Hero,17,90164,3.10,,Tested,Pax,Drive,2026-06-25,,,2026-11-10
+XP Hero,17,90165,3.29,,Tested,Pax,Drive,2026-06-25,,,2026-11-10
+XP Hero,17,90166,3.11,,Tested,Elliot,Drive,2026-06-25,,3D,2026-11-10
+XP Hero,17,90167,2.83,,Tested,Elliot,Drive,2026-06-25,,8 bit,2026-11-10
+XP Hero,17,90168,2.73,,Tested,Elliot,Drive,2026-06-25,,8 bit,2026-11-10
+XP Hero,17,90169,2.99,,Tested,Elliot,Drive,2026-06-25,,3D,2026-11-10
+XP Hero,17,90170,3.01,,Tested,Elliot,Drive,2026-06-25,,3D,2026-11-10
+XP Hero,18,90171,,,Rejected,Kurly,Drive,2026-06-29,,,2026-11-10
+XP Hero,18,90172,2.82,,Tested,Kurly,Drive,2026-07-02,,,2026-11-10
+XP Hero,18,90173,3.04,,Tested,Kurly,Drive,2026-07-02,,,2026-11-10
+XP Hero,18,90174,2.77,,Tested,Kurly,Drive,2026-07-02,,,2026-11-10
+XP Hero,18,90175,,,Rejected,Kurly,Drive,2026-07-02,,,2026-11-10
+XP Hero,18,90176,2.23,,Tested,Kurly,Drive,2026-07-02,,,2026-11-10
+XP Hero,18,90177,3.11,,Tested,Yuna,Drive,2026-07-02,,,2026-11-10
+XP Hero,18,90178,2.89,,Tested,Yuna,Drive,2026-07-02,,,2026-11-10
+XP Hero,18,90179,2.97,,Tested,Yuna,Drive,2026-07-02,,,2026-11-10
+XP Hero,18,90180,2.66,,Tested,Max,Drive,2026-07-02,,ReadIt,2026-11-10
+XP Hero,18,90181,2.81,,Tested,Max,Drive,2026-07-02,,Catfish,2026-11-10
+XP Hero,18,90182,2.60,,Tested,Max,Drive,2026-07-02,,Help the Chickens,2026-11-10
+XP Hero,18,90183,2.77,,Tested,Max,Drive,2026-07-02,,The Fallen Hero,2026-11-10
+XP Hero,18,90184,2.86,,Tested,Max,Drive,2026-07-02,,Fortress Rush,2026-11-10
+XP Hero,18,90185,2.85,,Tested,Max,Drive,2026-07-02,,The Last Titan,2026-11-10
+XP Hero,18,90186,3.19,,Tested,Max,Drive,2026-07-02,,Fallen + Catfish Gameplay,2026-11-10
+XP Hero,19,90187,2.87,,Tested,Elliot,Drive,2026-07-09,,3D,2026-11-10
+XP Hero,19,90188,2.44,,Tested,Elliot,Drive,2026-07-09,,3D,2026-11-10
+XP Hero,19,90189,3.06,,Tested,Elliot,Drive,2026-07-09,,3D,2026-11-10
+XP Hero,19,90190,,,Rejected,Elliot,Drive,2026-07-09,,3D,2026-11-10
+XP Hero,19,90191,3.35,,Tested,Elliot,Drive,2026-07-09,,UGC,2026-11-10
+XP Hero,19,90192,2.94,,Tested,Ellie,Drive,2026-07-09,,,2026-11-10
+XP Hero,19,90193,2.97,,Tested,Ellie,Drive,2026-07-09,,,2026-11-10
+XP Hero,19,90194,2.80,,Tested,Ellie,Drive,2026-07-09,,,2026-11-10
+XP Hero,19,90195,2.59,,Tested,Ellie,Drive,2026-07-09,,,2026-11-10
+XP Hero,19,90196,2.31,,Tested,Ellie,Drive,2026-07-09,,,2026-11-10
+XP Hero,19,90197,2.54,,Tested,Ruelle,Drive,2026-07-09,,Secret Class Unlock,2026-11-10
+XP Hero,19,90198,2.72,,Tested,Ruelle,Drive,2026-07-09,,Gameplay,2026-11-10
+XP Hero,19,90199,2.53,,Tested,Ruelle,Drive,2026-07-09,,Gameplay,2026-11-10
+XP Hero,19,90200,2.23,,Tested,Ruelle,Drive,2026-07-09,,No Ads & No Wifi,2026-11-10
+XP Hero,19,90201,2.31,,Tested,Ruelle,Drive,2026-07-09,,No Ads,2026-11-10
+XP Hero,19,90202,2.66,,Tested,Ruelle,Drive,2026-07-09,,Gameplay,2026-11-10
+XP Hero,19,90203,2.13,,Tested,Ruelle,Drive,2026-07-09,,Gameplay,2026-11-10
+XP Hero,19,90204,3.36,,Tested,Ruelle,Drive,2026-07-09,,Iteration,2026-11-10
+XP Hero,19,90205,2.94,,Tested,Ruelle,Drive,2026-07-09,,Iteration,2026-11-10
+XP Hero,19,90206,2.57,,Tested,Ruelle,Drive,2026-07-09,,Iteration,2026-11-10
+XP Hero,19,90207,2.82,,Tested,Ruelle,Drive,2026-07-09,,Iteration,2026-11-10
+XP Hero,20,90208,2.29,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90209,2.37,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90210,2.25,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90211,2.30,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90212,2.27,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90213,2.66,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90214,2.89,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90215,2.20,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90216,2.90,,Tested,Quinne,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90217,2.49,,Tested,Max,Drive,2026-07-16,,"Inspired by State of Survival. Showcase the completed XP Hero settlement, zoom i",2026-11-10
+XP Hero,20,90218,2.56,,Tested,Max,Drive,2026-07-16,,"Inspired by Hero Wars. The hero is betrayed and thrown off a cliff, then starts ",2026-11-10
+XP Hero,20,90219,2.43,,Tested,Max,Drive,2026-07-16,,Inspired by the viral Playing for X Days format. Show the player's transformatio,2026-11-10
+XP Hero,20,90220,2.49,,Tested,Max,Drive,2026-07-16,,"A giant dragon attacks the player's base before transitioning into Playable 017,",2026-11-10
+XP Hero,20,90221,2.46,,Tested,Max,Drive,2026-07-16,,"Start with a hero-focused hook (hero selection, squad assembly), then transition",2026-11-10
+XP Hero,20,90222,2.58,,Tested,Max,Drive,2026-07-16,,Iterates on Video 428 by adding animated UI graphics during the first 5 seconds ,2026-11-10
+XP Hero,20,90223,3.43,,Tested,Max,Drive,2026-07-16,,"Iterates on Video 692 by adding a weapon equip button at the beginning, allowing",2026-11-10
+XP Hero,20,90224,2.54,,Tested,Max,Drive,2026-07-16,,"Iterates on Video 328 by adding a bold ""No Ads"" button and UI overlay during the",2026-11-10
+XP Hero,20,90225,2.75,,Tested,Max,Drive,2026-07-16,,"Iterates on Video 650 by adding a streamer-style voice-over without a face-cam, ",2026-11-10
+XP Hero,20,90226,2.76,,Tested,Elvis,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90227,2.68,,Tested,Elvis,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90228,2.68,,Tested,Elvis,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90229,2.22,,Tested,Elvis,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90230,2.08,,Tested,Elvis,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90231,2.56,,Tested,Elvis,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90232,2.68,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90233,2.49,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90234,2.72,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90235,2.36,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90236,2.37,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90237,2.40,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90238,2.31,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90239,2.65,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90240,2.36,,Tested,Hozler,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90241,2.76,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90242,2.64,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90243,2.55,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90244,2.64,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90245,2.44,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90246,2.11,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90247,2.61,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90248,2.69,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90249,2.77,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90250,3.03,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,20,90251,2.79,,Tested,Pax,Drive,2026-07-16,,,2026-11-10
+XP Hero,21,90252,3.19,,Tested,Thiago,Drive,2026-07-23,,Moving Crocodile Upgrade Hook,2026-11-10
+XP Hero,21,90253,3.02,,Tested,Thiago,Drive,2026-07-23,,Crocodile Tail Cutting Hook,2026-11-10
+XP Hero,21,90254,3.05,,Tested,Thiago,Drive,2026-07-23,,Crocodile pulley progression,2026-11-10
+XP Hero,21,90255,3.05,,Tested,Thiago,Drive,2026-07-23,,Crocodile toothbrush hook + 90254.,2026-11-10
+XP Hero,21,90256,2.84,,Tested,Thiago,Drive,2026-07-23,,Gacha V1 showcase hook + in-game loop.,2026-11-10
+XP Hero,21,90257,2.33,,Tested,Thiago,Drive,2026-07-23,,Gacha V1 intro + pattern video.,2026-11-10
+XP Hero,21,90258,2.28,,Tested,Thiago,Drive,2026-07-23,,Gacha V2 showcase hook + in-game loop.,2026-11-10
+XP Hero,21,90259,2.22,,Tested,Thiago,Drive,2026-07-23,,Gacha V2 intro + pattern video.,2026-11-10
+XP Hero,21,90260,2.98,,Tested,Elliot,Drive,2026-07-23,,2D,2026-11-10
+XP Hero,21,90261,2.86,,Tested,Elliot,Drive,2026-07-23,,3D,2026-11-10
+XP Hero,21,90262,2.99,,Tested,Elliot,Drive,2026-07-23,,3D,2026-11-10
+XP Hero,21,90263,2.49,,Tested,Elliot,Drive,2026-07-23,,2D,2026-11-10
+XP Hero,21,90264,3.07,,Tested,Elliot,Drive,2026-07-23,,3D,2026-11-10
+XP Hero,22,90265,2.35,,Tested,Ruelle,Drive,2026-07-30,,Gameplay,2026-11-10
+XP Hero,22,90266,2.74,,Tested,Ruelle,Drive,2026-07-30,,Gameplay,2026-11-10
+XP Hero,22,90267,2.55,,Tested,Ruelle,Drive,2026-07-30,,NO ADS,2026-11-10
+XP Hero,22,90268,1.90,,Tested,Ruelle,Drive,2026-07-30,,UGC,2026-11-10
+XP Hero,22,90269,2.27,,Tested,Ruelle,Drive,2026-07-30,,Gameplay,2026-11-10
+XP Hero,22,90270,2.48,,Tested,Ruelle,Drive,2026-07-30,,UGC,2026-11-10
+XP Hero,22,90271,2.32,,Tested,Ruelle,Drive,2026-07-30,,Gameplay,2026-11-10
+XP Hero,22,90272,2.90,,Tested,Ruelle,Drive,2026-07-30,,Creative 692 Iteration,2026-11-10
+XP Hero,22,90273,2.82,,Tested,Ruelle,Drive,2026-07-30,,Creative 692 Iteration,2026-11-10
+XP Hero,22,90274,2.55,,Tested,Ruelle,Drive,2026-07-30,,Creative 328 Iteration,2026-11-10
+XP Hero,22,90275,2.59,,Tested,Ruelle,Drive,2026-07-30,,Creative 685 Iteration,2026-11-10
+XP Hero,22,90276,2.07,,Tested,Yuna,Drive,2026-07-30,,,2026-11-10
+XP Hero,22,90277,2.21,,Tested,Yuna,Drive,2026-07-30,,,2026-11-10
+XP Hero,22,90278,1.97,,Tested,Yuna,Drive,2026-07-30,,,2026-11-10
+XP Hero,22,90279,2.28,,Tested,Yuna,Drive,2026-07-30,,,2026-11-10
+XP Hero,22,90280,1.98,,Tested,Yuna,Drive,2026-07-30,,,2026-11-10
+XP Hero,23,90281,2.16,,Tested,Yuna,Drive,2026-08-06,,,2026-11-10
+XP Hero,23,90282,2.47,,Tested,Yuna,Drive,2026-08-06,,,2026-11-10
+XP Hero,23,90283,2.68,,Tested,Yuna,Drive,2026-08-06,,,2026-11-10
+XP Hero,23,90284,2.05,,Tested,Yuna,Drive,2026-08-06,,,2026-11-10
+XP Hero,23,90285,2.45,,Tested,Yuna,Drive,2026-08-06,,,2026-11-10
+XP Hero,23,90286,2.62,,Tested,Yuna,Drive,2026-08-06,,,2026-11-10
+XP Hero,23,90287,2.75,,Tested,Ruelle,Drive,2026-08-06,,PvE,2026-11-10
+XP Hero,23,90288,2.46,,Tested,Ruelle,Drive,2026-08-06,,Collect,2026-11-10
+XP Hero,23,90289,2.46,,Tested,Ruelle,Drive,2026-08-06,,Tutorial,2026-11-10
+XP Hero,23,90290,2.56,,Tested,Ruelle,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90291,2.47,,Tested,Ruelle,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90292,2.53,,Tested,Ruelle,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90293,2.86,,Tested,Ruelle,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90294,3.11,,Tested,Ruelle,Drive,2026-08-06,,Creative 692 Iteration,2026-11-10
+XP Hero,23,90295,2.95,,Tested,Ruelle,Drive,2026-08-06,,Creative 692 Iteration,2026-11-10
+XP Hero,23,90296,,,Rejected,Ruelle,Drive,2026-08-06,,Creative 741 Iteration,2026-11-10
+XP Hero,23,90297,2.36,,Tested,Quinne,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90298,2.34,,Tested,Quinne,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90299,2.20,,Tested,Quinne,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90300,2.31,,Tested,Quinne,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90301,2.55,,Tested,Quinne,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90302,2.23,,Tested,Quinne,Drive,2026-08-06,,Gameplay,2026-11-10
+XP Hero,23,90303,2.89,,Tested,Quinne,Drive,2026-08-06,,Creative 741 Iteration,2026-11-10
+XP Hero,23,90304,2.90,,Tested,Quinne,Drive,2026-08-06,,Creative 741 Iteration,2026-11-10
+XP Hero,23,90305,2.89,,Tested,Quinne,Drive,2026-08-06,,Creative 741 Iteration,2026-11-10
+XP Hero,24,90306,2.34,,Tested,Ruelle,Drive,2026-08-13,,Gameplay,2026-11-10
+XP Hero,24,90307,2.51,,Tested,Ruelle,Drive,2026-08-13,,NO ADS,2026-11-10
+XP Hero,24,90308,2.50,,Tested,Ruelle,Drive,2026-08-13,,Gameplay,2026-11-10
+XP Hero,24,90309,,,Rejected,Ruelle,Drive,2026-08-13,,Rescue,2026-11-10
+XP Hero,24,90310,2.57,,Tested,Ruelle,Drive,2026-08-13,,Gameplay,2026-11-10
+XP Hero,24,90311,2.58,,Tested,Ruelle,Drive,2026-08-13,,Gameplay,2026-11-10
+XP Hero,24,90312,2.59,,Tested,Ruelle,Drive,2026-08-13,,Gameplay,2026-11-10
+XP Hero,24,90313,3.45,,Tested,Ruelle,Drive,2026-08-13,,Creative 692 Iteration,2026-11-10
+XP Hero,24,90314,3.36,,Tested,Ruelle,Drive,2026-08-13,,Creative 692 Iteration,2026-11-10
+XP Hero,24,90315,3.04,,Tested,Ruelle,Drive,2026-08-13,,Creative 741 Iteration,2026-11-10
+XP Hero,24,90316,2.59,,Tested,Elliot,Drive,2026-08-13,,,2026-11-10
+XP Hero,24,90317,2.82,,Tested,Elliot,Drive,2026-08-13,,Semi-realistic,2026-11-10
+XP Hero,24,90318,2.50,,Tested,Elliot,Drive,2026-08-13,,,2026-11-10
+XP Hero,24,90319,2.77,,Tested,Elliot,Drive,2026-08-13,,Semi-realistic,2026-11-10
+XP Hero,25,90320,2.72,,Tested,Ruelle,Drive,2026-08-20,,Gameplay,2026-11-10
+XP Hero,25,90321,2.69,,Tested,Ruelle,Drive,2026-08-20,,Gameplay,2026-11-10
+XP Hero,25,90322,3.02,,Tested,Ruelle,Drive,2026-08-20,,Gameplay,2026-11-10
+XP Hero,25,90323,3.66,,Tested,Ruelle,Drive,2026-08-20,,Gameplay,2026-11-10
+XP Hero,25,90324,2.78,,Tested,Ruelle,Drive,2026-08-20,,Gameplay,2026-11-10
+XP Hero,25,90325,3.06,,Tested,Ruelle,Drive,2026-08-20,,Gameplay,2026-11-10
+XP Hero,25,90326,3.79,,Tested,Ruelle,Drive,2026-08-20,,Gameplay,2026-11-10
+XP Hero,25,90327,2.63,,Tested,Ruelle,Drive,2026-08-20,,Gameplay,2026-11-10
+XP Hero,25,90328,2.90,,Tested,Ellie,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90329,2.77,,Tested,Ellie,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90330,2.50,,Tested,Ellie,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90331,2.66,,Tested,Ellie,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90332,2.57,,Tested,Ellie,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90333,2.89,,Tested,Ellie,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90334,2.76,,Tested,Ellie,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90335,3.12,,Tested,Ellie,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90336,2.87,,Tested,Yuna,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90337,2.75,,Tested,Yuna,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90338,2.67,,Tested,Yuna,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90339,2.72,,Tested,Yuna,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90340,2.87,,Tested,Yuna,Drive,2026-08-20,,,2026-11-10
+XP Hero,25,90341,2.97,,Tested,Yuna,Drive,2026-08-20,,,2026-11-10
+XP Hero,26,90342,2.77,,Tested,Ruelle,Drive,2026-08-27,,Gameplay,2026-11-10
+XP Hero,26,90343,3.04,,Tested,Ruelle,Drive,2026-08-27,,Gameplay,2026-11-10
+XP Hero,26,90344,3.16,,Tested,Ruelle,Drive,2026-08-27,,Gameplay,2026-11-10
+XP Hero,26,90345,2.97,,Tested,Ruelle,Drive,2026-08-27,,Gameplay,2026-11-10
+XP Hero,26,90346,2.83,,Tested,Ruelle,Drive,2026-08-27,,Gameplay,2026-11-10
+XP Hero,26,90347,2.77,,Tested,Ruelle,Drive,2026-08-27,,Gameplay,2026-11-10
+XP Hero,26,90348,2.98,,Tested,Ruelle,Drive,2026-08-27,,Gameplay,2026-11-10
+XP Hero,26,90349,2.71,,Tested,Ruelle,Drive,2026-08-27,,Gameplay,2026-11-10
+XP Hero,26,90350,3.01,,Tested,Elliot,Drive,2026-08-27,,,2026-11-10
+XP Hero,26,90351,2.92,,Tested,Elliot,Drive,2026-08-27,,,2026-11-10
+XP Hero,26,90352,3.01,,Tested,Elliot,Drive,2026-08-27,,,2026-11-10
+XP Hero,26,90353,2.61,,Tested,Elliot,Drive,2026-08-27,,,2026-11-10
+XP Hero,26,90354,3.11,,Tested,Elliot,Drive,2026-08-27,,,2026-11-10
+XP Hero,27,90355,3.07,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice,2026-11-10
+XP Hero,27,90356,2.87,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / River,2026-11-10
+XP Hero,27,90357,2.99,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice,2026-11-10
+XP Hero,27,90358,2.89,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / River,2026-11-10
+XP Hero,27,90359,3.22,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice,2026-11-10
+XP Hero,27,90360,3.07,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / River,2026-11-10
+XP Hero,27,90361,2.78,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice,2026-11-10
+XP Hero,27,90362,3.02,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / River Original,2026-11-10
+XP Hero,27,90363,3.07,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / River,2026-11-10
+XP Hero,27,90364,2.93,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice,2026-11-10
+XP Hero,27,90365,3.00,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice,2026-11-10
+XP Hero,27,90366,3.40,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice,2026-11-10
+XP Hero,27,90367,3.22,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice emerald,2026-11-10
+XP Hero,27,90368,2.80,,Tested,Ruelle,Drive,2026-09-10,,Polar bear - Rescue x1,2026-11-10
+XP Hero,27,90369,2.99,,Tested,Ruelle,Drive,2026-09-10,,Creative Soldier Rescue / Ice emerald,2026-11-10
+XP Hero,27,90370,2.73,,Tested,Elliot,Drive,2026-09-10,,,2026-11-10
+XP Hero,27,90371,2.51,,Tested,Elliot,Drive,2026-09-10,,,2026-11-10
+XP Hero,27,90372,2.72,,Tested,Elliot,Drive,2026-09-10,,,2026-11-10
+XP Hero,27,90373,2.66,,Tested,Elliot,Drive,2026-09-10,,,2026-11-10
+XP Hero,27,90374,2.05,,Tested,Elliot,Drive,2026-09-10,,,2026-11-10
+XP Hero,29,90383,2.99,,Tested,Ruelle,Drive,2026-09-24,,Creative Rail Defense / 001 / Winter,2026-11-10
+XP Hero,29,90384,2.93,,Tested,Ruelle,Drive,2026-09-24,,Creative Rail Defense / 002 / Winter,2026-11-10
+XP Hero,29,90385,2.70,,Tested,Ruelle,Drive,2026-09-24,,Creative Rail Defense / 004 / Winter,2026-11-10
+XP Hero,29,90386,2.95,,Tested,Ruelle,Drive,2026-09-24,,Creative Rail Defense / 006 / Winter,2026-11-10
+XP Hero,29,90387,3.10,,Tested,Ruelle,Drive,2026-09-24,,Creative Rail Defense / 001 / Winter,2026-11-10
+XP Hero,29,90388,2.92,,Tested,Ruelle,Drive,2026-09-24,,Creative Rail Defense / 002 / Winter,2026-11-10
+XP Hero,29,90389,2.82,,Tested,Ruelle,Drive,2026-09-24,,Creative Rail Defense / 004 / Winter,2026-11-10
+XP Hero,29,90390,2.94,,Tested,Ruelle,Drive,2026-09-24,,Creative Rail Defense / 006 / Winter,2026-11-10
+XP Hero,29,90391,2.96,,Tested,Elliot,Drive,2026-09-24,,2.5D Fantasy,2026-11-10
+XP Hero,29,90392,2.86,,Tested,Elliot,Drive,2026-09-24,,8-bit,2026-11-10
+XP Hero,29,90393,2.96,,Tested,Elliot,Drive,2026-09-24,,2.5D Fantasy,2026-11-10
+XP Hero,29,90394,2.81,,Tested,Elliot,Drive,2026-09-24,,2.5D Fantasy,2026-11-10
+XP Hero,30,90395,2.78,,Tested,Ruelle,Drive,2026-10-01,,Creative Spinning Axe / 001 / Winter,2026-11-10
+XP Hero,30,90396,2.93,,Tested,Ruelle,Drive,2026-10-01,,Creative Spinning Axe / 001 / Winter Sunset,2026-11-10
+XP Hero,30,90397,2.80,,Tested,Ruelle,Drive,2026-10-01,,Creative Spinning Axe / 001 / Winter,2026-11-10
+XP Hero,30,90398,2.49,,Tested,Ruelle,Drive,2026-10-01,,Creative Spinning Axe / 001 / Halloween,2026-11-10
+XP Hero,30,90399,2.47,,Tested,Ruelle,Drive,2026-10-01,,Creative Spinning Axe / 002 / Halloween,2026-11-10
+XP Hero,30,90400,2.52,,Tested,Ruelle,Drive,2026-10-01,,Creative Spinning Axe / 003 / Halloween,2026-11-10
+XP Hero,30,90401,2.70,,Tested,Ruelle,Drive,2026-10-01,,Creative Spinning Axe / 001 / Default Sunset Rain,2026-11-10
+XP Hero,30,90402,2.44,,Tested,Ruelle,Drive,2026-10-01,,Creative Spinning Axe / 005 / Default Sunset,2026-11-10
+XP Hero,30,90403,3.35,,Tested,Pax,Drive,2026-10-01,,,2026-11-10
+XP Hero,30,90404,3.21,,Tested,Pax,Drive,2026-10-01,,,2026-11-10
+XP Hero,30,90405,2.50,,Tested,Pax,Drive,2026-10-01,,,2026-11-10
+XP Hero,30,90406,2.58,,Tested,Pax,Drive,2026-10-01,,,2026-11-10
+XP Hero,30,90407,2.51,,Tested,Pax,Drive,2026-10-01,,,2026-11-10
+XP Hero,30,90408,2.82,,Tested,Pax,Drive,2026-10-01,,,2026-11-10
+XP Hero,30,90409,3.26,,Tested,Thiago,Drive,2026-10-01,,[AI] Roll Defense Progression,2026-11-10
+XP Hero,30,90410,3.14,,Tested,Thiago,Drive,2026-10-01,,[AI] Giant Golden Roll Hook,2026-11-10
+XP Hero,31,90411,3.66,,Tested,Ruelle,Drive,2026-10-08,,Creative Mini Harpoon Thrust / 003 / Default Enhanced,2026-11-10
+XP Hero,31,90412,3.65,,Tested,Ruelle,Drive,2026-10-08,,Creative Mini Harpoon Thrust / 001 / Default Enhanced,2026-11-10
+XP Hero,31,90413,3.78,,Tested,Ruelle,Drive,2026-10-08,,Creative Mini Harpoon Thrust / 003 / Winter,2026-11-10
+XP Hero,31,90414,3.72,,Tested,Ruelle,Drive,2026-10-08,,Creative Mini Harpoon Thrust / 001 / Winter,2026-11-10
+XP Hero,31,90415,3.53,,Tested,Ruelle,Drive,2026-10-08,,Creative Mini Harpoon Thrust / 003 / Horror,2026-11-10
+XP Hero,31,90416,3.77,,Tested,Ruelle,Drive,2026-10-08,,Creative Mini Harpoon Thrust / 001 / Horror,2026-11-10
+XP Hero,31,90417,3.05,,Tested,Ruelle,Drive,2026-10-08,,Creative Mini Harpoon Thrust / 001 / Winter sunset,2026-11-10
+XP Hero,31,90418,3.21,,Tested,Ruelle,Drive,2026-10-08,,Creative Mini Harpoon Thrust / 003 / Horror (Day to Night),2026-11-10
+XP Hero,31,90419,3.06,,Tested,Elliot,Drive,2026-10-08,,2.5D,2026-11-10
+XP Hero,31,90420,2.51,,Tested,Elliot,Drive,2026-10-08,,2D,2026-11-10
+XP Hero,31,90421,2.77,,Tested,Elliot,Drive,2026-10-08,,2D,2026-11-10
+XP Hero,31,90422,2.97,,Tested,Elliot,Drive,2026-10-08,,2D,2026-11-10
+XP Hero,31,90423,2.48,,Tested,Elliot,Drive,2026-10-08,,2D,2026-11-10
+XP Hero,31,90424,3.35,,Tested,Thiago,Drive,2026-10-08,,[AI] 90409 - Change map to jungle,2026-11-10
+XP Hero,31,90425,3.59,,Tested,Thiago,Drive,2026-10-08,,[AI] Hook + 90409,2026-11-10
+XP Hero,31,90426,3.35,,Tested,Thiago,Drive,2026-10-08,,[AI] 90252 - Remake (Moving Crocodile Upgrade Hook),2026-11-10
+XP Hero,31,90427,3.00,,Tested,Thiago,Drive,2026-10-08,,[AI] 90253 - Remake (Crocodile Tail Cutting Hook),2026-11-10
+XP Hero,31,90428,2.76,,Tested,Thiago,Drive,2026-10-08,,[AI] 90254 - Remake (Crocodile pulley progression),2026-11-10
+XP Hero,32,90429,3.57,,Tested,Ruelle,Drive,2026-10-15,,Creative Pulley Arcade Idle / 004 / Default,2026-11-10
+XP Hero,32,90430,3.53,,Tested,Ruelle,Drive,2026-10-15,,Creative Pulley Arcade Idle / 004 / Default,2026-11-10
+XP Hero,32,90431,3.40,,Tested,Ruelle,Drive,2026-10-15,,Creative Pulley Arcade Idle / 004 / Default (Sunset),2026-11-10
+XP Hero,32,90432,3.17,,Tested,Ruelle,Drive,2026-10-15,,Creative Pulley Arcade Idle / 004 / Default (Sunset),2026-11-10
+XP Hero,32,90433,3.32,,Tested,Ruelle,Drive,2026-10-15,,Creative Pulley Arcade Idle / 004 / Horror,2026-11-10
+XP Hero,32,90434,3.18,,Tested,Ruelle,Drive,2026-10-15,,Creative Pulley Arcade Idle / 004 / Horror,2026-11-10
+XP Hero,32,90435,3.15,,Tested,Ruelle,Drive,2026-10-15,,Creative Pulley Arcade Idle / 004 / Horror (Lighting),2026-11-10
+XP Hero,32,90436,3.20,,Tested,Ruelle,Drive,2026-10-15,,Creative Pulley Arcade Idle / 004 / Horror (Lighting),2026-11-10
+XP Hero,32,90448,2.78,,Tested,Trace,Drive,2026-10-15,,Hero Evolution Across Maps / 001 / Dark Forest (2.5D),2026-11-10
+XP Hero,32,90449,3.02,,Tested,Trace,Drive,2026-10-15,,Hero Evolution Across Maps / 002 / Village Drama (2.5D),2026-11-10
+XP Hero,32,90450,2.72,,Tested,Trace,Drive,2026-10-15,,Hero Evolution Across Maps / 003 / Boyfriend Comedy (Realistic),2026-11-10
+XP Hero,32,90451,3.38,,Tested,Thiago,Drive,2026-10-15,,[AI] Gold & Wood Saw Cutting Hook + 90424 (Third-person),2026-11-10
+XP Hero,32,90452,3.14,,Tested,Thiago,Drive,2026-10-15,,[AI] 90424 (Third-person),2026-11-10
+XP Hero,33,90453,3.29,,Tested,Quinne,Drive,2026-10-21,,Gameplay,2026-11-10
+XP Hero,33,90454,3.27,,Tested,Quinne,Drive,2026-10-21,,Gameplay,2026-11-10
+XP Hero,33,90455,2.92,,Tested,Quinne,Drive,2026-10-21,,Gameplay,2026-11-10
+XP Hero,33,90456,3.26,,Tested,Quinne,Drive,2026-10-21,,Gameplay,2026-11-10
+XP Hero,33,90457,3.24,,Tested,Quinne,Drive,2026-10-21,,Gameplay,2026-11-10
+XP Hero,33,90458,2.94,,Tested,Quinne,Drive,2026-10-21,,Storytelling,2026-11-10
+XP Hero,33,90459,2.75,,Tested,Elliot,Drive,2026-10-21,,3D Fantasy,2026-11-10
+XP Hero,33,90460,3.15,,Tested,Elliot,Drive,2026-10-21,,3D Fantasy,2026-11-10
+XP Hero,33,90461,2.71,,Tested,Elliot,Drive,2026-10-21,,3D Fantasy,2026-11-10
+XP Hero,33,90462,3.20,,Tested,Elliot,Drive,2026-10-21,,2.5D,2026-11-10
+XP Hero,34,90463,3.05,,Tested,Quinne,Drive,2026-10-29,,Gameplay,2026-11-10
+XP Hero,34,90464,3.63,,Tested,Quinne,Drive,2026-10-29,,Multi Level,2026-11-10
+XP Hero,34,90465,3.31,,Tested,Quinne,Drive,2026-10-29,,Gameplay,2026-11-10
+XP Hero,34,90466,3.19,,Tested,Quinne,Drive,2026-10-29,,Gameplay,2026-11-10
+XP Hero,34,90467,3.28,,Tested,Quinne,Drive,2026-10-29,,Gameplay,2026-11-10
+XP Hero,34,90468,3.01,,Tested,Quinne,Drive,2026-10-29,,Gameplay,2026-11-10
+XP Hero,34,90469,,,Rejected,Quinne,Drive,2026-10-29,,Multi Level,2026-11-10
+XP Hero,34,90470,3.43,,Tested,Quinne,Drive,2026-10-29,,Multi Level,2026-11-10
+XP Hero,34,90471,,,Not tested,Min,Drive,2026-10-29,,Hook: Machine assembles into what,2026-11-10
+XP Hero,34,90472,,,Not tested,Min,Drive,2026-10-29,,Hook: What inside the wooden box,2026-11-10
+XP Hero,34,90473,,,Not tested,Min,Drive,2026-10-29,,Hook: Break egg to see what inside,2026-11-10
+XP Hero,34,90474,,,Not tested,Min,Drive,2026-10-29,,Hook: Boyfriend escape his girlfriend,2026-11-10
+XP Hero,34,90475,3.26,,Tested,Pax,Drive,2026-10-29,,,2026-11-10
+XP Hero,34,90477,3.75,,Tested,Pax,Drive,2026-10-29,,,2026-11-10
+XP Hero,34,90478,3.11,,Tested,Pax,Drive,2026-10-29,,,2026-11-10
+XP Hero,35,90479,3.41,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90480,3.47,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90481,3.22,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90482,3.32,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90483,3.08,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90484,3.29,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90485,3.64,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90486,3.53,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90487,3.45,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90488,3.38,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90489,3.24,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10
+XP Hero,35,90490,3.22,,Tested,Ruelle,Drive,2026-11-05,,ASMR Fish vs Crocodile,2026-11-10

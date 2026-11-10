@@ -271,6 +271,29 @@
   .pm-sum{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--ink-2)}
   .pm-sum b{font-family:"IBM Plex Mono",monospace;color:var(--ink);font-size:18px;margin-right:4px}
   .pm-card{margin-top:16px}
+  #view-perf .cs-head .ov-h{flex:1 1 240px}
+  .pf-table{width:100%;border-collapse:collapse}
+  .pf-table th,.pf-table td{padding:7px 10px;border-bottom:1px solid var(--grid);text-align:left;font-size:13.5px;white-space:nowrap;vertical-align:middle}
+  .pf-table th{font-size:12px;color:var(--ink-2);font-weight:600;text-transform:uppercase;letter-spacing:.03em;background:var(--th)}
+  .pf-table .n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+  .pf-table .b{font-weight:600}
+  .pf-table .dim,.pf-stats .dim{color:var(--ink-2)}
+  .pf-table .up{color:var(--up)} .pf-table .down{color:var(--down)}
+  .pf-table tr.sel td{background:var(--accent-bg)}
+  .pf-table button.pf-pick{all:unset;cursor:pointer;border-radius:6px}
+  .pf-table button.pf-pick:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .pf-table .who{white-space:normal;min-width:160px;color:var(--ink-2);font-size:12.5px}
+  .pf-mx th.g{text-transform:none;letter-spacing:0;text-align:center}
+  .pf-mx td.c{text-align:center;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;min-width:74px}
+  .pf-mx td.c small{display:block;font-family:inherit;font-size:10.5px;color:var(--ink-2)}
+  .pf-mx td:first-child,.pf-mx th:first-child{position:sticky;left:0;background:var(--panel);z-index:1}
+  .pf-mx th:first-child{background:var(--th)}
+  .pf-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--grid);border-bottom:1px solid var(--grid)}
+  .pf-stats div{background:var(--panel);padding:12px 18px;display:grid;gap:2px;min-width:0}
+  .pf-stats span{font-size:12px;color:var(--ink-2)}
+  .pf-stats b{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
+  .pf-stats small{font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+  .pf-chart{position:relative;height:260px;padding:14px 18px 6px}
   .pm-scroll{overflow-x:auto}
   #pm-table th,#pm-table td{white-space:nowrap}
   #pm-table th{background:var(--th)}
@@ -556,6 +579,7 @@
     <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1"></button>
     <button role="tab" id="tab-num" aria-controls="view-num" aria-selected="false" type="button" tabindex="-1"></button>
     <button role="tab" id="tab-done" aria-controls="view-done" aria-selected="false" type="button" tabindex="-1"></button>
+    <button role="tab" id="tab-perf" aria-controls="view-perf" aria-selected="false" type="button" tabindex="-1"></button>
     <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
   </nav>
 
@@ -653,6 +677,32 @@
     </div>
     <p class="pm-note" id="num-note"></p>
     <p class="pm-note" id="num-drive-src"></p>
+  </div>
+
+  <div id="view-perf" role="tabpanel" aria-labelledby="tab-perf" hidden>
+    <div class="tcard pm-card">
+      <div class="cs-head"><h2 class="ov-h" id="pf-ov-title"></h2></div>
+      <div class="pm-scroll"><table class="pf-table" id="pf-games"></table></div>
+      <p class="pm-note src-line" id="pf-src"></p>
+    </div>
+    <div class="tcard pm-card">
+      <div class="cs-head"><h2 class="ov-h" id="pf-it-title"></h2>
+        <div class="sv-ctl"><label for="pf-game" id="pf-game-l"></label><select id="pf-game"></select></div>
+      </div>
+      <div class="pf-stats" id="pf-stats"></div>
+      <div class="pf-chart"><canvas id="pf-chart" role="img"></canvas></div>
+      <div class="pm-scroll"><table class="pf-table" id="pf-it"></table></div>
+    </div>
+    <div class="tcard pm-card">
+      <div class="cs-head"><h2 class="ov-h" id="pf-cr-title"></h2></div>
+      <div class="pm-scroll"><table class="pf-table" id="pf-cr"></table></div>
+      <p class="pm-note src-line" id="pf-cr-note"></p>
+    </div>
+    <div class="tcard pm-card">
+      <div class="cs-head"><h2 class="ov-h" id="pf-mx-title"></h2></div>
+      <div class="ov-scroll"><table class="pf-table pf-mx" id="pf-mx"></table></div>
+      <p class="pm-note src-line" id="pf-mx-note"></p>
+    </div>
   </div>
 
   <div id="view-done" role="tabpanel" aria-labelledby="tab-done" hidden>
@@ -1994,10 +2044,143 @@ document.getElementById("exc-list").addEventListener("click",async e=>{
   }catch(err){ excErr(); }
 });
 
+// ---------------------------------------------------------------- Performance (CVR theo iteration, từ Crebo)
+// data/cvr.csv do tools/crebo_merge.py tạo: CVR = AOS CVR (WW); creator theo Google Drive (bản 9x16).
+const PF_TXT={
+  vi:{tab:"Hiệu quả", ovTitle:"CVR các game (Crebo)", itTitle:g=>"CVR theo iteration · "+g, game:"Game",
+    crTitle:g=>"CVR từng người · "+g, mxTitle:"CVR trung bình của từng người theo game",
+    cols:{game:"Game",its:"Iteration",vids:"Video có CVR",avg:"CVR TB",last:"Iteration mới nhất",lastAvg:"CVR TB iteration mới nhất",chg:"So với iteration trước",
+      it:"Iteration",rej:"Rejected",med:"Trung vị",best:"Cao nhất",who:"Creator",cr:"Creator",vsGame:"So với TB game",lastIt:"Iteration gần nhất"},
+    st:{vids:"Video có CVR",avg:"CVR TB cả game",last:n=>"Iteration "+n,best:"CVR cao nhất"},
+    chAvg:"CVR TB", chMax:"Cao nhất", noIt:"Chưa ghi iteration",
+    src:(d,n,m)=>`Nguồn: file export Crebo ngày ${d} · CVR = AOS CVR (WW) · ${n} video có CVR · creator theo Google Drive (bản 9x16)${m?`, ${m} video lấy tên trên Crebo vì chưa có trên Drive`:""}.`,
+    crNote:"Mỗi game có mức CVR khác nhau nên chỉ nên so trong cùng một game. Cột “So với TB game” là CVR TB của người đó trừ CVR TB cả game.",
+    mxNote:"Mỗi ô: CVR TB (số video). Màu đậm nhạt so trong từng cột game. Bấm tên game ở bảng trên để xem chi tiết.",
+    none:"Chưa có dữ liệu CVR (data/cvr.csv).", pick:"Bấm để xem"},
+  en:{tab:"Performance", ovTitle:"CVR by game (Crebo)", itTitle:g=>"CVR by iteration · "+g, game:"Game",
+    crTitle:g=>"CVR by creator · "+g, mxTitle:"Average CVR per creator by game",
+    cols:{game:"Game",its:"Iterations",vids:"Videos with CVR",avg:"Avg CVR",last:"Latest iteration",lastAvg:"Latest iteration avg",chg:"vs previous iteration",
+      it:"Iteration",rej:"Rejected",med:"Median",best:"Best",who:"Creators",cr:"Creator",vsGame:"vs game avg",lastIt:"Latest iteration"},
+    st:{vids:"Videos with CVR",avg:"Game avg CVR",last:n=>"Iteration "+n,best:"Best CVR"},
+    chAvg:"Avg CVR", chMax:"Best", noIt:"No iteration set",
+    src:(d,n,m)=>`Source: Crebo export of ${d} · CVR = AOS CVR (WW) · ${n} videos with CVR · creators from Google Drive (9x16 version)${m?`; ${m} videos use the Crebo name because they aren’t on Drive`:""}.`,
+    crNote:"CVR levels differ between games, so compare people within the same game. “vs game avg” is the person’s average minus the game’s average.",
+    mxNote:"Each cell: avg CVR (videos). Shading is relative within each game column. Click a game in the first table for details.",
+    none:"No CVR data yet (data/cvr.csv).", pick:"Click for details"},
+  ko:{tab:"성과", ovTitle:"게임별 CVR (Crebo)", itTitle:g=>"이터레이션별 CVR · "+g, game:"게임",
+    crTitle:g=>"크리에이터별 CVR · "+g, mxTitle:"게임별 크리에이터 평균 CVR",
+    cols:{game:"게임",its:"이터레이션",vids:"CVR 있는 영상",avg:"평균 CVR",last:"최근 이터레이션",lastAvg:"최근 이터레이션 평균",chg:"이전 이터레이션 대비",
+      it:"이터레이션",rej:"Rejected",med:"중앙값",best:"최고",who:"크리에이터",cr:"크리에이터",vsGame:"게임 평균 대비",lastIt:"최근 이터레이션"},
+    st:{vids:"CVR 있는 영상",avg:"게임 평균 CVR",last:n=>"이터레이션 "+n,best:"최고 CVR"},
+    chAvg:"평균 CVR", chMax:"최고", noIt:"이터레이션 없음",
+    src:(d,n,m)=>`출처: ${d} Crebo 내보내기 · CVR = AOS CVR (WW) · CVR 있는 영상 ${n}개 · 크리에이터는 Google 드라이브 기준(9x16)${m?`, 드라이브에 없는 영상 ${m}개는 Crebo 이름 사용`:""}.`,
+    crNote:"게임마다 CVR 수준이 달라 같은 게임 안에서만 비교하세요. ‘게임 평균 대비’는 그 사람의 평균에서 게임 평균을 뺀 값입니다.",
+    mxNote:"각 칸: 평균 CVR(영상 수). 색은 게임 열 안에서 상대적입니다. 첫 번째 표에서 게임을 누르면 자세히 볼 수 있습니다.",
+    none:"CVR 데이터가 없습니다 (data/cvr.csv).", pick:"자세히 보기"}
+};
+const PT=()=>PF_TXT[LANG]||PF_TXT.en;
+const PF_RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+let PF=null, PF_GAME="", PF_EXP="";
+fetch("data/cvr.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
+  const rows=parseCSV(t||"");
+  PF_EXP=(rows[0]||{}).Exported||"";
+  PF=rows.map(r=>({game:r.Game, it:+r.Iteration||0, num:r.Number, cvr:r.CVR!==""&&!isNaN(+r.CVR)?+r.CVR:null, status:r.Status,
+    creator:r.Creator||"—", src:r.Source, date:r.Date||"", top:r.Top||""}));
+  if(VIEW==="perf") renderPerf();
+}).catch(()=>{ PF=[]; });
+const pfOrd=n=>!n?"—":n+(n%100>=11&&n%100<=13?"th":({1:"st",2:"nd",3:"rd"})[n%10]||"th");
+const pfAvg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+const pfMed=a=>{ if(!a.length) return null; const b=[...a].sort((x,y)=>x-y), m=b.length>>1; return b.length%2?b[m]:(b[m-1]+b[m])/2; };
+const pfF=v=>v===null||v===undefined?"—":v.toFixed(2);
+const pfD=v=>v===null||v===undefined||isNaN(v)?`<span class="dim">—</span>`:`<span class="${v>0.005?"up":v<-0.005?"down":"dim"}">${v>0?"+":v<0?"−":"±"}${Math.abs(v).toFixed(2)}</span>`;
+function pfGroup(rows,keyf){ const m=new Map(); rows.forEach(r=>{ const k=keyf(r); if(!m.has(k)) m.set(k,[]); m.get(k).push(r); }); return m; }
+function pfStats(rows){
+  const t=rows.filter(r=>r.cvr!==null), v=t.map(r=>r.cvr);
+  const best=t.reduce((b,r)=>!b||r.cvr>b.cvr?r:b,null);
+  return {n:t.length, rej:rows.filter(r=>r.status==="Rejected").length, avg:pfAvg(v), med:pfMed(v), best};
+}
+function renderPerf(){
+  const L=PT(), C=L.cols;
+  document.getElementById("pf-ov-title").textContent=L.ovTitle;
+  document.getElementById("pf-game-l").textContent=L.game;
+  document.getElementById("pf-mx-title").textContent=L.mxTitle;
+  document.getElementById("pf-cr-note").textContent=L.crNote;
+  document.getElementById("pf-mx-note").textContent=L.mxNote;
+  const gt=document.getElementById("pf-games");
+  if(!PF||!PF.length){ gt.innerHTML=`<tbody><tr><td>${escH(PF?L.none:"…")}</td></tr></tbody>`; return; }
+  const games=[...pfGroup(PF,r=>r.game)].map(([g,rows])=>{
+    const st=pfStats(rows), its=[...new Set(rows.filter(r=>r.cvr!==null&&r.it).map(r=>r.it))].sort((a,b)=>a-b);
+    const last=its[its.length-1], prev=its[its.length-2];
+    const la=last?pfAvg(rows.filter(r=>r.it===last&&r.cvr!==null).map(r=>r.cvr)):null;
+    const pa=prev?pfAvg(rows.filter(r=>r.it===prev&&r.cvr!==null).map(r=>r.cvr)):null;
+    const recent=rows.reduce((d,r)=>r.date>d?r.date:d,"");
+    return {g,rows,st,its,last,la,chg:la!==null&&pa!==null?la-pa:null,recent};
+  }).sort((a,b)=>b.st.n-a.st.n);
+  if(!PF_GAME||!games.some(x=>x.g===PF_GAME)) PF_GAME=[...games].sort((a,b)=>b.recent.localeCompare(a.recent))[0].g;
+  const nCrebo=PF.filter(r=>r.src==="Crebo"&&r.cvr!==null).length;
+  document.getElementById("pf-src").textContent=L.src(PF_EXP.split("-").reverse().join("/"),PF.filter(r=>r.cvr!==null).length,nCrebo);
+  gt.innerHTML=`<thead><tr><th>${C.game}</th><th class="n">${C.its}</th><th class="n">${C.vids}</th><th class="n">${C.avg}</th><th class="n">${C.last}</th><th class="n">${C.lastAvg}</th><th class="n">${C.chg}</th></tr></thead><tbody>`+
+    games.map(x=>`<tr${x.g===PF_GAME?' class="sel"':""}><td><button type="button" class="pf-pick" data-g="${escH(x.g)}" title="${escH(L.pick)}">${gameTag(x.g)}</button></td>`+
+      `<td class="n">${x.its.length||"—"}</td><td class="n">${x.st.n}</td><td class="n b">${pfF(x.st.avg)}</td><td class="n">${pfOrd(x.last)}</td><td class="n">${pfF(x.la)}</td><td class="n">${pfD(x.chg)}</td></tr>`).join("")+`</tbody>`;
+  // ---- game đang chọn
+  const sel=document.getElementById("pf-game");
+  sel.innerHTML=games.map(x=>`<option value="${escH(x.g)}">${escH(x.g)} (${x.st.n})</option>`).join(""); sel.value=PF_GAME;
+  const G=games.find(x=>x.g===PF_GAME);
+  document.getElementById("pf-it-title").textContent=L.itTitle(PF_GAME);
+  document.getElementById("pf-cr-title").textContent=L.crTitle(PF_GAME);
+  const byIt=[...pfGroup(G.rows,r=>r.it)].map(([it,rows])=>({it,rows,st:pfStats(rows),who:[...new Set(rows.map(r=>r.creator))].sort()})).sort((a,b)=>a.it-b.it);
+  const tested=byIt.filter(x=>x.st.n&&x.it);
+  const b=G.st.best;
+  document.getElementById("pf-stats").innerHTML=
+    `<div><span>${escH(L.st.vids)}</span><b>${G.st.n}</b><small>${G.its.length} ${escH(C.its.toLowerCase())}</small></div>`+
+    `<div><span>${escH(L.st.avg)}</span><b>${pfF(G.st.avg)}</b><small>${escH(C.med)} ${pfF(G.st.med)}</small></div>`+
+    `<div><span>${escH(L.st.last(pfOrd(G.last)))}</span><b>${pfF(G.la)}</b><small>${pfD(G.chg)} <span class="dim">${escH(C.chg)}</span></small></div>`+
+    `<div><span>${escH(L.st.best)}</span><b>${pfF(b&&b.cvr)}</b><small>${b?`${escH(b.num)} · ${escH(b.creator)} · ${escH(pfOrd(b.it))}`:""}</small></div>`;
+  // biểu đồ: cột = CVR TB từng iteration, đường = cao nhất
+  const cv=document.getElementById("pf-chart");
+  if(charts.perf){ charts.perf.destroy(); delete charts.perf; }
+  if(window.Chart&&tested.length){
+    const ink=getCSS("--ink-2"), grid=getCSS("--grid");
+    charts.perf=new Chart(cv,{data:{labels:tested.map(x=>pfOrd(x.it)),datasets:[
+      {type:"bar",label:L.chAvg,data:tested.map(x=>+x.st.avg.toFixed(2)),backgroundColor:getCSS("--heat"),borderRadius:4,maxBarThickness:28,order:2},
+      {type:"line",label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:getCSS("--video"),backgroundColor:getCSS("--video"),borderDash:[4,3],pointRadius:3,tension:.25,order:1}]},
+      options:{responsive:true,maintainAspectRatio:false,animation:PF_RM?false:{duration:400},interaction:{mode:"index",intersect:false},
+        plugins:{legend:{labels:{color:ink,boxWidth:12}},tooltip:{callbacks:{afterBody:it=>{ const x=tested[it[0].dataIndex]; return `${x.st.n} video · ${C.med} ${pfF(x.st.med)}`; }}}},
+        scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:true,ticks:{color:ink},grid:{color:grid}}}}});
+    cv.setAttribute("aria-label",`${L.itTitle(PF_GAME)}: `+tested.map(x=>`${pfOrd(x.it)} ${pfF(x.st.avg)}`).join(", "));
+  }
+  const itRows=[...byIt].reverse();
+  document.getElementById("pf-it").innerHTML=`<thead><tr><th>${C.it}</th><th class="n">${C.vids}</th><th class="n">${C.rej}</th><th class="n">${C.avg}</th><th class="n">${C.med}</th><th class="n">${C.best}</th><th class="n">${C.chg}</th><th>${C.who}</th></tr></thead><tbody>`+
+    itRows.map(x=>{ const i=tested.indexOf(x), pv=i>0?tested[i-1].st.avg:null;
+      return `<tr><td class="b">${x.it?pfOrd(x.it):escH(L.noIt)}</td><td class="n">${x.st.n}</td><td class="n">${x.st.rej||""}</td><td class="n b">${pfF(x.st.avg)}</td><td class="n">${pfF(x.st.med)}</td>`+
+        `<td class="n">${x.st.best?`${pfF(x.st.best.cvr)} <span class="dim">${escH(x.st.best.num)} · ${escH(x.st.best.creator)}</span>`:"—"}</td>`+
+        `<td class="n">${x.st.avg!==null&&pv!==null?pfD(x.st.avg-pv):pfD(null)}</td><td class="who">${escH(x.who.join(", "))}</td></tr>`; }).join("")+`</tbody>`;
+  // ---- từng người trong game đang chọn
+  const people=[...pfGroup(G.rows,r=>r.creator)].map(([c,rows])=>{ const st=pfStats(rows);
+    const its=[...new Set(rows.filter(r=>r.cvr!==null&&r.it).map(r=>r.it))].sort((a,b)=>a-b), li=its[its.length-1];
+    return {c,st,li,la:li?pfAvg(rows.filter(r=>r.it===li&&r.cvr!==null).map(r=>r.cvr)):null}; }).filter(x=>x.st.n||x.st.rej)
+    .sort((a,b)=>b.st.n-a.st.n||a.c.localeCompare(b.c));
+  const avs=people.map(x=>x.st.avg).filter(v=>v!==null), lo=Math.min(...avs), hi=Math.max(...avs);
+  const shade=(v,lo,hi)=>v===null?"":` style="background:color-mix(in srgb, var(--heat) ${Math.round(10+40*((v-lo)/((hi-lo)||1)))}%, var(--panel))"`;
+  document.getElementById("pf-cr").innerHTML=`<thead><tr><th>${C.cr}</th><th class="n">${C.vids}</th><th class="n">${C.rej}</th><th class="n">${C.avg}</th><th class="n">${C.vsGame}</th><th class="n">${C.best}</th><th class="n">${C.lastIt}</th></tr></thead><tbody>`+
+    people.map(x=>`<tr><td class="b">${escH(x.c)}</td><td class="n">${x.st.n}</td><td class="n">${x.st.rej||""}</td><td class="n b"${shade(x.st.avg,lo,hi)}>${pfF(x.st.avg)}</td>`+
+      `<td class="n">${x.st.avg!==null?pfD(x.st.avg-G.st.avg):pfD(null)}</td><td class="n">${x.st.best?`${pfF(x.st.best.cvr)} <span class="dim">${escH(x.st.best.num)}</span>`:"—"}</td>`+
+      `<td class="n">${x.li?`${pfOrd(x.li)} · ${pfF(x.la)}`:"—"}</td></tr>`).join("")+`</tbody>`;
+  // ---- ma trận người × game
+  const gcols=games.filter(x=>x.st.n);
+  const cell={}; gcols.forEach(x=>pfGroup(x.rows.filter(r=>r.cvr!==null),r=>r.creator).forEach((rows,c)=>{ (cell[c]=cell[c]||{})[x.g]={avg:pfAvg(rows.map(r=>r.cvr)),n:rows.length}; }));
+  const rng={}; gcols.forEach(x=>{ const v=Object.values(cell).map(o=>o[x.g]).filter(Boolean).map(o=>o.avg); rng[x.g]=[Math.min(...v),Math.max(...v)]; });
+  const names=Object.keys(cell).filter(c=>c!=="—").sort((a,b)=>a.localeCompare(b)).concat(cell["—"]?["—"]:[]);
+  document.getElementById("pf-mx").innerHTML=`<thead><tr><th>${C.cr}</th>${gcols.map(x=>`<th class="g">${gameTag(x.g)}</th>`).join("")}</tr></thead><tbody>`+
+    names.map(c=>`<tr><td class="b">${escH(c)}</td>${gcols.map(x=>{ const o=cell[c][x.g]; return o?`<td class="c"${shade(o.avg,...rng[x.g])}>${pfF(o.avg)}<small>${o.n}</small></td>`:`<td class="c"></td>`; }).join("")}</tr>`).join("")+`</tbody>`;
+}
+document.getElementById("pf-game").addEventListener("change",e=>{ PF_GAME=e.target.value; renderPerf(); });
+document.getElementById("pf-games").addEventListener("click",e=>{ const b=e.target.closest("button[data-g]"); if(b){ PF_GAME=b.dataset.g; renderPerf(); document.getElementById("pf-it-title").scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"start"}); } });
+
 let VIEW="creator";
 function showView(v){
   VIEW=v;
-  ["creator","pm","num","done"].forEach(k=>{
+  ["creator","pm","num","done","perf"].forEach(k=>{
     const on=k===v, tab=document.getElementById("tab-"+k);
     tab.setAttribute("aria-selected",on); tab.tabIndex=on?0:-1;
     document.getElementById("view-"+k).hidden=!on;
@@ -2008,6 +2191,7 @@ function showView(v){
   if(v==="pm") renderPM();
   else if(v==="num") renderNum();
   else if(v==="done") renderDone();
+  else if(v==="perf") renderPerf();
   else if(charts.video) charts.video.resize();
   try{ localStorage.setItem("ct-view",v); }catch(e){}
 }
@@ -2861,11 +3045,13 @@ function applyLang(){
   document.getElementById("tab-pm").textContent=T().tab.pm;
   document.getElementById("tab-num").textContent=T().tab.num;
   document.getElementById("tab-done").textContent=T().tab.done;
+  document.getElementById("tab-perf").textContent=PT().tab;
   const plan=document.getElementById("tab-plan");
   plan.textContent=T().tab.plan; plan.href=PLANNER_URL; plan.hidden=!NOTION_AI;
   if(VIEW==="pm") renderPM();
   if(VIEW==="num") renderNum();
   if(VIEW==="done") renderDone();
+  if(VIEW==="perf") renderPerf();
   excLabels();
   Object.entries(MODE_BTN).forEach(([k,id])=>
     document.getElementById(id).textContent=T().btn[k]);
@@ -2918,7 +3104,7 @@ function applyTheme(v){
   const cur=(v==="light"||v==="dark")?v:(sysDark()?"dark":"light");
   document.querySelectorAll("#theme button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===cur));
 }
-function repaint(){ if(Object.keys(charts).length) refreshCharts(); update(); renderCreatorSchedule(); if(VIEW==="pm") renderPM(); if(VIEW==="num") renderNum(); }
+function repaint(){ if(Object.keys(charts).length) refreshCharts(); update(); renderCreatorSchedule(); if(VIEW==="pm") renderPM(); if(VIEW==="num") renderNum(); if(VIEW==="perf") renderPerf(); }
 (()=>{ let v=null; try{ v=localStorage.getItem(THEME_KEY); }catch(e){} applyTheme(v); })();
 document.getElementById("theme").addEventListener("click",e=>{
   const b=e.target.closest("button[data-v]"); if(!b) return;
@@ -2933,18 +3119,19 @@ document.getElementById("tab-creator").addEventListener("click",()=>showView("cr
 document.getElementById("tab-pm").addEventListener("click",()=>showView("pm"));
 document.getElementById("tab-num").addEventListener("click",()=>showView("num"));
 document.getElementById("tab-done").addEventListener("click",()=>showView("done"));
+document.getElementById("tab-perf").addEventListener("click",()=>showView("perf"));
 document.querySelector(".tabs").addEventListener("keydown",e=>{
   if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight") return;
-  const order=["creator","pm","num","done"], i=order.indexOf(VIEW);
+  const order=["creator","pm","num","done","perf"], i=order.indexOf(VIEW);
   const next=order[(i+(e.key==="ArrowRight"?1:order.length-1))%order.length];
   showView(next); document.getElementById("tab-"+next).focus();
 });
 document.getElementById("pm-week").addEventListener("change",e=>{pmWeek=e.target.value;renderPM();});
 function boot(){
   applyLang(); buildCharts(); update(); renderCreatorSchedule();
-  let v=location.hash==="#pm"?"pm":location.hash==="#number"?"num":location.hash==="#done"?"done":null;
+  let v=location.hash==="#pm"?"pm":location.hash==="#number"?"num":location.hash==="#done"?"done":location.hash==="#performance"?"perf":null;
   if(!v){ try{ v=localStorage.getItem("ct-view"); }catch(e){} }
-  showView(["pm","num","done"].includes(v)?v:"creator");
+  showView(["pm","num","done","perf"].includes(v)?v:"creator");
 }
 
 loadLiveCSV().then(r=>{
