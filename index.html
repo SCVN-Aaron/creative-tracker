@@ -302,6 +302,12 @@
   .pf-table button.sz::before{content:"▶ ";font-size:9px}
   .pf-table .pk{font-size:15px;font-weight:700}
   .pf-table tr.peak td{background:var(--up-bg)}
+  #view-perf button.pf-it-b{all:unset;cursor:pointer;color:var(--accent);display:inline-flex;align-items:center;gap:6px;font-weight:600}
+  #view-perf button.pf-it-b:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+  #view-perf button.pf-it-b .car{display:inline-block;width:10px;font-size:11px}
+  .pf-table tr.pf-exp>td{padding:0 0 10px 26px;background:var(--soft);white-space:normal}
+  .pf-table.pf-sub{background:var(--panel);border:1px solid var(--grid);border-top:0}
+  .pf-table.pf-sub th{background:var(--th)}
   .pf-table .flag.pkf{background:var(--video);color:var(--panel)}
   .pf-table .rej{font-size:11px;font-weight:700;color:var(--down);font-family:inherit}
   .pf-table .flag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;background:var(--up-bg);color:var(--up);font-size:11px;font-weight:600;font-family:inherit}
@@ -2113,7 +2119,7 @@ const PF_TXT={
 };
 const PT=()=>PF_TXT[LANG]||PF_TXT.en;
 const PF_RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
-let PF=null, PF_GAME="", PF_EXP="", PF_SCOPE="all", PF_VIDS=[];
+let PF=null, PF_GAME="", PF_EXP="", PF_SCOPE="all", PF_VIDS=[], PF_OPEN=null;  // PF_OPEN: iteration đang mở ngay trong bảng
 // video trên Drive của một dòng CVR (cùng game + số; ưu tiên bản UA)
 function pfVideo(r){
   if(!DONE) return null; const gk=gameKey(r.game);
@@ -2140,6 +2146,18 @@ function pfStats(rows){
   const t=rows.filter(r=>r.cvr!==null), v=t.map(r=>r.cvr);
   const best=t.reduce((b,r)=>!b||r.cvr>b.cvr?r:b,null);
   return {n:t.length, rej:rows.filter(r=>r.status==="Rejected").length, avg:pfAvg(v), med:pfMed(v), best};
+}
+// bảng video (CVR cao -> thấp, rejected cuối); peak=true thì dòng đầu gắn nhãn Peak
+function pfVidTable(rows,peak,cls){
+  const L=PT(), C=L.cols, dfm=d=>d?d.split("-").reverse().join("/"):"";
+  const list=rows.filter(r=>r.cvr!==null).sort((a,b)=>b.cvr-a.cvr||a.num.localeCompare(b.num)).concat(peak?rows.filter(r=>r.cvr===null):[]);
+  return {n:list.length, html:`<table class="pf-table ${cls||""}"><thead><tr><th class="n">${L.rank}</th><th class="n">CVR</th><th>${L.num}</th><th>${C.cr}</th><th>${C.it}</th><th>${L.date}</th><th>${L.watch}</th></tr></thead><tbody>`+
+    list.map((r,i)=>{ const v=pfVideo(r); let w=`<span class="dim">${escH(L.noVid)}</span>`;
+      if(v&&Object.keys(v.links||{}).length){ PF_VIDS.push(v); const vi=PF_VIDS.length-1;
+        w=["9x16","1x1","16x9"].filter(k=>v.links[k]).map(k=>`<button type="button" class="sz" data-v="${vi}" data-k="${k}">${k}</button>`).join(""); }
+      const pk=peak&&i===0&&r.cvr!==null;
+      return `<tr${pk?' class="peak"':""}><td class="n dim">${r.cvr!==null?i+1:""}</td><td class="n pk">${r.cvr!==null?pfF(r.cvr):`<span class="rej">${escH(r.status)}</span>`}${pk?`<span class="flag pkf">${escH(L.peak)}</span>`:""}</td><td class="n">${escH(r.num)}${r.top?`<span class="flag" title="${escH(L.top)}: ${escH(r.top)}">${escH(L.top)}</span>`:""}</td>`+
+        `<td class="b">${escH(r.creator)}</td><td>${escH(pfOrd(r.it))}</td><td>${dfm(r.date)}</td><td>${w}</td></tr>`; }).join("")+`</tbody></table>`};
 }
 function renderPerf(){
   const L=PT(), C=L.cols; PF_VIDS=[];
@@ -2183,14 +2201,14 @@ function renderPerf(){
   if(charts.perf){ charts.perf.destroy(); delete charts.perf; }
   if(window.Chart&&tested.length){
     const ink=getCSS("--ink-2"), grid=getCSS("--grid");
-    const selIt=PF_SCOPE.startsWith("it:")?+PF_SCOPE.slice(3):null, base=getCSS("--heat"), hot=getCSS("--video");
+    const selIt=PF_OPEN, base=getCSS("--heat"), hot=getCSS("--video");
     charts.perf=new Chart(cv,{type:"line",data:{labels:tested.map(x=>pfOrd(x.it)),datasets:[
       {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:base,borderWidth:2.5,tension:.3,cubicInterpolationMode:"monotone",
         fill:true,backgroundColor:`color-mix(in srgb, ${base} 14%, transparent)`,
         pointBackgroundColor:tested.map(x=>x.it===selIt?hot:base),pointBorderColor:getCSS("--panel"),pointBorderWidth:1.5,
         pointRadius:tested.map(x=>x.it===selIt?7:4),pointHoverRadius:7,pointHitRadius:12}]},
       options:{responsive:true,maintainAspectRatio:false,animation:PF_RM?false:{duration:400},interaction:{mode:"index",intersect:false},
-        onClick:(e,els)=>{ if(!els.length) return; PF_SCOPE="it:"+tested[els[0].index].it; setTimeout(()=>{ renderPerf(); pfToTop(); },0); }, // vẽ lại sau khi Chart.js xử lý xong cú bấm
+        onClick:(e,els)=>{ if(!els.length) return; PF_OPEN=tested[els[0].index].it; setTimeout(()=>{ renderPerf(); pfToOpen(); },0); }, // vẽ lại sau khi Chart.js xử lý xong cú bấm
         onHover:(e,els)=>{ e.native.target.style.cursor=els.length?"pointer":"default"; },
         plugins:{legend:{display:false},tooltip:{callbacks:{label:it=>`${L.chMax} ${pfF(it.raw)}`,
           afterBody:it=>{ const x=tested[it[0].dataIndex]; return [`${x.st.best.num} · ${x.st.best.creator}`,`${x.st.n} video · ${L.clickIt}`]; }}}},
@@ -2199,31 +2217,23 @@ function renderPerf(){
   }
   const itRows=[...byIt].reverse();
   document.getElementById("pf-it").innerHTML=`<thead><tr><th>${C.it}</th><th class="n">${C.vids}</th><th class="n">${C.rej}</th><th class="n">${C.avg}</th><th class="n">${C.med}</th><th class="n">${C.best}</th><th class="n">${C.chg}</th><th>${C.who}</th></tr></thead><tbody>`+
-    itRows.map(x=>{ const i=tested.indexOf(x), pv=i>0?tested[i-1].st.avg:null;
-      return `<tr${PF_SCOPE==="it:"+x.it?' class="sel"':""}><td class="b">${x.it?`<button type="button" class="pf-v" data-it="${x.it}" title="${escH(L.clickIt)}">${pfOrd(x.it)}</button>`:escH(L.noIt)}</td><td class="n">${x.st.n}</td><td class="n">${x.st.rej||""}</td><td class="n b">${pfF(x.st.avg)}</td><td class="n">${pfF(x.st.med)}</td>`+
+    itRows.map(x=>{ const i=tested.indexOf(x), pv=i>0?tested[i-1].st.avg:null, open=x.it&&PF_OPEN===x.it;
+      const sub=open?`<tr class="pf-exp"><td colspan="8">${pfVidTable(x.rows,true,"pf-sub").html}</td></tr>`:"";
+      return `<tr${open?' class="sel"':""}><td class="b">${x.it?`<button type="button" class="pf-it-b" data-it="${x.it}" aria-expanded="${!!open}" title="${escH(L.clickIt)}"><span class="car" aria-hidden="true">${open?"▾":"▸"}</span>${pfOrd(x.it)}</button>`:escH(L.noIt)}</td><td class="n">${x.st.n}</td><td class="n">${x.st.rej||""}</td><td class="n b">${pfF(x.st.avg)}</td><td class="n">${pfF(x.st.med)}</td>`+
         `<td class="n">${x.st.best?`${pfF(x.st.best.cvr)} <span class="dim">${pfNum(x.st.best)} · ${escH(x.st.best.creator)}</span>`:"—"}</td>`+
-        `<td class="n">${x.st.avg!==null&&pv!==null?pfD(x.st.avg-pv):pfD(null)}</td><td class="who">${escH(x.who.join(", "))}</td></tr>`; }).join("")+`</tbody>`;
+        `<td class="n">${x.st.avg!==null&&pv!==null?pfD(x.st.avg-pv):pfD(null)}</td><td class="who">${escH(x.who.join(", "))}</td></tr>`+sub; }).join("")+`</tbody>`;
   document.getElementById("pf-chart-note").textContent=L.clickIt+".";
   // ---- video work nhất
   document.getElementById("pf-top-title").textContent=L.topTitle(PF_GAME);
-  const selIt=PF_SCOPE.startsWith("it:")?+PF_SCOPE.slice(3):null;
-  if(selIt!==null&&!G.rows.some(r=>r.it===selIt)) PF_SCOPE="all";
-  const sIt=PF_SCOPE.startsWith("it:")?selIt:PF_SCOPE==="last"?G.last:null;
+  if(PF_SCOPE!=="last") PF_SCOPE="all";
+  const sIt=PF_SCOPE==="last"?G.last:null;
   document.getElementById("pf-top-title").textContent=sIt!==null?L.itVids(pfOrd(sIt),PF_GAME):L.topTitle(PF_GAME);
-  document.getElementById("pf-scope").innerHTML=[["all",L.scope.all],["last",`${L.scope.last} (${pfOrd(G.last)})`]].concat(selIt!==null&&selIt!==G.last?[["it:"+selIt,pfOrd(selIt)]]:[])
-    .map(([k,t])=>`<button type="button" data-s="${k}" aria-pressed="${k===PF_SCOPE||(k==="last"&&PF_SCOPE==="it:"+G.last)}">${escH(t)}</button>`).join("");
-  const TOPN=15, inIt=r=>sIt===null||r.it===sIt;
-  let pool=G.rows.filter(r=>r.cvr!==null&&inIt(r)).sort((a,b)=>b.cvr-a.cvr||a.num.localeCompare(b.num));
-  if(sIt===null) pool=pool.slice(0,TOPN); else pool=pool.concat(G.rows.filter(r=>r.cvr===null&&inIt(r)));
-  const dfm=d=>d?d.split("-").reverse().join("/"):"";
-  document.getElementById("pf-top").innerHTML=`<thead><tr><th class="n">${L.rank}</th><th class="n">CVR</th><th>${L.num}</th><th>${C.cr}</th><th>${C.it}</th><th>${L.date}</th><th>${L.watch}</th></tr></thead><tbody>`+
-    pool.map((r,i)=>{ const v=pfVideo(r); let w=`<span class="dim">${escH(L.noVid)}</span>`;
-      if(v&&Object.keys(v.links||{}).length){ PF_VIDS.push(v); const vi=PF_VIDS.length-1;
-        w=["9x16","1x1","16x9"].filter(k=>v.links[k]).map(k=>`<button type="button" class="sz" data-v="${vi}" data-k="${k}">${k}</button>`).join(""); }
-      const pk=sIt!==null&&i===0&&r.cvr!==null;
-      return `<tr${pk?' class="peak"':""}><td class="n dim">${r.cvr!==null?i+1:""}</td><td class="n pk">${r.cvr!==null?pfF(r.cvr):`<span class="rej">${escH(r.status)}</span>`}${pk?`<span class="flag pkf">${escH(L.peak)}</span>`:""}</td><td class="n">${escH(r.num)}${r.top?`<span class="flag" title="${escH(L.top)}: ${escH(r.top)}">${escH(L.top)}</span>`:""}</td>`+
-        `<td class="b">${escH(r.creator)}</td><td>${escH(pfOrd(r.it))}</td><td>${dfm(r.date)}</td><td>${w}</td></tr>`; }).join("")+`</tbody>`;
-  document.getElementById("pf-top-note").textContent=sIt!==null?L.clickIt+".":L.topNote(pool.length);
+  document.getElementById("pf-scope").innerHTML=[["all",L.scope.all],["last",`${L.scope.last} (${pfOrd(G.last)})`]]
+    .map(([k,t])=>`<button type="button" data-s="${k}" aria-pressed="${k===PF_SCOPE}">${escH(t)}</button>`).join("");
+  const TOPN=15, tv=pfVidTable(sIt===null?G.rows:G.rows.filter(r=>r.it===sIt),sIt!==null);
+  if(sIt===null){ const t=document.createElement("div"); t.innerHTML=tv.html; [...t.querySelectorAll("tbody tr")].slice(TOPN).forEach(r=>r.remove()); tv.html=t.innerHTML; tv.n=Math.min(tv.n,TOPN); }
+  document.getElementById("pf-top").innerHTML=tv.html.replace(/^<table[^>]*>|<\/table>$/g,"");
+  document.getElementById("pf-top-note").textContent=sIt!==null?L.clickIt+".":L.topNote(tv.n);
   // ---- từng người trong game đang chọn
   const people=[...pfGroup(G.rows,r=>r.creator)].map(([c,rows])=>{ const st=pfStats(rows);
     const its=[...new Set(rows.filter(r=>r.cvr!==null&&r.it).map(r=>r.it))].sort((a,b)=>a-b), li=its[its.length-1];
@@ -2243,16 +2253,19 @@ function renderPerf(){
   document.getElementById("pf-mx").innerHTML=`<thead><tr><th>${C.cr}</th>${gcols.map(x=>`<th class="g">${gameTag(x.g)}</th>`).join("")}</tr></thead><tbody>`+
     names.map(c=>`<tr><td class="b">${escH(c)}</td>${gcols.map(x=>{ const o=cell[c][x.g]; return o?`<td class="c"${shade(o.avg,...rng[x.g])}>${pfF(o.avg)}<small>${o.n}</small></td>`:`<td class="c"></td>`; }).join("")}</tr>`).join("")+`</tbody>`;
 }
-document.getElementById("pf-game").addEventListener("change",e=>{ PF_GAME=e.target.value; renderPerf(); });
-function pfToTop(){ document.getElementById("pf-top-title").scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"start"}); }
-document.getElementById("pf-it").addEventListener("click",e=>{ const b=e.target.closest("button[data-it]"); if(b){ PF_SCOPE="it:"+b.dataset.it; renderPerf(); pfToTop(); } });
+document.getElementById("pf-game").addEventListener("change",e=>{ PF_GAME=e.target.value; PF_OPEN=null; renderPerf(); });
+function pfToOpen(){ const r=document.querySelector("#pf-it tr.sel"); if(r) r.scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"start"}); }
+// bấm iteration ở cột trái: mở / đóng danh sách video ngay bên dưới dòng đó
+document.getElementById("pf-it").addEventListener("click",e=>{ const b=e.target.closest("button[data-it]"); if(!b) return;
+  const it=+b.dataset.it; PF_OPEN=PF_OPEN===it?null:it; renderPerf();
+  const nb=document.querySelector(`#pf-it button[data-it="${it}"]`); if(nb) nb.focus({preventScroll:true}); });
 document.getElementById("pf-scope").addEventListener("click",e=>{ const b=e.target.closest("button[data-s]"); if(b){ PF_SCOPE=b.dataset.s; renderPerf(); } });
 document.getElementById("view-perf").addEventListener("click",e=>{
   const b=e.target.closest("button[data-v]"); if(!b) return; const v=PF_VIDS[+b.dataset.v]; if(!v) return;
   const dlg=document.getElementById("sv-dlg"); if(dlg.parentElement!==document.body) document.body.appendChild(dlg); // dialog nằm trong tab Đã làm đang ẩn
   svPlay(v,b.dataset.k||["9x16","1x1","16x9"].find(k=>v.links[k])||Object.keys(v.links)[0]);
 });
-document.getElementById("pf-games").addEventListener("click",e=>{ const b=e.target.closest("button[data-g]"); if(b){ PF_GAME=b.dataset.g; renderPerf(); document.getElementById("pf-it-title").scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"start"}); } });
+document.getElementById("pf-games").addEventListener("click",e=>{ const b=e.target.closest("button[data-g]"); if(b){ PF_GAME=b.dataset.g; PF_OPEN=null; renderPerf(); document.getElementById("pf-it-title").scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"start"}); } });
 
 let VIEW="creator";
 function showView(v){
