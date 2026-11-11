@@ -2130,6 +2130,19 @@ fetch("data/cvr.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
     creator:r.Creator||"—", src:r.Source, date:r.Date||"", top:r.Top||""}));
   if(VIEW==="perf") renderPerf();
 }).catch(()=>{ PF=[]; });
+// ghi số Peak CVR ngay trên mỗi điểm của biểu đồ đường; điểm sát nhau thì bỏ bớt nhãn (luôn giữ điểm đang chọn và điểm cao nhất)
+const pfLabels={id:"pfLabels",afterDatasetsDraw(chart){
+  const meta=chart.getDatasetMeta(0), data=chart.data.datasets[0].data, pts=meta.data; if(!pts.length) return;
+  const ctx=chart.ctx, gap=pts.length>1?Math.abs(pts[1].x-pts[0].x):99, step=Math.max(1,Math.ceil(22/Math.max(gap,1)));
+  const mx=Math.max(...data.filter(v=>v!==null)), radii=chart.data.datasets[0].pointRadius;
+  ctx.save(); ctx.font='600 10px "IBM Plex Mono", monospace'; ctx.textAlign="center"; ctx.fillStyle=getCSS("--ink");
+  pts.forEach((pt,i)=>{ const v=data[i]; if(v===null||v===undefined) return;
+    const big=Array.isArray(radii)&&radii[i]>4;
+    if(i%step&&v!==mx&&!big&&i!==pts.length-1) return;
+    // đỉnh ghi phía trên, đáy ghi phía dưới để các nhãn sát nhau không đè lên nhau
+    const pv=i>0?data[i-1]:v, nv=i<data.length-1?data[i+1]:v, up=v>=(pv+nv)/2;
+    ctx.textBaseline=up?"bottom":"top"; ctx.fillText(v.toFixed(2),pt.x,up?pt.y-(big?10:7):pt.y+(big?10:7)); });
+  ctx.restore(); }};
 const pfOrd=n=>!n?"—":n+(n%100>=11&&n%100<=13?"th":({1:"st",2:"nd",3:"rd"})[n%10]||"th");
 const pfAvg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
 const pfMed=a=>{ if(!a.length) return null; const b=[...a].sort((x,y)=>x-y), m=b.length>>1; return b.length%2?b[m]:(b[m-1]+b[m])/2; };
@@ -2195,17 +2208,17 @@ function renderPerf(){
   if(window.Chart&&tested.length){
     const ink=getCSS("--ink-2"), grid=getCSS("--grid");
     const selIt=PF_OPEN, base=getCSS("--heat"), hot=getCSS("--video");
-    charts.perf=new Chart(cv,{type:"line",data:{labels:tested.map(x=>pfOrd(x.it)),datasets:[
-      {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:base,borderWidth:2.5,tension:0,
+    charts.perf=new Chart(cv,{type:"line",plugins:[pfLabels],data:{labels:tested.map(x=>pfOrd(x.it)),datasets:[
+      {label:L.chMax,data:tested.map(x=>x.st.best?x.st.best.cvr:null),borderColor:base,borderWidth:2.5,tension:0,borderJoinStyle:"round",
         fill:true,backgroundColor:`color-mix(in srgb, ${base} 14%, transparent)`,
         pointBackgroundColor:tested.map(x=>x.it===selIt?hot:base),pointBorderColor:getCSS("--panel"),pointBorderWidth:1.5,
         pointRadius:tested.map(x=>x.it===selIt?7:4),pointHoverRadius:7,pointHitRadius:12}]},
-      options:{responsive:true,maintainAspectRatio:false,animation:PF_RM?false:{duration:400},interaction:{mode:"index",intersect:false},
+      options:{responsive:true,maintainAspectRatio:false,animation:PF_RM?false:{duration:400},interaction:{mode:"index",intersect:false},layout:{padding:{right:18,left:4}},
         onClick:(e,els)=>{ if(!els.length) return; PF_OPEN=tested[els[0].index].it; setTimeout(()=>{ renderPerf(); pfToOpen(); },0); }, // vẽ lại sau khi Chart.js xử lý xong cú bấm
         onHover:(e,els)=>{ e.native.target.style.cursor=els.length?"pointer":"default"; },
         plugins:{legend:{display:false},tooltip:{callbacks:{label:it=>`${L.chMax} ${pfF(it.raw)}`,
           afterBody:it=>{ const x=tested[it[0].dataIndex]; return [`${x.st.best.num} · ${x.st.best.creator}`,`${x.st.n} video · ${L.clickIt}`]; }}}},
-        scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:false,grace:"8%",ticks:{color:ink},grid:{color:grid},title:{display:true,text:L.chMax,color:ink}}}}});
+        scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:false,grace:"14%",ticks:{color:ink},grid:{color:grid},title:{display:true,text:L.chMax,color:ink}}}}});
     cv.setAttribute("aria-label",`${L.chMax} · ${L.itTitle(PF_GAME)}: `+tested.map(x=>`${pfOrd(x.it)} ${pfF(x.st.best&&x.st.best.cvr)}`).join(", "));
   }
   // bảng iteration: mặc định chỉ hiện 5 iteration gần nhất, bấm nút để xem tất cả
@@ -2243,17 +2256,17 @@ function renderPerf(){
         tile(L.pLast,lx?escH(pfOrd(lx.it)):"—",lx?`${L.chMax} ${pfF(lx.st.best&&lx.st.best.cvr)}`:"");
       if(window.Chart&&its.length){
         const ink=getCSS("--ink-2"), grid=getCSS("--grid"), base=getCSS("--video"), hot=getCSS("--heat");
-        charts.perfP=new Chart(pc,{type:"line",data:{labels:its.map(x=>pfOrd(x.it)),datasets:[
-          {label:L.chMax,data:its.map(x=>x.st.best.cvr),borderColor:base,borderWidth:2.5,tension:0,
+        charts.perfP=new Chart(pc,{type:"line",plugins:[pfLabels],data:{labels:its.map(x=>pfOrd(x.it)),datasets:[
+          {label:L.chMax,data:its.map(x=>x.st.best.cvr),borderColor:base,borderWidth:2.5,tension:0,borderJoinStyle:"round",
             fill:true,backgroundColor:`color-mix(in srgb, ${base} 14%, transparent)`,
             pointBackgroundColor:its.map(x=>x.it===PF_WHO_IT?hot:base),pointBorderColor:getCSS("--panel"),pointBorderWidth:1.5,
             pointRadius:its.map(x=>x.it===PF_WHO_IT?7:4),pointHoverRadius:7,pointHitRadius:12}]},
-          options:{responsive:true,maintainAspectRatio:false,animation:PF_RM?false:{duration:400},interaction:{mode:"index",intersect:false},
+          options:{responsive:true,maintainAspectRatio:false,animation:PF_RM?false:{duration:400},interaction:{mode:"index",intersect:false},layout:{padding:{right:18,left:4}},
             onClick:(e,els)=>{ if(!els.length) return; PF_WHO_IT=its[els[0].index].it; setTimeout(renderPerf,0); },
             onHover:(e,els)=>{ e.native.target.style.cursor=els.length?"pointer":"default"; },
             plugins:{legend:{display:false},tooltip:{callbacks:{label:it=>`${L.chMax} ${pfF(it.raw)}`,
               afterBody:it=>{ const x=its[it[0].dataIndex]; return [`${x.st.best.num} · ${x.st.n} video`]; }}}},
-            scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:false,grace:"8%",ticks:{color:ink},grid:{color:grid},title:{display:true,text:L.chMax,color:ink}}}}});
+            scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:false,grace:"14%",ticks:{color:ink},grid:{color:grid},title:{display:true,text:L.chMax,color:ink}}}}});
         pc.setAttribute("aria-label",`${L.pTitle(PF_GAME)} · ${PF_WHO}: `+its.map(x=>`${pfOrd(x.it)} ${pfF(x.st.best.cvr)}`).join(", "));
       }
       document.getElementById("pf-p-note").textContent=L.pClick;
