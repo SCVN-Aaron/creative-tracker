@@ -2335,12 +2335,14 @@ document.getElementById("view-perf").addEventListener("click",e=>{
 // "Bulldozer Master / 18th set of 22 items (90300~90321)". Gộp theo game + số iteration (UA và AI dùng chung dãy số).
 const WS_TXT={
   vi:{title:w=>"Tổng hợp "+w+" (UA + AI)", copy:"Copy tất cả", cp:"Copy", copied:"Đã copy.", cols:["Game","Iteration","Số video","Số Creative","Team","Dòng tổng hợp",""],
-    none:"Tuần này chưa có task nào có số Creative.", skip:x=>"Không tính vì chưa có số 90xxx: "+x+".", note:"Mỗi dòng gộp mọi task cùng game và cùng số iteration của cả team UA lẫn AI."},
+    none:"Tuần này chưa có task nào có số Creative.", only:g=>"Chỉ gồm các game đang test: "+g+".", skip:x=>"Không tính vì chưa có số 90xxx: "+x+".", note:"Mỗi dòng gộp mọi task cùng game và cùng số iteration của cả team UA lẫn AI."},
   en:{title:w=>w+" summary (UA + AI)", copy:"Copy all", cp:"Copy", copied:"Copied.", cols:["Game","Iteration","Videos","Creative numbers","Team","Summary line",""],
-    none:"No tasks with Creative numbers this week yet.", skip:x=>"Not counted (no 90xxx number yet): "+x+".", note:"Each line combines every UA and AI task for the same game and iteration number."},
+    none:"No tasks with Creative numbers this week yet.", only:g=>"Only the games under test: "+g+".", skip:x=>"Not counted (no 90xxx number yet): "+x+".", note:"Each line combines every UA and AI task for the same game and iteration number."},
   ko:{title:w=>w+" 요약 (UA + AI)", copy:"모두 복사", cp:"복사", copied:"복사했습니다.", cols:["게임","이터레이션","영상 수","Creative 번호","팀","요약",""],
-    none:"이번 주에는 Creative 번호가 있는 작업이 아직 없습니다.", skip:x=>"90xxx 번호가 없어 제외: "+x+".", note:"같은 게임·같은 이터레이션 번호의 UA와 AI 작업을 한 줄로 합칩니다."}
+    none:"이번 주에는 Creative 번호가 있는 작업이 아직 없습니다.", only:g=>"테스트 중인 게임만 포함: "+g+".", skip:x=>"90xxx 번호가 없어 제외: "+x+".", note:"같은 게임·같은 이터레이션 번호의 UA와 AI 작업을 한 줄로 합칩니다."}
 };
+// chỉ tổng hợp các game đang test (sửa danh sách ở đây khi đổi game test)
+const WS_GAMES=["XP Hero","Bulldozer Master","Pizza Ready","Snake Clash"];
 const wsOrd=n=>n+(n%100>=11&&n%100<=13?"th":({1:"st",2:"nd",3:"rd"})[n%10]||"th");
 let WS_LINES=[];
 function wsGroups(week){
@@ -2349,6 +2351,7 @@ function wsGroups(week){
   const itNum=s=>{ const m=String(s||"").match(/(\d+)\s*(?:st|nd|rd|th)(?![a-z])/i); return m?+m[1]:0; };
   const rows=(ALL_TASKS||[]).filter(t=>same(t.period)).map(t=>({team:"UA",game:toNotionGame(t.game),it:itNum(t.iteration),iteration:t.iteration,creative:t.creative,who:t.creators.join(", ")}))
     .concat(AI_NUMS.filter(t=>same(t.period)).map(t=>({team:"AI",game:toNotionGame(t.game),it:itNum(t.iteration),iteration:t.iteration,creative:t.creative,who:t.creator})));
+  const keep=new Set(WS_GAMES.map(gameKey)), rows2=rows.filter(r=>keep.has(gameKey(r.game))); rows.length=0; rows.push(...rows2);
   const g=new Map(), skipped=[];
   // Viral Marketing: mỗi người tự đánh số từ 01 nên không gộp dãy số, chỉ cộng số video -> một dòng riêng
   const vir=new Map();
@@ -2381,7 +2384,7 @@ function renderWeekSum(){
       `<td>${[...x.teams].sort().reverse().map(t=>`<span class="tm${t==="AI"?" ai":""}">${t}</span>`).join("")}</td><td class="line">${escH(x.line)}</td>`+
       `<td><button type="button" class="cp" data-i="${i}">${escH(L.cp)}</button></td></tr>`).join("")+`</tbody>`
     :`<tbody><tr><td class="dim">${escH(L.none)}</td></tr></tbody>`;
-  document.getElementById("ws-note").textContent=[groups.length?L.note:"",skipped.length?L.skip(skipped.join("; ")):""].filter(Boolean).join(" ");
+  document.getElementById("ws-note").textContent=[L.only(WS_GAMES.join(", ")),groups.length?L.note:"",skipped.length?L.skip(skipped.join("; ")):""].filter(Boolean).join(" ");
 }
 async function wsCopy(text){
   try{ await navigator.clipboard.writeText(text); }catch(err){ const a=document.createElement("textarea"); a.value=text; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove(); }
