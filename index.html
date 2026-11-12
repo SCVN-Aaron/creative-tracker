@@ -2350,7 +2350,13 @@ function wsGroups(week){
   const rows=(ALL_TASKS||[]).filter(t=>same(t.period)).map(t=>({team:"UA",game:toNotionGame(t.game),it:itNum(t.iteration),iteration:t.iteration,creative:t.creative,who:t.creators.join(", ")}))
     .concat(AI_NUMS.filter(t=>same(t.period)).map(t=>({team:"AI",game:toNotionGame(t.game),it:itNum(t.iteration),iteration:t.iteration,creative:t.creative,who:t.creator})));
   const g=new Map(), skipped=[];
+  // Viral Marketing: mỗi người tự đánh số từ 01 nên không gộp dãy số, chỉ cộng số video -> một dòng riêng
+  const vir=new Map();
   rows.forEach(r=>{ const rg=cnRanges(r.creative).filter(([a,b])=>a>=10000&&b>=a&&b-a<500);
+    if(!rg.length&&/viral\s*marketing/i.test(r.iteration)){
+      const m=String(r.creative||"").match(/(\d+)\s*(?:~|-|–)\s*(\d+)/), n=m?Math.max(0,+m[2]-+m[1]+1):(/\d/.test(r.creative||"")?1:0);
+      if(n){ const k=gameKey(r.game)+"|"+r.it; if(!vir.has(k)) vir.set(k,{game:r.game,it:r.it,n:0,teams:new Set()});
+        const o=vir.get(k); o.n+=n; o.teams.add(r.team); return; } }
     if(!rg.length){ skipped.push(`${r.who} · ${r.iteration||r.game}`); return; }
     const k=gameKey(r.game)+"|"+r.it;
     if(!g.has(k)) g.set(k,{game:r.game,it:r.it,nums:new Set(),teams:new Set()});
@@ -2359,7 +2365,9 @@ function wsGroups(week){
     ns.forEach(n=>{ const l=parts[parts.length-1]; if(l&&n===l[1]+1) l[1]=n; else parts.push([n,n]); });
     const range=parts.map(([a,b])=>a===b?String(a):a+"~"+b).join(", ");
     const line=`${o.game} / ${o.it?wsOrd(o.it)+" ":""}set of ${ns.length} items (${range})`;
-    return {...o,n:ns.length,range,line,first:ns[0]}; }).sort((a,b)=>a.game.localeCompare(b.game)||a.it-b.it);
+    return {...o,n:ns.length,range,line,first:ns[0]}; })
+    .concat([...vir.values()].map(o=>({...o,viral:true,range:"—",line:`${o.game} – Viral Marketing / ${o.it?wsOrd(o.it)+" ":""}set of ${o.n} items`})))
+    .sort((a,b)=>a.game.localeCompare(b.game)||(!!a.viral-!!b.viral)||a.it-b.it);
   return {groups,skipped};
 }
 function renderWeekSum(){
@@ -2369,7 +2377,7 @@ function renderWeekSum(){
   const {groups,skipped}=wsGroups(pmWeek); WS_LINES=groups.map(x=>x.line);
   document.getElementById("ws-copy").hidden=!groups.length;
   tbl.innerHTML=groups.length?`<thead><tr>${L.cols.map((c,i)=>`<th${i===2?' class="n"':""}>${escH(c)}</th>`).join("")}</tr></thead><tbody>`+
-    groups.map((x,i)=>`<tr><td>${gameTag(x.game)}</td><td>${x.it?wsOrd(x.it):"—"}</td><td class="n b">${x.n}</td><td class="n">${escH(x.range)}</td>`+
+    groups.map((x,i)=>`<tr><td>${gameTag(x.game)}${x.viral?` <span class="tm">Viral Marketing</span>`:""}</td><td>${x.it?wsOrd(x.it):"—"}</td><td class="n b">${x.n}</td><td class="n">${escH(x.range)}</td>`+
       `<td>${[...x.teams].sort().reverse().map(t=>`<span class="tm${t==="AI"?" ai":""}">${t}</span>`).join("")}</td><td class="line">${escH(x.line)}</td>`+
       `<td><button type="button" class="cp" data-i="${i}">${escH(L.cp)}</button></td></tr>`).join("")+`</tbody>`
     :`<tbody><tr><td class="dim">${escH(L.none)}</td></tr></tbody>`;
