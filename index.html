@@ -2364,9 +2364,9 @@ function wsGroups(week){
   const groups=[...g.values()].map(o=>{ const ns=[...o.nums].sort((a,b)=>a-b), parts=[];
     ns.forEach(n=>{ const l=parts[parts.length-1]; if(l&&n===l[1]+1) l[1]=n; else parts.push([n,n]); });
     const range=parts.map(([a,b])=>a===b?String(a):a+"~"+b).join(", ");
-    const line=`${o.game} / ${o.it?wsOrd(o.it)+" ":""}set of ${ns.length} items (${range})`;
+    const line=`${o.game} / ${o.it?wsOrd(o.it)+" ":""}set of ${ns.length} item${ns.length===1?"":"s"} (${range})`;
     return {...o,n:ns.length,range,line,first:ns[0]}; })
-    .concat([...vir.values()].map(o=>({...o,viral:true,range:"—",line:`${o.game} – Viral Marketing / ${o.it?wsOrd(o.it)+" ":""}set of ${o.n} items`})))
+    .concat([...vir.values()].map(o=>({...o,viral:true,range:"—",line:`${o.game} – Viral Marketing / ${o.it?wsOrd(o.it)+" ":""}set of ${o.n} item${o.n===1?"":"s"}`})))
     .sort((a,b)=>a.game.localeCompare(b.game)||(!!a.viral-!!b.viral)||a.it-b.it);
   return {groups,skipped};
 }
