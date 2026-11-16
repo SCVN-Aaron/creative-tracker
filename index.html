@@ -308,6 +308,9 @@
   .pf-chart{position:relative;height:260px;padding:6px 18px 6px}
   .pf-h3{margin:0;padding:14px 18px 0;font-size:14px;font-weight:600}
   .pf-src{padding-top:12px}
+  .pf-sub{display:inline-flex;margin-top:22px}
+  .pf-sub button{font-size:13.5px;padding:7px 14px}
+  .pf-sub+.tcard{margin-top:10px}
   .pf-more-w{padding:10px 18px 0}
   .pf-stats .up{color:var(--up)} .pf-stats .down{color:var(--down)}
   #view-perf button.pf-v{all:unset;cursor:pointer;color:var(--accent);border-bottom:1px dashed currentColor}
@@ -630,7 +633,6 @@
     <button role="tab" id="tab-creator" aria-controls="view-creator" aria-selected="true" type="button"></button>
     <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1"></button>
     <button role="tab" id="tab-num" aria-controls="view-num" aria-selected="false" type="button" tabindex="-1"></button>
-    <button role="tab" id="tab-done" aria-controls="view-done" aria-selected="false" type="button" tabindex="-1"></button>
     <button role="tab" id="tab-perf" aria-controls="view-perf" aria-selected="false" type="button" tabindex="-1"></button>
     <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
   </nav>
@@ -778,15 +780,16 @@
       <p class="pm-note src-line" id="pf-p-note"></p>
       <div class="pm-scroll" id="pf-p-list"></div>
     </div>
-    <div class="tcard pm-card">
+    <div class="toggle pf-sub" role="group" id="pf-sub">
+      <button type="button" data-s="cvr" aria-pressed="true"></button>
+      <button type="button" data-s="made" aria-pressed="false"></button>
+    </div>
+    <div class="tcard pm-card" id="pf-mx-card">
       <div class="cs-head"><h2 class="ov-h" id="pf-mx-title"></h2></div>
       <div class="ov-scroll"><table class="pf-table pf-mx" id="pf-mx"></table></div>
       <p class="pm-note src-line" id="pf-mx-note"></p>
     </div>
-  </div>
-
-  <div id="view-done" role="tabpanel" aria-labelledby="tab-done" hidden>
-    <div class="tcard pm-card">
+    <div class="tcard pm-card" id="dn-card" hidden>
       <div class="cs-head"><h2 class="ov-h" id="dn-title"></h2>
         <div class="toggle" role="group" id="dn-mode">
           <button type="button" data-mode="week" aria-pressed="false"></button>
@@ -830,6 +833,7 @@
       <p class="pm-note" id="sv-dlg-note"></p>
     </dialog>
   </div>
+
 </div>
 
     <dialog id="exc-dlg" aria-labelledby="exc-title">
@@ -1923,12 +1927,12 @@ fetch("data/drive_videos.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then
   DONE=parseCSV(t||"").filter(r=>r.Creator&&r.Date).map(r=>({game:r.Game, type:r.Type||"UA", n:+r["Creative number"], creator:r.Creator,
     date:new Date(r.Date+"T00:00:00"), concept:r.Concept||"", dur:r.Duration||"",
     links:Object.fromEntries((r.Links||"").split(/\s+/).filter(Boolean).map(x=>x.split("=")))}));
-  if(VIEW==="done") renderDone();
+  if(VIEW==="perf") renderDone();
   if(VIEW==="perf") renderPerf();
 }).catch(()=>{ DONE=[]; });
 fetch("data/drive_numbers.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
   DONE_SCAN=parseCSV(t||"").reduce((m,r)=>(r.Updated||"")>m?r.Updated:m,"");
-  if(VIEW==="done") renderDone();
+  if(VIEW==="perf") renderDone();
 }).catch(()=>{});
 // Team của creator: theo data Notion (Video Ads = UA, AI_NUMS = AI)
 function creatorTeam(c){
@@ -2021,7 +2025,7 @@ document.getElementById("sv-game").addEventListener("change",e=>{ SV_GAME=e.targ
 let DGAMES=null, DG_SEL="";
 fetch("data/drive_games.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
   DGAMES=parseCSV(t||"").filter(r=>r.Game&&r.Folder);
-  if(VIEW==="done") renderDriveGames();
+  if(VIEW==="perf") renderDriveGames();
   if(VIEW==="num") renderQuick();
 }).catch(()=>{ DGAMES=[]; });
 const driveFolderUrl=id=>`https://drive.google.com/drive/folders/${encodeURIComponent(id)}`;
@@ -2227,6 +2231,13 @@ const PF_TXT={
 };
 const PT=()=>PF_TXT[LANG]||PF_TXT.en;
 const PF_RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+let PF_SUB="cvr";   // tab con cuối trang Hiệu quả: "cvr" = CVR TB theo người × game, "made" = số video đã làm (Drive)
+function pfSub(){
+  document.querySelectorAll("#pf-sub button").forEach(b=>{ b.textContent=b.dataset.s==="cvr"?PT().mxTitle:T().done.title; b.setAttribute("aria-pressed",b.dataset.s===PF_SUB); });
+  document.getElementById("pf-mx-card").hidden=PF_SUB!=="cvr";
+  document.getElementById("dn-card").hidden=PF_SUB!=="made";
+  document.getElementById("dn-note").hidden=PF_SUB!=="made";
+}
 let PF=null, PF_GAME="", PF_EXP="", PF_VIDS=[], PF_OPEN=null, PF_ALLIT=false, PF_MONTHS=0,  // PF_MONTHS: 3 / 6 / 12 tháng gần đây, 0 = tất cả
     PF_WHO="", PF_WHO_IT=null;  // PF_WHO: creator đang xem trong biểu đồ theo người  // PF_OPEN: iteration đang mở ngay trong bảng
 // video trên Drive của một dòng CVR (cùng game + số; ưu tiên bản UA)
@@ -2286,6 +2297,7 @@ function pfVidTable(rows,peak,cls){
 }
 function renderPerf(){
   const L=PT(), C=L.cols; PF_VIDS=[];
+  pfSub(); renderDone();
   document.getElementById("pf-ov-title").textContent=L.ovTitle;
   document.getElementById("pf-game-l").textContent=L.game;
   document.getElementById("pf-mx-title").textContent=L.mxTitle;
@@ -2412,6 +2424,7 @@ document.getElementById("pf-range").addEventListener("click",e=>{ const b=e.targ
   PF_MONTHS=+b.dataset.m; PF_OPEN=null; PF_ALLIT=false; PF_WHO_IT=null; renderPerf(); });
 document.getElementById("pf-more").addEventListener("click",()=>{ PF_ALLIT=!PF_ALLIT; if(!PF_ALLIT) PF_OPEN=null; renderPerf();
   if(!PF_ALLIT) document.getElementById("pf-it").scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"nearest"}); });
+document.getElementById("pf-sub").addEventListener("click",e=>{ const b=e.target.closest("button[data-s]"); if(b){ PF_SUB=b.dataset.s; pfSub(); } });
 document.getElementById("pf-game").addEventListener("change",e=>{ PF_GAME=e.target.value; PF_OPEN=null; PF_ALLIT=false; PF_WHO_IT=null; renderPerf(); });
 document.getElementById("pf-who").addEventListener("change",e=>{ PF_WHO=e.target.value; PF_WHO_IT=null; renderPerf(); });
 function pfToOpen(){ const r=document.querySelector("#pf-it tr.sel"); if(r) r.scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"start"}); }
@@ -2490,7 +2503,7 @@ document.getElementById("ws-table").addEventListener("click",e=>{ const b=e.targ
 let VIEW="creator";
 function showView(v){
   VIEW=v;
-  ["creator","pm","num","done","perf"].forEach(k=>{
+  ["creator","pm","num","perf"].forEach(k=>{
     const on=k===v, tab=document.getElementById("tab-"+k);
     tab.setAttribute("aria-selected",on); tab.tabIndex=on?0:-1;
     document.getElementById("view-"+k).hidden=!on;
@@ -2500,7 +2513,6 @@ function showView(v){
   document.getElementById("lbl-week").hidden=v!=="creator";
   if(v==="pm") renderPM();
   else if(v==="num") renderNum();
-  else if(v==="done") renderDone();
   else if(v==="perf") renderPerf();
   else if(charts.video) charts.video.resize();
   try{ localStorage.setItem("ct-view",v); }catch(e){}
@@ -3354,13 +3366,12 @@ function applyLang(){
   document.getElementById("tab-creator").textContent=T().tab.creator;
   document.getElementById("tab-pm").textContent=T().tab.pm;
   document.getElementById("tab-num").textContent=T().tab.num;
-  document.getElementById("tab-done").textContent=T().tab.done;
   document.getElementById("tab-perf").textContent=PT().tab;
   const plan=document.getElementById("tab-plan");
   plan.textContent=T().tab.plan; plan.href=PLANNER_URL; plan.hidden=!NOTION_AI;
   if(VIEW==="pm") renderPM();
   if(VIEW==="num") renderNum();
-  if(VIEW==="done") renderDone();
+  if(VIEW==="perf") renderDone();
   if(VIEW==="perf") renderPerf();
   excLabels();
   Object.entries(MODE_BTN).forEach(([k,id])=>
@@ -3428,20 +3439,21 @@ if(window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListene
 document.getElementById("tab-creator").addEventListener("click",()=>showView("creator"));
 document.getElementById("tab-pm").addEventListener("click",()=>showView("pm"));
 document.getElementById("tab-num").addEventListener("click",()=>showView("num"));
-document.getElementById("tab-done").addEventListener("click",()=>showView("done"));
 document.getElementById("tab-perf").addEventListener("click",()=>showView("perf"));
 document.querySelector(".tabs").addEventListener("keydown",e=>{
   if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight") return;
-  const order=["creator","pm","num","done","perf"], i=order.indexOf(VIEW);
+  const order=["creator","pm","num","perf"], i=order.indexOf(VIEW);
   const next=order[(i+(e.key==="ArrowRight"?1:order.length-1))%order.length];
   showView(next); document.getElementById("tab-"+next).focus();
 });
 document.getElementById("pm-week").addEventListener("change",e=>{pmWeek=e.target.value;renderPM();});
 function boot(){
   applyLang(); buildCharts(); update(); renderCreatorSchedule();
-  let v=location.hash==="#pm"?"pm":location.hash==="#number"?"num":location.hash==="#done"?"done":location.hash==="#performance"?"perf":null;
+  let v=location.hash==="#pm"?"pm":location.hash==="#number"?"num":location.hash==="#done"?"perf":location.hash==="#performance"?"perf":null;
+  if(location.hash==="#done") PF_SUB="made";
   if(!v){ try{ v=localStorage.getItem("ct-view"); }catch(e){} }
-  showView(["pm","num","done","perf"].includes(v)?v:"creator");
+  if(v==="done"){ v="perf"; PF_SUB="made"; }   // tab Đã làm đã gộp vào Hiệu quả
+  showView(["pm","num","perf"].includes(v)?v:"creator");
 }
 
 loadLiveCSV().then(r=>{
