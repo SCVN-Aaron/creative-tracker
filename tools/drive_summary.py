@@ -24,6 +24,8 @@ DUR_RE = re.compile(r"^\d+s$", re.I)
 
 
 RATIO = {"1080x1920": "9x16", "1080x1080": "1x1", "1920x1080": "16x9"}
+# (Game, GameFolderId, VNFolderId) cho game không nằm trong thư mục gốc được quét
+EXTRA_FOLDERS = [("Behind", "1gTXRPyqqgwRjB4q3hixgOGZZOSaCRGZD", "")]
 
 
 def ratio_of(folder):
@@ -200,7 +202,13 @@ def main(src, outdir):
                 g["d"] = v["date"]
         w = csv.writer(open(os.path.join(outdir, "drive_games.csv"), "w", encoding="utf-8", newline=""), lineterminator="\n")
         w.writerow(["Game", "Folder", "Videos folder", "Videos", "Last number", "Last upload"])
-        for r in sorted(csv.DictReader(open(fp, encoding="utf-8")), key=lambda r: r["Game"].lower()):
+        rows_f = list(csv.DictReader(open(fp, encoding="utf-8")))
+        have = {r["Game"].lower() for r in rows_f}
+        # game có thư mục ngoài thư mục gốc được quét (shared drive khác) — vẫn hiện link trên dashboard
+        for g, fid, vid in EXTRA_FOLDERS:
+            if g.lower() not in have:
+                rows_f.append({"Game": g, "GameFolderId": fid, "VNFolderId": vid})
+        for r in sorted(rows_f, key=lambda r: r["Game"].lower()):
             g = last.get(r["Game"], {})
             w.writerow([r["Game"], r["GameFolderId"], (r.get("VNFolderId") or "").split(";")[0], g.get("c", 0) or "",  # nhiều thư mục VN: link thư mục đầu
                         g.get("n") or "", g["d"].isoformat() if g.get("d") else ""])
