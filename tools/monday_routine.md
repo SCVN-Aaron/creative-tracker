@@ -14,7 +14,7 @@ Lịch tự động "Quét Drive thứ 2 hằng tuần" chạy 7h43 sáng thứ 
    - chỗ hở số (ví dụ Downhill thiếu 90053);
    - task chưa có số hoặc chưa có số video;
    - file trên Drive đặt sai tên creator / trùng số / tên `_del`.
-3. **Kiểm tra dashboard** chạy không lỗi (Creators, PMs, Numbering, Produced, Performance).
+3. **Kiểm tra dashboard** chạy không lỗi (Creators, PMs, Performance — gồm các tab con Week summary, Numbering, Produced).
 4. **Commit + push** lên branch làm việc, rồi **PR riêng từ main chỉ chứa `data/`** (không đưa `crebo/` lên main), merge.
 5. **Báo anh** bằng tiếng Việt, ngắn gọn, theo thứ tự:
    1. Link PR đã merge; tổng video Drive, video mới theo game.

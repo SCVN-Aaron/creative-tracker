@@ -322,6 +322,7 @@
   #ws-week{max-width:100%;min-width:0;text-overflow:ellipsis}
   .pf-sub button{font-size:13.5px;padding:7px 14px}
   .pf-sub+.tcard{margin-top:10px}
+  #num-wrap{margin-top:10px}
   .pf-more-w{padding:10px 18px 0}
   .pf-stats .up{color:var(--up)} .pf-stats .down{color:var(--down)}
   #view-perf button.pf-v{all:unset;cursor:pointer;color:var(--accent);border-bottom:1px dashed currentColor}
@@ -643,7 +644,6 @@
   <nav class="tabs" role="tablist" aria-label="View">
     <button role="tab" id="tab-creator" aria-controls="view-creator" aria-selected="true" type="button"></button>
     <button role="tab" id="tab-pm" aria-controls="view-pm" aria-selected="false" type="button" tabindex="-1"></button>
-    <button role="tab" id="tab-num" aria-controls="view-num" aria-selected="false" type="button" tabindex="-1"></button>
     <button role="tab" id="tab-perf" aria-controls="view-perf" aria-selected="false" type="button" tabindex="-1"></button>
     <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
   </nav>
@@ -719,7 +719,41 @@
     <p class="pm-note" id="pm-note"></p>
   </div>
 
-  <div id="view-num" role="tabpanel" aria-labelledby="tab-num" hidden>
+  <div id="view-perf" role="tabpanel" aria-labelledby="tab-perf" hidden>
+    <div class="tcard pm-card">
+      <div class="cs-head"><h2 class="ov-h" id="pf-ov-title"></h2>
+        <div class="toggle" role="group" id="pf-range">
+          <button type="button" data-m="3" aria-pressed="false"></button>
+          <button type="button" data-m="6" aria-pressed="false"></button>
+          <button type="button" data-m="12" aria-pressed="false"></button>
+          <button type="button" data-m="0" aria-pressed="true"></button>
+        </div>
+        <div class="sv-ctl"><label for="pf-game" id="pf-game-l"></label><select id="pf-game"></select></div>
+      </div>
+      <div class="pf-stats" id="pf-stats"></div>
+      <h3 class="pf-h3" id="pf-it-title"></h3>
+      <div class="pf-chart"><canvas id="pf-chart" role="img"></canvas></div>
+      <p class="pm-note src-line" id="pf-chart-note"></p>
+      <div class="pm-scroll"><table class="pf-table" id="pf-it"></table></div>
+      <div class="pf-more-w"><button type="button" class="num-btn" id="pf-more" aria-controls="pf-it"></button></div>
+      <p class="pm-note src-line pf-src" id="pf-src"></p>
+    </div>
+    <div class="toggle pf-sub" role="group" id="pf-sub">
+      <button type="button" data-s="ws" aria-pressed="true"></button>
+      <button type="button" data-s="num" aria-pressed="false"></button>
+      <button type="button" data-s="cvr" aria-pressed="false"></button>
+      <button type="button" data-s="who" aria-pressed="false"></button>
+      <button type="button" data-s="made" aria-pressed="false"></button>
+    </div>
+    <div class="tcard pm-card" id="ws-card">
+      <div class="cs-head"><h2 class="ov-h" id="ws-title"></h2>
+        <div class="sv-ctl"><label for="ws-week" id="ws-week-l"></label><select id="ws-week"></select></div>
+        <button type="button" class="num-btn primary" id="ws-copy"></button>
+      </div>
+      <div class="pm-scroll"><table class="pf-table" id="ws-table"></table></div>
+      <p class="pm-note src-line" id="ws-note" role="status"></p>
+    </div>
+    <div id="num-wrap" hidden>
     <div class="tcard pm-card qn-card">
       <div class="cs-head"><h2 class="ov-h" id="qn-title"></h2></div>
       <div class="qn-body">
@@ -754,40 +788,6 @@
     </div>
     <p class="pm-note" id="num-note"></p>
     <p class="pm-note" id="num-drive-src"></p>
-  </div>
-
-  <div id="view-perf" role="tabpanel" aria-labelledby="tab-perf" hidden>
-    <div class="tcard pm-card">
-      <div class="cs-head"><h2 class="ov-h" id="pf-ov-title"></h2>
-        <div class="toggle" role="group" id="pf-range">
-          <button type="button" data-m="3" aria-pressed="false"></button>
-          <button type="button" data-m="6" aria-pressed="false"></button>
-          <button type="button" data-m="12" aria-pressed="false"></button>
-          <button type="button" data-m="0" aria-pressed="true"></button>
-        </div>
-        <div class="sv-ctl"><label for="pf-game" id="pf-game-l"></label><select id="pf-game"></select></div>
-      </div>
-      <div class="pf-stats" id="pf-stats"></div>
-      <h3 class="pf-h3" id="pf-it-title"></h3>
-      <div class="pf-chart"><canvas id="pf-chart" role="img"></canvas></div>
-      <p class="pm-note src-line" id="pf-chart-note"></p>
-      <div class="pm-scroll"><table class="pf-table" id="pf-it"></table></div>
-      <div class="pf-more-w"><button type="button" class="num-btn" id="pf-more" aria-controls="pf-it"></button></div>
-      <p class="pm-note src-line pf-src" id="pf-src"></p>
-    </div>
-    <div class="toggle pf-sub" role="group" id="pf-sub">
-      <button type="button" data-s="ws" aria-pressed="true"></button>
-      <button type="button" data-s="cvr" aria-pressed="false"></button>
-      <button type="button" data-s="who" aria-pressed="false"></button>
-      <button type="button" data-s="made" aria-pressed="false"></button>
-    </div>
-    <div class="tcard pm-card" id="ws-card">
-      <div class="cs-head"><h2 class="ov-h" id="ws-title"></h2>
-        <div class="sv-ctl"><label for="ws-week" id="ws-week-l"></label><select id="ws-week"></select></div>
-        <button type="button" class="num-btn primary" id="ws-copy"></button>
-      </div>
-      <div class="pm-scroll"><table class="pf-table" id="ws-table"></table></div>
-      <p class="pm-note src-line" id="ws-note" role="status"></p>
     </div>
     <div class="tcard pm-card" id="pf-who-card" hidden>
       <div class="cs-head"><h2 class="ov-h" id="pf-p-title"></h2>
@@ -1725,14 +1725,14 @@ function loadDrive(){
     const rows=parseCSV(t).filter(r=>r.Game&&+r.Max>0);
     if(!rows.length) throw 0;
     return rows.map(r=>({game:r.Game, social:/social/i.test(r.Type||""), n:+r.Max, file:r["Latest file"]||"", updated:r.Updated||""}));
-  },[]).then(d=>{ if(d){ DRIVE_NUMS=d; if(VIEW==="num") renderNum(); } });
+  },[]).then(d=>{ if(d){ DRIVE_NUMS=d; if(numOn()) renderNum(); } });
 }
 loadDrive();
 // Số Creative của team AI (AI Content Creator) — cùng dãy số với team UA theo game (UA điền trước, AI điền sau)
 fetch("data/ai_numbers.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
   if(!t) return;
   AI_NUMS=parseCSV(t).map(r=>({period:r.Period||"", creator:r.Creator||"", game:r["Game Title"]||"", iteration:r.Iteration||"", creative:r["Creative number"]||""}));
-  if(VIEW==="num") renderNum();
+  if(numOn()) renderNum();
   if(VIEW==="pm") renderPM();
   if(VIEW==="perf") renderPerf();
 }).catch(()=>{});
@@ -2038,7 +2038,7 @@ let DGAMES=null, DG_SEL="";
 fetch("data/drive_games.csv",{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
   DGAMES=parseCSV(t||"").filter(r=>r.Game&&r.Folder);
   if(VIEW==="perf") renderDriveGames();
-  if(VIEW==="num") renderQuick();
+  if(numOn()) renderQuick();
 }).catch(()=>{ DGAMES=[]; });
 const driveFolderUrl=id=>`https://drive.google.com/drive/folders/${encodeURIComponent(id)}`;
 // Chọn game (giống ô Tìm video Creative) → hiện link thư mục game + thư mục video, copy được
@@ -2243,11 +2243,14 @@ const PF_TXT={
 };
 const PT=()=>PF_TXT[LANG]||PF_TXT.en;
 const PF_RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+function numOn(){ return VIEW==="perf"&&PF_SUB==="num"; }
 let PF_SUB="ws";   // tab con cuối trang Hiệu quả: "cvr" = CVR TB theo người × game, "made" = số video đã làm (Drive)
 function pfSub(){
-  document.querySelectorAll("#pf-sub button").forEach(b=>{ b.textContent=b.dataset.s==="ws"?(WS_TXT[LANG]||WS_TXT.en).tab:b.dataset.s==="cvr"?PT().mxTitle:b.dataset.s==="who"?PT().whoTab:T().done.title; b.setAttribute("aria-pressed",b.dataset.s===PF_SUB); });
+  document.querySelectorAll("#pf-sub button").forEach(b=>{ b.textContent=b.dataset.s==="ws"?(WS_TXT[LANG]||WS_TXT.en).tab:b.dataset.s==="num"?T().tab.num:b.dataset.s==="cvr"?PT().mxTitle:b.dataset.s==="who"?PT().whoTab:T().done.title; b.setAttribute("aria-pressed",b.dataset.s===PF_SUB); });
   document.getElementById("pf-mx-card").hidden=PF_SUB!=="cvr";
   document.getElementById("ws-card").hidden=PF_SUB!=="ws";
+  document.getElementById("num-wrap").hidden=PF_SUB!=="num";
+  if(PF_SUB==="num") renderNum();
   if(PF_SUB==="ws") renderWeekSum();
   document.getElementById("pf-who-card").hidden=PF_SUB!=="who";
   document.getElementById("dn-card").hidden=PF_SUB!=="made";
@@ -2575,7 +2578,7 @@ document.getElementById("ws-table").addEventListener("click",e=>{ const b=e.targ
 let VIEW="creator";
 function showView(v){
   VIEW=v;
-  ["creator","pm","num","perf"].forEach(k=>{
+  ["creator","pm","perf"].forEach(k=>{
     const on=k===v, tab=document.getElementById("tab-"+k);
     tab.setAttribute("aria-selected",on); tab.tabIndex=on?0:-1;
     document.getElementById("view-"+k).hidden=!on;
@@ -2584,7 +2587,6 @@ function showView(v){
   document.getElementById("week").hidden=v!=="creator";
   document.getElementById("lbl-week").hidden=v!=="creator";
   if(v==="pm") renderPM();
-  else if(v==="num") renderNum();
   else if(v==="perf") renderPerf();
   else if(charts.video) charts.video.resize();
   try{ localStorage.setItem("ct-view",v); }catch(e){}
@@ -3437,12 +3439,11 @@ function applyLang(){
   document.getElementById("footer").innerHTML=T().footer;
   document.getElementById("tab-creator").textContent=T().tab.creator;
   document.getElementById("tab-pm").textContent=T().tab.pm;
-  document.getElementById("tab-num").textContent=T().tab.num;
   document.getElementById("tab-perf").textContent=PT().tab;
   const plan=document.getElementById("tab-plan");
   plan.textContent=T().tab.plan; plan.href=PLANNER_URL; plan.hidden=!NOTION_AI;
   if(VIEW==="pm") renderPM();
-  if(VIEW==="num") renderNum();
+  if(numOn()) renderNum();
   if(VIEW==="perf") renderDone();
   if(VIEW==="perf") renderPerf();
   excLabels();
@@ -3497,7 +3498,7 @@ function applyTheme(v){
   const cur=(v==="light"||v==="dark")?v:(sysDark()?"dark":"light");
   document.querySelectorAll("#theme button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===cur));
 }
-function repaint(){ if(Object.keys(charts).length) refreshCharts(); update(); renderCreatorSchedule(); if(VIEW==="pm") renderPM(); if(VIEW==="num") renderNum(); if(VIEW==="perf") renderPerf(); }
+function repaint(){ if(Object.keys(charts).length) refreshCharts(); update(); renderCreatorSchedule(); if(VIEW==="pm") renderPM(); if(numOn()) renderNum(); if(VIEW==="perf") renderPerf(); }
 (()=>{ let v=null; try{ v=localStorage.getItem(THEME_KEY); }catch(e){} applyTheme(v); })();
 document.getElementById("theme").addEventListener("click",e=>{
   const b=e.target.closest("button[data-v]"); if(!b) return;
@@ -3510,22 +3511,23 @@ if(window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListene
 });
 document.getElementById("tab-creator").addEventListener("click",()=>showView("creator"));
 document.getElementById("tab-pm").addEventListener("click",()=>showView("pm"));
-document.getElementById("tab-num").addEventListener("click",()=>showView("num"));
 document.getElementById("tab-perf").addEventListener("click",()=>showView("perf"));
 document.querySelector(".tabs").addEventListener("keydown",e=>{
   if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight") return;
-  const order=["creator","pm","num","perf"], i=order.indexOf(VIEW);
+  const order=["creator","pm","perf"], i=order.indexOf(VIEW);
   const next=order[(i+(e.key==="ArrowRight"?1:order.length-1))%order.length];
   showView(next); document.getElementById("tab-"+next).focus();
 });
 document.getElementById("pm-week").addEventListener("change",e=>{pmWeek=e.target.value;renderPM();});
 function boot(){
   applyLang(); buildCharts(); update(); renderCreatorSchedule();
-  let v=location.hash==="#pm"?"pm":location.hash==="#number"?"num":location.hash==="#done"?"perf":location.hash==="#performance"?"perf":null;
+  let v=location.hash==="#pm"?"pm":location.hash==="#number"?"perf":location.hash==="#done"?"perf":location.hash==="#performance"?"perf":null;
   if(location.hash==="#done") PF_SUB="made";
+  if(location.hash==="#number") PF_SUB="num";
   if(!v){ try{ v=localStorage.getItem("ct-view"); }catch(e){} }
-  if(v==="done"){ v="perf"; PF_SUB="made"; }   // tab Đã làm đã gộp vào Hiệu quả
-  showView(["pm","num","perf"].includes(v)?v:"creator");
+  if(v==="done"){ v="perf"; PF_SUB="made"; }
+  if(v==="num"){ v="perf"; PF_SUB="num"; }   // tab Đánh số đã gộp vào Hiệu quả   // tab Đã làm đã gộp vào Hiệu quả
+  showView(["pm","perf"].includes(v)?v:"creator");
 }
 
 loadLiveCSV().then(r=>{
