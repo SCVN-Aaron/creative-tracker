@@ -306,6 +306,7 @@
   .pf-wg-h b{color:var(--ink);font-family:"IBM Plex Mono",monospace}
   .pf-wg .pf-chart{height:210px}
   .pf-wg-gap{height:14px}
+  .pf-table .tm{display:inline-block;padding:0 7px;border-radius:999px;font-size:11px;font-weight:700;background:var(--as-bg);color:var(--video)}
   #view-perf button.pf-wg-t{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border-radius:999px}
   #view-perf button.pf-wg-t:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   #view-perf button.pf-wg-t .car{display:inline-block;width:10px;font-size:11px;color:var(--ink-2)}
@@ -2205,7 +2206,7 @@ document.getElementById("exc-list").addEventListener("click",async e=>{
 // ---------------------------------------------------------------- Performance (CVR theo iteration, từ Crebo)
 // data/cvr.csv do tools/crebo_merge.py tạo: CVR = AOS CVR (WW); creator theo Google Drive (bản 9x16).
 const PF_TXT={
-  vi:{tab:"Hiệu quả", ovTitle:"CVR các game (Crebo)", itTitle:g=>"CVR theo iteration · "+g, game:"Game", mxTitle:"CVR trung bình của từng người theo game",whoTab:"Peak CVR theo người",wkT:"Số video theo tuần (Notion UA + AI)", wkSum:(t,w,a)=>`${t} video trong ${w} tuần · TB ${a}/tuần`, wkTasks:"Video", wkNone:"Chưa có task trên Notion trong khoảng này.",  wTitle:c=>"Peak CVR của "+c+" · tất cả game",  range:{3:"3 tháng",6:"6 tháng",12:"12 tháng",0:"Tất cả"}, fromNote:d=>`Chỉ tính video làm từ ${d} đến nay.`, noRange:"Không có video có CVR trong khoảng thời gian này.", itMore:n=>`Xem tất cả ${n} iteration ▾`, itLess:"Thu gọn ▴",
+  vi:{tab:"Hiệu quả", ovTitle:"CVR các game (Crebo)", itTitle:g=>"CVR theo iteration · "+g, game:"Game", mxTitle:"CVR trung bình của từng người theo game",whoTab:"Peak CVR theo người",wkT:"Số video theo tuần (Notion UA + AI)",wkClick:"Bấm để xem video tuần này", wkList:(c,w,n)=>`Video của ${c} · tuần ${w} (${n} video)`, wkNoNum:"Task chưa có số 90xxx",  wkSum:(t,w,a)=>`${t} video trong ${w} tuần · TB ${a}/tuần`, wkTasks:"Video", wkNone:"Chưa có task trên Notion trong khoảng này.",  wTitle:c=>"Peak CVR của "+c+" · tất cả game",  range:{3:"3 tháng",6:"6 tháng",12:"12 tháng",0:"Tất cả"}, fromNote:d=>`Chỉ tính video làm từ ${d} đến nay.`, noRange:"Không có video có CVR trong khoảng thời gian này.", itMore:n=>`Xem tất cả ${n} iteration ▾`, itLess:"Thu gọn ▴",
     pTitle:g=>"Peak CVR theo người · "+g, who:"Creator", pLast:"Iteration gần nhất", pClick:"Bấm tên game để mở biểu đồ; bấm vào điểm để xem các video của người này trong iteration đó.", pList:(c,it)=>`Video của ${c} · iteration ${it}`, pNone:"Người này chưa có video có CVR trong game này.",
     cols:{game:"Game",its:"Iteration",vids:"Video có CVR",avg:"CVR TB",last:"Iteration mới nhất",lastAvg:"CVR TB iteration mới nhất",chg:"So với iteration trước",
       it:"Iteration",rej:"Rejected",med:"Trung vị",best:"Peak CVR",who:"Creator",cr:"Creator",vsGame:"So với TB game",lastIt:"Iteration gần nhất"},
@@ -2215,7 +2216,7 @@ const PF_TXT={
     mxNote:"Mỗi ô: CVR TB (số video). Màu đậm nhạt so trong từng cột game. Bấm tên game ở bảng trên để xem chi tiết.",
     none:"Chưa có dữ liệu CVR (data/cvr.csv).", pick:"Bấm để xem",
     clickIt:"Bấm vào điểm trên biểu đồ để xem video của iteration đó", peak:"Peak", rank:"#", num:"Số Creative", date:"Ngày", concept:"Concept", watch:"Xem video", top:"Top creative", noVid:"Chưa có trên Drive"},
-  en:{tab:"Performance", ovTitle:"CVR by game (Crebo)", itTitle:g=>"CVR by iteration · "+g, game:"Game", mxTitle:"Average CVR per creator by game",whoTab:"Peak CVR by creator",wkT:"Videos per week (Notion UA + AI)", wkSum:(t,w,a)=>`${t} videos over ${w} weeks · avg ${a}/week`, wkTasks:"Videos", wkNone:"No Notion tasks in this period.",  wTitle:c=>"Peak CVR · "+c+" · all games",  range:{3:"3 months",6:"6 months",12:"12 months",0:"All"}, fromNote:d=>`Only videos made since ${d}.`, noRange:"No videos with CVR in this period.", itMore:n=>`Show all ${n} iterations ▾`, itLess:"Show less ▴",
+  en:{tab:"Performance", ovTitle:"CVR by game (Crebo)", itTitle:g=>"CVR by iteration · "+g, game:"Game", mxTitle:"Average CVR per creator by game",whoTab:"Peak CVR by creator",wkT:"Videos per week (Notion UA + AI)",wkClick:"Click to see this week\u2019s videos", wkList:(c,w,n)=>`${c}\u2019s videos · week of ${w} (${n} videos)`, wkNoNum:"Task has no 90xxx number",  wkSum:(t,w,a)=>`${t} videos over ${w} weeks · avg ${a}/week`, wkTasks:"Videos", wkNone:"No Notion tasks in this period.",  wTitle:c=>"Peak CVR · "+c+" · all games",  range:{3:"3 months",6:"6 months",12:"12 months",0:"All"}, fromNote:d=>`Only videos made since ${d}.`, noRange:"No videos with CVR in this period.", itMore:n=>`Show all ${n} iterations ▾`, itLess:"Show less ▴",
     pTitle:g=>"Peak CVR by creator · "+g, who:"Creator", pLast:"Latest iteration", pClick:"Click a game to open its chart; click a point to see this person's videos in that iteration.", pList:(c,it)=>`${c}'s videos · iteration ${it}`, pNone:"This person has no videos with CVR in this game yet.",
     cols:{game:"Game",its:"Iterations",vids:"Videos with CVR",avg:"Avg CVR",last:"Latest iteration",lastAvg:"Latest iteration avg",chg:"vs previous iteration",
       it:"Iteration",rej:"Rejected",med:"Median",best:"Peak CVR",who:"Creators",cr:"Creator",vsGame:"vs game avg",lastIt:"Latest iteration"},
@@ -2225,7 +2226,7 @@ const PF_TXT={
     mxNote:"Each cell: avg CVR (videos). Shading is relative within each game column. Click a game in the first table for details.",
     none:"No CVR data yet (data/cvr.csv).", pick:"Click for details",
     clickIt:"Click a point on the chart to see that iteration's videos", peak:"Peak", rank:"#", num:"Creative no.", date:"Date", concept:"Concept", watch:"Watch", top:"Top creative", noVid:"Not on Drive"},
-  ko:{tab:"성과", ovTitle:"게임별 CVR (Crebo)", itTitle:g=>"이터레이션별 CVR · "+g, game:"게임", mxTitle:"게임별 크리에이터 평균 CVR",whoTab:"크리에이터별 Peak CVR",wkT:"주별 영상 수 (Notion UA + AI)", wkSum:(t,w,a)=>`${w}주 동안 영상 ${t}개 · 주 평균 ${a}개`, wkTasks:"영상", wkNone:"이 기간에 Notion 작업이 없습니다.",  wTitle:c=>c+" · 모든 게임 Peak CVR",  range:{3:"3개월",6:"6개월",12:"12개월",0:"전체"}, fromNote:d=>`${d} 이후 제작된 영상만 포함합니다.`, noRange:"이 기간에 CVR이 있는 영상이 없습니다.", itMore:n=>`이터레이션 ${n}개 모두 보기 ▾`, itLess:"접기 ▴",
+  ko:{tab:"성과", ovTitle:"게임별 CVR (Crebo)", itTitle:g=>"이터레이션별 CVR · "+g, game:"게임", mxTitle:"게임별 크리에이터 평균 CVR",whoTab:"크리에이터별 Peak CVR",wkT:"주별 영상 수 (Notion UA + AI)",wkClick:"눌러서 이번 주 영상 보기", wkList:(c,w,n)=>`${c}의 영상 · ${w} 주 (${n}개)`, wkNoNum:"90xxx 번호 없는 작업",  wkSum:(t,w,a)=>`${w}주 동안 영상 ${t}개 · 주 평균 ${a}개`, wkTasks:"영상", wkNone:"이 기간에 Notion 작업이 없습니다.",  wTitle:c=>c+" · 모든 게임 Peak CVR",  range:{3:"3개월",6:"6개월",12:"12개월",0:"전체"}, fromNote:d=>`${d} 이후 제작된 영상만 포함합니다.`, noRange:"이 기간에 CVR이 있는 영상이 없습니다.", itMore:n=>`이터레이션 ${n}개 모두 보기 ▾`, itLess:"접기 ▴",
     pTitle:g=>"크리에이터별 Peak CVR · "+g, who:"크리에이터", pLast:"최근 이터레이션", pClick:"게임을 눌러 차트를 열고, 점을 누르면 해당 이터레이션에서 이 사람이 만든 영상을 볼 수 있습니다.", pList:(c,it)=>`${c}의 영상 · 이터레이션 ${it}`, pNone:"이 게임에서 CVR이 있는 영상이 아직 없습니다.",
     cols:{game:"게임",its:"이터레이션",vids:"CVR 있는 영상",avg:"평균 CVR",last:"최근 이터레이션",lastAvg:"최근 이터레이션 평균",chg:"이전 이터레이션 대비",
       it:"이터레이션",rej:"Rejected",med:"중앙값",best:"Peak CVR",who:"크리에이터",cr:"크리에이터",vsGame:"게임 평균 대비",lastIt:"최근 이터레이션"},
@@ -2247,7 +2248,7 @@ function pfSub(){
   document.getElementById("dn-note").hidden=PF_SUB!=="made";
 }
 let PF=null, PF_GAME="", PF_EXP="", PF_VIDS=[], PF_OPEN=null, PF_ALLIT=false, PF_MONTHS=0,  // PF_MONTHS: 3 / 6 / 12 tháng gần đây, 0 = tất cả
-    PF_WHO="", PF_WHO_SEL="", PF_WHO_OPEN=new Set();  // PF_WHO: creator ở tab con "Peak CVR theo người"; PF_WHO_SEL: "game|iteration" đang mở  // PF_WHO: creator đang xem trong biểu đồ theo người  // PF_OPEN: iteration đang mở ngay trong bảng
+    PF_WHO="", PF_WHO_SEL="", PF_WHO_OPEN=new Set(), PF_WK_SEL="";  // PF_WHO: creator ở tab con "Peak CVR theo người"; PF_WHO_SEL: "game|iteration" đang mở  // PF_WHO: creator đang xem trong biểu đồ theo người  // PF_OPEN: iteration đang mở ngay trong bảng
 // video trên Drive của một dòng CVR (cùng game + số; ưu tiên bản UA)
 function pfVideo(r){
   if(!DONE) return null; const gk=gameKey(r.game);
@@ -2302,6 +2303,23 @@ function pfVidTable(rows,peak,cls){
       const pk=peak&&i===0&&r.cvr!==null;
       return `<tr${pk?' class="peak"':""}><td class="n dim">${r.cvr!==null?i+1:""}</td><td class="n pk">${r.cvr!==null?pfF(r.cvr):`<span class="rej">${escH(r.status)}</span>`}${pk?`<span class="flag pkf">${escH(L.peak)}</span>`:""}</td><td class="n">${escH(r.num)}${r.top?`<span class="flag" title="${escH(L.top)}: ${escH(r.top)}">${escH(L.top)}</span>`:""}</td>`+
         `<td class="b">${escH(r.creator)}</td><td>${escH(pfOrd(r.it))}</td><td>${dfm(r.date)}</td><td>${w}</td></tr>`; }).join("")+`</tbody></table>`};
+}
+// video creator làm trong một tuần: từng task (Notion UA / AI) -> từng số Creative -> video trên Drive (+ CVR nếu có)
+function pfWeekVideos(w){
+  if(!w) return "";
+  const L=PT(), C=L.cols, rows=[];
+  w.raw.forEach(t=>{
+    const rg=cnRanges(t.creative).filter(([a,b])=>a>=10000&&b>=a&&b-a<500);
+    if(!rg.length){ rows.push(`<tr><td>${gameTag(toNotionGame(t.game))}</td><td>${escH(t.it)}${t.ai?` <span class="tm ai">AI</span>`:""}</td><td class="n dim">${escH(t.creative||"—")}</td><td class="dim">${escH(L.wkNoNum)}</td><td></td></tr>`); return; }
+    rg.forEach(([a,b])=>{ for(let n=a;n<=b;n++){
+      const r={game:toNotionGame(t.game),num:String(n)}, v=pfVideo(r), cv=(PF||[]).find(x=>gameKey(x.game)===gameKey(r.game)&&x.num===r.num);
+      let wbtn=`<span class="dim">${escH(L.noVid)}</span>`;
+      if(v&&Object.keys(v.links||{}).length){ PF_VIDS.push(v); const vi=PF_VIDS.length-1;
+        wbtn=["9x16","1x1","16x9"].filter(k=>v.links[k]).map(k=>`<button type="button" class="sz" data-v="${vi}" data-k="${k}">${k}</button>`).join(""); }
+      rows.push(`<tr><td>${gameTag(r.game)}</td><td>${escH(t.it)}${t.ai?` <span class="tm ai">AI</span>`:""}</td><td class="n">${n}</td>`+
+        `<td class="n">${cv?(cv.cvr!==null?pfF(cv.cvr):`<span class="rej">${escH(cv.status)}</span>`):"—"}</td><td>${wbtn}</td></tr>`); } });
+  });
+  return `<h3 class="pf-p-h">${escH(L.wkList(PF_WHO,w.lab,w.n))}</h3><div class="pm-scroll"><table class="pf-table"><thead><tr><th>${C.game}</th><th>${C.it}</th><th class="n">${L.num}</th><th class="n">CVR</th><th>${L.watch}</th></tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
 }
 function renderPerf(){
   const L=PT(), C=L.cols; PF_VIDS=[];
@@ -2398,19 +2416,20 @@ function renderPerf(){
     const me=PF_WHO.toLowerCase(), wk=new Map();
     // ngày bắt đầu tuần: năm nay, trừ khi rơi quá xa vào tương lai (thì là năm trước) — dữ liệu Notion chỉ có trong vòng 1 năm
     const wkStart=period=>{ const pd=periodDate(period); if(!pd) return null; const now=new Date(), d=new Date(now.getFullYear(),pd.m-1,pd.d); if(d-now>60*864e5) d.setFullYear(d.getFullYear()-1); return d; };
-    const addT=(period,label,n)=>{ const d=wkStart(period); if(!d) return; const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-      if(from&&k<from) return; if(!wk.has(k)) wk.set(k,{n:0,tasks:[]}); const o=wk.get(k); o.n+=n; o.tasks.push(`${label} (${n} video)`); };
+    const addT=(period,label,n,raw)=>{ const d=wkStart(period); if(!d) return; const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+      if(from&&k<from) return; if(!wk.has(k)) wk.set(k,{n:0,tasks:[],raw:[]}); const o=wk.get(k); o.n+=n; o.tasks.push(`${label} (${n} video)`); o.raw.push(raw); };
     // số video của task AI: độ dài dãy số 90xxx, hoặc dãy riêng kiểu Viral Marketing "01 ~ 06"
     const aiCount=c=>{ const rg=cnRanges(c).filter(([a,b])=>a>=10000&&b>=a&&b-a<500); if(rg.length) return rg.reduce((s,[a,b])=>s+b-a+1,0);
       const m=String(c||"").match(/(\d+)\s*(?:~|-|–)\s*(\d+)/); return m?Math.max(0,+m[2]-+m[1]+1):(/^\s*\d+\s*$/.test(c||"")?1:0); };
-    (ALL_TASKS||[]).forEach(t=>{ if(t.creators.some(c=>c.toLowerCase()===me)) addT(t.period,t.iteration||t.game,t.count||0); });
-    AI_NUMS.forEach(t=>{ if(t.creator.split(",").some(c=>c.trim().toLowerCase()===me)) addT(t.period,`AI · ${t.iteration||t.game}`,aiCount(t.creative)); });
+    (ALL_TASKS||[]).forEach(t=>{ if(t.creators.some(c=>c.toLowerCase()===me)) addT(t.period,t.iteration||t.game,t.count||0,{game:t.game,it:t.iteration||t.game,creative:t.creative,n:t.count||0,ai:false}); });
+    AI_NUMS.forEach(t=>{ if(t.creator.split(",").some(c=>c.trim().toLowerCase()===me)) addT(t.period,`AI · ${t.iteration||t.game}`,aiCount(t.creative),{game:t.game,it:t.iteration||t.game,creative:t.creative,n:aiCount(t.creative),ai:true}); });
     let weeks=[];
     if(wk.size){ const ks=[...wk.keys()].sort(), end=new Date(ks[ks.length-1]+"T12:00:00");
-      for(let d=new Date(ks[0]+"T12:00:00"); d<=end; d.setDate(d.getDate()+7)){ const k=d.toISOString().slice(0,10); const o=wk.get(k)||{n:0,tasks:[]}; weeks.push({k,lab:k.slice(8,10)+"/"+k.slice(5,7),n:o.n,tasks:o.tasks}); } }
+      for(let d=new Date(ks[0]+"T12:00:00"); d<=end; d.setDate(d.getDate()+7)){ const k=d.toISOString().slice(0,10); const o=wk.get(k)||{n:0,tasks:[],raw:[]}; weeks.push({k,lab:k.slice(8,10)+"/"+k.slice(5,7),n:o.n,tasks:o.tasks,raw:o.raw}); } }
+    if(PF_WK_SEL&&!weeks.some(x=>x.k===PF_WK_SEL)) PF_WK_SEL="";
     const totT=weeks.reduce((a,x)=>a+x.n,0);
     const wkHtml=`<div class="pf-wg"><div class="pf-wg-h"><strong style="color:var(--ink)">${escH(L.wkT)}</strong>${weeks.length?`<span>${escH(L.wkSum(totT,weeks.length,(totT/weeks.length).toFixed(1)))}</span>`:`<span>${escH(L.wkNone)}</span>`}</div>`+
-      (weeks.length?`<div class="pf-chart"><canvas id="pf-wk-chart" role="img"></canvas></div>`:"")+`</div>`;
+      (weeks.length?`<div class="pf-chart"><canvas id="pf-wk-chart" role="img"></canvas></div>`:"")+pfWeekVideos(weeks.find(x=>x.k===PF_WK_SEL))+`</div>`;
     // mỗi game là một mục bấm để mở / đóng (biểu đồ chỉ vẽ khi mục đang mở)
     box.innerHTML=wkHtml+gs.map((x,i)=>{ const b=x.st.best, isOpen=PF_WHO_OPEN.has(x.g), open=isOpen&&x.its.find(y=>PF_WHO_SEL===x.g+"|"+y.it);
       return `<div class="pf-wg"><div class="pf-wg-h"><button type="button" class="pf-wg-t" data-g="${escH(x.g)}" aria-expanded="${isOpen}"><span class="car" aria-hidden="true">${isOpen?"▾":"▸"}</span>${gameTag(x.g)}</button>`+
@@ -2423,9 +2442,12 @@ function renderPerf(){
     if(window.Chart&&wc){ const ink=getCSS("--ink-2"), grid=getCSS("--grid"), base=getCSS("--heat");
       charts.perfW.push(new Chart(wc,{type:"line",plugins:[pfLabels],data:{labels:weeks.map(x=>x.lab),datasets:[{label:L.wkTasks,data:weeks.map(x=>x.n),
         borderColor:base,borderWidth:2.5,tension:0,borderJoinStyle:"round",fill:true,backgroundColor:`color-mix(in srgb, ${base} 14%, transparent)`,
-        pointBackgroundColor:base,pointBorderColor:getCSS("--panel"),pointBorderWidth:1.5,pointRadius:4,pointHoverRadius:7,pointHitRadius:12}]},
+        pointBackgroundColor:weeks.map(x=>x.k===PF_WK_SEL?getCSS("--video"):base),pointBorderColor:getCSS("--panel"),pointBorderWidth:1.5,
+        pointRadius:weeks.map(x=>x.k===PF_WK_SEL?7:4),pointHoverRadius:7,pointHitRadius:12}]},
         options:{responsive:true,maintainAspectRatio:false,animation:PF_RM?false:{duration:400},interaction:{mode:"index",intersect:false},layout:{padding:{right:18,left:4}},
-          plugins:{legend:{display:false},tooltip:{callbacks:{label:it=>`${it.raw} video`,afterBody:it=>weeks[it[0].dataIndex].tasks}}},
+          onClick:(e,els)=>{ if(!els.length) return; const k=weeks[els[0].index].k; PF_WK_SEL=PF_WK_SEL===k?"":k; setTimeout(renderPerf,0); },
+          onHover:(e,els)=>{ e.native.target.style.cursor=els.length?"pointer":"default"; },
+          plugins:{legend:{display:false},tooltip:{callbacks:{label:it=>`${it.raw} video`,afterBody:it=>weeks[it[0].dataIndex].tasks.concat([L.wkClick])}}},
           scales:{x:{ticks:{color:ink,autoSkip:true,maxRotation:0},grid:{display:false}},y:{beginAtZero:true,grace:"14%",ticks:{color:ink,precision:0},grid:{color:grid},title:{display:true,text:L.wkTasks,color:ink}}}}}));
       wc.setAttribute("aria-label",`${L.wkT} · ${PF_WHO}: `+weeks.map(x=>`${x.lab} ${x.n}`).join(", "));
     }
@@ -2461,7 +2483,7 @@ document.getElementById("pf-more").addEventListener("click",()=>{ PF_ALLIT=!PF_A
   if(!PF_ALLIT) document.getElementById("pf-it").scrollIntoView({behavior:PF_RM?"auto":"smooth",block:"nearest"}); });
 document.getElementById("pf-sub").addEventListener("click",e=>{ const b=e.target.closest("button[data-s]"); if(b){ PF_SUB=b.dataset.s; pfSub(); if(PF_SUB==="who") renderPerf(); } });
 document.getElementById("pf-game").addEventListener("change",e=>{ PF_GAME=e.target.value; PF_OPEN=null; PF_ALLIT=false; renderPerf(); });
-document.getElementById("pf-who").addEventListener("change",e=>{ PF_WHO=e.target.value; PF_WHO_SEL=""; PF_WHO_OPEN.clear(); renderPerf(); });
+document.getElementById("pf-who").addEventListener("change",e=>{ PF_WHO=e.target.value; PF_WHO_SEL=""; PF_WHO_OPEN.clear(); PF_WK_SEL=""; renderPerf(); });
 document.getElementById("pf-who-list").addEventListener("click",e=>{ const b=e.target.closest("button.pf-wg-t"); if(!b) return;
   const g=b.dataset.g; if(PF_WHO_OPEN.has(g)){ PF_WHO_OPEN.delete(g); if(PF_WHO_SEL.startsWith(g+"|")) PF_WHO_SEL=""; } else PF_WHO_OPEN.add(g);
   renderPerf(); const nb=[...document.querySelectorAll("#pf-who-list button.pf-wg-t")].find(x=>x.dataset.g===g); if(nb) nb.focus({preventScroll:true}); });
