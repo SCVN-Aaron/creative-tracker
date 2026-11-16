@@ -40,6 +40,8 @@ def parse(name):
     m = NAME_RE.match(name)
     if not m:
         return None
+    if re.fullmatch(r"(del|delete|xoa)(\.\w+)?", m.group(2), re.I):  # "video90336_del.mp4" = bản đánh dấu xoá → không đếm
+        return None
     parts = m.group(2).split("_")
     out = {"n": int(m.group(1)), "concept": "", "lang": "", "dur": "", "size": "", "creator": "", "date": None}
     # tìm từ phải sang: ddmmyy, creator, kích thước, thời lượng, ngôn ngữ, phần còn lại là concept
@@ -200,7 +202,7 @@ def main(src, outdir):
         w.writerow(["Game", "Folder", "Videos folder", "Videos", "Last number", "Last upload"])
         for r in sorted(csv.DictReader(open(fp, encoding="utf-8")), key=lambda r: r["Game"].lower()):
             g = last.get(r["Game"], {})
-            w.writerow([r["Game"], r["GameFolderId"], r.get("VNFolderId", ""), g.get("c", 0) or "",
+            w.writerow([r["Game"], r["GameFolderId"], (r.get("VNFolderId") or "").split(";")[0], g.get("c", 0) or "",  # nhiều thư mục VN: link thư mục đầu
                         g.get("n") or "", g["d"].isoformat() if g.get("d") else ""])
         print(f"Đã ghi link thư mục của {sum(1 for _ in open(fp)) - 1} game vào drive_games.csv")
     print(f"{len(rows)} file → {len(vs)} video (đếm 1 lần mỗi số Creative), {len(mx)} dãy số")
