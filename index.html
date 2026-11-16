@@ -1798,7 +1798,7 @@ function renderNum(){
   if(ds){ const up=DRIVE_NUMS.reduce((m,d)=>d.updated>m?d.updated:m,""); ds.textContent=DRIVE_NUMS.length?`${L.driveSrc}${up?": "+up:""}`:""; }
   const sel=document.getElementById("num-week"), ws=numWeeks(), keep=sel.value;
   sel.innerHTML=ws.map(c=>`<option value="${c.key}">${escH(T().wk(String(c.start.getDate()).padStart(2,"0")+"/"+String(c.start.getMonth()+1).padStart(2,"0")))}</option>`).join("");
-  if(ws.some(c=>c.key===keep)) sel.value=keep; else if(ws[1]) sel.value=ws[1].key;
+  if(ws.some(c=>c.key===keep)) sel.value=keep; else if(ws[0]) sel.value=ws[0].key;   // mặc định: tuần hiện tại
   if(NUM_ROWS===null){ if(ws.length){ numFill(); return; } }   // lịch chưa tải xong: chờ lần vẽ sau
   const games=[...new Set([...GAME_ORDER,...(ALL_TASKS||[]).map(t=>t.game).filter(Boolean)])].sort((a,b)=>a.localeCompare(b));
   const people=[...new Set([...(SCHEDULE?SCHEDULE.people.map(p=>p.name):[]),...Object.keys(TEAMS[0].people)])];
