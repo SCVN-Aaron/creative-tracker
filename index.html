@@ -322,6 +322,8 @@
   #ws-week{max-width:100%;min-width:0;text-overflow:ellipsis}
   .pf-sub button{font-size:13.5px;padding:7px 14px}
   .pf-sub+.tcard{margin-top:10px}
+  .pause-note{margin:0 0 16px;padding:10px 14px;border:1px solid var(--accent);border-left-width:4px;border-radius:8px;background:var(--panel);color:var(--ink);font-size:14px}
+  .pause-note b{margin-right:6px}
   #num-wrap{margin-top:10px}
   .pf-more-w{padding:10px 18px 0}
   .pf-stats .up{color:var(--up)} .pf-stats .down{color:var(--down)}
@@ -647,6 +649,7 @@
     <button role="tab" id="tab-perf" aria-controls="view-perf" aria-selected="false" type="button" tabindex="-1"></button>
     <a id="tab-plan" target="_blank" rel="noopener noreferrer"></a>
   </nav>
+  <p class="pause-note" id="pause-note" role="note" hidden></p>
 
   <div id="view-creator" role="tabpanel" aria-labelledby="tab-creator">
   <div class="headline" id="headline"></div>
@@ -2644,7 +2647,28 @@ function excDate(v){
 }
 const excNum=v=>{ const n=parseFloat(String(v||"").replace(/[−–]/g,"-").replace(",",".")); return isFinite(n)?n:null; };
 function parseExc(t){ return excRows(parseCSV(t)); }
+// Tuần cả đội không làm task video (ghi sẵn trong tool, không cần nhập vào Sheet). Sheet có dòng ALL cùng tuần thì lấy dòng của Sheet.
+const EXC_FIXED=[
+  {Week:"2026-11-23", Creator:"ALL", "Team change":"-20", Note:"Test Playable Studio — không làm task video", "Note EN":"Playable Studio test — no video tasks", "Note KO":"Playable Studio 테스트 — 영상 작업 없음"},
+  {Week:"2026-11-30", Creator:"ALL", "Team change":"-20", Note:"Test Playable Studio — không làm task video", "Note EN":"Playable Studio test — no video tasks", "Note KO":"Playable Studio 테스트 — 영상 작업 없음"},
+];
 function excRows(list){
+  const rows=excRowsOf(list), wk=d=>{ const x=new Date(d); x.setDate(x.getDate()-((x.getDay()+6)%7)); return x.toDateString(); };
+  const hasAll=new Set(rows.filter(r=>r.all).map(r=>wk(r.date)));
+  return rows.concat(excRowsOf(EXC_FIXED).filter(r=>!hasAll.has(wk(r.date))));
+}
+// Dòng thông báo dưới thanh tab: các tuần ghi sẵn trong EXC_FIXED chưa qua (tính tới hết tuần)
+function renderPauseNote(){
+  const el=document.getElementById("pause-note"); if(!el) return;
+  const now=new Date(), L=LANG==="ko"?"ko":LANG==="vi"?"vi":"en";
+  const items=excRowsOf(EXC_FIXED).filter(r=>r.date.getTime()+7*864e5>now.getTime());
+  const fmt=d=>String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0");
+  const head={vi:"Tạm dừng task video:",en:"Video tasks paused:",ko:"영상 작업 일시 중단:"}[L], wk={vi:"tuần",en:"week of",ko:"주"}[L];
+  const groups=new Map(); items.forEach(r=>{ const t=r.note[L]; if(!groups.has(t)) groups.set(t,[]); groups.get(t).push(r.date); });
+  el.innerHTML=[...groups].map(([t,ds])=>`<b>${escH(head)}</b>${escH(ds.map(d=>L==="ko"?fmt(d)+" "+wk:wk+" "+fmt(d)).join(" · "))} — ${escH(t)}`).join("<br>");
+  el.hidden=!items.length;
+}
+function excRowsOf(list){
   return list.map(r=>{
     const g=k=>r[k]??r[k.toLowerCase()]??"";
     const d=excDate(g("Week")), who=g("Creator").trim(); if(!d||!who) return null;
@@ -2687,7 +2711,7 @@ async function loadExc(){
   const d=await fetchFirst(EXC_SRC,(t,live)=>({rows:parseExc(t),live}),raw);
   const r=raw.join(""), changed=EXC_RAW===null||r!==EXC_RAW;
   EXC_RAW=r; EXC_LIVE=d?d.live:null;
-  if(changed) EXC_ROWS=d?d.rows:[];
+  if(changed) EXC_ROWS=d?d.rows:excRows([]);
   return changed;
 }
 // Vai trò ETC có chuẩn riêng (12) và không nhận phần cộng thêm của kỳ gộp.
@@ -3426,6 +3450,7 @@ const MODE_BTN={total:"m-total",per:"m-per",month:"m-month",mtotal:"m-mtotal"};
 const isMonthMode=()=>mode==="month"||mode==="mtotal";
 
 function applyLang(){
+  renderPauseNote();
   document.documentElement.lang=LANG;
   document.getElementById("lbl-week").textContent=T().weekPicker;
   document.getElementById("why-title").textContent=T().whyTitle;
