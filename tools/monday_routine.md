@@ -3,6 +3,9 @@
 Lịch tự động "Quét Drive thứ 2 hằng tuần" chạy 7h43 sáng thứ 2 (giờ Việt Nam) và làm theo file này,
 để 8h30 anh Aaron bắt đầu đánh số với số mới nhất. Anh đã cho phép tự tạo PR và merge phần dữ liệu.
 
+> **Tạm dừng task video tuần 23/11 và 30/11/2026** (team test Playable Studio): vẫn quét Drive + cập nhật dữ liệu,
+> nhưng bỏ phần "số tiếp theo" và không nhắc gửi ảnh Notion tuần mới. Dashboard đã ghi chú sẵn (EXC_FIXED trong index.html).
+
 ## Làm tự động
 
 1. **Quét Google Drive** (mọi game, thư mục video "VN 제작" / "VN영상" / …) theo `tools/drive_scan_brief.md`
