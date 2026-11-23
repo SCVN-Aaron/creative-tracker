@@ -1007,6 +1007,7 @@ const I18N={
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> vẫn làm <b>${escH(g)}</b> (chỉ tiêu ${q} video/tuần): ${v} video`,
   leaveNote:ls=>`${ls.length} creator nghỉ phép ${ls.map(l=>l.days).join("/")} ngày nên số lượng giảm (${ls.map(l=>`${l.name}: ${(l.note.vi||"").toLowerCase()}, còn ${l.support||l.quota} video`).join("; ")})`,
   adjBack:(n,b)=>`Tuần trước ${n?n+" ":"nghỉ "}nên chỉ tiêu giảm ${b} video mỗi người; tuần này chỉ tiêu trở lại bình thường nên số lượng tăng`,
+  paused:"Tạm dừng — chỉ tiêu tuần này = 0:",
   adjNote:(n,b,e)=>`${n} nên chỉ tiêu ${b<0?"giảm":"tăng"} ${Math.abs(b)} video mỗi người${e?" (kể cả vai trò ETC)":""}`,
   mergedNote:(b,e)=>b>0
     ?`Kỳ gộp nhiều tuần vì nghỉ lễ — chỉ tiêu cộng thêm ${b} video mỗi người${e?"":", riêng vai trò ETC giữ nguyên chuẩn riêng"}`
@@ -1103,6 +1104,7 @@ const I18N={
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> is still on <b>${escH(g)}</b> (target ${q} videos/week): ${v} videos`,
   leaveNote:ls=>`${ls.length} creator${ls.length>1?"s":""} on leave for ${ls.map(l=>l.days).join("/")} day${ls.length>1||ls[0].days>1?"s":""}, so the count is lower (${ls.map(l=>`${l.name}: ${l.note.en}, ${l.support||l.quota} videos`).join("; ")})`,
   adjBack:(n,b)=>`Last week ${n?n+" ":"had time off "}lowered the target by ${b} videos per person; this week the target is back to normal, so the count is higher`,
+  paused:"Paused — target this week = 0:",
   adjNote:(n,b,e)=>`${n}, so the target is ${b<0?"lowered":"raised"} by ${Math.abs(b)} videos per person${e?" (including the ETC role)":""}`,
   mergedNote:(b,e)=>b>0
     ?`Merged period covering a public holiday — target raised by ${b} videos per person${e?"":", except the ETC role which keeps its own standard"}`
@@ -1198,6 +1200,7 @@ const I18N={
   gameWhyStay:(n,g,q,v)=>`<b>${escH(n)}</b> <b>${escH(g)}</b> 계속 담당 (주 ${q}개 목표): ${v}개`,
   leaveNote:ls=>`크리에이터 ${ls.length}명 ${ls.map(l=>l.days).join("/")}일 휴가로 수량 감소 (${ls.map(l=>`${l.name}: ${l.note.ko}, ${l.support||l.quota}개`).join("; ")})`,
   adjBack:(n,b)=>`지난주 ${n?n+" ":"휴무"}로 1인당 목표 ${b}개 감소 → 이번 주 목표 정상화로 수량 증가`,
+  paused:"일시 중단 — 이번 주 목표 = 0:",
   adjNote:(n,b,e)=>`${n} → 1인당 목표 ${Math.abs(b)}개 ${b<0?"감소":"증가"}${e?" (ETC 포함)":""}`,
   mergedNote:(b,e)=>b>0
     ?`공휴일로 여러 주를 합친 기간 — 1인당 목표 ${b}개 상향${e?"":", 단 ETC 담당자는 자체 기준 유지"}`
@@ -2616,7 +2619,8 @@ function weekAdjNote(i){const a=weekAdj(i);return a&&a.note?(a.note[LANG]||a.not
 // Kỳ đặc biệt chỉnh chỉ tiêu của ETC riêng: kỳ gộp thì ETC giữ nguyên (bonusEtc = 0),
 // còn tuần nghỉ lễ thì ETC giảm cùng mức với cả đội.
 function bonusEtcAt(i){return WEEKS[i].bonusEtc??(weekAdj(i)?weekAdj(i).bonusEtc:0)??0}
-function quotaAt(team,i){return team.quota+bonusAt(i)}
+const pausedAt=i=>!!(weekAdj(i)&&weekAdj(i).pause);   // tuần cả đội tạm dừng task video → chỉ tiêu 0
+function quotaAt(team,i){return pausedAt(i)?0:team.quota+bonusAt(i)}
 // Nghỉ phép riêng từng người: chỉ tiêu tuần đó của người đó đổi thành "quota", kèm ghi chú.
 // Tuần đó có dev/art làm cùng thì thêm "support" = số video có dev/art sau khi trừ ngày nghỉ (vd 12 → 9):
 // làm đúng số đó được tính là "có dev/art", không phải vượt mức.
@@ -2647,10 +2651,12 @@ function excDate(v){
 }
 const excNum=v=>{ const n=parseFloat(String(v||"").replace(/[−–]/g,"-").replace(",",".")); return isFinite(n)?n:null; };
 function parseExc(t){ return excRows(parseCSV(t)); }
+// Tên kỳ trên Notion của các tuần tạm dừng (để tracker có tuần đó dù Notion không có task)
+const PAUSE_PERIODS=["[W4] Nov W4 (11/23~)","[W1] Dec W1 (11/30~)"];
 // Tuần cả đội không làm task video (ghi sẵn trong tool, không cần nhập vào Sheet). Sheet có dòng ALL cùng tuần thì lấy dòng của Sheet.
 const EXC_FIXED=[
-  {Week:"2026-11-23", Creator:"ALL", "Team change":"-20", Note:"Test Playable Studio — không làm task video", "Note EN":"Playable Studio test — no video tasks", "Note KO":"Playable Studio 테스트 — 영상 작업 없음"},
-  {Week:"2026-11-30", Creator:"ALL", "Team change":"-20", Note:"Test Playable Studio — không làm task video", "Note EN":"Playable Studio test — no video tasks", "Note KO":"Playable Studio 테스트 — 영상 작업 없음"},
+  {Week:"2026-11-23", Creator:"ALL", Pause:"1", Note:"Test Playable Studio — không làm task video", "Note EN":"Playable Studio test — no video tasks", "Note KO":"Playable Studio 테스트 — 영상 작업 없음"},
+  {Week:"2026-11-30", Creator:"ALL", Pause:"1", Note:"Test Playable Studio — không làm task video", "Note EN":"Playable Studio test — no video tasks", "Note KO":"Playable Studio 테스트 — 영상 작업 없음"},
 ];
 function excRows(list){
   const rows=excRowsOf(list), wk=d=>{ const x=new Date(d); x.setDate(x.getDate()-((x.getDay()+6)%7)); return x.toDateString(); };
@@ -2674,7 +2680,7 @@ function excRowsOf(list){
     const d=excDate(g("Week")), who=g("Creator").trim(); if(!d||!who) return null;
     const note=g("Note"), note3={vi:note, en:g("Note EN")||note, ko:g("Note KO")||note};
     return {date:d, all:EXC_ALL.test(who), name:who, days:excNum(g("Days off")), target:excNum(g("Target")),
-      support:excNum(g("Dev/Art")), change:excNum(g("Team change")), note:note3, hasNote:!!(note||g("Note EN")||g("Note KO"))};
+      support:excNum(g("Dev/Art")), change:excNum(g("Team change")), pause:/^(1|true|yes|x|pause)$/i.test(String(g("Pause")).trim()), note:note3, hasNote:!!(note||g("Note EN")||g("Note KO"))};
   }).filter(Boolean);
 }
 // Các dòng ngoại lệ rơi vào kỳ i (từ ngày bắt đầu kỳ i tới trước kỳ sau; kỳ cuối = 7 ngày)
@@ -2687,7 +2693,7 @@ function excIn(st,en){
   const out={leave:{},adj:null};
   EXC_ROWS.filter(r=>r.date>=st&&r.date<en).forEach(r=>{
     if(r.all){ const c=r.change||0;
-      out.adj={bonus:c, bonusEtc:c, note:r.hasNote?r.note:{vi:"Điều chỉnh chỉ tiêu",en:"Target adjustment",ko:"목표 조정"}}; }
+      out.adj={bonus:r.pause?0:c, bonusEtc:r.pause?0:c, pause:r.pause, note:r.hasNote?r.note:{vi:"Điều chỉnh chỉ tiêu",en:"Target adjustment",ko:"목표 조정"}}; }
     else { const n=r.days;
       out.leave[r.name.toLowerCase()]={name:r.name, days:n||0, quota:r.target, support:r.support,
         note:r.hasNote?r.note:{vi:n?`Nghỉ ${n} ngày`:"Chỉ tiêu riêng",en:n?`Off ${n} day${n>1?"s":""}`:"Own target",ko:n?`${n}일 휴무`:"개별 목표"}}; }
@@ -2750,6 +2756,7 @@ function quotaFor(team,name,i){
 }
 // Chỉ tiêu khi không tính nghỉ phép: game chỉ tiêu riêng → người mới → ETC → chuẩn (+ điều chỉnh cả đội)
 function baseQuota(team,name,i){
+  if(pausedAt(i)) return 0;
   const gq=gameQuotaOf(name,i);
   if(gq!==null) return gq;
   const rq=rampQuota(team,name,i);
@@ -2758,7 +2765,7 @@ function baseQuota(team,name,i){
     ? (team.etcQuota||team.quota)+bonusEtcAt(i)
     : quotaAt(team,i);
 }
-function supportAt(team,i){return team.support?team.support+bonusAt(i):null}
+function supportAt(team,i){return team.support&&!pausedAt(i)?team.support+bonusAt(i):null}
 // Tên PM đi cùng người này trong kỳ i (chuỗi rỗng = không có PM, tức làm solo).
 function pmOf(team,name,i){
   const a=team.pm&&team.pm[name];
@@ -2853,6 +2860,7 @@ function renderHeadline(i){
         ? `<div class="delta flat">${prev<0?T().firstWeek:T().noPrev}</div>`
         : `<div class="delta ${cls(d)}">${T().vsWeek(signed(d),wkLabel(prev),prevSum?` (${signed(d/prevSum*100,0)}%)`:"")}</div>`}
       ${isOngoing(i)?`<div class="delta note">${T().ongoing}</div>`:""}
+      ${pausedAt(i)?`<div class="delta note"><b>${escH(T().paused)}</b> ${escH(weekAdjNote(i))}</div>`:""}
       ${bonusAt(i)?`<div class="delta note">${weekAdj(i)?T().adjNote(escH(weekAdjNote(i)),bonusAt(i),bonusEtcAt(i)!==0):T().mergedNote(bonusAt(i),bonusEtcAt(i)!==0)}</div>`:""}
       ${leavesAt(i).length?`<div class="delta note">${T().leaveNote(leavesAt(i))}</div>`:""}
     </div>`];
@@ -2865,7 +2873,7 @@ function renderHeadline(i){
       <div class="k"><span class="swatch sw-v"></span>${t.name}</div>
       <div class="mid">${now===null?T().notEntered:now}<span class="vs">${now===null?"":T().needed(g)}</span></div>
       <div class="delta ${hit===null?"flat":(hit>=1?"up":"down")}">
-        ${hit===null?T().noCount:T().attain(Math.round(hit*100),fmt(a),quotaAt(t,i))}
+        ${pausedAt(i)?escH(weekAdjNote(i)):hit===null?T().noCount:T().attain(Math.round(hit*100),fmt(a),quotaAt(t,i))}
       </div>
       <div class="delta flat" style="margin-top:3px">
         ${dd===null?T().noPrev:T().vsPrev(signed(dd),h)}
@@ -2889,6 +2897,7 @@ function renderReading(i){
   const prev=i-1;
   const out=TEAMS.map(t=>{
     const now=totalOf(t,i), before=totalOf(t,prev);
+    if(pausedAt(i)) return `<div class="why"><div class="team">${t.name}</div><p style="color:var(--ink-2)"><b>${escH(T().paused)}</b> ${escH(weekAdjNote(i))}</p></div>`;
     if(now===null||before===null){
       return `<div class="why"><div class="team">${t.name}</div>
         <p style="color:var(--ink-2)">Tuần này chưa nhập Video Count nên không tính được chênh lệch. Nhập số vào Notion là bảng tự cập nhật.</p></div>`;
@@ -2975,7 +2984,7 @@ function renderMembers(i){
       return;
     }
     const q=quotaAt(t,i);   // dùng cho thang bar; chuẩn từng người lấy riêng bên dưới
-    const scale=Math.max(q*2,...rows.map(r=>r.v));
+    const scale=Math.max(q*2,...rows.map(r=>r.v))||1;
     const body=rows.sort((a,b)=>b.v-a.v).map(r=>{
       // trung bình 4 tuần trước của chính người đó
       const arr=t.people[r.name];
@@ -3324,6 +3333,8 @@ function importCSV(text){
     if(gap<0) gap+=365;
     if(gap>0&&gap<=120) fresh.push(p);
   });
+  // Tuần cả đội tạm dừng task video (EXC_FIXED): Notion không có task nhưng vẫn hiện trên tracker với 0 video
+  PAUSE_PERIODS.forEach(p=>{ const st=periodStart(p); if(st&&st<=new Date()&&!known.includes(p)&&!fresh.includes(p)) fresh.push(p); });
   fresh.sort((a,b)=>{
     const ga=(dayOf(periodDate(a))-base+365)%365;
     const gb=(dayOf(periodDate(b))-base+365)%365;
@@ -3363,6 +3374,8 @@ function importCSV(text){
 
   const names=Object.keys(people);
   if(!names.length) throw new Error("nodata");
+  PAUSE_PERIODS.forEach(p=>{ const i=idx[p]; if(i===undefined||!i) return;
+    names.forEach(c=>{ if(people[c][i]===null&&people[c][i-1]!==null) people[c][i]=0; }); });
   names.forEach(c=>people[c]=people[c].map(v=>v===null?null:Math.round(v)));
 
   let last=order.length;
