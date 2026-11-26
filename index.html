@@ -2553,7 +2553,12 @@ function wsGroups(week){
 let WS_WEEK=null;   // tuần đang xem ở bảng tổng hợp (tab Hiệu quả); mặc định tuần hiện tại
 function renderWeekSum(){
   const L=WS_TXT[LANG]||WS_TXT.en, tbl=document.getElementById("ws-table");
-  const ws=TASKS?pmWeeks():[], sel=document.getElementById("ws-week");
+  const ws=TASKS?pmWeeks().slice():[], sel=document.getElementById("ws-week");
+  // tuần chỉ có task team AI (vd team UA tạm dừng) vẫn có trong danh sách
+  const stOf=p=>{ const d=periodStart(p); return d?d.getTime():null; }, have=new Set(ws.map(stOf));
+  const lastUA=ws.length?stOf(ws[ws.length-1]):0, soon=Date.now()+7*864e5, extra=[];
+  AI_NUMS.forEach(t=>{ const k=stOf(t.period); if(k!==null&&k>lastUA&&k<=soon&&!have.has(k)){ have.add(k); extra.push(t.period); } });
+  extra.sort((a,b)=>stOf(a)-stOf(b)).forEach(p=>ws.push(p));
   if(!ws.includes(WS_WEEK)){ const now=new Date(); WS_WEEK=[...ws].reverse().find(p=>periodStart(p)<=now)||ws[ws.length-1]||null; }
   sel.innerHTML=[...ws].reverse().map(p=>`<option value="${escH(p)}">${escH(pmWeekLabel(p))}</option>`).join(""); sel.value=WS_WEEK||"";
   document.getElementById("ws-week-l").textContent=T().pm.week;
